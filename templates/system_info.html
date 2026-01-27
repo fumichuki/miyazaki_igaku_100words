@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>システム説明 - 英作文特訓</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: #f7f7f8;
+      color: #0f172a;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 48px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    }
+
+    .header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .header p {
+      font-size: 18px;
+      opacity: 0.95;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background: white;
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .section h2 {
+      font-size: 28px;
+      color: #667eea;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section h3 {
+      font-size: 20px;
+      color: #475569;
+      margin: 24px 0 12px 0;
+      padding-left: 16px;
+      border-left: 4px solid #667eea;
+    }
+
+    .section p {
+      margin-bottom: 16px;
+      color: #475569;
+    }
+
+    .category {
+      margin-bottom: 24px;
+    }
+
+    .category-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 8px;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-list {
+      padding-left: 32px;
+      margin-top: 12px;
+    }
+
+    .theme-list li {
+      margin-bottom: 6px;
+      color: #64748b;
+    }
+
+    .highlight {
+      background: #fef3c7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .example-box {
+      background: #f1f5f9;
+      border-left: 4px solid #667eea;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+    }
+
+    .example-box h4 {
+      font-size: 16px;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+
+    .example-box p {
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .warning {
+      background: #fef2f2;
+      border-left: 4px solid #ef4444;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+    }
+
+    .warning h4 {
+      color: #dc2626;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .warning p {
+      color: #991b1b;
+      margin: 0;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid #e2e8f0;
+      color: #475569;
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      color: #667eea;
+      font-weight: bold;
+      margin-right: 12px;
+      font-size: 18px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 28px;
+      }
+
+      .section {
+        padding: 24px 20px;
+      }
+
+      .section h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← メイン画面に戻る</a>
+
+    <div class="header">
+      <h1>📖 システム説明</h1>
+      <p>鹿児島大学（文系・医歯獣医）大問５対策システム</p>
+    </div>
+
+    <!-- 出題テーマ一覧 -->
+    <div class="section">
+      <h2>📚 出題テーマ一覧（全60テーマ）</h2>
+      <p>このサービスでは、鹿児島大学の英語（大問５）を完全分析し、以下の3つのカテゴリーから合計60のテーマが出題されます：</p>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number">60</div>
+          <div class="stat-label">テーマ総数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100-120</div>
+          <div class="stat-label">語数指定</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10</div>
+          <div class="stat-label">重複回避期間</div>
+        </div>
+      </div>
+
+      <!-- カテゴリ1 -->
+      <div class="category">
+        <div class="category-title">
+          <span>🎓</span>
+          <span><strong>カテゴリ1：教育・学習・自己成長（12テーマ - 20%）</strong></span>
+        </div>
+        <div class="theme-list">
+          <ul>
+            <li>大学教育の重要性と価値</li>
+            <li>オンライン教育とその効果</li>
+            <li>試験制度の功罪</li>
+            <li>創造性を育む教育</li>
+            <li>グループ学習と個人学習の比較</li>
+            <li>留学と国際理解</li>
+            <li>生涯学習の必要性</li>
+            <li>批判的思考力の重要性</li>
+            <li>失敗から学ぶことの価値</li>
+            <li>読書の重要性</li>
+            <li>外国語学習の意義</li>
+            <li>自己成長と目標設定</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- カテゴリ2 -->
+      <div class="category">
+        <div class="category-title">
+          <span>🧠</span>
+          <span><strong>カテゴリ2：科学技術・デジタル社会（12テーマ - 20%）</strong></span>
+        </div>
+        <div class="theme-list">
+          <ul>
+            <li>人工知能（AI）の社会への影響</li>
+            <li>SNSの功罪</li>
+            <li>スマートフォンの適切な使用</li>
+            <li>オンラインプライバシーの重要性</li>
+            <li>インターネットが社会に与える影響</li>
+            <li>テクノロジーと人間関係の変化</li>
+            <li>自動運転技術の未来</li>
+            <li>デジタル社会での情報リテラシー</li>
+            <li>サイバーセキュリティの重要性</li>
+            <li>テレワークの利点と課題</li>
+            <li>ロボット技術と雇用</li>
+            <li>医療技術の進歩</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- カテゴリ3 -->
+      <div class="category">
+        <div class="category-title">
+          <span>🌍</span>
+          <span><strong>カテゴリ3：環境・持続可能性（10テーマ - 17%）</strong></span>
+        </div>
+        <div class="theme-list">
+          <ul>
+            <li>地球温暖化への対策</li>
+            <li>プラスチック削減の方法</li>
+            <li>再生可能エネルギーの推進</li>
+            <li>食品ロス削減の工夫</li>
+            <li>リサイクルの重要性</li>
+            <li>生物多様性の保全</li>
+            <li>持続可能な社会の実現</li>
+            <li>環境保護と経済成長の両立</li>
+            <li>エコツーリズムの意義</li>
+            <li>都市化と環境問題</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- カテゴリ4 -->
+      <div class="category">
+        <div class="category-title">
+          <span>🌏</span>
+          <span><strong>カテゴリ4：社会・文化・グローバル化（10テーマ - 17%）</strong></span>
+        </div>
+        <div class="theme-list">
+          <ul>
+            <li>異文化理解の重要性</li>
+            <li>多様性を尊重する社会</li>
+            <li>世代間のコミュニケーション</li>
+            <li>地域文化の保存と継承</li>
+            <li>グローバル化のメリットとデメリット</li>
+            <li>ボランティア活動の意義</li>
+            <li>伝統と革新のバランス</li>
+            <li>都市生活と地方生活の比較</li>
+            <li>多文化共生社会</li>
+            <li>男女平等と社会進歩</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- カテゴリ5 -->
+      <div class="category">
+        <div class="category-title">
+          <span>💼</span>
+          <span><strong>カテゴリ5：仕事・キャリア・経済（8テーマ - 13%）</strong></span>
+        </div>
+        <div class="theme-list">
+          <ul>
+            <li>ワークライフバランスの重要性</li>
+            <li>働き方の多様化（テレワーク等）</li>
+            <li>アルバイト経験の価値</li>
+            <li>キャリア選択と準備</li>
+            <li>起業とリスクテイキング</li>
+            <li>経済的自立の重要性</li>
+            <li>仕事におけるモチベーション</li>
+            <li>グローバル経済と雇用</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- カテゴリ6 -->
+      <div class="category">
+        <div class="category-title">
+          <span>💪</span>
+          <span><strong>カテゴリ6：健康・日常生活・人間関係（8テーマ - 13%）</strong></span>
+        </div>
+        <div class="theme-list">
+          <ul>
+            <li>健康的な生活習慣の維持</li>
+            <li>ストレス管理の方法</li>
+            <li>時間管理の重要性</li>
+            <li>睡眠の質と健康</li>
+            <li>効果的なコミュニケーション方法</li>
+            <li>友人関係の築き方</li>
+            <li>家族との良好な関係</li>
+            <li>メンタルヘルスの重要性</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 出題の特徴 -->
+    <div class="section">
+      <h2>🎯 出題の特徴</h2>
+      <ul class="feature-list">
+        <li>鹿児島大学（文系・医歯獣医）大問５の過去問を徹底分析</li>
+        <li>100-120語の英語で意見を述べる形式</li>
+        <li>自分の意見を2つの理由・提案・例で支える構成</li>
+        <li>具体例や経験を含めることが推奨される</li>
+        <li>論理的で説得力のある文章が評価される</li>
+        <li>最近出題された10テーマは自動的に除外（重複防止）</li>
+      </ul>
+    </div>
+
+    <!-- 問題文のバリエーション -->
+    <div class="section">
+      <h2>🎲 問題文のバリエーションについて</h2>
+      
+      <h3>動的生成システム</h3>
+      <p>このシステムでは、問題文を固定データベースから取得するのではなく、<span class="highlight">その都度新しい問題文を生成</span>しています。つまり：</p>
+
+      <ul class="feature-list">
+        <li>同じテーマ（例：「異文化を理解することの重要性」）でも、英語の表現や切り口が毎回変わります</li>
+        <li>問題文の構成や論点の順序が異なります</li>
+        <li>使用する語彙や例示が異なります</li>
+        <li>reasonsを求める形式、suggestionsを求める形式など、構造も変化します</li>
+      </ul>
+
+      <h3>📝 具体的な変化の例</h3>
+      <p>同じ「異文化を理解することの重要性」というテーマでも、以下のような異なる問題文が生成されます：</p>
+
+      <div class="example-box">
+        <h4>パターンA（理由を求める形式）:</h4>
+        <p><strong>Do you think understanding different cultures is important? Give two reasons to support your answer.</strong></p>
+        <p style="color: #64748b; font-size: 14px;">（異文化を理解することは重要だと思いますか？あなたの答えを支持する2つの理由を挙げなさい。）</p>
+      </div>
+
+      <div class="example-box">
+        <h4>パターンB（説明を求める形式）:</h4>
+        <p><strong>Why is it essential to learn about other cultures in today's world? Explain two main reasons with specific examples.</strong></p>
+        <p style="color: #64748b; font-size: 14px;">（今日の世界で他の文化について学ぶことはなぜ不可欠なのでしょうか？具体例を挙げて2つの主要な理由を説明しなさい。）</p>
+      </div>
+
+      <div class="example-box">
+        <h4>パターンC（賛否を問う形式）:</h4>
+        <p><strong>Some people say that learning about foreign cultures is essential in today's globalized world. Do you agree? Give two reasons to support your opinion.</strong></p>
+        <p style="color: #64748b; font-size: 14px;">（外国の文化について学ぶことは、今日のグローバル化した世界で不可欠だと言う人もいます。あなたは賛成しますか？あなたの意見を支持する2つの理由を挙げなさい。）</p>
+      </div>
+
+      <p style="margin-top: 20px;">このように、<strong>同じテーマでも問題文の言い回しや構成が異なる</strong>ため、毎回新鮮な気持ちで取り組むことができます。</p>
+    </div>
+
+    <!-- 入力欄の機能 -->
+    <div class="section">
+      <h2>✏️ 入力欄の機能</h2>
+      
+      <h3>拡大縮小が可能</h3>
+      <p>入力欄の<span class="highlight">右下のハンドルをドラッグ</span>することで、自由に拡大・縮小できます。長文を書く際に便利です。</p>
+
+      <div style="margin-top: 16px; text-align: left;">
+        <img src="/static/textarea-resize.png" alt="入力欄の拡大縮小例" style="max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      </div>
+
+      <h3>リアルタイム語数カウント</h3>
+      <p>入力すると即座に語数がカウントされ、指定範囲（100-120語）内かどうかが表示されます。</p>
+
+      <h3>全角句読点の自動変換</h3>
+      <p>全角のピリオド（．）や疑問符（？）などを入力しても、自動的に半角に変換されます。</p>
+    </div>
+
+    <!-- 添削の特徴 -->
+    <div class="section">
+      <h2>✅ 添削システムの特徴</h2>
+      
+      <h3>3段階チェック</h3>
+      <ul class="feature-list">
+        <li><strong>制約チェック：</strong>語数、文数、接続詞の使用など構造的な要件を確認</li>
+        <li><strong>文法・表現チェック：</strong>7項目の詳細な文法・表現評価</li>
+        <li><strong>総合評価：</strong>内容の論理性と説得力を評価</li>
+      </ul>
+
+      <h3>理想的な英文の提示</h3>
+      <p>あなたの回答とは<strong>完全に独立した</strong>模範解答が表示されます。単なる修正版ではなく、別の視点から書かれた英文を参考にできます。</p>
+
+      <h3>改善ポイントの明示</h3>
+      <p>どの部分をどう改善すべきか、具体的な指摘が3つまで表示されます。</p>
+    </div>
+
+    <!-- 注意事項 -->
+    <div class="warning">
+      <h4>⚠️ お願い</h4>
+      <p><strong>みや塾生のためのサービスです。URLを公開したり、お友達に共有したりしないでください。</strong></p>
+    </div>
+
+    <a href="/" class="back-link" style="margin-top: 40px;">← メイン画面に戻る</a>
+  </div>
+</body>
+</html>

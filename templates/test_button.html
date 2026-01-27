@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Button Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #chat-container {
+      border: 2px solid #ccc;
+      min-height: 300px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 16px 48px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ボタンテスト</h1>
+  <div id="chat-container"></div>
+  
+  <script>
+    console.log("Script loaded");
+    
+    const chat = document.getElementById("chat-container");
+    console.log("chat element:", chat);
+    
+    const messageDiv = document.createElement("div");
+    messageDiv.className = "message ai-message";
+    
+    const content = document.createElement("div");
+    content.className = "message-content";
+    
+    const button = document.createElement("button");
+    button.textContent = "問題を作成";
+    
+    button.addEventListener("click", () => {
+      alert("ボタンがクリックされました！");
+    });
+    
+    content.appendChild(button);
+    messageDiv.appendChild(content);
+    chat.appendChild(messageDiv);
+    
+    console.log("Button added:", button);
+  </script>
+</body>
+</html>

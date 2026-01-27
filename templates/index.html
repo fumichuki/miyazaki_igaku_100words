@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>英作文特訓 - 鹿児島大学版</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css?v=20260121m">
+</head>
+<body>
+
+<div id="app">
+  <!-- メイン画面 -->
+  <div id="main-screen" class="main-screen">
+    <div id="header">
+      <h1>みや塾　英作文特訓講座　鹿児島大学（文系 + 医・歯・獣医）大問５</h1>
+      <button id="system-info-btn" class="system-info-link">📖 システム説明</button>
+    </div>
+
+    <div id="chat-container"></div>
+
+    <div id="input-area">
+      <textarea id="user-input" placeholder="1文ごとにピリオド（.）や疑問符（?）をしっかり記載すること。" rows="8"></textarea>
+      <div class="input-footer">
+        <div class="word-count-info">
+          <span id="word-count">0 words</span>
+        </div>
+        <button id="send-btn">添削を受ける</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- システム説明モーダル -->
+  <div id="system-info-modal" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>📖 システム説明</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="info-section">
+          <h3>📚 出題テーマ一覧（全60テーマ）</h3>
+          <p>このサービスでは、鹿児島大学の英語（大問５）を完全分析し、以下の3つのカテゴリーから合計60のテーマが出題されます：</p>
+          
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-number">60</div>
+              <div class="stat-label">テーマ総数</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">100-120</div>
+              <div class="stat-label">語数指定</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">10</div>
+              <div class="stat-label">重複回避期間</div>
+            </div>
+          </div>
+
+          <div class="category-section">
+            <h4>🎓 カテゴリ1：教育・学習・自己成長（12テーマ - 20%）</h4>
+            <ul>
+              <li>大学教育の価値、オンライン教育、試験制度、創造性教育</li>
+              <li>グループvs個人学習、留学と国際理解、生涯学習</li>
+              <li>批判的思考力、失敗から学ぶ、読書の重要性</li>
+              <li>外国語学習、自己成長と目標設定</li>
+            </ul>
+          </div>
+
+          <div class="category-section">
+            <h4>🧠 カテゴリ2：科学技術・デジタル社会（12テーマ - 20%）</h4>
+            <ul>
+              <li>AI の影響、SNSの功罪、スマホ利用、オンラインプライバシー</li>
+              <li>インターネットの影響、テクノロジーと人間関係、自動運転</li>
+              <li>情報リテラシー、サイバーセキュリティ、テレワーク</li>
+              <li>ロボット技術、医療技術の進歩</li>
+            </ul>
+          </div>
+
+          <div class="category-section">
+            <h4>🌍 カテゴリ3：環境・持続可能性（10テーマ - 17%）</h4>
+            <ul>
+              <li>地球温暖化、プラスチック削減、再生可能エネルギー</li>
+              <li>食品ロス削減、リサイクル、生物多様性保全</li>
+              <li>持続可能な社会、環境と経済の両立</li>
+              <li>エコツーリズム、都市化と環境</li>
+            </ul>
+          </div>
+
+          <div class="category-section">
+            <h4>🌏 カテゴリ4：社会・文化・グローバル化（10テーマ - 17%）</h4>
+            <ul>
+              <li>異文化理解、多様性社会、世代間コミュニケーション</li>
+              <li>地域文化の保存、グローバル化の功罪、ボランティア</li>
+              <li>伝統と革新、都市vs地方生活</li>
+              <li>多文化共生、男女平等</li>
+            </ul>
+          </div>
+
+          <div class="category-section">
+            <h4>💼 カテゴリ5：仕事・キャリア・経済（8テーマ - 13%）</h4>
+            <ul>
+              <li>ワークライフバランス、働き方の多様化、アルバイト経験</li>
+              <li>キャリア選択、起業とリスク、経済的自立</li>
+              <li>仕事のモチベーション、グローバル経済と雇用</li>
+            </ul>
+          </div>
+
+          <div class="category-section">
+            <h4>💪 カテゴリ6：健康・日常生活・人間関係（8テーマ - 13%）</h4>
+            <ul>
+              <li>健康的な生活習慣、ストレス管理、時間管理、睡眠と健康</li>
+              <li>効果的なコミュニケーション、友人関係、家族関係</li>
+              <li>メンタルヘルスの重要性</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>🎯 出題の特徴</h3>
+          <ul class="feature-list">
+            <li>鹿児島大学（文系・医歯獣医）大問５の過去問を徹底分析</li>
+            <li>100-120語の英語で意見を述べる形式</li>
+            <li>自分の意見を2つの理由・提案・例で支える構成</li>
+            <li>具体例や経験を含めることが推奨される</li>
+            <li>論理的で説得力のある文章が評価される</li>
+            <li>最近出題された10テーマは自動的に除外（重複防止）</li>
+          </ul>
+        </div>
+
+        <div class="info-section">
+          <h3>🎲 問題文のバリエーションについて</h3>
+          <p><strong>動的生成システム：</strong>このシステムでは、問題文を固定データベースから取得するのではなく、<span class="highlight">その都度新しい問題文を生成</span>しています。</p>
+          
+          <div class="example-box">
+            <h4>📝 同じテーマでも異なる問題文が生成されます</h4>
+            <p><strong>例：「異文化を理解することの重要性」</strong></p>
+            
+            <div class="example-item">
+              <strong>パターンA（理由形式）：</strong>
+              <p>Do you think understanding different cultures is important? Give two reasons to support your answer.</p>
+            </div>
+            
+            <div class="example-item">
+              <strong>パターンB（説明形式）：</strong>
+              <p>Why is it essential to learn about other cultures in today's world? Explain two main reasons with specific examples.</p>
+            </div>
+            
+            <div class="example-item">
+              <strong>パターンC（賛否形式）：</strong>
+              <p>Some people say that learning about foreign cultures is essential in today's globalized world. Do you agree? Give two reasons to support your opinion.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>✏️ 入力欄の機能</h3>
+          <ul class="feature-list" style="list-style: none; padding: 0;">
+            <li style="padding: 12px 0 12px 32px; border-bottom: 1px solid #e5e7eb; position: relative; color: #475569;">
+              <span style="position: absolute; left: 0; color: #667eea; font-weight: bold; font-size: 18px;">✓</span>
+              <strong>拡大縮小：</strong>入力欄の右下をドラッグして自由にサイズ変更できます
+              <div style="margin-top: 12px; margin-left: -32px;">
+                <img src="/static/textarea-resize.png" alt="入力欄の拡大縮小例" style="max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+              </div>
+            </li>
+            <li style="padding: 12px 0 12px 32px; border-bottom: 1px solid #e5e7eb; position: relative; color: #475569;">
+              <span style="position: absolute; left: 0; color: #667eea; font-weight: bold; font-size: 18px;">✓</span>
+              <strong>リアルタイム語数カウント：</strong>入力すると即座に語数が表示されます
+            </li>
+            <li style="padding: 12px 0 12px 32px; position: relative; color: #475569;">
+              <span style="position: absolute; left: 0; color: #667eea; font-weight: bold; font-size: 18px;">✓</span>
+              <strong>全角句読点の自動変換：</strong>全角ピリオド（．）や疑問符（？）を自動的に半角に変換します
+            </li>
+          </ul>
+        </div>
+
+        <div class="info-section">
+          <h3>✅ 添削システムの特徴</h3>
+          <ul class="feature-list">
+            <li><strong>3段階チェック：</strong>制約チェック、文法・表現チェック、総合評価</li>
+            <li><strong>理想的な英文：</strong>あなたの回答とは完全に独立した模範解答を表示</li>
+            <li><strong>改善ポイント：</strong>具体的な指摘を3つまで提示</li>
+          </ul>
+        </div>
+
+        <div class="warning-box">
+          <h4>⚠️ お願い</h4>
+          <p>みや塾生のためのサービスです。URLを公開したり、お友達に共有したりしないでください。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/main.js?v=20260121N"></script>
+</body>
+</html>

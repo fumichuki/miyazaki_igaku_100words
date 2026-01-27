@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2024,
+    "question": "Imagine that you wanted to make a YouTube channel. What would your channel be about? Give two reasons to support your answer.",
+    "word_count": "100-120 words",
+    "created_at": "2024-01-01T00:00:00"
+  },
+  {
+    "id": 2,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2023,
+    "question": "Do you think that people should use nicknames or their real names on social media? Give two reasons to support your answer.",
+    "word_count": "100-120 words",
+    "created_at": "2023-01-01T00:00:00"
+  },
+  {
+    "id": 3,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2023,
+    "question": "What should you do to prepare for a typhoon? Give at least two things you need to do and why.",
+    "word_count": "100-120 words",
+    "created_at": "2023-01-01T00:00:00"
+  },
+  {
+    "id": 4,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2022,
+    "question": "Why do you think it important to go to university? Give at least two reasons.",
+    "word_count": "100-120 words",
+    "created_at": "2022-01-01T00:00:00"
+  },
+  {
+    "id": 5,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2022,
+    "question": "When your friends are tired or depressed, how do you try to cheer them up? Describe two things you would do for them and why.",
+    "word_count": "100-120 words",
+    "created_at": "2022-01-01T00:00:00"
+  },
+  {
+    "id": 6,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2021,
+    "question": "What do you think would promote good quality sleep? Give at least two examples with specific explanations for each one.",
+    "word_count": "100-120 words",
+    "created_at": "2021-01-01T00:00:00"
+  },
+  {
+    "id": 7,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2021,
+    "question": "What have been two positive events or happenings in your life over the past few years?",
+    "word_count": "100-120 words",
+    "created_at": "2021-01-01T00:00:00"
+  },
+  {
+    "id": 8,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2020,
+    "question": "Geography will become a subject all students must take in high school in 2022. Why is it important to learn geography? Explain your view and give two reasons to support it.",
+    "word_count": "100-120 words",
+    "created_at": "2020-01-01T00:00:00"
+  },
+  {
+    "id": 9,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2020,
+    "question": "Write about a typical problem for a high school student. Offer two suggestions for how to overcome this problem.",
+    "word_count": "100-120 words",
+    "created_at": "2020-01-01T00:00:00"
+  },
+  {
+    "id": 10,
+    "university": "鹿児島大学（文系 + 医・歯・獣医）",
+    "year": 2020,
+    "question": "What is your dream career, or ultimate goal in life, and what are two things you must do to achieve this?",
+    "word_count": "100-120 words",
+    "created_at": "2020-01-01T00:00:00"
+  }
+]
