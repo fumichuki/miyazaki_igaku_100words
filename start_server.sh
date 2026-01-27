@@ -39,7 +39,7 @@ echo "✅ ポート${PORT}は解放されました"
 
 # 5. Flaskサーバーを起動
 echo "Flaskサーバーを起動中..."
-cd /workspaces/kagoshima_100words
+cd /workspaces/miyazaki_igaku_100words
 python app.py > "$LOG_FILE" 2>&1 &
 
 # 6. 起動確認
