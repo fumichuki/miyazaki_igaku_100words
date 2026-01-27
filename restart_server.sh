@@ -7,24 +7,24 @@ echo "🔄 サーバーを再起動します..."
 pkill -9 python 2>/dev/null
 sleep 2
 
-# ポート8002が空いているか確認
-if lsof -i :8002 >/dev/null 2>&1; then
-    echo "⚠️  ポート8002がまだ使用中です。プロセスを強制終了します..."
-    lsof -ti :8002 | xargs kill -9 2>/dev/null
+# ポート8001が空いているか確認
+if lsof -i :8001 >/dev/null 2>&1; then
+    echo "⚠️  ポート8001がまだ使用中です。プロセスを強制終了します..."
+    lsof -ti :8001 | xargs kill -9 2>/dev/null
     sleep 2
 fi
 
 # サーバーを起動
-cd /workspaces/kagoshima_100words
+cd /workspaces/miyazaki_igaku_100words
 echo "🚀 サーバーを起動中..."
 /usr/local/bin/python app.py > /tmp/flask.log 2>&1 &
 
 sleep 3
 
 # 起動確認
-if lsof -i :8002 >/dev/null 2>&1; then
+if lsof -i :8001 >/dev/null 2>&1; then
     echo "✅ サーバーが正常に起動しました！"
-    echo "📍 アクセス: http://localhost:8002"
+    echo "📍 アクセス: http://localhost:8001"
     echo ""
     echo "📋 ログ確認: tail -f /tmp/flask.log"
 else

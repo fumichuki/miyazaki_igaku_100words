@@ -1,5 +1,5 @@
 """
-Pydanticモデル定義 - 鹿児島大学英作文特訓システム
+Pydanticモデル定義 - 宮崎大学医学部英作文特訓システム
 JSONスキーマの厳格な管理とバリデーション
 """
 from typing import List, Optional, Dict

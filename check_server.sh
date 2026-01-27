@@ -15,11 +15,11 @@ fi
 echo ""
 
 # ポート確認
-if lsof -i :8002 >/dev/null 2>&1; then
-    echo "✅ ポート8002: 使用中"
-    lsof -i :8002 | head -3
+if lsof -i :8001 >/dev/null 2>&1; then
+    echo "✅ ポート8001: 使用中"
+    lsof -i :8001 | head -3
 else
-    echo "❌ ポート8002: 使用されていません"
+    echo "❌ ポート8001: 使用されていません"
 fi
 
 echo ""

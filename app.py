@@ -1,5 +1,5 @@
 """
-英作文特訓システム - 鹿児島大学版（理系・文系）
+英作文特訓システム - 宮崎大学医学部版（100字指定）
 Flask API Server - GPT-4o搭載 + Pydantic Validation
 """
 import os

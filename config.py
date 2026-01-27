@@ -1,6 +1,6 @@
 """
-Configuration settings for Kagoshima University English Writing System
-鹿児島大学英作文特訓システム - 設定管理（理系・文系版）
+Configuration settings for Miyazaki University School of Medicine English Writing System
+宮崎大学医学部英作文特訓システム - 設定管理（100字指定）
 """
 import os
 from pathlib import Path
@@ -11,16 +11,16 @@ load_dotenv()
 
 # ===== Application Settings =====
 
-APP_NAME = "みや塾　英作文特訓講座　鹿児島大学（文系 + 医・歯・獣医）大問５"
+APP_NAME = "みや塾　英作文特訓講座　宮崎大学医学部（100字指定）"
 APP_VERSION = "3.0.0"  # 理系・文系専用版
 DEBUG_MODE = os.getenv("DEBUG", "true").lower() == "true"
 HOST = os.getenv("HOST", "0.0.0.0")
-PORT = int(os.getenv("PORT", "8002"))
+PORT = int(os.getenv("PORT", "8001"))
 
 # ===== Database Settings =====
 
 DATA_DIR = Path('data')
-DB_PATH = DATA_DIR / 'kagoshima_eisakubun.db'
+DB_PATH = DATA_DIR / 'miyazaki_igaku_eisakubun.db'
 PAST_QUESTIONS_JSON = DATA_DIR / 'past_questions.json'
 
 # ===== OpenAI Settings =====

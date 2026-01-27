@@ -22,7 +22,7 @@ loglevel = "info"
 access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %(D)s'
 
 # Process naming
-proc_name = "kagoshima_eisakubun"
+proc_name = "miyazaki_igaku_eisakubun"
 
 # Preload application
 preload_app = True

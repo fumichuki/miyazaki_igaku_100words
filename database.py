@@ -1,6 +1,6 @@
 """
 データベース管理 - SQLite
-鹿児島大学英作文特訓システム
+宮崎大学医学部英作文特訓システム
 """
 import sqlite3
 import json
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 # データベースファイルパス
 DATA_DIR = Path('data')
 DATA_DIR.mkdir(exist_ok=True)
-DB_PATH = DATA_DIR / 'kagoshima_eisakubun.db'
+DB_PATH = DATA_DIR / 'miyazaki_igaku_eisakubun.db'
 
 
 @contextmanager
