@@ -200,19 +200,30 @@ def api_correct_answer():
 @app.route('/api/model_answer', methods=['POST'])
 def api_model_answer():
     """
-    模範解答のみを生成
+    模範解答のみを生成（翻訳用）
     POST /api/model_answer
-    Body: {"question_id": "q_xxx", "question_text": "..."}
+    Body: {"question_id": "q_xxx", "question_text": "..."（任意）}
+    ※question_textが空の場合はDBから取得してjapanese_sentencesを使用
     """
     try:
         data = request.get_json()
         question_id = data.get('question_id')
         question_text = data.get('question_text', '')
         
-        if not question_id or not question_text:
-            return jsonify({'error': 'question_id and question_text are required'}), 400
+        if not question_id:
+            return jsonify({'error': 'question_id is required'}), 400
         
-        # 模範解答を生成
+        # question_textが空の場合はDBから取得
+        if not question_text:
+            logger.info(f"question_text is empty, fetching from DB: {question_id}")
+            question_data = get_question_by_id(question_id)
+            if question_data and question_data.get('japanese_sentences'):
+                question_text = "\n".join(question_data['japanese_sentences'])
+                logger.info(f"Retrieved japanese_sentences from DB: {question_text[:100]}...")
+            else:
+                return jsonify({'error': 'question not found in DB'}), 404
+        
+        # 模範解答を生成（日本語原文から英訳）
         from llm_service import generate_model_answer_only
         result = generate_model_answer_only(question_text)
         

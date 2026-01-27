@@ -315,10 +315,23 @@ def validate_constraints(
     word_count = deterministic_word_count(text)
     within_range = min_words <= word_count <= max_words
     
-    # 2単位検出
-    unit_detection = detect_two_units(text)
-    detected_units = unit_detection["detected_units"]
-    has_required = detected_units >= required_units
+    # 2単位検出（翻訳問題ではrequired_units=0でスキップ）
+    if required_units > 0:
+        unit_detection = detect_two_units(text)
+        detected_units = unit_detection["detected_units"]
+        has_required = detected_units >= required_units
+    else:
+        # 翻訳問題: 単位検出をスキップ
+        unit_detection = {
+            "detected_units": 0,
+            "confidence": "n/a",
+            "markers_found": [],
+            "because_count": 0,
+            "sentence_count": 0,
+            "suggestions": []
+        }
+        detected_units = 0
+        has_required = True  # required_units=0なら常に満たす
     
     # メッセージ生成
     notes = []
@@ -337,21 +350,22 @@ def validate_constraints(
     else:
         notes.append(f"✅ 語数OK: {word_count}語（{min_words}-{max_words}語）")
     
-    # 単位数チェック
-    if not has_required:
-        notes.append(f"⚠️ 理由/提案が不足: {detected_units}個検出（{required_units}個必要）")
-        suggestions.extend(unit_detection["suggestions"])
-    else:
-        confidence_label = {
-            "high": "明確",
-            "medium": "やや明確",
-            "low": "不明確"
-        }.get(unit_detection["confidence"], "不明")
-        notes.append(f"✅ 理由/提案OK: {detected_units}個検出（{confidence_label}）")
-        
-        # 信頼度が低い場合は改善提案を追加
-        if unit_detection["confidence"] == "low":
-            suggestions.append("論理構造をより明確にするため、'First, ...' と 'Second, ...' のようなマーカーの使用を推奨します。")
+    # 単位数チェック（required_units > 0の場合のみ）
+    if required_units > 0:
+        if not has_required:
+            notes.append(f"⚠️ 理由/提案が不足: {detected_units}個検出（{required_units}個必要）")
+            suggestions.extend(unit_detection["suggestions"])
+        else:
+            confidence_label = {
+                "high": "明確",
+                "medium": "やや明確",
+                "low": "不明確"
+            }.get(unit_detection["confidence"], "不明")
+            notes.append(f"✅ 理由/提案OK: {detected_units}個検出（{confidence_label}）")
+            
+            # 信頼度が低い場合は改善提案を追加
+            if unit_detection["confidence"] == "low":
+                suggestions.append("論理構造をより明確にするため、'First, ...' と 'Second, ...' のようなマーカーの使用を推奨します。")
     
     return {
         "word_count": word_count,

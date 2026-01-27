@@ -1,6 +1,6 @@
 """
 LLMサービス - OpenAI API呼び出しとリトライ処理
-宮崎大学医学部英作文特訓システム（100字指定）
+宮崎大学医学部英作文特訓システム（100字指定）- 和文英訳対応
 """
 import os
 import json
@@ -11,6 +11,13 @@ from pydantic import ValidationError
 from models import QuestionResponse, CorrectionResponse, SubmissionRequest, TargetWords, ConstraintChecks
 from constraint_validator import validate_constraints as validate_constraints_func, normalize_punctuation
 import config
+from prompts_translation import (
+    QUESTION_PROMPT_MIYAZAKI_TRANSLATION,
+    CORRECTION_PROMPT_MIYAZAKI_TRANSLATION,
+    MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION,
+    PAST_QUESTIONS_REFERENCE,
+    TRANSLATION_GENRES
+)
 
 logger = logging.getLogger(__name__)
 
@@ -885,10 +892,11 @@ promote（動詞：促進する・奨励する：発展や普及を支援する�
 """
 
 
-# ===== プロンプト辞書（モード別） =====
+# ===== プロンプト辞書（翻訳モード） =====
 PROMPTS = {
-    'question': QUESTION_PROMPT_GENERAL,
-    'correction': CORRECTION_PROMPT_TEMPLATE
+    'question': QUESTION_PROMPT_MIYAZAKI_TRANSLATION,
+    'correction': CORRECTION_PROMPT_MIYAZAKI_TRANSLATION,
+    'model_answer': MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION
 }
 
 
@@ -1048,24 +1056,23 @@ def call_openai_with_retry(prompt: str, max_retries: int = 3, is_model_answer: b
 
 def generate_question(difficulty: str = "intermediate", excluded_themes: List[str] = None) -> QuestionResponse:
     """
-    問題を生成（リトライ付き）
+    翻訳問題を生成（リトライ付き）
     
     Args:
-        difficulty: 難易度
-        excluded_themes: 除外するテーマのリスト
+        difficulty: 難易度（翻訳問題では無視される）
+        excluded_themes: 除外するジャンル（7ジャンル固定語）のリスト
     """
     if excluded_themes is None:
         excluded_themes = []
     
-    # LLMベース生成
-    logger.info("Using LLM-based question generation")
+    logger.info("翻訳問題を生成中...")
     
-    # プロンプトを取得
+    # プロンプトを取得（翻訳用）
     prompt_template = PROMPTS['question']
     
     prompt = prompt_template.format(
-        difficulty=difficulty,
-        excluded_themes=", ".join(excluded_themes) if excluded_themes else "なし"
+        excluded_themes=", ".join(excluded_themes) if excluded_themes else "なし",
+        past_questions_reference=PAST_QUESTIONS_REFERENCE
     )
     
     max_retries = 3
@@ -1084,6 +1091,11 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
             # Pydanticでバリデーション
             question = QuestionResponse(**data)
             
+            # themeが7ジャンル固定語のいずれかか確認
+            if question.theme not in TRANSLATION_GENRES:
+                logger.warning(f"Invalid theme: {question.theme}, using fallback")
+                raise ValidationError(f"Theme must be one of: {TRANSLATION_GENRES}")
+            
             logger.info(f"Successfully generated question: {question.theme}")
             return question
             
@@ -1099,21 +1111,23 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
 
 
 def _get_fallback_question() -> QuestionResponse:
-    """フォールバック用の固定問題（大問５形式）"""
+    """フォールバック用の固定問題（翻訳形式）"""
     return QuestionResponse(
-        theme="YouTubeチャンネル",
-        question_text="Imagine that you wanted to make a YouTube channel. What would your channel be about? Give two reasons to support your answer.\n（YouTubeチャンネルを作りたいと想像してください。あなたのチャンネルは何についてですか？あなたの答えを支持する2つの理由を述べてください。）",
-        hints=[
-            {"en": "create", "ja": "作成する", "kana": "さくせいする", "pos": "動詞", "usage": "create original content「オリジナルコンテンツを作成する」"},
-            {"en": "share", "ja": "共有する", "kana": "きょうゆうする", "pos": "動詞", "usage": "share knowledge with others「知識を他の人と共有する」"},
-            {"en": "audience", "ja": "視聴者", "kana": "しちょうしゃ", "pos": "名詞"},
-            {"en": "educational", "ja": "教育的な", "kana": "きょういくてきな", "pos": "形容詞"},
-            {"en": "passion", "ja": "情熱", "kana": "じょうねつ", "pos": "名詞"}
+        theme="ブログ",
+        question_text=None,
+        japanese_sentences=[
+            "最近、睡眠の質を改善したいと思っていた。夜遅くまでスマホを見る習慣があり、なかなか寝付けないことが多かった。",
+            "そこで、寝る1時間前にはスマホを触らないというルールを設けた。代わりに本を読んだり、軽いストレッチをしたりするようにした。",
+            "この習慣を続けてから、以前よりもスムーズに眠れるようになった。朝の目覚めも良くなり、日中の集中力も向上した気がする。忙しい人にもぜひ試してほしい。"
         ],
-        target_words=TargetWords(min=100, max=120),
-        model_answer="If I made a YouTube channel, it would be about cooking traditional Japanese dishes. First, I am passionate about Japanese cuisine and want to share its beauty with a global audience. By teaching people how to make dishes like sushi and ramen, I can help them understand Japanese culture better. Second, cooking videos are popular and educational. Many people search online for recipe tutorials, so my channel could reach a wide audience. Additionally, I enjoy experimenting with ingredients and techniques, which would make creating content fun and rewarding for me.",
-        alternative_answer="My YouTube channel would focus on travel experiences in different countries. First, I love exploring new places and learning about diverse cultures. Sharing my adventures through videos would allow me to inspire others to travel and discover the world. Second, travel content is highly engaging and informative. Viewers can learn about local customs, food, and attractions before visiting themselves. Moreover, documenting my journeys would help me preserve memories and improve my video editing skills, making it both personally meaningful and creatively fulfilling.",
-        common_mistakes=["理由が2つ明確でない", "語数が足りない（100語未満）"]
+        hints=[
+            {"en": "sleep quality", "ja": "睡眠の質", "kana": "スリープ・クオリティ", "pos": "名詞", "usage": "improve sleep quality「睡眠の質を改善する」"},
+            {"en": "fall asleep", "ja": "眠りにつく", "kana": "フォール・アスリープ", "pos": "動詞句", "usage": "have trouble falling asleep「眠りにつくのに苦労する」"},
+            {"en": "set a rule", "ja": "ルールを設ける", "kana": "セット・ア・ルール", "pos": "動詞句", "usage": "set a rule for oneself「自分にルールを課す」"},
+            {"en": "concentration", "ja": "集中力", "kana": "コンセントレーション", "pos": "名詞", "usage": "improve concentration「集中力を向上させる」"},
+            {"en": "worth trying", "ja": "試す価値がある", "kana": "ワース・トライイング", "pos": "形容詞句", "usage": "be worth trying「試す価値がある」"}
+        ],
+        target_words=TargetWords(min=100, max=120)
     )
 
 
@@ -1167,9 +1181,9 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
     logger.info("Phase 1: Running server-side constraint checks...")
     constraints_result = validate_constraints_func(
         text=normalized_answer,  # 正規化後のテキストを使用
-        min_words=0,
-        max_words=999,
-        required_units=2  # デフォルト: 2つの理由/提案/例
+        min_words=80,
+        max_words=140,
+        required_units=0  # 翻訳問題: 理由構成なし
     )
     
     constraints = ConstraintChecks(**constraints_result)
@@ -1393,112 +1407,15 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
 
 def generate_model_answer_only(question_text: str) -> dict:
     """
-    問題文だけから模範解答を生成（添削なし）
+    日本語原文から模範英訳を生成（翻訳用）
     
     Args:
-        question_text: 英語の問題文
+        question_text: 日本語の原文（段落区切りまたは改行区切り）
     
     Returns:
         dict: {"model_answer": str, "model_answer_explanation": str}
     """
-    prompt = f"""あなたは英作文の専門家です。以下の問題に対する理想的な模範解答を生成してください。
-
-# 問題文（英語）
-{question_text}
-
-# 要件
-- **【🚨最重要🚨】語数: 100-120語（英語部分のみ、日本語訳は含まない）**
-  - **【🔥絶対厳守🔥】120語を超えてはいけない！100-120語厳守！**
-  - **生成後に必ず英語部分の単語数を数えること！**
-  - **100語未満は絶対NG - 必ず100語以上にすること**
-  - **120語超過も絶対NG - 必ず120語以下にすること**
-- 構成: 明確な主張 + First理由（具体例付き）+ Second理由（具体例付き）+ 結論
-- 語彙レベル: 高校3年生が実際に使える基本的な表現のみ
-- 具体例: 各理由に説得力のある具体例や事実を含める（1つの例で十分、詳しく説明）
-- 因果関係: "By doing..., we can..." や "If we..., we can..." などで論理性を明示
-- **【🚨絶対厳守🚨】形式**: 段落ごとに英文を書き、その直後に（日本語訳）を追加
-  - 導入: 英文 → 改行 → （日本語訳）→ 空行
-  - First理由: 英文 → 改行 → （日本語訳）→ 空行
-  - Second理由: 英文 → 改行 → （日本語訳）→ 空行
-  - 結論: 英文 → 改行 → （日本語訳）
-- **【重要】日本語訳では、カタカナ語を避けて意味を明確に説明すること**
-  - NG例: インタラクティブ、モジュール、マルチメディア
-  - OK例: 双方向的な、学習単元、動画や音声を組み合わせた教材
-  - ただし、一般的なカタカナ語は許容: アルバイト、プレゼンテーション、コンピュータ など
-
-# 語数要件の詳細（必読）
-**【🚨超重要🚨】導入部は問題文の形式に合わせること**:
-- 問題文が "Give two reasons" → "I believe ... for two main reasons."
-- 問題文が "Give two suggestions" → "I believe ... in two ways." または "There are two suggestions."
-- 問題文が "Discuss two points" → "I will discuss two points."
-- **【必須】問題文に "reasons", "suggestions", "ways", "points" のどれが使われているか確認してから導入部を書くこと**
-
-**導入部（15-18語）**: I believe ... [for two main reasons / in two ways / についての適切な表現].
-**First理由（38-45語）**: First, ... For example, ... This helps ... （具体例1つを詳しく）
-**Second理由（38-45語）**: Second, ... For instance, ... As a result, ... （具体例1つを詳しく）
-**結論（20-25語）**: Therefore, ... This will ... （簡潔に2-3文）
-
-**合計目標: 105-115語（最低100語、最大120語）**
-
-# 語数確保と調整の方法
-**もし語数が不足（100語未満）の場合**：
-1. 各理由の具体例をより詳しく説明
-2. 効果や結果を述べる文を追加（"This helps...", "As a result, ..."）
-
-**もし語数が超過（120語超）の場合**：
-1. 具体例を1つに絞る（2つ以上あったら削除）
-2. 冗長な説明文を削除（"Additionally, ..."などの文を削る）
-3. 結論を短縮（2文でOK）
-4. 修飾語句を削除
-
-# 良い例（113語）
-I believe regular exercise is important for teenagers for two main reasons.
-（定期的な運動は10代にとって重要だと思います。理由は2つあります。）
-
-First, exercise helps keep our bodies healthy and strong. For example, students who play sports or go jogging regularly have more energy during the day. Additionally, physical activity helps us sleep better at night. This makes it easier to focus on studying and doing homework.
-（第一に、運動は体を健康で強く保つのに役立ちます。例えば、定期的にスポーツをしたりジョギングをする学生は、日中により多くのエネルギーを持っています。さらに、身体活動は夜よく眠るのを助けます。これにより、勉強や宿題に集中しやすくなります。）
-
-Second, exercise improves our mental health and mood. When we exercise, we feel happier and less stressed. Many students find that taking a walk or playing basketball helps them relax after a difficult test. This positive feeling makes school life more enjoyable.
-（第二に、運動は私たちの精神的健康と気分を改善します。運動すると、より幸せを感じ、ストレスが減ります。多くの学生が、散歩をしたりバスケットボールをすることが、難しいテストの後にリラックスするのに役立つことに気づいています。このポジティブな気持ちが学校生活をより楽しいものにします。）
-
-Therefore, I believe all teenagers should make time for exercise every day. This will help them stay healthy and happy throughout their lives.
-（したがって、すべての10代の若者は毎日運動する時間を作るべきだと思います。これは彼らが生涯を通じて健康で幸せでいるのを助けるでしょう。）
-
-# 出力形式（JSON）
-{{
-  "model_answer": "[問題文の形式に合わせた導入部].\\n（[日本語訳]）\\n\\nFirst, [理由1]. For example, [具体例]. [詳細説明].\\n（[日本語訳]）\\n\\nSecond, [理由2]. [具体例]. [詳細説明].\\n（[日本語訳]）\\n\\nTherefore, [結論]. [さらなる主張の強調].\\n（[日本語訳]）",
-  "model_answer_explanation": "文法・表現のポイント解説\\n\\n1文目: [英文全体]\\n（[日本語訳]）\\n[単語1]（[品詞]：[詳細な意味の説明]：[使用される文脈]）／[類似語1]（[品詞]：[詳細な意味の説明]：[使用される文脈]）で、[両者のニュアンスの違いと使い分けの詳細説明]。例：[例文1]「[日本語訳]」／[例文2]「[日本語訳]」\\n\\n2文目: [英文全体]\\n（[日本語訳]）\\n[単語2]（[品詞]：[詳細な意味の説明]：[使用される文脈]）／[類似語2]（[品詞]：[詳細な意味の説明]：[使用される文脈]）で、[両者のニュアンスの違いと使い分けの詳細説明]。例：[例文1]「[日本語訳]」／[例文2]「[日本語訳]」\\n\\n3文目: [英文全体]\\n（[日本語訳]）\\n[単語3]（[品詞]：[詳細な意味の説明]：[使用される文脈]）／[類似語3]（[品詞]：[詳細な意味の説明]：[使用される文脈]）で、[両者のニュアンスの違いと使い分けの詳細説明]。例：[例文1]「[日本語訳]」／[例文2]「[日本語訳]」\\n\\n（模範解答の全ての文について、最後の文まで省略せずに同様に解説を続ける）"
-}}
-
-# 【注意】導入部の例:
-- 問題文: "Give two reasons to support your answer." 
-  → 導入: "I believe ... for two main reasons."
-- 問題文: "Give two suggestions with specific examples."
-  → 導入: "I believe we can ... in two ways." または "There are two main suggestions."
-- 問題文: "Discuss two points."
-  → 導入: "I will discuss two important points."
-
-# model_answer_explanation の詳細要件
-- **【🚨🚨🚨 絶対厳守 🚨🚨🚨】模範解答の全ての文を1文ずつ解説すること（省略絶対禁止）**
-  - 例：模範解答が9文なら、1文目から9文目まで全て解説
-  - **「以下同様に...」「（以下省略）」などで省略してはいけない！**
-  - 各段落内の全ての文を解説（First, ... / For example, ... / This helps ... など全て）
-- **【絶対厳守】Markdown記号（#、**、・など）を一切使わないこと**
-- 各文ごとに「1文目:」「2文目:」「3文目:」...と番号を付けて解説
-- **【必須フォーマット】単語A（品詞：意味の詳細説明：使用される文脈）／単語B（品詞：意味の詳細説明：使用される文脈）の形式で記載**
-- 各語彙について以下を記載：
-  1. 品詞と意味
-  2. 類似語との使い分け（ニュアンスの違いを明確に）
-  3. 具体的な例文（最低2つ、それぞれ日本語訳付き）
-- 熟語は一つの項目として扱う
-- 添削時の解説フォーマットと同じく、詳細で学習者に役立つ内容にすること
-
-重要：
-- 必ずJSON形式のみで出力
-- Markdownコードブロック（```json）は使用しない
-- model_answerは一文ごとに\\n\\nで区切り、各文の直後に（日本語訳）を追加
-- model_answer_explanationは「この模範解答の優れている点」ではなく、語彙・表現の詳細解説にすること
-"""
+    prompt = PROMPTS['model_answer'].format(question_text=question_text)
     
     max_retries = 3
     for attempt in range(max_retries):
