@@ -216,7 +216,7 @@ def api_model_answer():
         # question_textが空の場合はDBから取得
         if not question_text:
             logger.info(f"question_text is empty, fetching from DB: {question_id}")
-            question_data = get_question_by_id(question_id)
+            question_data = get_question(question_id)
             if question_data and question_data.get('japanese_sentences'):
                 question_text = "\n".join(question_data['japanese_sentences'])
                 logger.info(f"Retrieved japanese_sentences from DB: {question_text[:100]}...")
