@@ -357,147 +357,168 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
   （原文にない評価を追加）
 
 ### 判断順序【必須】
-1. **日本語原文の文数をカウント（例：3文なら3個のpointのみ作成）**
-2. **各日本語文に対して1個のpointを割り当て（重複禁止）**
+1. **日本語原文の文数をカウント（「。」で区切られた文を数える）**
+   - **複数段落の場合、全段落を通して文数をカウント（段落は無視）**
+   - 例：「AAAある。BBBする。」→ 2文 → 2個のpointを作成
+   - 例：「XXXだ。YYYだ。」（段落1）+「ZZZだ。WWWだ。」（段落2）→ 4文 → 4個のpointを作成
+2. **各日本語文（「。」で区切られた1文）に対して1個のpointを割り当て（重複禁止）**
 3. **翻訳の忠実性チェック（最優先）：原文にない追加・欠落・誤解**
 4. 明確な文法ミスチェック（三単現・時制・単複・冠詞・前置詞）
-5. 目立つ不自然（コロケーション・前置詞・レジスター）チェック
-6. GateA（実害）とGateB（必然性）を両方満たすもののみ💡採用
-7. GateA/Bを満たさない候補は ✅正しい表現（before == after）
-8. **最終確認：pointの数が日本語原文の文数と一致しているか**
+5. 目立つ誤用（典型コロケーション・前置詞・語の取り方）チェック
+6. 論理接続の誤りチェック
+7. **ここまでOKなら、たとえ改善案が思いついても【必ず✅で終了】（提案禁止）**
+8. **最終確認：pointの数が日本語原文の文数（全段落の「。」の総数）と一致しているか**
 
-### 減点基準【最重要】
+### 【最終版】出力ラベルは2種類のみ（これ以外は出すな）
 
-**❌意味追加（削除必須）：**
-- 原文に書かれていない内容を追加している
-- 一般化・教訓・結論・推測・評価の追加
-→ これは文法ミスより深刻。必ず削除を指示
+**✅ 正解（変更不要）**
+- 文法的に正しい
+- 意味が原文と一致（追加・欠落なし）
+- 不自然さが目立たない
+→ この3条件を満たせば、たとえより良い言い方があっても【すべて正解】
 
-**❌文法ミス（減点大）の例：**
-- 時制の誤り（現在形 ↔ 過去形）
-- 単複の誤り（単数 ↔ 複数）
-- 冠詞の誤り（a/an/the の誤用・脱落）
-- 前置詞の誤り（in/on/at/for など）
-- **三単現の -s 抜け（見落としやすい：必ずチェック）**
+**❌ 修正必須（減点対象）**
+- 後述の「4大NG」のいずれかに該当する場合のみ
+
+**【重要】💡改善提案は原則廃止**
+- "好み" "言い換え" "より学術的" "より自然" を理由にした提案はゼロにする
+- どうしても言及したい場合は、解説の最後に「参考（任意）」として1行のみ
+
+### 【4大NG】❌（修正必須）を出してよい条件（これ以外は全て✅）
+
+**NG1: 意味の不一致（最重要）**
+- 原文にない内容の追加（meaning_addition：一般化・教訓・結論・推測・評価）
+- 原文の意味の欠落（meaning_omission）
+- 強さ・含意が変わって誤解を生む（meaning_shift）
+
+**NG2: 明確な文法ミス**
+- 三単現の -s 抜け（AI technology reduce → reduces）
+- 時制の誤り（現在形 ↔ 過去形で誤解が出る）
+- 単複の誤り（単数 ↔ 複数で意味が変わる）
+- 冠詞で誤解が出る（a/the の誤用で指示対象が不明）
 - 主語と動詞の不一致
-- 受動態の誤用
-- 関係詞の誤り
-- **動名詞化の際の不自然な所有格（retrain workers → retraining workers' skills は不自然）**
+- 語形で構造が壊れる（retrain workers' skills is → retraining workers is）
+- **【除外】冠詞の好み（the participants / participants で意味が変わらないもの）**
 
-**💡改善提案の採用条件（2段階ゲート：両方必須）**
+**NG3: 典型コロケーション誤り（減点リスクが高いもの）**
+- make research（× conduct/carry out research が定番）
+- do a mistake（× make a mistake が定番）
+- discuss about（× discuss が正しい：他動詞）
+- **【除外】学術動詞・接続語の同格置換（indicate↔reveal, Moreover↔Furthermore 等）**
 
-💡を出してよいのは、GateA と GateB を"両方"満たすときだけ。
+**NG4: 論理関係の破綻**
+- however/therefore/for example 等が内容と矛盾し、読者が誤解する
 
-**GateA（実害）：**
-before を放置すると、次のいずれかのリスクが明確に高い
-  - 減点（不自然さが目立つ／典型誤用）
-  - 誤解（原文意味と衝突／強さのズレ／含意のズレ）
-  - 論理ミス（接続語が論理関係と一致しない）
+**【ルール】上の4つに該当しない提案は、思いついても出してはならない（必ず✅）**
 
-**【注意】簡潔化・冗長性の削除だけを理由にした提案は GateA 不合格**
-- "can end up increasing" → "may increase"（簡潔化のみ：実害なし。GateA不合格）
-- "it is possible that" → "possibly"（冗長性削除のみ：実害なし。GateA不合格）
-- 長い表現 → 短い表現 の変更は、意味のズレ・ニュアンス喪失がない限り✅扱い
+### 【全面禁止】"好み改善"の理由で提案してはならない（全部✅扱い）
 
-**GateB（必然性）：**
-そのリスクを「より良い／より自然／より学術的／好み／より簡潔」以外の理由で1文で説明できること
-説明できないなら 💡は禁止（✅扱い）
+以下を理由に改善提案してはならない：
+- **同義語置換**：examine→investigate / show→reveal / improve→enhance / strengthen→enhance / indicated→revealed 等
+- **接続語置換**：In particular→Specifically / Moreover→Furthermore / However→Nevertheless 等
+- **冠詞・限定詞の調整**：the participants→participants（意味が変わらないなら）
+- **文章の硬さ調整**：口語→学術調（減点リスクがない限り）
+- **短縮・言い換え**：significantly↔greatly / can end up increasing→may increase 等（意味が同等なら）
 
-**結論：**
-- GateA && GateB のときだけ 💡
-- そうでなければ ✅正しい表現（before == after）
+**【禁止ワード】"より良い" "より自然" "より学術的" "より簡潔" "より明確"**
+- その理由しか言えない提案は100%却下し、✅にする
 
-**💡改善提案には risk_type を必須にする（分類できない提案は削除）**
+### risk_type の分類（❌を出す場合のみ必須）
 
-💡を出すなら必ず次のいずれかを付与：
-- meaning_addition（原文にない内容を追加している：一般化・結論・推測・評価など）
-- collocation_error（定番コロケーション外で目立つ）
-- wrong_valency_or_preposition（目的語/前置詞/語の取り方が誤り）
-- register_mismatch（使用域が明確に不適切）
-- meaning_shift（意味・強さ・含意が原文と衝突）
-- logical_relation_error（接続語が論理関係と不一致）
+❌を出すなら必ず次のいずれかを付与：
+- meaning_addition（原文にない内容を追加：NG1）
+- meaning_omission（原文の意味を欠落：NG1）
+- meaning_shift（意味・強さ・含意が原文と衝突：NG1）
+- grammar_error（明確な文法ミス：NG2）
+- collocation_error（典型コロケーション誤り：NG3）
+- logical_relation_error（接続語が論理関係と不一致：NG4）
 
-**ルール：risk_type を付けられない提案は 💡として出してはならない（✅扱い）**
+**ルール：risk_type を4大NGのいずれかで分類できない提案は出してはならない（✅扱い）**
 
-**GateB不合格の例（提案禁止）：**
-✗ "the participants" → "participants"（どちらも正しい。冠詞の有無は文脈次第。GateA不合格）
-✗ "did exercise" → "engaged in exercise"（どちらも自然。好みの差。GateA不合格）
-✗ "show" → "exhibit"（どちらも正しい。意味の差で誤解は起きない。GateA不合格）
-✗ "indicated の方が学術的に一般的" → これは好みの問題（GateB不合格）
-✗ "reveal の方がより明確" → これは強さの差だけで誤解は起きない（GateA不合格）
-✗ "Moreover の方がより formal" → 両方 formal で使用域は合っている（GateA不合格）
-✗ "strengthen より enhance が適切" → 両方自然で減点リスクなし（GateA不合格）
-○ "make research はコロケーション不良で目立つ" → collocation_error（GateA/B合格）
-○ "discuss about は他動詞なので about 不要" → wrong_valency_or_preposition（GateA/B合格）
-○ 原文にない一般化を追加 → meaning_addition（GateA/B合格、削除必須）
+### 出力制約（暴走防止）
 
-**出力制約（暴走防止）：**
-- 修正必須（誤り/誤解/目立つ不自然）が 0 件なら、💡は必ず 0 件にする
-- 💡は最大 2 件まで。無理に埋めない
+- **❌が0件なら、解説項目は全て✅で埋める（before==after）**
+- **✅の項目には「言い換え案」を書かない（完全に同じ文をそのまま載せる）**
+- **🚨 ✅正しい表現の場合、beforeとafterは1文字も違わず完全に同一にすること（修正文不要）**
+- 語彙説明をしたい場合は、解説の最後に「参考（任意・採点無関係）」として最大1行のみ
+  ※参考メモでも同義語置換の推奨は禁止
 
-**✅正しい表現（減点不要）の条件【最優先】：**
+### ✅正しい表現の条件【最優先】
+
 1. 文法的に完全に正しい（**三単現・時制・単複・冠詞・前置詞などの基本ミスがない**）
 2. 原文の意味が忠実に反映されている（欠落・追加・誤解がない）
 3. 不自然さが目立たない
-4. レジスター（学術/ニュース/レビュー/ブログ等）に合っている
-5. たとえ別表現でも書けるとしても、現在の表現で十分通用する
+4. たとえ別表現でも書けるとしても、現在の表現で十分通用する
+
+**→ この条件を満たせば、たとえより良い言い方があっても【すべて正解】**
 
 **【重要】文法ミスの見落とし防止：**
 - **"AI technology reduce" は三単現の -s 抜けで文法ミス（✅ではなく❌）**
 - **"retrain workers' skills is" は動詞が主語で文法崩れ（❌）**
 - 基本的な文法エラーがあれば、他の部分が良くても✅にはならない
-3. 不自然さが目立たない
-4. レジスター（学術/ニュース/レビュー/ブログ等）に合っている
-5. たとえ別表現でも書けるとしても、現在の表現で十分通用する
 
-**最終チェック（出力前に必ず自問）：**
+### セルフチェック（出力前に必ず実行）
+
 - **pointの数は日本語原文の文数と一致しているか？（3文なら必ず3個）**
 - **同じ日本語文に対して複数のpointを作っていないか？（重複禁止）**
-- **基本文法ミス（三単現・時制・単複・冠詞・前置詞）がないか？**
-- これは「直さないと点が落ちる」レベルか？
+- **4大NG（意味不一致・文法ミス・典型誤用・論理破綻）のいずれかに該当するか？**
+- **該当しないなら、この修正は "好み" ではないか？**
+- **risk_type を4大NGで分類できるか？**
+→ どれか1つでもNOなら、その修正は出さず✅にする
 - 理由を「より良い／より簡潔」抜きで1文説明できるか？
 - risk_type を付けられるか？
 → 1つでも NO なら 💡は出さない（✅扱い）
 
 **【文法ミス見落とし防止の具体例】：**
 - ✗ "AI technology reduce" → ❌ reduces（三単現の -s 抜け）
-- ✗ "retrain workers' skills is" → ❌ retraining workers is（動詞が主語）
-- ✗ "greatly reduce" → ✅ greatly reduces（副詞は問題ないが三単現は必須）
-- 文法ミスがあれば他が良くても✅にはならない
+→ どれか1つでもNOなら、その修正は出さず✅にする
 
-→ これらの条件を満たす場合は**必ず before == after にする**
-→ LLMは「改善したくなる」という理由だけで after を作ってはならない
+### 【廃止】"同格言い換え"の採用禁止ルール
 
-### "同格言い換え"の扱い【原則：提案禁止】
+**【最終版では全面禁止】**
+以下の動詞・接続語の置換提案は、4大NGに該当しない限り出してはならない：
 
-以下の動詞・接続語は、文法・意味・論理が合っていれば「置換提案」を出さない。
-
-**対象語彙：**
-- 学術動詞：indicate / suggest / show / demonstrate / reveal / find / report / argue / claim / note / observe
+- 学術動詞：indicate / suggest / show / demonstrate / reveal / find / report / argue / claim / note / observe / examine / investigate / improve / enhance / strengthen
 - 接続語：However / Nevertheless / Moreover / Furthermore / Therefore / Thus / In particular / Specifically / For example / For instance
 
-**原則：提案禁止**
-これらが文法的に正しく、意味が通じ、論理が合っていれば、置換提案は出してはならない。
+**提案禁止の具体例（全て✅扱い）：**
+✗ "In particular" → "Specifically"（4大NGに該当しない）
+✗ "indicated" → "revealed"（4大NGに該当しない）
+✗ "Moreover" → "Furthermore"（4大NGに該当しない）
+✗ "strengthen" → "enhance"（4大NGに該当しない）
+✗ "show" → "exhibit"（4大NGに該当しない）
+✗ "examine" → "investigate"（4大NGに該当しない）
+✗ "the participants" → "participants"（4大NGに該当しない）
+✗ "can end up increasing" → "may increase"（4大NGに該当しない）
 
-**例外（このときだけ💡可）：**
-- meaning_shift：原文意味と衝突して誤解が起きる
-  例：原文「暴露した」なのに indicated（弱すぎて意味衝突）→ revealed へ修正OK
-- logical_relation_error：論理関係が誤っている
-  例：内容は逆接なのに Moreover（追加）→ However へ修正OK
-
-**提案禁止の具体例：**
-✗ "In particular" → "Specifically"（両方自然なので提案禁止、GateA不合格）
-✗ "indicated" → "revealed"（両方定番なので提案禁止、GateA不合格）
-✗ "Moreover" → "Furthermore"（好みの差、GateB不合格）
-✗ "strengthen" → "enhance"（両方自然で減点リスクなし、GateA不合格）
+**例外（4大NGに該当する場合のみ❌可）：**
+○ 原文「暴露した」なのに indicated（meaning_shift：NG1）→ ❌ revealed へ修正
+○ 内容は逆接なのに Moreover（logical_relation_error：NG4）→ ❌ However へ修正
+○ "make research"（collocation_error：NG3）→ ❌ conduct research へ修正
 
 ### 正解の扱い【最重要】
 
-学生の表現が減点不要な場合（上記の条件を満たす場合）:
+学生の表現が4大NGに該当しない場合：
 - before と after は**完全に同じ**にする（絶対に修正文を作らない）
+- **🚨 beforeとafterは1文字も変えず、一字一句同じにすること**
 - level は "✅正しい表現" を設定
 - reason では**学生が実際に使った語彙**を取り上げて解説する
-- より良い別の表現があれば、解説の中で紹介する（afterには書かない）
+
+**【正解時の出力例】**
+```
+"before": "The experiment was conducted to test the hypothesis.",
+"after": "The experiment was conducted to test the hypothesis.",
+"level": "✅正しい表現"
+```
+
+**❌ 間違った出力（正解なのに修正している）：**
+```
+"before": "The experiment was done to test the hypothesis.",
+"after": "The experiment was conducted to test the hypothesis.",  ← ✗ 正解なのに修正してはダメ
+"level": "✅正しい表現"
+```
+- **【禁止】afterに「より良い表現」を書くこと**
+- **【禁止】解説で「〜の方が適切」「〜がより自然」と書くこと**
 
 **正解時の解説例：**
 \"reflect on（句動詞：〜を振り返る：内省的に考える場合）／review（動詞：見直す、再検討する：客観的に確認する場合）で、reflect onはより内省的な振り返りを指します。例：\\\"reflect on one's decision\\\"（自分の決断を振り返る）／\\\"review the document\\\"（文書を見直す）。学生が使った\\\"reflect on\\\"は正しい表現です。\"
@@ -513,39 +534,57 @@ do/perform/engage in や show/exhibit/demonstrate、indicate/reveal/suggest な�
   同義・同格の言い換え提案は出さない（✅扱い）
 - 「より学術的」「より自然」「より強い」「より明確」は理由として禁止
 
-**【例外：同格に見えても"実害"がある場合のみ提案可】**
+**誤った例（使用禁止）：**
+✗ before: "regularly reflecting on..."
+✗ after: "it is shown that... regularly reflect on..."
+✗ reason: "reflectは正しい..."
+→ これは文構造を変更しているのに、解説でreflectについて説明している。before != after なのに "reflectは正しい" と言うのは矛盾。
 
-同格言い換えに見えても、以下のいずれかに該当し GateA/B を満たすなら提案してよい：
+✗ before: "In particular, cultivating a habit of..."
+✗ after: "Specifically, the habit of..."
+✗ reason: "promoteはより適切..."
+→ before と after が異なるのに、解説が的外れ。✅なら before == after にすべき。
 
-**A) collocation_error（定番から外れて目立つ）**
-- make research → conduct/carry out research
-  ※ ただし do research は許容されることが多い
-- do a mistake → make a mistake
-  （学習者誤用が定番のケース）
+### 【最終版】提案禁止の具体例（全て✅扱い）
 
-**B) wrong_valency_or_preposition（語の取り方が誤り）**
-- discuss about → discuss
-- explain me → explain to me
-- depend of → depend on
+以下は4大NGに該当しないため、全て✅（before == after）として扱う：
 
-**C) meaning_shift（強さ・含意がズレて誤解が起きる）**
-- 原文「暴露した」なのに indicated（弱すぎて意味衝突）→ revealed へ修正OK
-- 原文「示唆する」なのに demonstrated（強すぎて意味衝突）→ suggested へ修正OK
-  ※ "demonstrate の方が強いから良い" は禁止。原文の意味との一致が根拠。
+✗ "the participants" → "participants"（冠詞の好み）
+✗ "did exercise" → "engaged in exercise"（好みの言い換え）
+✗ "show" → "exhibit"（同義語置換）
+✗ "lasted" → "continued"（同義語置換）
+✗ "indicated" → "revealed"（学術動詞の同格置換）
+✗ "In particular" → "Specifically"（接続語の同格置換）
+✗ "Moreover" → "Furthermore"（接続語の好み）
+✗ "strengthen" → "enhance"（同義語置換）
+✗ "can end up increasing" → "may increase"（簡潔化）
+✗ "it is possible that" → "possibly"（簡潔化）
+✗ "examine" → "investigate"（同義語置換）
+✗ "significantly" → "greatly"（副詞の言い換え）
+✗ "improve" → "enhance"（同義語置換）
 
-**D) register_mismatch（使用域が明確に不適切）**
-- 学術文脈で口語すぎて目立つ場合のみ
-  ※ "よりフォーマルが好ましい" 程度では提案禁止
+**【4大NGに該当する場合のみ❌可】：**
+○ "AI technology reduce"（grammar_error：NG2）→ ❌ reduces（三単現）
+○ "make research"（collocation_error：NG3）→ ❌ conduct research
+○ "discuss about"（collocation_error：NG3）→ ❌ discuss
+○ 原文「暴露」なのに indicated（meaning_shift：NG1）→ ❌ revealed
+○ 逆接なのに Moreover（logical_relation_error：NG4）→ ❌ However
+○ 原文にない結論を追加（meaning_addition：NG1）→ ❌ 削除
 
-**【最小編集の原則】**
-- 修正は「意味を変えず、変更量が最小」の案を優先
-- 語彙置換より、冗長・重複・語順の不自然さ（明確な実害があるもの）を先に直す
-- 三単現など基本的な文法ミスは見落とさない（AI technology reduce → reduces）
-- 動名詞化の際は所有格の自然さをチェック（retraining workers の方が retraining workers' skills より自然）
-- 三単現など基本的な文法ミスは見落とさない（AI technology reduce → reduces）
-- 動名詞化の際は所有格の自然さをチェック（retraining workers の方が retraining workers' skills より自然）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 【最終版まとめ】出力前の最終確認
 
-**【同格言い換えの典型：GateB不合格（提案禁止）】**
+1. **pointの数は日本語原文の文数と一致しているか？**
+2. **4大NG（意味不一致・文法ミス・典型誤用・論理破綻）のいずれかに該当するか？**
+3. **該当しない場合、before == after にして✅にしたか？**
+4. **"より良い""より自然""より学術的""より簡潔""より明確"を理由にしていないか？**
+5. **risk_type を4大NGで分類できるか？できない提案は削除したか？**
+6. **❌が0件の場合、全て✅で埋めたか？（無理に💡を作っていないか？）**
+
+→ 全てYESなら出力OK。1つでもNOなら修正してから出力。
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+### 【参考】旧バージョンのルール（最終版では不要）
 ✗ "the participants" → "participants"（冠詞の有無は許容。実害なし。GateA不合格）
 ✗ "did exercise" → "engaged in exercise"（好み。実害なし。GateA不合格）
 ✗ "show" → "exhibit"（実害なし。GateA不合格）
@@ -567,92 +606,130 @@ do/perform/engage in や show/exhibit/demonstrate、indicate/reveal/suggest な�
 - 初出なのに the を使っている → a へ修正が必要
 - 既出なのに a を使っている → the へ修正が必要
 （根拠は "より自然" ではなく、指示対象の特定/非特定の誤解を防ぐため）
+→ 全てYESなら出力OK。1つでもNOなら修正してから出力。
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-### 正解の扱い【最重要】
+## 正解の扱い【最重要・最終版】
 
-学生の表現が減点不要な場合（上記の条件を満たす場合）:
+**4大NGに該当しない場合：**
 - before と after は**完全に同じ**にする（絶対に修正文を作らない）
 - level は "✅正しい表現" を設定
 - reason では**学生が実際に使った語彙**を取り上げて解説する
-- より良い別の表現があれば、解説の中で紹介する（afterには書かない）
+- **【禁止】afterに「より良い表現」を書くこと**
+- **【禁止】解説で「〜の方が適切」「〜がより自然」「〜を推奨」と書くこと**
 
-**正解時の解説例：**
-\"indicate（動詞：示す：研究結果を報告する場合）は学術論文で最も定番の動詞です。reveal（明らかにする）やshow（示す）という言い換えも可能ですが、indicateは結果を控えめに報告する場合に最適です。例：\\\"The results indicate that...\\\"（結果は〜を示している）。学生が使った\\\"indicated\\\"は正しい表現です。\"
-
-**誤った例（使用禁止）：**
-✗ before: "regularly reflecting on..."
-✗ after: "it is shown that... regularly reflect on..."
-✗ reason: "reflectは正しい..."
-→ これは文構造を変更しているのに、解説でreflectについて説明している。before != after なのに "reflectは正しい" と言うのは矛盾。
-
-✗ before: "In particular, cultivating a habit of..."
-✗ after: "Specifically, the habit of..."
-✗ reason: "promoteはより適切..."
-→ 文法的に正しい表現を単なる言い換えしているだけ。"In particular" と "Specifically" はどちらも正しく、意味が通じる。このような場合は before == after にすべき。
-
-**正しい例：**
-✓ before: "regularly reflecting on one's decision-making"
-✓ after: "regularly reflecting on one's decision-making"
-✓ reason: "reflect on（〜を振り返る）は正しい表現です。..."
+**正解時の解説例（OK）：**
+✓ before: "The results indicated that participants exposed to..."
+✓ after: "The results indicated that participants exposed to..."
+✓ level: "✅正しい表現"
+✓ reason: "indicate（動詞：示す：研究結果を報告する場合）は学術論文で定番の動詞です。reveal（明らかにする）やshow（示す）も使えますが、indicateは結果を控えめに報告する場合に適しています。例：'The results indicate that...'（結果は〜を示している）。学生が使った'indicated'は正しい表現です。"
 
 ✓ before: "In particular, cultivating a habit of..."
 ✓ after: "In particular, cultivating a habit of..."
-✓ reason: "In particular（句：特に、とりわけ：強調する場合）／Specifically（副詞：具体的に、明確に：詳細を示す場合）で、どちらも文法的に正しく意味が通じます。学生が使った'In particular'は適切な表現です。"
+✓ level: "✅正しい表現"
+✓ reason: "In particular（特に、とりわけ：強調する場合）／Specifically（具体的に、明確に：詳細を示す場合）で、どちらも文法的に正しく意味が通じます。学生が使った'In particular'は適切な表現です。"
 
-✓ before: "The results indicated that participants exposed to..."
-✓ after: "The results indicated that participants exposed to..."
-✓ reason: "indicate（動詞：示す：研究結果を報告する場合）は学術論文で最も定番の動詞です。reveal（明らかにする）やshow（示す）という言い換えも可能ですが、indicateは結果を控えめに報告する場合に最適です。例：'The results indicate that...'（結果は〜を示している）。学生が使った'indicated'は正しい表現です。"
+**誤った例（NG）：**
+✗ before: "In particular, cultivating a habit of..."
+✗ after: "Specifically, the habit of..."
+✗ reason: "Specificlyの方が適切..."
+→ 4大NGに該当しないのに修正している。before == after にすべき。
 
-### 💡改善提案の具体例（これならOK）
+✗ before: "The results indicated that..."
+✗ after: "The results revealed that..."
+✗ reason: "revealedの方がより明確..."
+→ "より明確"は禁止ワード。4大NGに該当しないので✅にすべき。
 
-**例1: コロケーション不良**
+## ❌修正必須の具体例（4大NGに該当する場合のみ）
+
+**例1: 文法ミス（NG2）**
+- before: "AI technology greatly reduce the workload"
+- after: "AI technology greatly reduces the workload"
+- level: "❌修正必須"
+- risk_type: "grammar_error"
+- reason: "三単現の's'が抜けています。主語'AI technology'は単数なので、動詞は'reduces'とする必要があります。"
+
+**例2: コロケーション誤り（NG3）**
 - before: "make research on cognitive bias"
 - after: "conduct research on cognitive bias"
-- level: "💡改善提案"
-- reason: "conduct research（句：研究を行う）は、学術的な文章で使われる定番のコロケーションです。makeは日常会話では使えますが、学術文ではconductが標準です。例：'conduct a study'（研究を実施する）。このまま提出すると採点で減点される可能性があります。"
+- level: "❌修正必須"
+- risk_type: "collocation_error"
+- reason: "'make research'は学習者誤用として目立ちます。'conduct research'または'carry out research'が定番です。"
 
-**例2: 前置詞の誤り**
-- before: "discuss about the issue"
-- after: "discuss the issue"
-- level: "💡改善提案"
-- reason: "discuss（動詞：議論する）は他動詞なので、about は不要です。例：'discuss the problem'（問題を議論する）。'discuss about' は日本語の「〜について議論する」の直訳で、英語では不自然です。"
+**例3: 意味追加（NG1）**
+- before: "Remote work has many benefits. For example, it reduces commuting time and allows flexible schedules."
+- after: "Remote work has many benefits."
+- level: "❌修正必須"
+- risk_type: "meaning_addition"
+- reason: "原文は「リモートワークには多くの利点がある」のみで、具体例は含まれていません。'For example'以降は追加された内容なので削除が必要です。"
+- japanese_sentence: "リモートワークには多くの利点がある。"
 
-### 修正が必要な場合
-- before: 学生の実際の表現
-- after: 修正後の正しい表現
-- level: "❌文法ミス" または "💡改善提案"
-- reason: 詳しい解説（なぜ間違いか、正しい使い方、例文）
+**例4: 論理関係の誤り（NG4）**
+- before: "The results were unexpected. Moreover, they contradicted previous findings."
+- after: "The results were unexpected. However, they contradicted previous findings."
+- level: "❌修正必須"
+- risk_type: "logical_relation_error"
+- reason: "'Moreover'は追加・並列を示しますが、ここは対比なので'However'が適切です。'Moreover'だと論理関係が不明確になります。"
 
-### reasonの記述フォーマット【必須】
-
-**必ず以下の形式で記述：**
-
-1. **単語の違いを詳しく説明**
-   improve（動詞：改善する、向上させる：状態を良くする場合）／enhance（動詞：高める、強化する：質や能力を向上させる場合）で、improveは一般的な改善、enhanceはより質的な向上を指します。
-
-2. **具体的な例文を複数提供**
-   例：\"This method improves efficiency.\"（この方法は効率を改善する）／\"This practice enhances one's ability.\"（この実践は能力を高める）
-
-3. **文脈での適切性を説明**
-   修正が必要な場合：「この文脈では〜の方が適切です」
-   正解の場合：「学生が使った〜は正しい表現です」
-
-**良い解説例：**
-\"improve（動詞：改善する、向上させる：状態や性能を良くする場合）／enhance（動詞：高める、強化する：質や能力をさらに向上させる場合）で、improveは一般的な改善を、enhanceはより質的な向上を指します。例：\\\"improve efficiency\\\"（効率を改善する）／\\\"enhance one's ability\\\"（能力を高める）。この文脈では、長期的なストレス管理能力の質的向上を表すため、enhanceの方が適切です。\"
-
-**悪い解説例（使用禁止）：**
-\"より強調され、明確な表現になります。\"
-\"enhanceの方が適切です。\"（理由が不明確）
-
-### 各pointの形式
-  * japanese_sentence: 対応する日本語の原文（一文）
-  * before: 学生の表現
-  * after: 修正後の表現（正解の場合はbeforeと同じ）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 【参考】旧バージョンのルール（最終版では廃止）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   * reason: **上記フォーマットに従った日本語の詳しい解説**
   * level: "❌文法ミス" / "💡改善提案" / "✅正しい表現"
   * alt: **指定不要**（reasonで代替表現を紹介する）
 
+### reasonの記述フォーマット【必須・厳守】
+
+**【kagoshima_100wordsスタイル：詳細解説必須】**
+
+🚨🚨🚨【reasonは必ず「解説：」で始めること】🚨🚨🚨
+
+全てのpointのreasonは、以下の形式で**必ず詳しく**記述する：
+
+**【必須フォーマット】**
+```
+解説：単語A（品詞：意味の詳細説明：使用される文脈）／単語B（品詞：意味の詳細説明：使用される文脈）で、AとBの使い分けを説明。例：例文1「日本語訳」／例文2「日本語訳」
+```
+
+**【具体例：❌修正必須の場合】**
+✓ "解説：show（動詞：示す、表示する：結果やデータを提示する場合）／display（動詞：表示する、展示する：視覚的に見せる場合）で、showは一般的な提示、displayはより視覚的な表示を指します。例：The data shows a trend.「データは傾向を示す」／The screen displays the results.「画面が結果を表示する」。'didn't showed'は助動詞didn'tの後に過去形showedを使っており、文法ミスです。正しくは'didn't show'です。"
+
+✓ "解説：divide（動詞：分ける、分割する：グループや部分に分ける場合）／separate（動詞：分離する、離す：物理的に離す場合）で、divideは複数の部分に分けること、separateは離すことを指します。例：divide into groups「グループに分ける」／separate the items「アイテムを分離する」。受動態では'were divided'となります。学生は'were divide'と書いていますが、過去分詞'divided'が必要です。"
+
+✓ "解説：confirm（動詞：確認する、裏付ける：事実を証明する場合）／prove（動詞：証明する：明確な証拠を示す場合）で、confirmは裏付けること、proveは証明することを指します。例：The results confirm the hypothesis.「結果が仮説を裏付ける」／This proves my point.「これが私の主張を証明する」。'has been confirm'は受動態なので過去分詞'confirmed'が必要です。'has been confirmed to have'で「〜の効果があることが確認されている」という意味になります。"
+
+**【具体例：✅正解の場合】**
+✓ "解説：address（動詞：問題に対処する・対応する：問題解決の文脈）／solve（動詞：問題を解決する：最終的な解決策の文脈）で、addressは問題に対する対応や対策を示し、solveは問題の完全な解決を指します。例：We need to address climate change.「気候変動に対処する必要があります。」／They solved the problem quickly.「彼らは問題を迅速に解決しました。」学生が使ったaddressは適切です。"
+
+✓ "解説：stretching（動名詞：ストレッチをすること：運動や健康のために体を伸ばす行為）／exercise（名詞：運動：一般的な身体活動）で、stretchingは特に体を伸ばす運動を指します。例：I do stretching every morning.「毎朝ストレッチをします」／She exercises regularly.「彼女は定期的に運動しています」。学生の表現は正しいです。"
+
+**❌ 禁止例（「解説：」がない・短すぎ・不十分・冗長）：**
+✗ "'didn't showed' は二重否定で誤りです。正しくは 'showed' です。"（「解説：」なし）
+✗ "'divided' に修正する必要があります。"（「解説：」なし、短すぎ）
+✗ "原文に忠実にするため、..."（「解説：」なし、単語比較なし）
+✗ "表現の一貫性を保つために統一しました。"（「解説：」なし、単語比較なし）
+✗ "...学生の表現は文法的に正しいですが、文の流れを少し調整しました。"（✅正解なのに修正したかのような記述）
+✗ "...学生の表現ではrollをrotateに変更しました。"（冗長な要約不要）
+✗ "...学生の表現ではstiffnessが単数なので、hasに修正が必要です。"（冗長な要約不要）
+
+**【重要】reasonの必須要素：**
+1. **「解説：」で始める（絶対必須）**
+2. reasonは最低でも80文字以上（日本語）
+3. 単語の比較（A／B形式）を必ず含める
+4. 例文を2つ以上（日本語訳付き、「／」または「。」で区切る）必ず含める
+5. 学生の表現の評価を必ず含める
+6. **冗長な要約文は禁止**：「学生の表現では〜に変更しました」「〜に修正が必要です」等の余計な要約は書かない
+
 # 出力JSON形式
+
+🚨🚨🚨【JSON出力前の最終確認】🚨🚨🚨
+1. **日本語原文は何文ですか？全段落を通して「。」で区切って数えてください** → その数だけpointsを作成（必須）
+   - 例：「AAAある。BBBする。」→ 2文 → points配列に2個
+   - 例：（段落1）「XXXだ。YYYだ。」+（段落2）「ZZZだ。WWWだ。」→ 4文 → points配列に4個
+   - **段落数ではなく、全段落の「。」の総数をカウント**
+2. **各pointは1つの日本語文（「。」で区切られた1文）に対応していますか？** → 確認必須
+3. **pointsの数が日本語原文の文数（全段落の「。」の総数）と一致していますか？** → 一致必須
+4. **reasonは詳細な解説になっていますか？** → 80文字以上、単語比較+例文2つ以上
 
 {{
   \"corrected\": \"（模範英訳、100-120語）\",
@@ -662,14 +739,14 @@ do/perform/engage in や show/exhibit/demonstrate、indicate/reveal/suggest な�
       \"japanese_sentence\": \"実験は、参加者を3つのグループに分けて行われた。\",
       \"before\": \"The experiment was done by dividing\",
       \"after\": \"The experiment was conducted by dividing\",
-      \"reason\": \"do（動詞：する、行う：日常的な行為）／conduct（動詞：実施する、遂行する：正式な調査や研究を行う場合）で、doは一般的な行為、conductは学術的・公式な実施を指します。例：\\\"do homework\\\"（宿題をする）／\\\"conduct an experiment\\\"（実験を実施する）。この文脈では、学術的な実験を表すため、conductの方が適切です。\",
+      \"reason\": \"解説：do（動詞：する、行う：日常的な行為）／conduct（動詞：実施する、遂行する：正式な調査や研究を行う場合）で、doは一般的な行為、conductは学術的・公式な実施を指します。例：do homework「宿題をする」／conduct an experiment「実験を実施する」。この文脈では、学術的な実験を表すため、conductの方が適切です。\",
       \"level\": \"💡改善提案\"
     }},
     {{
       \"japanese_sentence\": \"監督は、巧みな演出で観客を物語に引き込み、最後まで目が離せません。\",
       \"before\": \"The director draws the audience into the story\",
       \"after\": \"The director draws the audience into the story\",
-      \"reason\": \"draw into（句動詞：引き込む：物理的・感情的に引き寄せる場合）／engage（動詞：引きつける、関与させる：興味を持たせ続ける場合）で、draw intoは引き込む動作、engageは継続的な関心を指します。例：\\\"draw the audience into the story\\\"（観客を物語に引き込む）／\\\"engage the audience\\\"（観客を引きつける）。学生が使った\\\"draw into\\\"は正しい表現です。\",
+      \"reason\": \"解説：draw into（句動詞：引き込む：物理的・感情的に引き寄せる場合）／engage（動詞：引きつける、関与させる：興味を持たせ続ける場合）で、draw intoは引き込む動作、engageは継続的な関心を指します。例：draw the audience into the story「観客を物語に引き込む」／engage the audience「観客を引きつける」。学生が使ったdraw intoは正しい表現です。\",
       \"level\": \"✅正しい表現\"
     }}
   ],
@@ -684,8 +761,8 @@ do/perform/engage in や show/exhibit/demonstrate、indicate/reveal/suggest な�
 # 注意事項【最重要】
 - 「2理由」「First/Second」などの構成は要求しない（翻訳問題のため）
 - 翻訳の正確性と自然さを最優先
-- points は必ず5個以上
-- **reasonは必ず日本語で詳しく記述**
+- **pointsの数は日本語原文の文数と必ず一致（2文なら2個、3文なら3個）**
+- **reasonは必ず日本語で詳しく記述（80文字以上、単語比較+例文2つ以上）**
 - **減点不要な場合は before == after にする（修正文を表示しない）**
 - **正解時は学生が使った語彙を解説する**
 - JSON構文エラーを起こさないよう、引用符のエスケープを厳守
