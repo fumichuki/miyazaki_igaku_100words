@@ -316,72 +316,183 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 ## 指摘ポイント(points)の要件【重要】
 
 ### 基本ルール
-- **最低5個**の具体的な指摘
+- **各pointは日本語原文の1文に対応（必須）**
+- **1つの日本語文に対して複数のpointを作ってはならない（重複は絶対禁止）**
+- **日本語原文が3文なら必ず3個、5文なら必ず5個のpoint（過不足厳禁）**
+- **同じ日本語文に対してpoint 3とpoint 5を作るような重複は絶対禁止**
 - **reason（解説）は必ず日本語で記述**
 - 解説は詳しく、具体的な例文を含める
-- 各pointは日本語原文の1文に対応
+
+**【重複禁止の具体例】：**
+✗ 日本語原文3文なのに5個のpointを作る（過剰）
+✗ 日本語原文の3文目に対してpoint 3とpoint 5を両方作る（重複）
+✗ 日本語原文の2文目に対してpoint 2とpoint 4を両方作る（重複）
+○ 日本語原文3文に対してpoint 1, 2, 3を各1個ずつ作る（正しい）
+
+### 【Override宣言】本セクションの指示が最優先
+- 既存の「より良い表現がある」「より適切な定番表現がある」等の曖昧ルールは無効化する
+- 競合時は本指示が最優先
+
+### 【翻訳の忠実性（最優先ルール）】
+
+**原文に書かれていない内容を追加してはならない（絶対厳守）**
+
+翻訳添削では、原文に存在しない以下の内容を英文に追加する提案は禁止：
+- 一般化（"These findings suggest that..." など）
+- 教訓・結論（"This demonstrates the importance of..." など）
+- 推測・評価（"which may lead to..." など）
+- 原文にない理由・説明
+
+**学生が追加している場合の処理：**
+- level: "❌意味追加（削除必須）"
+- risk_type: meaning_addition
+- before: 追加部分を含む学生の英文
+- after: 追加部分を削除し、原文に忠実な表現
+- reason: 「原文に書かれていない内容（〜）が追加されています。翻訳では原文に忠実であることが最優先です。」
+
+**禁止例：**
+✗ 原文「結果は〜だった」→ "These findings suggest that even light exercise can have beneficial effects..."
+  （原文にない一般化・結論を追加）
+✗ 原文「行動した」→ "which demonstrates the importance of..."
+  （原文にない評価を追加）
 
 ### 判断順序【必須】
-1. 意味の忠実性（欠落/追加/誤解）チェック
-2. 明確な文法ミスチェック
-3. 明確な不自然（コロケーション・前置詞・レジスター）チェック
-4. 上の1〜3で「放置リスクが説明できる」ものだけを💡にする
-5. それ以外は ✅正しい表現として扱い、提案は出さない
+1. **日本語原文の文数をカウント（例：3文なら3個のpointのみ作成）**
+2. **各日本語文に対して1個のpointを割り当て（重複禁止）**
+3. **翻訳の忠実性チェック（最優先）：原文にない追加・欠落・誤解**
+4. 明確な文法ミスチェック（三単現・時制・単複・冠詞・前置詞）
+5. 目立つ不自然（コロケーション・前置詞・レジスター）チェック
+6. GateA（実害）とGateB（必然性）を両方満たすもののみ💡採用
+7. GateA/Bを満たさない候補は ✅正しい表現（before == after）
+8. **最終確認：pointの数が日本語原文の文数と一致しているか**
 
 ### 減点基準【最重要】
+
+**❌意味追加（削除必須）：**
+- 原文に書かれていない内容を追加している
+- 一般化・教訓・結論・推測・評価の追加
+→ これは文法ミスより深刻。必ず削除を指示
 
 **❌文法ミス（減点大）の例：**
 - 時制の誤り（現在形 ↔ 過去形）
 - 単複の誤り（単数 ↔ 複数）
 - 冠詞の誤り（a/an/the の誤用・脱落）
 - 前置詞の誤り（in/on/at/for など）
+- **三単現の -s 抜け（見落としやすい：必ずチェック）**
 - 主語と動詞の不一致
 - 受動態の誤用
 - 関係詞の誤り
+- **動名詞化の際の不自然な所有格（retrain workers → retraining workers' skills は不自然）**
 
-**💡改善提案（減点小）の厳格な条件【暴走防止】：**
+**💡改善提案の採用条件（2段階ゲート：両方必須）**
 
-💡を出す前に必ず以下のテストを実施：
-(1) before をそのまま提出すると、採点上の不利が明確に起きうるか？
-    例：コロケーションが不自然／前置詞や目的語の取り方が誤り／レジスターが不適切／意味がズレる
-(2) その不利を1文で説明できるか？（「より良い」「より洗練」「より自然」だけでは説明不足でNG）
+💡を出してよいのは、GateA と GateB を"両方"満たすときだけ。
 
-→ 両方 YES のときのみ 💡改善提案を出す
-→ YES でなければ ✅正しい表現として扱い、提案は出さない（before == after）
+**GateA（実害）：**
+before を放置すると、次のいずれかのリスクが明確に高い
+  - 減点（不自然さが目立つ／典型誤用）
+  - 誤解（原文意味と衝突／強さのズレ／含意のズレ）
+  - 論理ミス（接続語が論理関係と一致しない）
 
-**💡にしてよいのは以下のいずれかに明確に該当する場合のみ：**
+**【注意】簡潔化・冗長性の削除だけを理由にした提案は GateA 不合格**
+- "can end up increasing" → "may increase"（簡潔化のみ：実害なし。GateA不合格）
+- "it is possible that" → "possibly"（冗長性削除のみ：実害なし。GateA不合格）
+- 長い表現 → 短い表現 の変更は、意味のズレ・ニュアンス喪失がない限り✅扱い
 
-1. **コロケーション不良（定番から外れて目立つ）**
-   例：make research → conduct research, give influence → exert influence
-   
-2. **語の結びつき（valency）／前置詞・目的語が不適切**
-   例：discuss about → discuss, depend of → depend on
-   
-3. **レジスター不一致が目立つ（学術に口語、レビューに硬すぎ等）**
-   例：lots of evidence → substantial evidence（学術文で）
-   ※ただし "lots of" が完全に不自然でない場合は💡にしない
-   
-4. **原文意味との衝突（meaning_shift）**
-   例：reveal（暴露）を使うと含意が強すぎるのに原文は単に「示した」程度
-   
-5. **論理関係エラー（logical_relation_error）**
-   例：However なのに内容は追加（Moreover が正しい）
+**GateB（必然性）：**
+そのリスクを「より良い／より自然／より学術的／好み／より簡潔」以外の理由で1文で説明できること
+説明できないなら 💡は禁止（✅扱い）
 
-**重要：💡改善提案の上限**
-- 💡改善提案は最大1〜2個まで（原則）
-- 文法ミスが0件なら、💡も0件にする（無理やり言い換えを作らない）
+**結論：**
+- GateA && GateB のときだけ 💡
+- そうでなければ ✅正しい表現（before == after）
+
+**💡改善提案には risk_type を必須にする（分類できない提案は削除）**
+
+💡を出すなら必ず次のいずれかを付与：
+- meaning_addition（原文にない内容を追加している：一般化・結論・推測・評価など）
+- collocation_error（定番コロケーション外で目立つ）
+- wrong_valency_or_preposition（目的語/前置詞/語の取り方が誤り）
+- register_mismatch（使用域が明確に不適切）
+- meaning_shift（意味・強さ・含意が原文と衝突）
+- logical_relation_error（接続語が論理関係と不一致）
+
+**ルール：risk_type を付けられない提案は 💡として出してはならない（✅扱い）**
+
+**GateB不合格の例（提案禁止）：**
+✗ "the participants" → "participants"（どちらも正しい。冠詞の有無は文脈次第。GateA不合格）
+✗ "did exercise" → "engaged in exercise"（どちらも自然。好みの差。GateA不合格）
+✗ "show" → "exhibit"（どちらも正しい。意味の差で誤解は起きない。GateA不合格）
+✗ "indicated の方が学術的に一般的" → これは好みの問題（GateB不合格）
+✗ "reveal の方がより明確" → これは強さの差だけで誤解は起きない（GateA不合格）
+✗ "Moreover の方がより formal" → 両方 formal で使用域は合っている（GateA不合格）
+✗ "strengthen より enhance が適切" → 両方自然で減点リスクなし（GateA不合格）
+○ "make research はコロケーション不良で目立つ" → collocation_error（GateA/B合格）
+○ "discuss about は他動詞なので about 不要" → wrong_valency_or_preposition（GateA/B合格）
+○ 原文にない一般化を追加 → meaning_addition（GateA/B合格、削除必須）
+
+**出力制約（暴走防止）：**
+- 修正必須（誤り/誤解/目立つ不自然）が 0 件なら、💡は必ず 0 件にする
+- 💡は最大 2 件まで。無理に埋めない
 
 **✅正しい表現（減点不要）の条件【最優先】：**
-1. 文法的に完全に正しい
+1. 文法的に完全に正しい（**三単現・時制・単複・冠詞・前置詞などの基本ミスがない**）
 2. 原文の意味が忠実に反映されている（欠落・追加・誤解がない）
 3. 不自然さが目立たない
 4. レジスター（学術/ニュース/レビュー/ブログ等）に合っている
 5. たとえ別表現でも書けるとしても、現在の表現で十分通用する
 
+**【重要】文法ミスの見落とし防止：**
+- **"AI technology reduce" は三単現の -s 抜けで文法ミス（✅ではなく❌）**
+- **"retrain workers' skills is" は動詞が主語で文法崩れ（❌）**
+- 基本的な文法エラーがあれば、他の部分が良くても✅にはならない
+3. 不自然さが目立たない
+4. レジスター（学術/ニュース/レビュー/ブログ等）に合っている
+5. たとえ別表現でも書けるとしても、現在の表現で十分通用する
+
+**最終チェック（出力前に必ず自問）：**
+- **pointの数は日本語原文の文数と一致しているか？（3文なら必ず3個）**
+- **同じ日本語文に対して複数のpointを作っていないか？（重複禁止）**
+- **基本文法ミス（三単現・時制・単複・冠詞・前置詞）がないか？**
+- これは「直さないと点が落ちる」レベルか？
+- 理由を「より良い／より簡潔」抜きで1文説明できるか？
+- risk_type を付けられるか？
+→ 1つでも NO なら 💡は出さない（✅扱い）
+
+**【文法ミス見落とし防止の具体例】：**
+- ✗ "AI technology reduce" → ❌ reduces（三単現の -s 抜け）
+- ✗ "retrain workers' skills is" → ❌ retraining workers is（動詞が主語）
+- ✗ "greatly reduce" → ✅ greatly reduces（副詞は問題ないが三単現は必須）
+- 文法ミスがあれば他が良くても✅にはならない
+
 → これらの条件を満たす場合は**必ず before == after にする**
 → LLMは「改善したくなる」という理由だけで after を作ってはならない
 
+### "同格言い換え"の扱い【原則：提案禁止】
+
+以下の動詞・接続語は、文法・意味・論理が合っていれば「置換提案」を出さない。
+
+**対象語彙：**
+- 学術動詞：indicate / suggest / show / demonstrate / reveal / find / report / argue / claim / note / observe
+- 接続語：However / Nevertheless / Moreover / Furthermore / Therefore / Thus / In particular / Specifically / For example / For instance
+
+**原則：提案禁止**
+これらが文法的に正しく、意味が通じ、論理が合っていれば、置換提案は出してはならない。
+
+**例外（このときだけ💡可）：**
+- meaning_shift：原文意味と衝突して誤解が起きる
+  例：原文「暴露した」なのに indicated（弱すぎて意味衝突）→ revealed へ修正OK
+- logical_relation_error：論理関係が誤っている
+  例：内容は逆接なのに Moreover（追加）→ However へ修正OK
+
+**提案禁止の具体例：**
+✗ "In particular" → "Specifically"（両方自然なので提案禁止、GateA不合格）
+✗ "indicated" → "revealed"（両方定番なので提案禁止、GateA不合格）
+✗ "Moreover" → "Furthermore"（好みの差、GateB不合格）
+✗ "strengthen" → "enhance"（両方自然で減点リスクなし、GateA不合格）
+
 ### 正解の扱い【最重要】
+
 学生の表現が減点不要な場合（上記の条件を満たす場合）:
 - before と after は**完全に同じ**にする（絶対に修正文を作らない）
 - level は "✅正しい表現" を設定
@@ -391,73 +502,71 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 **正解時の解説例：**
 \"reflect on（句動詞：〜を振り返る：内省的に考える場合）／review（動詞：見直す、再検討する：客観的に確認する場合）で、reflect onはより内省的な振り返りを指します。例：\\\"reflect on one's decision\\\"（自分の決断を振り返る）／\\\"review the document\\\"（文書を見直す）。学生が使った\\\"reflect on\\\"は正しい表現です。\"
 
-### 明示的に禁止する言い換えパターン【絶対厳守】
+### 同格言い換えの採用禁止ルール（原則ベース：禁止リスト方式は使わない）
 
-**B-1. 学術動詞（reporting verbs）の同格言い換えは禁止（最重要）**
+**【目的】**
+do/perform/engage in や show/exhibit/demonstrate、indicate/reveal/suggest などの「同格言い換え」を
+単語リストで禁止しない。代わりに、原則ルールで機械的に落とす（思想：禁止語増殖を避ける）。
 
-以下の報告動詞が文法的に正しく自然である場合、別動詞への置換提案を出してはならない：
-- indicate / suggest / show / demonstrate / reveal / find / report / argue / claim / note / observe
+**【原則：同格言い換えは✅（提案しない）】**
+- before が文法的に正しく、意味が通り、レジスターも許容範囲なら、
+  同義・同格の言い換え提案は出さない（✅扱い）
+- 「より学術的」「より自然」「より強い」「より明確」は理由として禁止
 
-**特に禁止（不要な言い換えの例）：**
-✗ indicated → revealed（どちらも学術で正しい。意味ズレがない限り提案禁止）
-✗ suggest → demonstrate（強さの差はあるが、正しければ提案禁止）
-✗ show → indicate（好みの差。提案禁止）
-✗ found → discovered（正しければ提案禁止）
-✗ The results indicated that... → The results revealed that...（indicateは学術で超定番。提案禁止）
+**【例外：同格に見えても"実害"がある場合のみ提案可】**
 
-**例外（このときだけ💡可）：**
-- 原文が「暴露した／秘密を明らかにした」で before が suggest/indicate など弱すぎて意味衝突 → reveal/expose へ修正OK
-- 原文が「実証した／証明した」で before が suggest など弱すぎて意味衝突 → demonstrate/establish へ修正OK
-- 原文が「示唆する（断定しない）」なのに before が demonstrate で強すぎて意味衝突 → suggest/indicate へ修正OK
+同格言い換えに見えても、以下のいずれかに該当し GateA/B を満たすなら提案してよい：
 
-**B-2. 接続詞・談話標識の置換は禁止（論理が合っていれば提案ゼロ）**
+**A) collocation_error（定番から外れて目立つ）**
+- make research → conduct/carry out research
+  ※ ただし do research は許容されることが多い
+- do a mistake → make a mistake
+  （学習者誤用が定番のケース）
 
-以下の接続語が論理的に正しければ、置換提案を出してはならない：
-- However / Nevertheless / Nonetheless
-- Moreover / Furthermore / In addition / Additionally
-- Therefore / Thus / Hence / Consequently
-- For example / For instance
-- In particular / Specifically
-- First / Firstly / Second / Secondly
+**B) wrong_valency_or_preposition（語の取り方が誤り）**
+- discuss about → discuss
+- explain me → explain to me
+- depend of → depend on
 
-**特に禁止（不要な言い換えの例）：**
-✗ In particular → Specifically
-✗ Moreover → Furthermore
-✗ However → Nevertheless
-✗ Therefore → Thus
-✗ For example → For instance
+**C) meaning_shift（強さ・含意がズレて誤解が起きる）**
+- 原文「暴露した」なのに indicated（弱すぎて意味衝突）→ revealed へ修正OK
+- 原文「示唆する」なのに demonstrated（強すぎて意味衝突）→ suggested へ修正OK
+  ※ "demonstrate の方が強いから良い" は禁止。原文の意味との一致が根拠。
 
-**例外（このときだけ💡可）：**
-- 論理関係が誤っている（逆接のはずが追加になっている等）
-- 位置や構文が破綻している（文頭/文中の配置で不自然さが明確）
+**D) register_mismatch（使用域が明確に不適切）**
+- 学術文脈で口語すぎて目立つ場合のみ
+  ※ "よりフォーマルが好ましい" 程度では提案禁止
 
-**B-3. 同程度に自然な言い換えは語彙全般で禁止**
-- "more academic / more formal / more natural" だけを理由にした置換提案は禁止
-- before が自然で誤解がないなら、after を提案しない
-- "より良い表現がある" だけでは💡を出してはいけない
+**【最小編集の原則】**
+- 修正は「意味を変えず、変更量が最小」の案を優先
+- 語彙置換より、冗長・重複・語順の不自然さ（明確な実害があるもの）を先に直す
+- 三単現など基本的な文法ミスは見落とさない（AI technology reduce → reduces）
+- 動名詞化の際は所有格の自然さをチェック（retraining workers の方が retraining workers' skills より自然）
+- 三単現など基本的な文法ミスは見落とさない（AI technology reduce → reduces）
+- 動名詞化の際は所有格の自然さをチェック（retraining workers の方が retraining workers' skills より自然）
 
-**B-4. 一般動詞の類義語言い換えも禁止（意味衝突がない限り）**
+**【同格言い換えの典型：GateB不合格（提案禁止）】**
+✗ "the participants" → "participants"（冠詞の有無は許容。実害なし。GateA不合格）
+✗ "did exercise" → "engaged in exercise"（好み。実害なし。GateA不合格）
+✗ "show" → "exhibit"（実害なし。GateA不合格）
+✗ "lasted" → "continued"（実害なし。GateA不合格）
+✗ "indicated" → "revealed"（両方定番。実害なし。GateA不合格）
+✗ "In particular" → "Specifically"（両方自然。実害なし。GateA不合格）
+✗ "Moreover" → "Furthermore"（好み。GateB不合格）
+✗ "strengthen" → "enhance"（両方自然。実害なし。GateA不合格）
+✗ "can end up increasing" → "may increase"（簡潔化のみ。ニュアンス喪失。GateA不合格）
+✗ "it is possible that" → "possibly"（冗長性削除のみ。実害なし。GateA不合格）
+→ これらはすべて ✅扱い（before == after）
 
-以下のような類義語ペアは、文脈に合っていれば置換提案を出してはならない：
-- strengthen / enhance / improve / boost
-- protect / safeguard / preserve / maintain
-- reduce / decrease / minimize / lower
-- increase / raise / elevate / boost
-- provide / offer / supply / give
-- use / utilize / employ / apply
-- help / assist / support / aid
-- create / generate / produce / develop
+### 冠詞・限定詞の言い換え禁止（例外のみ許可）
 
-**特に禁止（不要な言い換えの例）：**
-✗ strengthen → enhance（どちらも「強化する」で正しい）
-✗ protect → safeguard（どちらも「保護する」で正しい）
-✗ reduce → minimize（どちらも「減らす」で正しい）
-✗ use → utilize（どちらも「使う」で正しい）
+**原則：**
+- "the participants" → "participants" のような冠詞操作は、実害がない限り提案禁止（✅扱い）
 
-**例外（このときだけ💡可）：**
-- 原文が「最小化する」なのに before が reduce で弱すぎ → minimize へ修正OK
-- 原文が「単に使う」なのに before が utilize で硬すぎ → use へ修正OK
-- 意味の強弱が原文とミスマッチしている場合のみ
+**例外（GateA/Bを満たすときだけ）：**
+- 初出なのに the を使っている → a へ修正が必要
+- 既出なのに a を使っている → the へ修正が必要
+（根拠は "より自然" ではなく、指示対象の特定/非特定の誤解を防ぐため）
 
 ### 正解の扱い【最重要】
 
@@ -589,6 +698,13 @@ MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION = """
 # 原文（日本語）
 {question_text}
 
+### 【翻訳の忠実性（絶対厳守）】
+- **原文に書かれていない内容を追加してはならない（例文・結論・勧告等の創作禁止）**
+- **原文の文の数と模範解答の文の数は必ず一致させる**
+- 原文が4文なら模範解答も4文、5文なら5文（追加禁止）
+- 各文は原文の対応する1文のみを翻訳する
+- 「For example」「Therefore」「In another case」等で原文にない情報を追加することは厳禁
+
 # 要件
 
 1. **model_answer**: 自然で正確な英訳（100-120語目安）
@@ -596,8 +712,11 @@ MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION = """
    - 翻訳として理想的な表現
    - 必ず100-120語に収める
    - 各文を改行（\\n\\n）で区切る
+   - **原文の文数と必ず一致（追加・省略厳禁）**
 
 2. **model_answer_explanation**: 一文ずつ詳細に解説（以下のフォーマット厳守）
+   - **原文にない内容の解説は絶対に書かない**
+   - 模範解答の全ての文（原文対応分のみ）を解説
 
 **【必須フォーマット - kagoshima_100wordsスタイル】**:
 
