@@ -313,15 +313,58 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 - 翻訳として理想的な表現を示す
 - 必ず語数をカウントして100-120語に収める
 
-## 指摘ポイント(points)の要件
+## 指摘ポイント(points)の要件【重要】
+
+### 基本ルール
 - **最低5個**の具体的な指摘
-- 不足時は「より良い表現」の提案で埋める
-- 各pointは以下の形式:
-  * before: 修正前の表現（学生の実際の表現）
-  * after: 修正後の表現（正しい/より良い表現）
-  * reason: 指摘理由（具体的に、例文付き）
+- **reason（解説）は必ず日本語で記述**
+- 解説は詳しく、具体的な例文を含める
+- 各pointは日本語原文の1文に対応
+
+### 正解の扱い【最重要】
+学生の表現が正しい場合（減点不要な場合）:
+- before と after は**完全に同じ**にする（修正文を表示しない）
+- level は "✅正しい表現" を設定
+- reason では**学生が使った語彙**を取り上げて解説する
+- より良い別の表現があれば、解説の中で紹介する（afterには書かない）
+
+**正解時の解説例：**
+\"draw into（句動詞：引き込む：物理的・感情的に引き寄せる場合）／engage（動詞：引きつける、関与させる：興味を持たせ続ける場合）で、draw intoは引き込む動作、engageは継続的な関心を指します。例：\\\"draw the audience into the story\\\"（観客を物語に引き込む）／\\\"engage the audience\\\"（観客を引きつける）。学生が使った\\\"draw into\\\"は正しい表現です。\"
+
+### 修正が必要な場合
+- before: 学生の実際の表現
+- after: 修正後の正しい表現
+- level: "❌文法ミス" または "💡改善提案"
+- reason: 詳しい解説（なぜ間違いか、正しい使い方、例文）
+
+### reasonの記述フォーマット【必須】
+
+**必ず以下の形式で記述：**
+
+1. **単語の違いを詳しく説明**
+   improve（動詞：改善する、向上させる：状態を良くする場合）／enhance（動詞：高める、強化する：質や能力を向上させる場合）で、improveは一般的な改善、enhanceはより質的な向上を指します。
+
+2. **具体的な例文を複数提供**
+   例：\"This method improves efficiency.\"（この方法は効率を改善する）／\"This practice enhances one's ability.\"（この実践は能力を高める）
+
+3. **文脈での適切性を説明**
+   修正が必要な場合：「この文脈では〜の方が適切です」
+   正解の場合：「学生が使った〜は正しい表現です」
+
+**良い解説例：**
+\"improve（動詞：改善する、向上させる：状態や性能を良くする場合）／enhance（動詞：高める、強化する：質や能力をさらに向上させる場合）で、improveは一般的な改善を、enhanceはより質的な向上を指します。例：\\\"improve efficiency\\\"（効率を改善する）／\\\"enhance one's ability\\\"（能力を高める）。この文脈では、長期的なストレス管理能力の質的向上を表すため、enhanceの方が適切です。\"
+
+**悪い解説例（使用禁止）：**
+\"より強調され、明確な表現になります。\"
+\"enhanceの方が適切です。\"（理由が不明確）
+
+### 各pointの形式
+  * japanese_sentence: 対応する日本語の原文（一文）
+  * before: 学生の表現
+  * after: 修正後の表現（正解の場合はbeforeと同じ）
+  * reason: **上記フォーマットに従った日本語の詳しい解説**
   * level: "❌文法ミス" / "💡改善提案" / "✅正しい表現"
-  * alt: 別の表現（オプション）
+  * alt: **指定不要**（reasonで代替表現を紹介する）
 
 # 出力JSON形式
 
@@ -330,17 +373,18 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
   \"overall_comment\": \"（全体的な講評、翻訳の質・改善点）\",
   \"points\": [
     {{
-      \"before\": \"found\",
-      \"after\": \"revealed\",
-      \"reason\": \"時制の誤り。過去の出来事なので過去形にすべき。例: \\\"found\\\" → \\\"revealed\\\" (明らかにした)\",
-      \"level\": \"❌文法ミス\"
+      \"japanese_sentence\": \"実験は、参加者を3つのグループに分けて行われた。\",
+      \"before\": \"The experiment was done by dividing\",
+      \"after\": \"The experiment was conducted by dividing\",
+      \"reason\": \"do（動詞：する、行う：日常的な行為）／conduct（動詞：実施する、遂行する：正式な調査や研究を行う場合）で、doは一般的な行為、conductは学術的・公式な実施を指します。例：\\\"do homework\\\"（宿題をする）／\\\"conduct an experiment\\\"（実験を実施する）。この文脈では、学術的な実験を表すため、conductの方が適切です。\",
+      \"level\": \"💡改善提案\"
     }},
     {{
-      \"before\": \"when we do something\",
-      \"after\": \"in doing something\",
-      \"reason\": \"直訳的で不自然。名詞化すると自然。例: \\\"when we do something\\\" → \\\"in doing something\\\"\",
-      \"level\": \"💡改善提案\",
-      \"alt\": \"while doing something\"
+      \"japanese_sentence\": \"監督は、巧みな演出で観客を物語に引き込み、最後まで目が離せません。\",
+      \"before\": \"The director draws the audience into the story\",
+      \"after\": \"The director draws the audience into the story\",
+      \"reason\": \"draw into（句動詞：引き込む：物理的・感情的に引き寄せる場合）／engage（動詞：引きつける、関与させる：興味を持たせ続ける場合）で、draw intoは引き込む動作、engageは継続的な関心を指します。例：\\\"draw the audience into the story\\\"（観客を物語に引き込む）／\\\"engage the audience\\\"（観客を引きつける）。学生が使った\\\"draw into\\\"は正しい表現です。\",
+      \"level\": \"✅正しい表現\"
     }}
   ],
   \"word_count\": {word_count},
@@ -351,10 +395,13 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
   }}
 }}
 
-# 注意事項
+# 注意事項【最重要】
 - 「2理由」「First/Second」などの構成は要求しない（翻訳問題のため）
 - 翻訳の正確性と自然さを最優先
 - points は必ず5個以上
+- **reasonは必ず日本語で詳しく記述**
+- **減点不要な場合は before == after にする（修正文を表示しない）**
+- **正解時は学生が使った語彙を解説する**
 - JSON構文エラーを起こさないよう、引用符のエスケープを厳守
 """
 

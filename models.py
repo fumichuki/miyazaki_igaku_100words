@@ -58,6 +58,7 @@ class QuestionResponse(BaseModel):
 # ===== 添削API =====
 class CorrectionPoint(BaseModel):
     """添削ポイント"""
+    japanese_sentence: Optional[str] = Field(None, description="対応する日本語の原文（翻訳形式）")
     before: str = Field(..., min_length=1, description="修正前の表現")
     after: str = Field(..., min_length=1, description="修正後の表現")
     reason: str = Field(..., min_length=1, description="修正理由")

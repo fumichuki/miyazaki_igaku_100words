@@ -518,6 +518,18 @@ function displayCorrection(data) {
     const pointContent = document.createElement("div");
     pointContent.className = "point-content";
     
+    // 日本語原文を表示（japanese_sentenceがある場合）
+    if (point.japanese_sentence) {
+      const japaneseSentence = document.createElement("div");
+      japaneseSentence.className = "japanese-sentence";
+      japaneseSentence.style.fontWeight = "bold";
+      japaneseSentence.style.fontSize = "15px";
+      japaneseSentence.style.marginBottom = "8px";
+      japaneseSentence.style.color = "#2c3e50";
+      japaneseSentence.textContent = `【${point.japanese_sentence}】`;
+      pointContent.appendChild(japaneseSentence);
+    }
+    
     const beforeAfter = document.createElement("div");
     beforeAfter.className = "before-after";
     
@@ -567,15 +579,15 @@ function displayCorrection(data) {
     const isSame = point.before.trim() === afterEnglishOnly;
     
     if (isSame) {
+      // 正解の場合：矢印なし、beforeのみ表示
       beforeIcon = '✅';
       beforeClass = 'before-correct';
-      // afterに日本語訳があれば表示、なければbeforeのみ
-      const formattedAfter = escapeHtml(point.after).replace(/\n/g, '<br>');
+      const formattedText = escapeHtml(point.before).replace(/\n/g, '<br>');
       beforeAfter.innerHTML = `
-        <span class="${beforeClass}">${beforeIcon} ${formattedAfter}</span>
+        <span class="${beforeClass}">${beforeIcon} ${formattedText}</span>
       `;
     } else {
-      // afterフィールドの改行を<br>に変換（日本語訳対応）
+      // 修正が必要な場合：矢印あり、before → after を表示
       const formattedAfter = escapeHtml(point.after).replace(/\n/g, '<br>');
       beforeAfter.innerHTML = `
         <span class="${beforeClass}">${beforeIcon} ${escapeHtml(point.before)}</span>
@@ -592,12 +604,7 @@ function displayCorrection(data) {
     pointContent.appendChild(beforeAfter);
     pointContent.appendChild(reason);
     
-    if (point.alt) {
-      const alt = document.createElement("div");
-      alt.className = "point-alt";
-      alt.textContent = `別の表現: ${point.alt}`;
-      pointContent.appendChild(alt);
-    }
+    // altフィールドは表示しない（reasonで代替表現を紹介済み）
     
     pointDiv.appendChild(pointNumber);
     pointDiv.appendChild(pointContent);

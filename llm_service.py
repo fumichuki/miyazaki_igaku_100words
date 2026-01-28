@@ -1250,6 +1250,19 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
             # constraint_checksを追加
             correction_data['constraint_checks'] = constraints.model_dump()
             
+            # 模範解答を生成（LLMから返されていない場合）
+            if 'model_answer' not in correction_data or not correction_data.get('model_answer'):
+                logger.info("Generating model answer...")
+                try:
+                    model_result = generate_model_answer_only(question_text)
+                    correction_data['model_answer'] = model_result.get('model_answer', '')
+                    correction_data['model_answer_explanation'] = model_result.get('model_answer_explanation', '')
+                    logger.info("✅ Model answer generated")
+                except Exception as e:
+                    logger.error(f"Failed to generate model answer: {e}")
+                    correction_data['model_answer'] = None
+                    correction_data['model_answer_explanation'] = None
+            
             # Pydanticモデルでバリデーション
             correction = CorrectionResponse(**correction_data)
             logger.info(f"✅ Correction successful: {len(correction.points)} points")
