@@ -217,9 +217,16 @@ def api_model_answer():
         if not question_text:
             logger.info(f"question_text is empty, fetching from DB: {question_id}")
             question_data = get_question(question_id)
-            if question_data and question_data.get('japanese_sentences'):
-                question_text = "\n".join(question_data['japanese_sentences'])
-                logger.info(f"Retrieved japanese_sentences from DB: {question_text[:100]}...")
+            if question_data:
+                # 新形式（japanese_paragraphs）を優先、なければ旧形式（japanese_sentences）
+                if question_data.get('japanese_paragraphs'):
+                    question_text = "\n".join(question_data['japanese_paragraphs'])
+                    logger.info(f"Retrieved japanese_paragraphs from DB: {question_text[:100]}...")
+                elif question_data.get('japanese_sentences'):
+                    question_text = "\n".join(question_data['japanese_sentences'])
+                    logger.info(f"Retrieved japanese_sentences from DB: {question_text[:100]}...")
+                else:
+                    return jsonify({'error': 'question not found in DB'}), 404
             else:
                 return jsonify({'error': 'question not found in DB'}), 404
         

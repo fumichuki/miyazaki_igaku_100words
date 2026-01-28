@@ -1162,7 +1162,7 @@ def _generate_fallback_correction(user_answer: str, question_text: str) -> dict:
 
 def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
     """
-    英作文を添削（リトライ付き）
+    和文英訳を添削（miyazaki翻訳形式専用）
     
     Args:
         submission: 提出データ
@@ -1171,238 +1171,127 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
     normalized_answer = normalize_punctuation(submission.user_answer)
     logger.info(f"Normalized user answer (first 100 chars): {normalized_answer[:100]}...")
     
-    # 問題文を取得（question_textを優先、なければjapanese_sentencesをフォールバック）
-    question_text = submission.question_text or "\n".join(submission.japanese_sentences)
+    # 問題文を取得（優先順位: japanese_paragraphs > japanese_sentences > question_text）
+    if submission.japanese_paragraphs:
+        question_text = "\n\n".join(submission.japanese_paragraphs)
+    elif submission.japanese_sentences:
+        question_text = "\n".join(submission.japanese_sentences)
+    else:
+        question_text = submission.question_text or ""
     
-    # デバッグ用：問題文をログ出力
     logger.info(f"Question text for correction: {question_text[:200]}...")
     
-    # Phase 1: サーバーサイド制約チェック（決定的）
-    logger.info("Phase 1: Running server-side constraint checks...")
-    constraints_result = validate_constraints_func(
-        text=normalized_answer,  # 正規化後のテキストを使用
-        min_words=80,
-        max_words=140,
-        required_units=0  # 翻訳問題: 理由構成なし
+    # 語数を取得
+    word_count = submission.word_count if submission.word_count is not None else len(normalized_answer.split())
+    logger.info(f"Word count: {word_count}")
+    
+    # 制約チェック（翻訳問題用）
+    constraints = ConstraintChecks(
+        word_count=word_count,
+        within_word_range=10 <= word_count <= 160,
+        required_units=0,
+        detected_units=0,
+        has_required_units=True,
+        unit_detection_confidence="high",
+        markers_found=[],
+        because_count=0,
+        sentence_count=len([s for s in normalized_answer.split('.') if s.strip()]),
+        notes=[f"語数: {word_count}語（10-160語が推奨範囲）"],
+        suggestions=[]
     )
     
-    constraints = ConstraintChecks(**constraints_result)
-    logger.info(f"Constraints check: word_count={constraints.word_count}, "
-                f"within_range={constraints.within_word_range}, "
-                f"detected_units={constraints.detected_units}/{constraints.required_units}")
-    
-    # プロンプトを取得
+    # 添削プロンプト
     prompts = PROMPTS
-    
-    # 語数を取得（フロントエンドから渡された値を優先、なければ計算）
-    if submission.word_count is not None:
-        word_count = submission.word_count
-        logger.info(f"Using frontend word count: {word_count}")
-    else:
-        word_count = len(normalized_answer.split())
-        logger.info(f"Calculated word count (backend): {word_count}")
-    
-    # Step 1: 添削を実行
     correction_prompt = prompts['correction'].format(
         question_text=question_text,
-        user_answer=normalized_answer,  # 正規化後のテキストを使用
+        user_answer=normalized_answer,
         word_count=word_count
     )
     
-    # デバッグ: プロンプト内のword_count置換を確認
-    if '{word_count}' in correction_prompt:
-        logger.error("⚠️ {word_count} was NOT replaced in the prompt!")
-    else:
-        logger.info(f"✅ word_count parameter successfully inserted: {word_count}")
-        # プロンプト内の語数表示部分を確認
-        import re
-        word_count_mentions = re.findall(r'語数は(\d+)語', correction_prompt)
-        if word_count_mentions:
-            logger.info(f"Word count mentions in prompt: {word_count_mentions}")
-    
+    # LLM呼び出し（リトライ付き）
     max_retries = 3
-    correction_data = None
-    last_error = None
-    
     for attempt in range(max_retries):
         try:
+            logger.info(f"Correction attempt {attempt + 1}/{max_retries}")
             response = call_openai_with_retry(correction_prompt, is_model_answer=True)
             cleaned = clean_json_response(response)
-            logger.info(f"Correction JSON (attempt {attempt + 1}): {cleaned[:300]}...")
             
-            # デバッグ：修正後のJSONの末尾を確認
-            json_end = cleaned[-500:] if len(cleaned) > 500 else cleaned
-            logger.info(f"JSON末尾500文字 (attempt {attempt + 1}): ...{json_end}")
+            # JSONパース
+            correction_data = json.loads(cleaned)
             
-            # デバッグ：JSONを一時ファイルに保存
-            import tempfile
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False, dir='/tmp', prefix=f'correction_attempt{attempt+1}_') as f:
-                f.write(cleaned)
-                logger.info(f"JSON saved to: {f.name}")
+            # 必須フィールドの確認と補完
+            if 'original' not in correction_data:
+                correction_data['original'] = normalized_answer
+            if 'corrected' not in correction_data:
+                correction_data['corrected'] = normalized_answer
+            if 'word_count' not in correction_data:
+                correction_data['word_count'] = word_count
+            if 'points' not in correction_data or len(correction_data['points']) < 3:
+                correction_data['points'] = [
+                    {
+                        "before": "学生の表現",
+                        "after": "より良い表現",
+                        "reason": "添削処理中にエラーが発生しました。再度お試しください。",
+                        "level": "💡改善提案"
+                    }
+                ]
             
-            # デバッグ用：JSONパースエラー時に完全な内容を保存
-            try:
-                correction_data = json.loads(cleaned)
-            except json.JSONDecodeError as json_err:
-                last_error = json_err
-                logger.error(f"JSON parse error at line {json_err.lineno}, col {json_err.colno}: {json_err.msg}")
-                # エラー箇所周辺を表示
-                lines = cleaned.split('\n')
-                if json_err.lineno <= len(lines):
-                    start = max(0, json_err.lineno - 3)
-                    end = min(len(lines), json_err.lineno + 2)
-                    logger.error(f"JSON around error (lines {start+1}-{end+1}):")
-                    for i in range(start, end):
-                        logger.error(f"  {i+1}: {lines[i]}")
-                
-                # リトライ（最後の試行でない場合）
-                if attempt < max_retries - 1:
-                    logger.warning(f"Retrying due to JSON parse error (attempt {attempt + 1}/{max_retries})")
-                    continue
-                else:
-                    # 最後の試行でも失敗した場合、フォールバック応答を生成
-                    logger.error("All retries failed due to JSON parse errors. Generating fallback response.")
-                    correction_data = _generate_fallback_correction(submission.user_answer, question_text)
-                    break
+            # pointsの各要素に必須フィールドを補完
+            for i, point in enumerate(correction_data.get('points', [])):
+                if 'before' not in point:
+                    point['before'] = f"表現{i+1}"
+                if 'after' not in point:
+                    point['after'] = f"修正{i+1}"
+                if 'reason' not in point:
+                    point['reason'] = "指摘理由"
+                if 'level' not in point:
+                    point['level'] = "💡改善提案"
             
-            # 【重要】levelフィールドの補完と検証（Pydanticバリデーション前に実行）
-            points = correction_data.get('points', [])
-            logger.info(f"Processing {len(points)} points for level field validation")
+            # constraint_checksを追加
+            correction_data['constraint_checks'] = constraints.model_dump()
             
-            for i, point in enumerate(points):
-                before = point.get('before', '')
-                after = point.get('after', '')
-                reason = str(point.get('reason', ''))  # lower()を削除
-                current_level = point.get('level', '')
-                
-                # levelがないか空文字列の場合に補完
-                if not current_level:
-                    # 全体評価の判定（beforeに「全体評価」が含まれる OR i==0かつreasonに「全体評価」）
-                    if '全体評価' in before or (i == 0 and '全体評価' in reason):
-                        point['level'] = '内容評価'
-                        logger.warning(f"Point {i}: Added level='内容評価' for overall evaluation (before='{before[:30]}', reason='{reason[:50]}')")
-                    # 文法エラーの判定（reasonにエラー関連語 OR ❌記号）
-                    elif 'ミス' in reason or 'エラー' in reason or '誤り' in reason or '間違' in reason or '❌' in reason:
-                        point['level'] = '❌文法ミス'
-                        logger.warning(f"Point {i}: Added level='❌文法ミス' based on reason keywords")
-                    # before == after なら正解
-                    elif before.strip() == after.split('\n')[0].strip():
-                        point['level'] = '✅正しい表現'
-                        logger.warning(f"Point {i}: Added level='✅正しい表現' (before equals after)")
-                    # それ以外は改善提案
-                    else:
-                        point['level'] = '💡改善提案'
-                        logger.warning(f"Point {i}: Added level='💡改善提案' as default")
-                else:
-                    logger.info(f"Point {i}: level already set to '{current_level}'")
+            # Pydanticモデルでバリデーション
+            correction = CorrectionResponse(**correction_data)
+            logger.info(f"✅ Correction successful: {len(correction.points)} points")
+            return correction
             
-            # 補完後のpointsを確実に反映
-            correction_data['points'] = points
-            logger.info(f"Level補完完了: {len(points)} points updated in correction_data")
-            
-            # pointsの最小数を検証（日本語文の数に合わせる）
-            sentence_count = len(submission.japanese_sentences)
-            
-            # 日本語文の数に応じた必要ポイント数（必ず文の数と同じ）
-            required_points = sentence_count
-            
-            if len(points) < required_points:
-                logger.warning(f"Not enough points: {len(points)} < {required_points}. Retrying...")
-                if attempt < max_retries - 1:
-                    continue
-                else:
-                    # 最後の試行でも不十分な場合、エラーメッセージで補完
-                    logger.error(f"Failed to get enough points after {max_retries} attempts. Padding with placeholder points.")
-                    while len(points) < required_points:
-                        missing_idx = len(points) + 1
-                        points.append({
-                            "before": f"❌ {missing_idx}文目が欠けています",
-                            "after": f"（{missing_idx}文目の模範解答が必要です）",
-                            "reason": f"{missing_idx}文目の解説が生成されませんでした。もう一度お試しください。",
-                            "level": "エラー"
-                        })
-                    correction_data['points'] = points
-            
-            break
-            
-        except (ValueError, KeyError) as e:
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON parse error (attempt {attempt + 1}): {e}")
             last_error = e
-            logger.warning(f"Correction parsing failed (attempt {attempt + 1}): {e}")
             if attempt < max_retries - 1:
-                logger.warning(f"Retrying due to parsing error (attempt {attempt + 1}/{max_retries})")
+                time.sleep(2)
                 continue
-            else:
-                # 最後の試行でも失敗した場合、フォールバック応答を生成
-                logger.error("All retries failed. Generating fallback response.")
-                correction_data = _generate_fallback_correction(submission.user_answer, question_text)
-                break
+        except ValueError as e:
+            logger.error(f"Validation error (attempt {attempt + 1}): {e}")
+            last_error = e
+            if attempt < max_retries - 1:
+                time.sleep(2)
+                continue
+        except Exception as e:
+            logger.error(f"Unexpected error (attempt {attempt + 1}): {e}")
+            last_error = e
+            if attempt < max_retries - 1:
+                time.sleep(2)
+                continue
     
-    if not correction_data:
-        logger.error("No correction data available. Generating fallback response.")
-        correction_data = _generate_fallback_correction(submission.user_answer, question_text)
+    # すべてのリトライ失敗時のフォールバック
+    logger.error(f"All {max_retries} attempts failed. Generating fallback response.")
+    fallback = _generate_fallback_correction(normalized_answer, question_text)
+    fallback['constraint_checks'] = constraints.model_dump()
+    fallback['word_count'] = word_count
     
-    # 🚨 模範解答の語数チェックと警告 🚨
-    if 'model_answer' in correction_data and correction_data['model_answer']:
-        model_text = correction_data['model_answer']
-        # 日本語訳を除去して語数カウント
-        import re
-        english_only = re.sub(r'（[^）]*）', '', model_text)
-        english_only = re.sub(r'\([^)]*\)', '', english_only)
-        words = english_only.strip().split()
-        model_word_count = len(words)
-        
-        logger.info(f"Model answer word count: {model_word_count} (target: 100-120)")
-        
-        # 語数が範囲外の場合は警告ログを出力
-        if model_word_count < 100:
-            logger.error(f"⚠️ Model answer is too short: {model_word_count} words (shortage: {100 - model_word_count} words)")
-        elif model_word_count > 120:
-            logger.error(f"⚠️ Model answer is too long: {model_word_count} words (excess: {model_word_count - 120} words)")
-        else:
-            logger.info(f"✅ Model answer word count is appropriate: {model_word_count} words")
-    else:
-        logger.warning("No model_answer found in correction_data")
+    # fallbackのpointsに必須フィールドを補完
+    for point in fallback.get('points', []):
+        if 'before' not in point:
+            point['before'] = "エラー"
+        if 'after' not in point:
+            point['after'] = "エラー"
+        if 'reason' not in point:
+            point['reason'] = "添削処理中にエラーが発生しました。"
+        if 'level' not in point:
+            point['level'] = "💡改善提案"
     
-    # 🚨 全体評価から語数に関する言及を削除 🚨
-    if 'points' in correction_data and len(correction_data['points']) > 0:
-        overall_reason = correction_data['points'][0].get('reason', '')
-        # 語数に関する言及パターンを削除
-        import re
-        # 【最重要】「語数：XX語（適正/不足/超過）」のパターンを削除
-        overall_reason = re.sub(r'語数：\d+語[^。\n）]*[。）]?', '', overall_reason)
-        # 「また、語数が...」「語数が不足...」などを削除
-        overall_reason = re.sub(r'また、語数[^。）\n]*[。）]?', '', overall_reason)
-        overall_reason = re.sub(r'語数が[^。）\n]*[。）]?', '', overall_reason)
-        overall_reason = re.sub(r'必要：\d+-\d+語[^。）\n]*[。）]?', '', overall_reason)
-        overall_reason = re.sub(r'提出：\d+語[^。）\n]*[。）]?', '', overall_reason)
-        overall_reason = re.sub(r'（[^）]*\d+語[^）]*）', '', overall_reason)
-        # 末尾の余分な記号を削除
-        overall_reason = re.sub(r'[。\s]+$', '', overall_reason)
-        # 連続する空白や改行を整理
-        overall_reason = re.sub(r'\n\n+', '\n', overall_reason)
-        overall_reason = overall_reason.strip()
-        correction_data['points'][0]['reason'] = overall_reason
-        logger.info("Removed word count mentions from overall evaluation")
-    
-    # 統合して返す（constraint_checks を追加、採点なし）
-    final_data = {**correction_data, "constraint_checks": constraints.model_dump()}
-    
-    # 🚨 フロントエンドから渡された語数を優先的に使用 🚨
-    if submission.word_count is not None:
-        final_data['word_count'] = submission.word_count
-        logger.info(f"Overriding word_count with frontend value: {submission.word_count}")
-    
-    # デバッグ：Pydanticバリデーション前のlevelを確認
-    logger.info(f"Before Pydantic validation - points[0]['level']: {final_data['points'][0].get('level', 'NONE')}")
-    
-    # Pydanticでバリデーション
-    correction_response = CorrectionResponse(**final_data)
-    
-    # デバッグ：Pydanticバリデーション後のlevelを確認
-    logger.info(f"After Pydantic validation - points[0].level: {correction_response.points[0].level}")
-    
-    logger.info(f"Successfully corrected answer")
-    return correction_response
+    return CorrectionResponse(**fallback)
 
 
 def generate_model_answer_only(question_text: str) -> dict:

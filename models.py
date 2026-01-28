@@ -34,6 +34,7 @@ class QuestionResponse(BaseModel):
     theme: str = Field(..., min_length=1, description="テーマ")
     question_text: Optional[str] = Field(None, description="英語の問題文（大問５形式）")
     japanese_sentences: Optional[List[str]] = Field(default_factory=list, description="日本語文のリスト（旧形式）")
+    japanese_paragraphs: Optional[List[str]] = Field(default_factory=list, description="日本語段落リスト（翻訳形式）")
     hints: List[Hint] = Field(..., min_length=3, max_length=10, description="ヒント単語リスト")
     target_words: TargetWords = Field(..., description="目標語数")
     model_answer: Optional[str] = Field(None, description="模範解答")
@@ -110,6 +111,7 @@ class SubmissionRequest(BaseModel):
     """添削依頼リクエスト"""
     question_id: str = Field(..., min_length=1, description="問題ID")
     japanese_sentences: Optional[List[str]] = Field(default_factory=list, description="日本語文（旧形式）")
+    japanese_paragraphs: Optional[List[str]] = Field(default_factory=list, description="日本語段落（翻訳形式）")
     question_text: Optional[str] = Field(None, description="英語の問題文（大問５形式）")
     user_answer: str = Field(..., min_length=10, description="ユーザーの英作文")
     target_words: TargetWords = Field(..., description="目標語数")
@@ -128,7 +130,7 @@ class ConstraintChecks(BaseModel):
     """制約チェック結果"""
     word_count: int = Field(..., ge=0, description="実際の語数")
     within_word_range: bool = Field(..., description="語数範囲内か")
-    required_units: int = Field(..., ge=1, description="必要な理由/提案/例の数")
+    required_units: int = Field(..., ge=0, description="必要な理由/提案/例の数（翻訳問題は0）")
     detected_units: int = Field(..., ge=0, description="検出された単位数")
     has_required_units: bool = Field(..., description="必要な単位数を満たしているか")
     unit_detection_confidence: str = Field(..., description="単位検出の信頼度（high/medium/low）")

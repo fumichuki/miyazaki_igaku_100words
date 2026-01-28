@@ -85,18 +85,18 @@ input.addEventListener("input", () => {
     return;
   }
   
-  // 語数範囲チェック（60語以上、160語以下）
-  if (wordCount < 60 && text.length > 0) {
-    wordCountEl.textContent = `最低60語以上必要です（現在: ${wordCount} words）`;
+  // 和文英訳スタイル：語数範囲チェック（10語以上、160語以下）
+  if (wordCount > 0 && wordCount < 10) {
+    wordCountEl.textContent = `最低10語以上必要です（現在: ${wordCount} words）`;
     wordCountEl.style.color = "#94a3b8";  // グレー
     wordCountEl.style.fontWeight = "normal";
     sendBtn.disabled = true;
-    sendBtn.title = "60語以上入力してください";
+    sendBtn.title = "10語以上入力してください";
     return;
   }
   
   if (wordCount > 160) {
-    wordCountEl.textContent = `❌ 語数が多過ぎます。160字以内で提出可（現在: ${wordCount} words）`;
+    wordCountEl.textContent = `❌ 語数が多過ぎます。160語以内で提出可（現在: ${wordCount} words）`;
     wordCountEl.style.color = "#ff6b6b";  // 赤
     wordCountEl.style.fontWeight = "bold";
     sendBtn.disabled = true;
@@ -104,21 +104,14 @@ input.addEventListener("input", () => {
     return;
   }
   
-  // 送信可能（範囲に応じてメッセージを変更）
-  if (wordCount >= 100 && wordCount <= 120) {
-    // 指定語数の範囲内
-    wordCountEl.textContent = `✅ ${wordCount} words（指定語数の範囲です）`;
+  // 和文英訳スタイル：10-160語すべて送信可能（緑で統一）
+  if (wordCount >= 10 && wordCount <= 160) {
+    wordCountEl.textContent = `✅ ${wordCount} words（送信可能）`;
     wordCountEl.style.color = "#51cf66";  // 緑
     wordCountEl.style.fontWeight = "bold";
-  } else if (wordCount >= 60 && wordCount <= 99) {
-    // 範囲外（少なめ）
-    wordCountEl.textContent = `✅ ${wordCount} words（送信可能 ※ 指定語数100-120語の範囲外）`;
-    wordCountEl.style.color = "#ffa94d";  // オレンジ
-    wordCountEl.style.fontWeight = "normal";
-  } else if (wordCount >= 121 && wordCount <= 160) {
-    // 範囲外（多め）
-    wordCountEl.textContent = `✅ ${wordCount} words（送信可能 ※ 指定語数100-120語の範囲外）`;
-    wordCountEl.style.color = "#ffa94d";  // オレンジ
+  } else if (wordCount === 0) {
+    wordCountEl.textContent = `0 words`;
+    wordCountEl.style.color = "";  // デフォルト
     wordCountEl.style.fontWeight = "normal";
   }
   
@@ -252,6 +245,16 @@ function displayQuestion(data) {
     wordCountInfo.className = "word-count-info-display";
     wordCountInfo.textContent = "📝 100-120語の英語で答えてください";
     container.appendChild(wordCountInfo);
+  } else if (data.japanese_paragraphs && data.japanese_paragraphs.length > 0) {
+    // 翻訳形式（段落）の場合
+    const paragraphs = document.createElement("div");
+    paragraphs.className = "question-sentences";
+    data.japanese_paragraphs.forEach((paragraph, idx) => {
+      const p = document.createElement("p");
+      p.textContent = paragraph;
+      paragraphs.appendChild(p);
+    });
+    container.appendChild(paragraphs);
   } else if (data.japanese_sentences && data.japanese_sentences.length > 0) {
     // 旧形式（日本語文）の場合
     const sentences = document.createElement("div");
@@ -373,6 +376,7 @@ function submitAnswer() {
     body: JSON.stringify({
       question_id: currentQuestionId,
       japanese_sentences: currentQuestion.japanese_sentences || [],
+      japanese_paragraphs: currentQuestion.japanese_paragraphs || [],
       question_text: currentQuestion.question_text || "",
       user_answer: text,
       target_words: currentQuestion.target_words,
