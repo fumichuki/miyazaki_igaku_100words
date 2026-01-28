@@ -115,17 +115,24 @@ def save_question(question: QuestionResponse) -> str:
             cursor.execute("ALTER TABLE questions ADD COLUMN question_text TEXT")
             conn.commit()
         
+        # japanese_paragraphsカラムがなければ追加
+        if 'japanese_paragraphs' not in columns:
+            logger.info("Adding japanese_paragraphs column to questions table")
+            cursor.execute("ALTER TABLE questions ADD COLUMN japanese_paragraphs TEXT")
+            conn.commit()
+        
         cursor.execute("""
             INSERT INTO questions (
-                id, mode, theme, question_text, japanese_sentences, hints, target_words,
-                model_answer, alternative_answer, common_mistakes
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                id, mode, theme, question_text, japanese_sentences, japanese_paragraphs, 
+                hints, target_words, model_answer, alternative_answer, common_mistakes
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             question_id,
             "general",  # 理系・文系版のみ
             question.theme,
             question.question_text,  # 英語の問題文を保存
             json.dumps(question.japanese_sentences, ensure_ascii=False),
+            json.dumps(question.japanese_paragraphs if question.japanese_paragraphs else [], ensure_ascii=False),
             json.dumps([h.model_dump() for h in question.hints], ensure_ascii=False),
             json.dumps(question.target_words.model_dump(), ensure_ascii=False),
             question.model_answer,
@@ -150,7 +157,39 @@ def get_question(question_id: str) -> Optional[Dict[str, Any]]:
         row = cursor.fetchone()
         
         if row:
-            return dict(row)
+            data = dict(row)
+            # JSONフィールドをパース
+            if 'japanese_sentences' in data and data['japanese_sentences']:
+                try:
+                    data['japanese_sentences'] = json.loads(data['japanese_sentences'])
+                except (json.JSONDecodeError, TypeError):
+                    logger.warning(f"Failed to parse japanese_sentences for {question_id}")
+            
+            if 'japanese_paragraphs' in data and data['japanese_paragraphs']:
+                try:
+                    data['japanese_paragraphs'] = json.loads(data['japanese_paragraphs'])
+                except (json.JSONDecodeError, TypeError):
+                    logger.warning(f"Failed to parse japanese_paragraphs for {question_id}")
+            
+            if 'hints' in data and data['hints']:
+                try:
+                    data['hints'] = json.loads(data['hints'])
+                except (json.JSONDecodeError, TypeError):
+                    logger.warning(f"Failed to parse hints for {question_id}")
+            
+            if 'target_words' in data and data['target_words']:
+                try:
+                    data['target_words'] = json.loads(data['target_words'])
+                except (json.JSONDecodeError, TypeError):
+                    logger.warning(f"Failed to parse target_words for {question_id}")
+            
+            if 'common_mistakes' in data and data['common_mistakes']:
+                try:
+                    data['common_mistakes'] = json.loads(data['common_mistakes'])
+                except (json.JSONDecodeError, TypeError):
+                    logger.warning(f"Failed to parse common_mistakes for {question_id}")
+            
+            return data
         return None
 
 
