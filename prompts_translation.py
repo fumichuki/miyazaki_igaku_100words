@@ -321,9 +321,16 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 - 解説は詳しく、具体的な例文を含める
 - 各pointは日本語原文の1文に対応
 
+### 判断順序【必須】
+1. 意味の忠実性（欠落/追加/誤解）チェック
+2. 明確な文法ミスチェック
+3. 明確な不自然（コロケーション・前置詞・レジスター）チェック
+4. 上の1〜3で「放置リスクが説明できる」ものだけを💡にする
+5. それ以外は ✅正しい表現として扱い、提案は出さない
+
 ### 減点基準【最重要】
 
-**❌文法ミス（減点あり）の例：**
+**❌文法ミス（減点大）の例：**
 - 時制の誤り（現在形 ↔ 過去形）
 - 単複の誤り（単数 ↔ 複数）
 - 冠詞の誤り（a/an/the の誤用・脱落）
@@ -332,30 +339,47 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 - 受動態の誤用
 - 関係詞の誤り
 
-**💡改善提案（減点小）の条件：**
-1. 文法的には正しい
-2. 意味は通じる
-3. しかし以下のいずれかに該当：
-   - コロケーションが不自然（"make research" → "conduct research"）
-   - 文脈に合わない語彙（"stop bias" → "prevent bias"、"tell results" → "present results"）
-   - レジスター（言語使用域）が合わない（"lots of evidence" → "substantial evidence"、"very important" → "crucial"）
-   - より適切な定番表現がある（"give influence" → "exert influence"、"get a conclusion" → "reach a conclusion"）
+**💡改善提案（減点小）の厳格な条件【暴走防止】：**
 
-→ この場合は **before ≠ after** にして、改善後の表現を示す
+💡を出す前に必ず以下のテストを実施：
+(1) before をそのまま提出すると、採点上の不利が明確に起きうるか？
+    例：コロケーションが不自然／前置詞や目的語の取り方が誤り／レジスターが不適切／意味がズレる
+(2) その不利を1文で説明できるか？（「より良い」「より洗練」「より自然」だけでは説明不足でNG）
 
-**💡改善提案の例：**
-- before: "make research on cognitive bias"
-- after: "conduct research on cognitive bias"
-- level: "💡改善提案"
-- reason: "conduct research（句：研究を行う）は、学術的な文章で使われる定番のコロケーションです。makeでも意味は通じますが、conductの方が適切です。例：'conduct a study'（研究を実施する）。"
+→ 両方 YES のときのみ 💡改善提案を出す
+→ YES でなければ ✅正しい表現として扱い、提案は出さない（before == after）
 
-**✅正しい表現（減点不要）の条件：**
+**💡にしてよいのは以下のいずれかに明確に該当する場合のみ：**
+
+1. **コロケーション不良（定番から外れて目立つ）**
+   例：make research → conduct research, give influence → exert influence
+   
+2. **語の結びつき（valency）／前置詞・目的語が不適切**
+   例：discuss about → discuss, depend of → depend on
+   
+3. **レジスター不一致が目立つ（学術に口語、レビューに硬すぎ等）**
+   例：lots of evidence → substantial evidence（学術文で）
+   ※ただし "lots of" が完全に不自然でない場合は💡にしない
+   
+4. **原文意味との衝突（meaning_shift）**
+   例：reveal（暴露）を使うと含意が強すぎるのに原文は単に「示した」程度
+   
+5. **論理関係エラー（logical_relation_error）**
+   例：However なのに内容は追加（Moreover が正しい）
+
+**重要：💡改善提案の上限**
+- 💡改善提案は最大1〜2個まで（原則）
+- 文法ミスが0件なら、💡も0件にする（無理やり言い換えを作らない）
+
+**✅正しい表現（減点不要）の条件【最優先】：**
 1. 文法的に完全に正しい
-2. 意味が通る
-3. 不自然さがない
-4. より良い表現があっても、現在の表現で十分通用する
+2. 原文の意味が忠実に反映されている（欠落・追加・誤解がない）
+3. 不自然さが目立たない
+4. レジスター（学術/ニュース/レビュー/ブログ等）に合っている
+5. たとえ別表現でも書けるとしても、現在の表現で十分通用する
 
 → これらの条件を満たす場合は**必ず before == after にする**
+→ LLMは「改善したくなる」という理由だけで after を作ってはならない
 
 ### 正解の扱い【最重要】
 学生の表現が減点不要な場合（上記の条件を満たす場合）:
@@ -366,6 +390,85 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 
 **正解時の解説例：**
 \"reflect on（句動詞：〜を振り返る：内省的に考える場合）／review（動詞：見直す、再検討する：客観的に確認する場合）で、reflect onはより内省的な振り返りを指します。例：\\\"reflect on one's decision\\\"（自分の決断を振り返る）／\\\"review the document\\\"（文書を見直す）。学生が使った\\\"reflect on\\\"は正しい表現です。\"
+
+### 明示的に禁止する言い換えパターン【絶対厳守】
+
+**B-1. 学術動詞（reporting verbs）の同格言い換えは禁止（最重要）**
+
+以下の報告動詞が文法的に正しく自然である場合、別動詞への置換提案を出してはならない：
+- indicate / suggest / show / demonstrate / reveal / find / report / argue / claim / note / observe
+
+**特に禁止（不要な言い換えの例）：**
+✗ indicated → revealed（どちらも学術で正しい。意味ズレがない限り提案禁止）
+✗ suggest → demonstrate（強さの差はあるが、正しければ提案禁止）
+✗ show → indicate（好みの差。提案禁止）
+✗ found → discovered（正しければ提案禁止）
+✗ The results indicated that... → The results revealed that...（indicateは学術で超定番。提案禁止）
+
+**例外（このときだけ💡可）：**
+- 原文が「暴露した／秘密を明らかにした」で before が suggest/indicate など弱すぎて意味衝突 → reveal/expose へ修正OK
+- 原文が「実証した／証明した」で before が suggest など弱すぎて意味衝突 → demonstrate/establish へ修正OK
+- 原文が「示唆する（断定しない）」なのに before が demonstrate で強すぎて意味衝突 → suggest/indicate へ修正OK
+
+**B-2. 接続詞・談話標識の置換は禁止（論理が合っていれば提案ゼロ）**
+
+以下の接続語が論理的に正しければ、置換提案を出してはならない：
+- However / Nevertheless / Nonetheless
+- Moreover / Furthermore / In addition / Additionally
+- Therefore / Thus / Hence / Consequently
+- For example / For instance
+- In particular / Specifically
+- First / Firstly / Second / Secondly
+
+**特に禁止（不要な言い換えの例）：**
+✗ In particular → Specifically
+✗ Moreover → Furthermore
+✗ However → Nevertheless
+✗ Therefore → Thus
+✗ For example → For instance
+
+**例外（このときだけ💡可）：**
+- 論理関係が誤っている（逆接のはずが追加になっている等）
+- 位置や構文が破綻している（文頭/文中の配置で不自然さが明確）
+
+**B-3. 同程度に自然な言い換えは語彙全般で禁止**
+- "more academic / more formal / more natural" だけを理由にした置換提案は禁止
+- before が自然で誤解がないなら、after を提案しない
+- "より良い表現がある" だけでは💡を出してはいけない
+
+**B-4. 一般動詞の類義語言い換えも禁止（意味衝突がない限り）**
+
+以下のような類義語ペアは、文脈に合っていれば置換提案を出してはならない：
+- strengthen / enhance / improve / boost
+- protect / safeguard / preserve / maintain
+- reduce / decrease / minimize / lower
+- increase / raise / elevate / boost
+- provide / offer / supply / give
+- use / utilize / employ / apply
+- help / assist / support / aid
+- create / generate / produce / develop
+
+**特に禁止（不要な言い換えの例）：**
+✗ strengthen → enhance（どちらも「強化する」で正しい）
+✗ protect → safeguard（どちらも「保護する」で正しい）
+✗ reduce → minimize（どちらも「減らす」で正しい）
+✗ use → utilize（どちらも「使う」で正しい）
+
+**例外（このときだけ💡可）：**
+- 原文が「最小化する」なのに before が reduce で弱すぎ → minimize へ修正OK
+- 原文が「単に使う」なのに before が utilize で硬すぎ → use へ修正OK
+- 意味の強弱が原文とミスマッチしている場合のみ
+
+### 正解の扱い【最重要】
+
+学生の表現が減点不要な場合（上記の条件を満たす場合）:
+- before と after は**完全に同じ**にする（絶対に修正文を作らない）
+- level は "✅正しい表現" を設定
+- reason では**学生が実際に使った語彙**を取り上げて解説する
+- より良い別の表現があれば、解説の中で紹介する（afterには書かない）
+
+**正解時の解説例：**
+\"indicate（動詞：示す：研究結果を報告する場合）は学術論文で最も定番の動詞です。reveal（明らかにする）やshow（示す）という言い換えも可能ですが、indicateは結果を控えめに報告する場合に最適です。例：\\\"The results indicate that...\\\"（結果は〜を示している）。学生が使った\\\"indicated\\\"は正しい表現です。\"
 
 **誤った例（使用禁止）：**
 ✗ before: "regularly reflecting on..."
@@ -386,6 +489,24 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 ✓ before: "In particular, cultivating a habit of..."
 ✓ after: "In particular, cultivating a habit of..."
 ✓ reason: "In particular（句：特に、とりわけ：強調する場合）／Specifically（副詞：具体的に、明確に：詳細を示す場合）で、どちらも文法的に正しく意味が通じます。学生が使った'In particular'は適切な表現です。"
+
+✓ before: "The results indicated that participants exposed to..."
+✓ after: "The results indicated that participants exposed to..."
+✓ reason: "indicate（動詞：示す：研究結果を報告する場合）は学術論文で最も定番の動詞です。reveal（明らかにする）やshow（示す）という言い換えも可能ですが、indicateは結果を控えめに報告する場合に最適です。例：'The results indicate that...'（結果は〜を示している）。学生が使った'indicated'は正しい表現です。"
+
+### 💡改善提案の具体例（これならOK）
+
+**例1: コロケーション不良**
+- before: "make research on cognitive bias"
+- after: "conduct research on cognitive bias"
+- level: "💡改善提案"
+- reason: "conduct research（句：研究を行う）は、学術的な文章で使われる定番のコロケーションです。makeは日常会話では使えますが、学術文ではconductが標準です。例：'conduct a study'（研究を実施する）。このまま提出すると採点で減点される可能性があります。"
+
+**例2: 前置詞の誤り**
+- before: "discuss about the issue"
+- after: "discuss the issue"
+- level: "💡改善提案"
+- reason: "discuss（動詞：議論する）は他動詞なので、about は不要です。例：'discuss the problem'（問題を議論する）。'discuss about' は日本語の「〜について議論する」の直訳で、英語では不自然です。"
 
 ### 修正が必要な場合
 - before: 学生の実際の表現

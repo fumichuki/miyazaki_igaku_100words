@@ -5,6 +5,7 @@ LLMサービス - OpenAI API呼び出しとリトライ処理
 import os
 import json
 import logging
+import time
 from typing import Optional, Dict, Any, List
 from openai import OpenAI
 from pydantic import ValidationError
@@ -1237,15 +1238,25 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
                 ]
             
             # pointsの各要素に必須フィールドを補完
+            # 空のbeforeフィールドを持つpointは除外
+            valid_points = []
             for i, point in enumerate(correction_data.get('points', [])):
-                if 'before' not in point:
-                    point['before'] = f"表現{i+1}"
-                if 'after' not in point:
-                    point['after'] = f"修正{i+1}"
+                # beforeが空またはない場合はスキップ
+                if 'before' not in point or not point.get('before', '').strip():
+                    logger.warning(f"Skipping point {i+1} with empty 'before' field")
+                    continue
+                    
+                if 'after' not in point or not point.get('after', '').strip():
+                    point['after'] = point['before']
                 if 'reason' not in point:
                     point['reason'] = "指摘理由"
                 if 'level' not in point:
                     point['level'] = "💡改善提案"
+                    
+                valid_points.append(point)
+            
+            # valid_pointsで置き換え
+            correction_data['points'] = valid_points
             
             # constraint_checksを追加
             correction_data['constraint_checks'] = constraints.model_dump()

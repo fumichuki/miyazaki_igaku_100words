@@ -463,25 +463,10 @@ function displayCorrection(data) {
     let wordCountText = '';
     let wordCountColor = '';
     
-    if (wordCount >= 100 && wordCount <= 120) {
-      // 指定語数の範囲内
-      wordCountText = `✅ ${wordCount} words（指定語数100-120語の範囲内）`;
-      wordCountColor = "#51cf66"; // 緑
-    } else if (wordCount >= 80 && wordCount <= 99) {
-      // 範囲外（少なめ）
-      wordCountText = `⚠️ ${wordCount} words（指定語数100-120語の範囲外）`;
-      wordCountColor = "#ffa94d"; // オレンジ
-    } else if (wordCount >= 121 && wordCount <= 140) {
-      // 範囲外（多め）
-      wordCountText = `⚠️ ${wordCount} words（指定語数100-120語の範囲外）`;
-      wordCountColor = "#ffa94d"; // オレンジ
-    } else if (wordCount < 80) {
-      wordCountText = `⚠️ ${wordCount} words（80語未満）`;
-      wordCountColor = "#ff6b6b"; // 赤
-    } else {
-      wordCountText = `⚠️ ${wordCount} words（140語超過）`;
-      wordCountColor = "#ff6b6b"; // 赤
-    }
+    // 翻訳問題では語数の範囲判定を表示しない（10-160語が有効範囲）
+    // 単純に語数のみを表示
+    wordCountText = `📝 ${wordCount} words`;
+    wordCountColor = "#495057"; // グレー
     
     wordCountInfo.textContent = wordCountText;
     wordCountInfo.style.color = wordCountColor;
