@@ -321,15 +321,71 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 - 解説は詳しく、具体的な例文を含める
 - 各pointは日本語原文の1文に対応
 
+### 減点基準【最重要】
+
+**❌文法ミス（減点あり）の例：**
+- 時制の誤り（現在形 ↔ 過去形）
+- 単複の誤り（単数 ↔ 複数）
+- 冠詞の誤り（a/an/the の誤用・脱落）
+- 前置詞の誤り（in/on/at/for など）
+- 主語と動詞の不一致
+- 受動態の誤用
+- 関係詞の誤り
+
+**💡改善提案（減点小）の条件：**
+1. 文法的には正しい
+2. 意味は通じる
+3. しかし以下のいずれかに該当：
+   - コロケーションが不自然（"make research" → "conduct research"）
+   - 文脈に合わない語彙（"stop bias" → "prevent bias"、"tell results" → "present results"）
+   - レジスター（言語使用域）が合わない（"lots of evidence" → "substantial evidence"、"very important" → "crucial"）
+   - より適切な定番表現がある（"give influence" → "exert influence"、"get a conclusion" → "reach a conclusion"）
+
+→ この場合は **before ≠ after** にして、改善後の表現を示す
+
+**💡改善提案の例：**
+- before: "make research on cognitive bias"
+- after: "conduct research on cognitive bias"
+- level: "💡改善提案"
+- reason: "conduct research（句：研究を行う）は、学術的な文章で使われる定番のコロケーションです。makeでも意味は通じますが、conductの方が適切です。例：'conduct a study'（研究を実施する）。"
+
+**✅正しい表現（減点不要）の条件：**
+1. 文法的に完全に正しい
+2. 意味が通る
+3. 不自然さがない
+4. より良い表現があっても、現在の表現で十分通用する
+
+→ これらの条件を満たす場合は**必ず before == after にする**
+
 ### 正解の扱い【最重要】
-学生の表現が正しい場合（減点不要な場合）:
-- before と after は**完全に同じ**にする（修正文を表示しない）
+学生の表現が減点不要な場合（上記の条件を満たす場合）:
+- before と after は**完全に同じ**にする（絶対に修正文を作らない）
 - level は "✅正しい表現" を設定
-- reason では**学生が使った語彙**を取り上げて解説する
+- reason では**学生が実際に使った語彙**を取り上げて解説する
 - より良い別の表現があれば、解説の中で紹介する（afterには書かない）
 
 **正解時の解説例：**
-\"draw into（句動詞：引き込む：物理的・感情的に引き寄せる場合）／engage（動詞：引きつける、関与させる：興味を持たせ続ける場合）で、draw intoは引き込む動作、engageは継続的な関心を指します。例：\\\"draw the audience into the story\\\"（観客を物語に引き込む）／\\\"engage the audience\\\"（観客を引きつける）。学生が使った\\\"draw into\\\"は正しい表現です。\"
+\"reflect on（句動詞：〜を振り返る：内省的に考える場合）／review（動詞：見直す、再検討する：客観的に確認する場合）で、reflect onはより内省的な振り返りを指します。例：\\\"reflect on one's decision\\\"（自分の決断を振り返る）／\\\"review the document\\\"（文書を見直す）。学生が使った\\\"reflect on\\\"は正しい表現です。\"
+
+**誤った例（使用禁止）：**
+✗ before: "regularly reflecting on..."
+✗ after: "it is shown that... regularly reflect on..."
+✗ reason: "reflectは正しい..."
+→ これは文構造を変更しているのに、解説でreflectについて説明している。before != after なのに "reflectは正しい" と言うのは矛盾。
+
+✗ before: "In particular, cultivating a habit of..."
+✗ after: "Specifically, the habit of..."
+✗ reason: "promoteはより適切..."
+→ 文法的に正しい表現を単なる言い換えしているだけ。"In particular" と "Specifically" はどちらも正しく、意味が通じる。このような場合は before == after にすべき。
+
+**正しい例：**
+✓ before: "regularly reflecting on one's decision-making"
+✓ after: "regularly reflecting on one's decision-making"
+✓ reason: "reflect on（〜を振り返る）は正しい表現です。..."
+
+✓ before: "In particular, cultivating a habit of..."
+✓ after: "In particular, cultivating a habit of..."
+✓ reason: "In particular（句：特に、とりわけ：強調する場合）／Specifically（副詞：具体的に、明確に：詳細を示す場合）で、どちらも文法的に正しく意味が通じます。学生が使った'In particular'は適切な表現です。"
 
 ### 修正が必要な場合
 - before: 学生の実際の表現
