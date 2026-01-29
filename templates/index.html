@@ -40,118 +40,129 @@
       </div>
       <div class="modal-body">
         <div class="info-section">
-          <h3>📚 出題テーマ一覧（全60テーマ）</h3>
-          <p>このサービスでは、宮崎大学医学部の英語（和文英訳）を完全分析し、以下の3つのカテゴリーから合計60のテーマが出題されます：</p>
+          <h3>🎯 システム概要</h3>
+          <p>このシステムは<strong>宮崎大学医学部の和文英訳問題</strong>に特化した添削システムです。日本語の文章（段落抜粋）を英訳する形式で、100-120語程度の英文を作成します。</p>
           
           <div class="stats-grid">
             <div class="stat-box">
-              <div class="stat-number">60</div>
-              <div class="stat-label">テーマ総数</div>
+              <div class="stat-number">7</div>
+              <div class="stat-label">ジャンル数</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">56</div>
+              <div class="stat-label">トピック総数</div>
             </div>
             <div class="stat-box">
               <div class="stat-number">100-120</div>
-              <div class="stat-label">語数指定</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-number">10</div>
-              <div class="stat-label">重複回避期間</div>
+              <div class="stat-label">目標語数</div>
             </div>
           </div>
+        </div>
 
-          <div class="category-section">
-            <h4>🎓 カテゴリ1：教育・学習・自己成長（12テーマ - 20%）</h4>
-            <ul>
-              <li>大学教育の価値、オンライン教育、試験制度、創造性教育</li>
-              <li>グループvs個人学習、留学と国際理解、生涯学習</li>
-              <li>批判的思考力、失敗から学ぶ、読書の重要性</li>
-              <li>外国語学習、自己成長と目標設定</li>
+        <div class="info-section">
+          <h3>🎨 設計思想：3層の多様性制御システム</h3>
+          <p>同じようなテーマや文章構成が繰り返し出題されるのを防ぐため、<strong>3つのレイヤーで多様性を自動制御</strong>しています：</p>
+          
+          <div class="example-box">
+            <h4>📊 レイヤー1：ジャンル（Theme）の多様性</h4>
+            <p>7つのジャンルから均等に出題（各14.3%目標）：</p>
+            <ul class="feature-list">
+              <li><strong>研究紹介</strong> - 心理学・行動科学の研究結果</li>
+              <li><strong>時事</strong> - 社会問題・ニュース・政策</li>
+              <li><strong>学術</strong> - 学術的知見・理論の解説</li>
+              <li><strong>ブログ</strong> - 日常の工夫・体験談</li>
+              <li><strong>レビュー</strong> - 映画・本・イベントの感想</li>
+              <li><strong>コラム</strong> - 意見・主張・提案</li>
+              <li><strong>図表</strong> - データ・グラフの説明</li>
             </ul>
+            <p style="margin-top: 12px; color: #64748b;">💡 同じジャンルが3回以上連続しないよう自動調整</p>
+          </div>
+
+          <div class="example-box">
+            <h4>📊 レイヤー2：段落位置（Excerpt Type）の多様性</h4>
+            <p>文章のどの部分を抜粋するかを制御：</p>
+            <ul class="feature-list">
+              <li><strong>P1_ONLY（20%）</strong> - 導入・背景のみ（1段落）</li>
+              <li><strong>P2_P3（50%）</strong> - 中盤・本論部分（2段落）</li>
+              <li><strong>P3_ONLY（20%）</strong> - 結果・評価のみ（1段落）</li>
+              <li><strong>P4_P5（10%）</strong> - 結論・まとめ（2段落）</li>
+            </ul>
+            <p style="margin-top: 12px; color: #64748b;">💡 P2_P3が連続3回以上にならないよう自動調整</p>
+          </div>
+
+          <div class="example-box">
+            <h4>📊 レイヤー3：サブトピック（A-H）の多様性 🆕</h4>
+            <p>各ジャンル内に8つのトピック領域を定義し、偏りを防止：</p>
+            
+            <div style="margin-top: 16px;">
+              <p><strong>例：研究紹介ジャンルの8トピック</strong></p>
+              <ul class="feature-list" style="font-size: 0.9em;">
+                <li>A: 記憶・学習（暗記、想起、テスト効果）</li>
+                <li>B: 習慣形成（行動の継続、報酬、トリガー）</li>
+                <li>C: 睡眠・集中（睡眠時間、昼寝、注意力）</li>
+                <li>D: 運動・健康（軽運動、ストレッチ、姿勢）</li>
+                <li>E: 食事・嗜好（カフェイン、朝食、間食）</li>
+                <li>F: ストレス・感情（不安、怒り、リラックス）</li>
+                <li>G: デジタル行動（スマホ、通知、SNS）</li>
+                <li>H: 社会行動（協力、共感、コミュニケーション）</li>
+              </ul>
+            </div>
+            
+            <p style="margin-top: 12px; color: #64748b;">💡 直近10問で使われたトピックは自動的に除外され、偏りを防止</p>
+            <p style="margin-top: 8px; color: #64748b;">💡 例えば「睡眠ばかり」「運動ばかり」という偏りが起きないよう制御</p>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>📚 全7ジャンル × 8トピック = 56の出題パターン</h3>
+          <p>各ジャンルには異なる8つのトピック領域が定義されています：</p>
+          
+          <div class="category-section">
+            <h4>🔬 研究紹介（記憶・習慣・睡眠・運動・食事・感情・デジタル・社会）</h4>
+            <p style="font-size: 0.9em; color: #64748b;">心理学・行動科学の研究を紹介する文章。実験の方法・結果・示唆などを含む。</p>
           </div>
 
           <div class="category-section">
-            <h4>🧠 カテゴリ2：科学技術・デジタル社会（12テーマ - 20%）</h4>
-            <ul>
-              <li>AI の影響、SNSの功罪、スマホ利用、オンラインプライバシー</li>
-              <li>インターネットの影響、テクノロジーと人間関係、自動運転</li>
-              <li>情報リテラシー、サイバーセキュリティ、テレワーク</li>
-              <li>ロボット技術、医療技術の進歩</li>
-            </ul>
+            <h4>📰 時事（医療・科学・技術・環境・教育・労働・経済・法制度）</h4>
+            <p style="font-size: 0.9em; color: #64748b;">社会問題やニュース、政策に関する文章。事実・背景・影響・論点などを含む。</p>
           </div>
 
           <div class="category-section">
-            <h4>🌍 カテゴリ3：環境・持続可能性（10テーマ - 17%）</h4>
-            <ul>
-              <li>地球温暖化、プラスチック削減、再生可能エネルギー</li>
-              <li>食品ロス削減、リサイクル、生物多様性保全</li>
-              <li>持続可能な社会、環境と経済の両立</li>
-              <li>エコツーリズム、都市化と環境</li>
-            </ul>
+            <h4>📖 学術（心理療法・学習科学・医療教育・脳認知・行動科学など）</h4>
+            <p style="font-size: 0.9em; color: #64748b;">学術的な知見や理論を解説する文章。根拠・効果・適用範囲などを含む。</p>
           </div>
 
           <div class="category-section">
-            <h4>🌏 カテゴリ4：社会・文化・グローバル化（10テーマ - 17%）</h4>
-            <ul>
-              <li>異文化理解、多様性社会、世代間コミュニケーション</li>
-              <li>地域文化の保存、グローバル化の功罪、ボランティア</li>
-              <li>伝統と革新、都市vs地方生活</li>
-              <li>多文化共生、男女平等</li>
-            </ul>
+            <h4>✍️ ブログ（デジタル・体調・時間・習慣・お金・気分転換・人間関係・生活）</h4>
+            <p style="font-size: 0.9em; color: #64748b;">日常の工夫や体験談を綴った文章。悩み・工夫・具体例・変化などを含む。</p>
           </div>
 
           <div class="category-section">
-            <h4>💼 カテゴリ5：仕事・キャリア・経済（8テーマ - 13%）</h4>
-            <ul>
-              <li>ワークライフバランス、働き方の多様化、アルバイト経験</li>
-              <li>キャリア選択、起業とリスク、経済的自立</li>
-              <li>仕事のモチベーション、グローバル経済と雇用</li>
-            </ul>
+            <h4>⭐ レビュー（映画・本・記事・展示・体験・施設・仕事・場面）</h4>
+            <p style="font-size: 0.9em; color: #64748b;">作品や体験の感想を述べた文章。印象・テーマ・場面・推薦などを含む。</p>
           </div>
 
           <div class="category-section">
-            <h4>💪 カテゴリ6：健康・日常生活・人間関係（8テーマ - 13%）</h4>
-            <ul>
-              <li>健康的な生活習慣、ストレス管理、時間管理、睡眠と健康</li>
-              <li>効果的なコミュニケーション、友人関係、家族関係</li>
-              <li>メンタルヘルスの重要性</li>
-            </ul>
+            <h4>💬 コラム（マナー・教育・働き方・医療・地域・デジタル・環境・若者）</h4>
+            <p style="font-size: 0.9em; color: #64748b;">社会問題に対する意見や提案を述べた文章。問題提起・理由・提案などを含む。</p>
+          </div>
+
+          <div class="category-section">
+            <h4>📊 図表（学習・睡眠・施設・交通・健康・調査・年代・地域）</h4>
+            <p style="font-size: 0.9em; color: #64748b;">データやグラフを説明する文章。数値提示・比較・増減・理由推測などを含む。</p>
           </div>
         </div>
 
         <div class="info-section">
           <h3>🎯 出題の特徴</h3>
           <ul class="feature-list">
-            <li>鹿児島大学（文系・医歯獣医）大問５の過去問を徹底分析</li>
-            <li>100-120語の英語で意見を述べる形式</li>
-            <li>自分の意見を2つの理由・提案・例で支える構成</li>
-            <li>具体例や経験を含めることが推奨される</li>
-            <li>論理的で説得力のある文章が評価される</li>
-            <li>最近出題された10テーマは自動的に除外（重複防止）</li>
+            <li>宮崎大学医学部の和文英訳形式を完全再現</li>
+            <li>段落の「抜粋」形式（全文ではなく一部を切り取った形）</li>
+            <li>100-120語程度の英訳を作成</li>
+            <li>3層の多様性制御により、毎回異なる視点の問題が出題</li>
+            <li>直近10問のトピックは自動的に除外（重複防止）</li>
+            <li>ヒント単語5個前後を提供（用例・品詞・発音付き）</li>
           </ul>
-        </div>
-
-        <div class="info-section">
-          <h3>🎲 問題文のバリエーションについて</h3>
-          <p><strong>動的生成システム：</strong>このシステムでは、問題文を固定データベースから取得するのではなく、<span class="highlight">その都度新しい問題文を生成</span>しています。</p>
-          
-          <div class="example-box">
-            <h4>📝 同じテーマでも異なる問題文が生成されます</h4>
-            <p><strong>例：「異文化を理解することの重要性」</strong></p>
-            
-            <div class="example-item">
-              <strong>パターンA（理由形式）：</strong>
-              <p>Do you think understanding different cultures is important? Give two reasons to support your answer.</p>
-            </div>
-            
-            <div class="example-item">
-              <strong>パターンB（説明形式）：</strong>
-              <p>Why is it essential to learn about other cultures in today's world? Explain two main reasons with specific examples.</p>
-            </div>
-            
-            <div class="example-item">
-              <strong>パターンC（賛否形式）：</strong>
-              <p>Some people say that learning about foreign cultures is essential in today's globalized world. Do you agree? Give two reasons to support your opinion.</p>
-            </div>
-          </div>
         </div>
 
         <div class="info-section">
