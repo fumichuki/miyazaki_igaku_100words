@@ -89,7 +89,8 @@ def normalize_user_input(text: str) -> str:
     ユーザー入力を正規化する
     
     以下の修正を行う：
-    - ピリオド直後にスペースなく大文字が続く場合、スペースを挿入（例: "word.In" → "word. In"）
+    - 改行を単一スペースに変換（句読点がない改行は文の途中として扱う）
+    - ピリオド直後にスペースなく文字が続く場合、スペースを挿入（例: "word.In" → "word. In"）
     - 複数の連続スペースを1つに統一
     - 文末にピリオドがない場合は追加
     - 文頭の余分な空白を削除
@@ -106,12 +107,18 @@ def normalize_user_input(text: str) -> str:
     # 前後の空白を削除
     normalized = text.strip()
     
-    # ステップ1: ピリオド直後にスペースなく大文字が続く場合、スペースを挿入
+    # ステップ0: 改行を単一スペースに変換
+    # 改行は文の区切りではなく、入力の途中と見なす（過剰分割を防ぐ）
+    # 例: "...full by people\nso a lot..." → "...full by people so a lot..."
+    normalized = re.sub(r'\n+', ' ', normalized)
+    
+    # ステップ1: ピリオド直後にスペースなく文字が続く場合、スペースを挿入
     # 省略形を保護する前に実行（p.m.In → p.m. In）
-    normalized = re.sub(r'\.([A-Z])', r'. \1', normalized)
+    # 注: 大文字・小文字両方に対応（survey.Japan → survey. Japan）
+    normalized = re.sub(r'\.([A-Za-z])', r'. \1', normalized)
     
     # ステップ2: 疑問符・感嘆符の直後も同様
-    normalized = re.sub(r'([?!])([A-Z])', r'\1 \2', normalized)
+    normalized = re.sub(r'([?!])([A-Za-z])', r'\1 \2', normalized)
     
     # ステップ3: 複数の連続スペースを1つに統一
     normalized = re.sub(r'\s+', ' ', normalized)
@@ -125,10 +132,13 @@ def normalize_user_input(text: str) -> str:
 
 def split_into_sentences(text: str) -> List[str]:
     """
-    英文をセンテンスに分割する（省略形に対応）
+    英文をセンテンスに分割する（省略形に対応・厳格モード）
     
     p.m., a.m., e.g., U.S. などの省略形のピリオドで分割されないようにする
-    ピリオド直後のスペースの有無に関わらず分割可能
+    
+    分割条件（厳格化）:
+    - ピリオド・疑問符・感嘆符 + スペース + 大文字/引用符/括弧のみ
+    - 小文字始まりは前の文の継続と見なす（過剰分割を防ぐ）
     
     Args:
         text: 英文テキスト
@@ -139,23 +149,16 @@ def split_into_sentences(text: str) -> List[str]:
     if not text or not text.strip():
         return []
     
-    # まず改行で分割を試みる（ユーザーが改行で文を区切っている場合）
-    lines = [line.strip() for line in text.strip().split('\n') if line.strip()]
-    if len(lines) > 1:
-        # 改行で明確に分割されている場合はそれを採用
-        return lines
-    
-    # 改行がない場合は、省略形に対応した分割を行う
-    # 戦略: 省略形の "内部" のピリオドのみ保護し、文末のピリオドは保護しない
+    # 改行は normalize_user_input() で既にスペースに変換済み
+    # ここでは改行チェックをスキップ
     
     # ステップ1: 省略形のピリオドを保護
     protected = _protect_abbreviations(text.strip())
     
-    # ステップ2: 文末候補のピリオドを検出
-    # プレースホルダーでないピリオドまたは疑問符・感嘆符の後に、
-    # 空白あり/なしで大文字・数字・引用符が来る場合は分割
-    # (?<![<DOT_PLACEHOLDER>]) で保護されたピリオドの直後でないことを確認
-    parts = re.split(r'([.!?])\s*(?=[A-Z0-9"\'\(])', protected)
+    # ステップ2: 文末候補のピリオドを検出（厳格化）
+    # 条件: [.!?] + スペース1つ以上 + (大文字 or 引用符 or 括弧)
+    # 小文字始まり（so, this, that など）は新しい文として扱わない
+    parts = re.split(r'([.!?])\s+(?=[A-Z"\'\(])', protected)
     
     # ステップ3: 分割結果を文に再構成
     sentences = []

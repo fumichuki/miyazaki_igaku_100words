@@ -136,11 +136,25 @@ $user_answer
 
 以下の順番で判断し、該当するものがあればそこで判定を確定する：
 
-1. **🚨最優先：beforeとafterが完全に同一かチェック🚨**
-   - 同一なら → ✅正しい表現
-   - 異なるなら → 次のステップへ
-
-2. **🚨🚨🚨 明確な文法ミス（最優先・必ず検出）🚨🚨🚨** → ❌文法ミス
+1. **🚨🚨🚨 明確な文法ミス（最優先・必ず検出）🚨🚨🚨** → ❌文法ミス
+   
+   **【主語と動詞の不一致】** - 絶対に❌にすること（最重要）：
+   - 単数主語 + 複数動詞：
+     ❌ "This habit are" → "This habit is"
+     ❌ "This new habit are" → "This new habit is"
+     ❌ "The method work" → "The method works"
+     ❌ "My sister like" → "My sister likes"
+     ❌ "He don't" → "He doesn't"
+   
+   - 複数主語 + 単数動詞：
+     ❌ "These habits is" → "These habits are"
+     ❌ "The students likes" → "The students like"
+     ❌ "They doesn't" → "They don't"
+   
+   **【チェック方法】文法ミスを見逃さないために：**
+   - 主語を特定（this/that/a/the + 単数名詞 → 単数、these/those/複数名詞 → 複数）
+   - 動詞の形を確認（is/are, -s付き/なし、does/do）
+   - 一致しない場合は**必ず❌**（beforeとafterが同一でも❌）
    
    **【不完全な文】** - 絶対に❌にすること：
    - 文末が接続詞で終わっている：
@@ -155,15 +169,15 @@ $user_answer
    - カンマの代わりにピリオド：
      ❌ "As a trial. I started" → ピリオドの代わりにカンマが必要
    
-   **【主語と動詞の不一致（三単現）】** - 絶対に❌にすること：
-   - "He go" → "He goes"
-   - "boundary tend" → "boundary tends" または "boundaries tend"
-   
    **【時制の誤り】** - 絶対に❌にすること：
    - "Yesterday, I go" → "Yesterday, I went"
    
    **【冠詞の明確な誤り】** - 絶対に❌にすること：
    - "I am student" → "I am a student"
+
+2. **beforeとafterが完全に同一かチェック**
+   - 同一なら → ✅正しい表現
+   - 異なるなら → 次のステップへ
 
 3. **日本語原文の内容が正確に伝わっていない** → ❌意味不一致
    例：
@@ -205,7 +219,33 @@ $user_answer
 
 ### reasonの記述フォーマット【必須・厳守】- kagoshima風テンプレート
 
-🚨🚨🚨【reason は ❌でも✅でも以下の形式で必ず記述すること】🚨🚨🚨
+🚨🚨🚨【出力例を必ず参考にしてください - ❌でも✅でも同じ形式】🚨🚨🚨
+
+**出力例1（✅の場合 - 正しい表現の語彙解説）:**
+```
+"reason": "1文目: The project aims to reduce traffic jams in cities by using AI technology.\\n（このプロジェクトは、AI技術を使って都市の交通渋滞を減らすことを目指している。）\\nreduce（動詞：減らす：対象が具体的な量）／alleviate（動詞：緩和する：対象が抽象的な事象）で、reduceは具体的な数値の減少に使われることが多く、alleviateは問題や負担の緩和に使われる。\\n【参考】reduce traffic（交通量を減らす）／alleviate congestion（渋滞を緩和する）\\n例：We need to reduce costs. (コストを削減する必要がある。)／Measures were taken to alleviate the pain. (痛みを和らげるための措置が取られた。)"
+```
+
+**出力例2（❌の場合 - 文法エラーの修正理由）:**
+```
+"reason": "2文目: In particular, a system was introduced that analyzes real-time traffic data and optimize the timing of traffic signals.\\n（特に、リアルタイムの交通データを分析し、信号のタイミングを最適化するシステムが導入された。）\\noptimize（動詞：最適化する：プロセスや機能）／improve（動詞：改善する：全般的に）で、optimizeは特定の条件下での最良化に使われ、improveは全体的な向上に使われる。文法エラー：'analyzes'と並列の'optimize'は'optimizes'にすべき。\\n【参考】optimize performance（性能を最適化する）／improve quality（品質を改善する）\\n例：We aim to optimize the system's efficiency. (システムの効率を最適化することを目指しています。)／Efforts were made to improve the service. (サービスの改善に努めた。)"
+```
+
+**出力例3（a number of / the number of - ❌の場合）:**
+```
+"reason": "1文目: A number of students submitted the form online.\\n（多くの学生がその用紙をオンラインで提出した。）\\na number of（名詞句：多くの～）／the number of（名詞句：～の数）で、a number of は「たくさん」という量、the number of は「数そのもの」という数量を表します。a number of は後ろが複数名詞なので動詞も複数になりやすい（A number of students are …）。the number of は「数」が主語なので単数扱い（The number of students is …）。\\n【参考】a number of + 複数名詞（多くの～）／the number of + 複数名詞（～の数）\\n例：A number of people were absent. (多くの人が欠席した。)／The number of people was increasing. (人の数が増えていた。)"
+```
+
+**出力例4（主語動詞不一致 - ❌の場合）:**
+```
+"reason": "1文目: This new habit are very effective to reduce my stress.\\n（この新しい習慣は、私のストレスを減らすのに非常に効果的だ。）\\nare（動詞：～である：複数形）／is（動詞：～である：単数形）で、主語が単数形「This new habit」の場合、動詞は単数形の「is」を使う必要がある。\\n【参考】This habit is …（この習慣は～だ）／These habits are …（これらの習慣は～だ）\\n例：This method is effective. (この方法は効果的だ。)／These methods are effective. (これらの方法は効果的だ。)"
+```
+
+🚨🚨🚨【上記の出力例を必ず参考にすること】🚨🚨🚨
+- すべての例で「N文目: 」と「（日本語訳）」が含まれている
+- ❌でも✅でも同じフォーマット
+
+---
 
 **必須形式（kagoshima風・5点セット）- ❌/✅共通:**
 ```
@@ -229,22 +269,19 @@ N文目: [英文そのまま]
 5. 例文は必ず2つ、和訳は丸括弧()で囲む（日本語引用符「」は使わない）
 6. 例文は学生の英文と異なる新しい例を提示（同一文の繰り返し禁止）
 
-**出力例1（✅の場合 - 正しい表現の語彙解説）:**
-```
-"reason": "1文目: The project aims to reduce traffic jams in cities by using AI technology.\\n（このプロジェクトは、AI技術を使って都市の交通渋滞を減らすことを目指している。）\\nreduce（動詞：減らす：対象が具体的な量）／alleviate（動詞：緩和する：対象が抽象的な事象）で、reduceは具体的な数値の減少に使われることが多く、alleviateは問題や負担の緩和に使われる。\\n【参考】reduce traffic（交通量を減らす）／alleviate congestion（渋滞を緩和する）\\n例：We need to reduce costs. (コストを削減する必要がある。)／Measures were taken to alleviate the pain. (痛みを和らげるための措置が取られた。)"
-```
+**【reasonの出力前チェックリスト】** - 全ての項目でYESであること
+- □ reasonの1行目は「N文目: [英文]」で始まっているか？
+- □ reasonの2行目は「（[日本語訳]）」になっているか？
+- □ 語彙比較（A／B形式）が2つ以上あるか？
+- □ 【参考】セクションがあるか？
+- □ 例文が2つあり、和訳が丸括弧()で囲まれているか？
 
-**出力例2（❌の場合 - 文法エラーの修正理由）:**
+**【NG例】** - 以下のような出力は絶対に禁止
 ```
-"reason": "2文目: In particular, a system was introduced that analyzes real-time traffic data and optimize the timing of traffic signals.\\n（特に、リアルタイムの交通データを分析し、信号のタイミングを最適化するシステムが導入された。）\\noptimize（動詞：最適化する：プロセスや機能）／improve（動詞：改善する：全般的に）で、optimizeは特定の条件下での最良化に使われ、improveは全体的な向上に使われる。文法エラー：'analyzes'と並列の'optimize'は'optimizes'にすべき。\\n【参考】optimize performance（性能を最適化する）／improve quality（品質を改善する）\\n例：We aim to optimize the system's efficiency. (システムの効率を最適化することを目指しています。)／Efforts were made to improve the service. (サービスの改善に努めた。)"
+❌ NG: "decide（動詞：決める...）" のみで「N文目: 」がない
+❌ NG: "✅ (未提出：原文第2文)" のみで日本語訳がない
+❌ NG: "appropriate（形容詞：...）" のみで英文が含まれていない
 ```
-
-**出力例3（a number of / the number of - ❌の場合）:**
-```
-"reason": "1文目: A number of students submitted the form online.\\n（多くの学生がその用紙をオンラインで提出した。）\\na number of（名詞句：多くの～）／the number of（名詞句：～の数）で、a number of は「たくさん」という量、the number of は「数そのもの」という数量を表します。a number of は後ろが複数名詞なので動詞も複数になりやすい（A number of students are …）。the number of は「数」が主語なので単数扱い（The number of students is …）。\\n【参考】a number of + 複数名詞（多くの～）／the number of + 複数名詞（～の数）\\n例：A number of people were absent. (多くの人が欠席した。)／The number of people was increasing. (人の数が増えていた。)"
-```
-
-🚨🚨🚨【再確認】すべての例で「N文目: 」と「（日本語訳）」が含まれていることを確認🚨🚨🚨
 
 **出力例2（be likely to / It is likely that）:**
 ```
@@ -269,6 +306,14 @@ N文目: [英文そのまま]
 - 学生が提出した文のみを添削対象とする
 - 提出されていない文に対して「未提出」のプレースホルダーを生成しない
 - correction_pointsの数は、学生が実際に提出した文数を超えてはならない
+- **絶対に模範解答を勝手に生成しない**
+- **無関係な語彙解説（appropriate/suitable等）を出さない**
+
+**【未提出の文の扱い】**
+- 日本語原文に存在するが、学生が英訳を提出していない文がある場合：
+  - その文に対するcorrection_pointsは**一切出力しない**
+  - points[0]の全体評価で「原文第X文が未提出です」と指摘する
+  - 例: "reason": "解説：原文は3文ありますが、提出された英文は2文のみです。原文第3文（この状況は...）が未提出です。"
 
 ---
 

@@ -1,0 +1,1551 @@
+# 🚨 不具合レポート: 文分割とLLM出力の深刻な問題
+
+## 報告日時
+2026年1月29日
+
+## 影響範囲
+**重大度: HIGH（システムの主要機能が正常動作していない）**
+
+---
+
+## 🔴 不具合1: 文分割が過剰に行われる（最重要）
+
+### 現象
+ユーザーが入力した英文が、意図しない箇所で分割されて6文になってしまう。
+
+### ユーザー入力（実際の英文）
+```
+According to a recent survey.Japan is getting older, and the demand for nursing home are increasing very fast.As the number of elderly people increase, care service cannot keep up, and many facilities are full by people
+so a lot of families cannot get in.this situation is a big problem for local communities,and the government must act fast.If there was more staff, the services will be enough.
+```
+
+### 期待される動作
+- **日本語原文が3文**なので、**英訳も3文**に分割されるべき
+- 原文:
+  1. 最近の調査によれば、日本の高齢化が進む中で、介護施設の需要が急増していることが判明した。
+  2. 高齢者人口の増加に伴い、介護サービスの提供が追いつかず、多くの施設が満員状態となっている。
+  3. この状況は、地域社会や政府にとって大きな課題となっており、迅速な対応が求められている。
+
+### 実際の動作（不具合）
+- **6文に過剰分割**されてしまう:
+  1. `According to a recent survey.`
+  2. `Japan is getting older, and the demand for nursing home are increasing very fast.`
+  3. `As the number of elderly people increase, care service cannot keep up, and many facilities are full by people.`
+  4. `so a lot of families cannot get in.`
+  5. `this situation is a big problem for local communities,and the government must act fast.`
+  6. `If there was more staff, the services will be enough.`
+
+### 根本原因
+**問題箇所**: `points_normalizer.py` の `normalize_user_input()` および `split_into_sentences()`
+
+#### 原因1: ピリオド直後にスペースがない箇所で誤って分割
+- ユーザーは「survey.Japan」「fast.As」「in.this」のように、**ピリオドの後にスペースを入れ忘れている**
+- `normalize_user_input()` は、この箇所にスペースを挿入する（正しい）:
+  - `survey.Japan` → `survey. Japan`
+  - `fast.As` → `fast. As`
+  - `in.this` → `in. this`
+- **しかし**、`split_into_sentences()` が、このスペース挿入を「新しい文の開始」と誤認識して分割してしまう
+
+#### 原因2: 改行の途中で文が切れている
+- ユーザーの入力には改行が含まれる:
+  ```
+  ...full by people
+  so a lot of families...
+  ```
+- 改行前に句読点がないため、本来は1文だが、改行後の「so」が小文字であるにもかかわらず新しい文として扱われている
+
+#### 原因3: 小文字で始まる文を許容している
+- `split_into_sentences()` は小文字始まりの文に対応している（line 157）:
+  ```python
+  parts = re.split(r'([.!?])\s*(?=[A-Za-z0-9"\'\(])', protected)
+  ```
+- これにより、「so a lot」「this situation」のような小文字始まりの文も分割されてしまう
+- **意図**: モバイル入力での小文字始まりに対応
+- **副作用**: 実際には継続している文を誤って分割
+
+### 影響
+1. **文番号のズレ**: 
+   - LLMは「3文目」として処理すべき内容を、実際には別の文として判定
+   - 出力で「3文目: （高齢者人口の増加に伴い...）」と表示されるが、実際には入力の3文目とは異なる内容
+   
+2. **添削の信頼性低下**:
+   - 文が細切れになることで、文脈が失われる
+   - 長い文の構造的な問題を検出できない
+
+---
+
+## 🔴 不具合2: LLMが未提出の文に対して無関係な解説を生成
+
+### 現象
+出力された項目2と3で、以下の問題が発生:
+```
+2
+✅ (未提出：原文第2文)
+→
+✅ According to a recent survey, as Japan ages, the demand for nursing homes is rapidly increasing
+
+appropriate（形容詞：適切な・ふさわしい）／suitable（形容詞：適した・好都合な）で、appropriateは状況や文脈に合っていること、suitableは目的に合っていることを意味します。
+【参考】be appropriate for A（Aに適切である）／be suitable for A（Aに適している）
+例：This method is appropriate for beginners. (この方法は初心者に適切です。)／This tool is suitable for the task. (この道具はその作業に適しています。)
+```
+
+### 問題点
+1. **「未提出」と表示しているのに、LLMが勝手に英文を生成**
+   - `(未提出：原文第2文)` → ユーザーは提出していない
+   - なのに `According to a recent survey, as Japan ages...` という英文が生成されている
+   
+2. **reasonの内容が完全に無関係**
+   - 生成された英文には「appropriate」も「suitable」も含まれていない
+   - まったく関係ない語彙解説（appropriate/suitable）が表示されている
+   - これは明らかにLLMのハルシネーション（幻覚）
+
+3. **日本語訳が表示されない**
+   - フォーマット要件では「N文目: （日本語訳）」が必須
+   - しかし `(未提出：原文第2文)` という表記のみで、日本語訳が欠落
+
+### 根本原因
+**問題箇所**: `prompts_translation_simple.py` のプロンプト設計
+
+#### 原因1: 「未提出」の定義が曖昧
+- プロンプトには「未提出」の文に対する明確な指示がない
+- LLMが「未提出」をどう扱うべきか理解していない:
+  - オプション1: その文をスキップして何も出力しない
+  - オプション2: 模範解答を生成する
+  - オプション3: エラーメッセージを表示する
+  
+- 現状、LLMはオプション2（模範解答生成）を選択しているが、reasonの内容が無関係
+
+#### 原因2: 文分割の不具合が連鎖的に影響
+- 前述の「不具合1」により、入力が6文に分割される
+- しかし日本語原文は3文のみ
+- LLMは原文第2文、第3文に対応する英文がないと判断し「未提出」とマークするが、実際には文分割が間違っているだけ
+
+### 影響
+1. **ユーザーの混乱**:
+   - 提出していない文に対して解説が表示される
+   - 解説内容が無関係なため、信頼性が失われる
+   
+2. **学習効果の低下**:
+   - 正しい添削結果でないため、学習に使えない
+
+---
+
+## 🔴 不具合3: 日本語訳の表示が不完全
+
+### 現象
+項目1では正しく表示されるが、項目2と3では表示されない:
+
+**項目1（正しい）:**
+```
+3文目: （高齢者人口の増加に伴い、介護サービスの提供が追いつかず、多くの施設が満員状態となっている。）
+```
+
+**項目2と3（不具合）:**
+```
+✅ (未提出：原文第2文)
+✅ (未提出：原文第3文)
+```
+
+### 根本原因
+これは**不具合2の副作用**:
+- 「未提出」の場合、日本語訳を表示する仕組みが機能していない
+- プロンプトでは「N文目: （日本語訳）」が必須と指定しているが、「未提出」の場合の例外処理が明記されていない
+
+---
+
+## 📊 テスト結果の詳細
+
+### normalize_user_input() の処理結果
+```
+入力: According to a recent survey.Japan is getting older, and the demand for nursing home are increasing very fast.As the number of elderly people increase, care service cannot keep up, and many facilities are full by people
+so a lot of families cannot get in.this situation is a big problem for local communities,and the government must act fast.If there was more staff, the services will be enough.
+
+出力: According to a recent survey. Japan is getting older, and the demand for nursing home are increasing very fast. As the number of elderly people increase, care service cannot keep up, and many facilities are full by people. so a lot of families cannot get in. this situation is a big problem for local communities,and the government must act fast. If there was more staff, the services will be enough.
+```
+
+**変更点**:
+- `survey.Japan` → `survey. Japan` （スペース挿入）
+- `fast.As` → `fast. As` （スペース挿入）
+- `people\nso` → `people. so` （改行後にピリオド挿入）
+- `in.this` → `in. this` （スペース挿入）
+- `fast.If` → `fast. If` （スペース挿入）
+
+### split_into_sentences() の処理結果
+6文に分割:
+1. `According to a recent survey.`
+2. `Japan is getting older, and the demand for nursing home are increasing very fast.`
+3. `As the number of elderly people increase, care service cannot keep up, and many facilities are full by people.`
+4. `so a lot of families cannot get in.`
+5. `this situation is a big problem for local communities,and the government must act fast.`
+6. `If there was more staff, the services will be enough.`
+
+---
+
+## 🔧 推奨される修正方針
+
+### 修正1: 文分割ロジックの改善（最優先）
+
+**問題**: ユーザーが意図的に句読点を省略している場合と、単なるタイプミスを区別できていない
+
+**解決策A - 保守的アプローチ（推奨）**:
+1. **改行を文の区切りとして優先**
+   - ユーザーが改行で区切っている場合は、その改行を尊重
+   - ただし、改行の末尾に句読点がない場合は、次の行と結合
+   
+2. **小文字始まりの文を新しい文として扱わない**
+   - 「so」「this」などの小文字始まりは、前の文の継続と見なす
+   - 例外: ピリオド + 大文字の後に小文字が来る場合のみ分割
+   
+3. **ピリオド直後の大文字のみを文の開始と見なす**
+   - 現在: `[.!?]\s*(?=[A-Za-z0-9"\'\(])`
+   - 変更後: `[.!?]\s+(?=[A-Z"\'\(])`（大文字のみ、スペース必須）
+
+**解決策B - 日本語原文の文数に合わせる（積極的）**:
+1. 日本語原文の文数を取得（例: 3文）
+2. ユーザーの英文を3文になるよう強制分割
+3. メリット: 文数のズレが発生しない
+4. デメリット: 実装が複雑、誤分割の可能性
+
+### 修正2: 「未提出」の処理を明確化
+
+**prompts_translation_simple.py** に以下を追加:
+
+```python
+### 未提出の文の処理【重要】
+
+原文にある文だが、ユーザーが英訳を提出していない場合:
+- level: "✅"
+- before: "(未提出)"
+- after: "(未提出)"
+- reason: "N文目: （未提出）\n（日本語訳: [原文をそのまま記載]）\nこの文は提出されていません。"
+- 模範解答を勝手に生成しない
+- 無関係な語彙解説を出さない
+```
+
+### 修正3: 日本語訳の必須化を徹底
+
+**prompts_translation_simple.py** の出力例を全て見直し:
+- ✅の場合も必ず「N文目: （日本語訳）」を含める
+- 「未提出」の場合も「（日本語訳: ...）」を含める
+- LLMが省略できないよう、例を追加
+
+---
+
+## 🧪 検証方法
+
+### テストケース1: ピリオド直後にスペースなし
+```
+Input: "I like apples.She likes oranges."
+Expected: 2文 ["I like apples.", "She likes oranges."]
+Actual: 2文（正しい）
+```
+
+### テストケース2: 改行途中で文が切れている
+```
+Input: "I like apples\nbut she likes oranges."
+Expected: 1文 ["I like apples but she likes oranges."]
+Actual: 2文（不具合）
+```
+
+### テストケース3: 小文字始まり
+```
+Input: "I like apples. so does she."
+Expected: 1文または2文（文脈による）
+Actual: 2文（split_into_sentencesは分割する）
+```
+
+---
+
+## 📝 関連ファイル
+
+### 主要ファイル
+- `points_normalizer.py` (lines 70-180)
+  - `normalize_user_input()`: ピリオド後にスペース挿入
+  - `split_into_sentences()`: 文分割ロジック
+  
+- `prompts_translation_simple.py` (lines 200-280)
+  - reasonフォーマットの定義
+  - 出力例
+
+- `llm_service.py` (lines 150-250)
+  - LLM呼び出しロジック
+  - 文分割の実行
+
+### テストファイル
+- `test_sentence_split_debug.py` （新規作成）
+  - 今回の不具合を再現するテスト
+  - 実行: `python test_sentence_split_debug.py`
+
+---
+
+## ⚠️ 優先度
+
+1. **P0 (最優先)**: 文分割ロジックの修正
+   - 影響範囲: 全てのユーザー入力
+   - 修正しない限り、システムが正常に機能しない
+   
+2. **P1 (高優先)**: 「未提出」の処理明確化
+   - 影響範囲: 文数が合わない場合（頻繁に発生）
+   - ユーザーの混乱を招く
+   
+3. **P2 (中優先)**: 日本語訳の表示徹底
+   - 影響範囲: ✅の項目
+   - 学習効果に影響
+
+---
+
+## 📌 次のステップ
+
+1. ✅ 不具合を再現するテストを作成（完了）
+2. ⏳ 文分割ロジックの修正案を実装
+3. ⏳ 「未提出」処理のプロンプト追加
+4. ⏳ 全テストケースで検証
+5. ⏳ GitHub にコミット
+
+---
+
+## 補足: GPTへの投げ方
+
+このレポートをGPT-4に投げる際は、以下のファイルも添付してください:
+
+### 必須ファイル
+```
+points_normalizer.py       # 文分割ロジック
+constraint_validator.py    # 句読点正規化
+prompts_translation_simple.py  # プロンプト定義
+llm_service.py            # LLM呼び出し
+test_sentence_split_debug.py  # 不具合再現テスト
+```
+
+### プロンプト例
+```
+以下の不具合レポートと関連コードを確認してください。
+
+【不具合レポート】
+（このファイルの内容を貼り付け）
+
+【質問】
+1. 文分割ロジックの修正案を3つ提案してください（保守的・中間・積極的）
+2. 「未提出」の処理を明確化するプロンプトの追加箇所と内容を提案してください
+3. 日本語訳の表示を徹底するための修正案を提案してください
+
+【制約条件】
+- 既存のテストケースは全て通過すること
+- 新しい不具合を導入しないこと
+- パフォーマンスへの影響は最小限にすること
+```
+
+---
+
+**報告者**: GitHub Copilot  
+**最終更新**: 2026年1月29日
+
+
+================================================================================
+=== CODE FILES
+================================================================================
+
+
+=== points_normalizer.py ===
+
+"""
+添削ポイントの正規化処理
+- 断片を全文に拡張
+- level を ❌ または ✅ に強制
+- ✅ の場合は after=before に矯正
+- sentence_no を付与
+"""
+import logging
+import re
+from typing import List, Dict, Any
+
+logger = logging.getLogger(__name__)
+
+
+# 省略形リスト（ピリオドを含むが文末ではないもの）
+_ABBREVIATIONS = [
+    "a.m.", "p.m.", "e.g.", "i.e.", "etc.",
+    "Mr.", "Mrs.", "Ms.", "Dr.", "Prof.",
+    "U.S.", "U.K.", "vs.", "vol.", "fig.",
+    "Jan.", "Feb.", "Mar.", "Apr.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec.",
+    "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat.", "Sun."
+]
+_DOT_PLACEHOLDER = "<DOT>"
+
+
+def _protect_abbreviations(text: str) -> str:
+    """
+    省略形のピリオドを一時的にプレースホルダーに置換して保護する
+    
+    文末の省略形（例: "U.S. It"）の場合、省略形内部のピリオドのみ保護し、
+    文末のピリオドは保護しない
+    
+    Args:
+        text: 元のテキスト
+    
+    Returns:
+        保護されたテキスト
+    """
+    protected = text
+    
+    # 省略形を保護（ただし、文末判定のため特別な処理が必要）
+    for abbr in _ABBREVIATIONS:
+        # 大文字小文字を区別せずにマッチング
+        # ただし、省略形の後にスペース+大文字が続く場合は文の区切りと見なす
+        # 例: "U.S. It" の場合、"U.S." 全体ではなく "U.S" のみ保護
+        pattern = re.compile(re.escape(abbr), re.IGNORECASE)
+        
+        # 省略形の後にスペース+大文字が続く場合は、最後のピリオド以外を保護
+        # 例: "U.S." → "U<DOT>S."
+        if abbr.endswith('.'):
+            abbr_without_last_dot = abbr[:-1]  # "U.S." → "U.S"
+            # "U.S." の後にスペース+大文字が続く場合のみ、最後のピリオドを残す
+            protected = re.sub(
+                re.escape(abbr) + r'(?=\s+[A-Z])',
+                abbr_without_last_dot.replace(".", _DOT_PLACEHOLDER) + ".",
+                protected,
+                flags=re.IGNORECASE
+            )
+            # それ以外の場合は全体を保護
+            protected = pattern.sub(
+                lambda m: m.group(0).replace(".", _DOT_PLACEHOLDER),
+                protected
+            )
+    
+    # イニシャル形式（A.B.C.など）を保護
+    protected = re.sub(r'\b([A-Z])\.(?=\s*[A-Z]\.)', r'\1' + _DOT_PLACEHOLDER, protected)
+    
+    # 小数（3.14など）を保護
+    protected = re.sub(r'(\d)\.(\d)', r'\1' + _DOT_PLACEHOLDER + r'\2', protected)
+    
+    return protected
+
+
+def _restore_abbreviations(text: str) -> str:
+    """
+    プレースホルダーをピリオドに戻す
+    
+    Args:
+        text: 保護されたテキスト
+    
+    Returns:
+        復元されたテキスト
+    """
+    return text.replace(_DOT_PLACEHOLDER, ".")
+
+
+def normalize_user_input(text: str) -> str:
+    """
+    ユーザー入力を正規化する
+    
+    以下の修正を行う：
+    - ピリオド直後にスペースなく大文字が続く場合、スペースを挿入（例: "word.In" → "word. In"）
+    - 複数の連続スペースを1つに統一
+    - 文末にピリオドがない場合は追加
+    - 文頭の余分な空白を削除
+    
+    Args:
+        text: ユーザーが入力した英文
+    
+    Returns:
+        正規化された英文
+    """
+    if not text or not text.strip():
+        return ""
+    
+    # 前後の空白を削除
+    normalized = text.strip()
+    
+    # ステップ0: 改行で明確に分割されている場合、各行にピリオドを追加
+    # （ユーザーが改行で文を区切っている場合に対応）
+    lines = [line.strip() for line in normalized.split('\n') if line.strip()]
+    if len(lines) > 1:
+        # 各行の末尾にピリオドがない場合は追加
+        processed_lines = []
+        for line in lines:
+            if not line.endswith(('.', '?', '!')):
+                line = line + '.'
+            processed_lines.append(line)
+        # 改行を1つのスペースに変換して結合
+        normalized = ' '.join(processed_lines)
+    
+    # ステップ1: ピリオド直後にスペースなく大文字または小文字が続く場合、スペースを挿入
+    # 省略形を保護する前に実行（p.m.In → p.m. In）
+    # 小文字始まりの文にも対応（モバイル入力対応）
+    normalized = re.sub(r'\.([A-Za-z])', r'. \1', normalized)
+    
+    # ステップ2: 疑問符・感嘆符の直後も同様（大文字・小文字両方）
+    normalized = re.sub(r'([?!])([A-Za-z])', r'\1 \2', normalized)
+    
+    # ステップ3: 複数の連続スペースを1つに統一
+    normalized = re.sub(r'\s+', ' ', normalized)
+    
+    # ステップ4: 文末にピリオド・疑問符・感嘆符がない場合は、ピリオドを追加
+    if not normalized.endswith(('.', '?', '!')):
+        normalized = normalized + '.'
+    
+    return normalized.strip()
+
+
+def split_into_sentences(text: str) -> List[str]:
+    """
+    英文をセンテンスに分割する（省略形に対応）
+    
+    p.m., a.m., e.g., U.S. などの省略形のピリオドで分割されないようにする
+    ピリオド直後のスペースの有無に関わらず分割可能
+    
+    Args:
+        text: 英文テキスト
+    
+    Returns:
+        センテンスのリスト
+    """
+    if not text or not text.strip():
+        return []
+    
+    # まず改行で分割を試みる（ユーザーが改行で文を区切っている場合）
+    lines = [line.strip() for line in text.strip().split('\n') if line.strip()]
+    if len(lines) > 1:
+        # 改行で明確に分割されている場合はそれを採用
+        return lines
+    
+    # 改行がない場合は、省略形に対応した分割を行う
+    # 戦略: 省略形の "内部" のピリオドのみ保護し、文末のピリオドは保護しない
+    
+    # ステップ1: 省略形のピリオドを保護
+    protected = _protect_abbreviations(text.strip())
+    
+    # ステップ2: 文末候補のピリオドを検出
+    # プレースホルダーでないピリオドまたは疑問符・感嘆符の後に、
+    # 空白あり/なしで大文字・小文字・数字・引用符が来る場合は分割
+    # 小文字始まりの文にも対応（モバイル入力対応）
+    # (?<![<DOT_PLACEHOLDER>]) で保護されたピリオドの直後でないことを確認
+    parts = re.split(r'([.!?])\s*(?=[A-Za-z0-9"\'\(])', protected)
+    
+    # ステップ3: 分割結果を文に再構成
+    sentences = []
+    i = 0
+    while i < len(parts):
+        if i + 1 < len(parts) and parts[i + 1] in '.!?':
+            # テキスト + 句読点を結合
+            sentence = parts[i] + parts[i + 1]
+            # プレースホルダーを復元
+            restored = _restore_abbreviations(sentence)
+            # 重複ピリオドを削除（U.S.. → U.S.）
+            restored = re.sub(r'\.\.+', '.', restored)
+            sentences.append(restored)
+            i += 2
+        else:
+            # 最後の部分（句読点なし）
+            if parts[i].strip():
+                restored = _restore_abbreviations(parts[i])
+                sentences.append(restored)
+            i += 1
+    
+    # 空の要素を削除し、両端の空白を削除
+    sentences = [s.strip() for s in sentences if s.strip()]
+    
+    return sentences
+
+
+def find_sentence_containing_fragment(fragment: str, sentences: List[str]) -> tuple:
+    """
+    断片を含むセンテンスを探す
+    
+    Args:
+        fragment: 断片テキスト
+        sentences: センテンスのリスト
+    
+    Returns:
+        (sentence_index, sentence_text) または (None, None)
+    """
+    fragment_lower = fragment.lower().strip()
+    
+    for i, sentence in enumerate(sentences):
+        if fragment_lower in sentence.lower():
+            return (i, sentence)
+    
+    return (None, None)
+
+
+def replace_fragment_in_sentence(sentence: str, before_fragment: str, after_fragment: str) -> str:
+    """
+    センテンス内の断片を置換する（1回のみ）
+    
+    Args:
+        sentence: 元のセンテンス
+        before_fragment: 置換前の断片
+        after_fragment: 置換後の断片
+    
+    Returns:
+        置換後のセンテンス
+    """
+    # 大文字小文字を区別せずに1回だけ置換
+    pattern = re.compile(re.escape(before_fragment), re.IGNORECASE)
+    result = pattern.sub(after_fragment, sentence, count=1)
+    return result
+
+
+def normalize_level(level: str, before: str, after: str) -> tuple:
+    """
+    level を ❌ または ✅ に正規化し、after を調整する
+    
+    ルール:
+    - 💡 が含まれる → ✅ に変換し、after=before
+    - level が無い → ✅ に変換し、after=before
+    - ❌ のときは before≠after を許可
+    - ✅ のときは after=before に矯正
+    
+    Args:
+        level: 元の level
+        before: 修正前の英文（全文）
+        after: 修正後の英文（全文）
+    
+    Returns:
+        (normalized_level, normalized_after)
+    """
+    # level が無い、または 💡 を含む場合
+    if not level or '💡' in level:
+        logger.info(f"Normalizing level: '{level}' → '✅ 正しい表現' (after=before)")
+        return ('✅ 正しい表現', before)
+    
+    # ❌ の場合はそのまま
+    if '❌' in level:
+        logger.info(f"Level is ❌, keeping after: '{after[:50]}...'")
+        return (level, after)
+    
+    # ✅ の場合は after=before に矯正
+    if '✅' in level:
+        if before != after:
+            logger.info(f"Level is ✅ but after≠before. Setting after=before")
+        return (level, before)
+    
+    # その他の場合はデフォルトで ✅
+    logger.info(f"Unknown level '{level}', defaulting to '✅ 正しい表現' (after=before)")
+    return ('✅ 正しい表現', before)
+
+
+def normalize_points(
+    points: List[Dict[str, Any]],
+    normalized_answer: str,
+    japanese_sentences: List[str]
+) -> List[Dict[str, Any]]:
+    """
+    points を正規化する
+    
+    1. before/after を全文に拡張
+    2. level を ❌ または ✅ に強制
+    3. ✅ の場合は after=before に矯正
+    4. sentence_no を付与
+    5. sentence_no 昇順でソート
+    
+    Args:
+        points: LLMから返された points
+        normalized_answer: 正規化された学生英文
+        japanese_sentences: 日本語原文のセンテンスリスト
+    
+    Returns:
+        正規化された points
+    """
+    logger.info(f"Starting points normalization: {len(points)} points")
+    
+    # 学生英文をセンテンスに分割
+    student_sentences = split_into_sentences(normalized_answer)
+    logger.info(f"Student answer split into {len(student_sentences)} sentences")
+    
+    normalized_points = []
+    
+    for i, point in enumerate(points):
+        try:
+            original_before = point.get('before', '').strip()
+            original_after = point.get('after', '').strip()
+            original_level = point.get('level', '')
+            
+            logger.info(f"Processing point {i+1}: before='{original_before[:50]}...', level='{original_level}'")
+            
+            # before が空の場合はスキップ
+            if not original_before:
+                logger.warning(f"Point {i+1}: Empty before, skipping")
+                continue
+            
+            # 断片 → 全文に拡張
+            sentence_index, full_sentence = find_sentence_containing_fragment(original_before, student_sentences)
+            
+            if full_sentence is None:
+                # 見つからない場合は警告してスキップ
+                logger.warning(f"Point {i+1}: Fragment '{original_before[:50]}' not found in student answer, skipping")
+                continue
+            
+            logger.info(f"Point {i+1}: Found in sentence {sentence_index + 1}: '{full_sentence[:50]}...'")
+            
+            # before を全文に置換
+            full_before = full_sentence
+            
+            # after を全文に拡張（original_after が断片の場合、センテンス内で置換）
+            if '❌' in original_level and original_before != original_after:
+                # 修正が必要な場合：original_before を original_after に置換
+                full_after = replace_fragment_in_sentence(full_sentence, original_before, original_after)
+                logger.info(f"Point {i+1}: Replaced fragment in sentence: '{full_after[:50]}...'")
+            else:
+                # 修正不要な場合：after は before と同じ
+                full_after = full_before
+            
+            # level を正規化し、必要なら after を調整
+            normalized_level, final_after = normalize_level(original_level, full_before, full_after)
+            
+            # sentence_no を付与
+            # japanese_sentence があればそれを元に特定、なければ sentence_index+1
+            sentence_no = sentence_index + 1
+            if point.get('japanese_sentence'):
+                # 日本語原文から index を特定（完全一致）
+                try:
+                    jp_index = japanese_sentences.index(point['japanese_sentence'])
+                    sentence_no = jp_index + 1
+                    logger.info(f"Point {i+1}: Matched Japanese sentence, sentence_no={sentence_no}")
+                except ValueError:
+                    # 見つからない場合は sentence_index+1 を使用
+                    logger.warning(f"Point {i+1}: Japanese sentence not found in original, using sentence_index+1")
+            
+            # 正規化結果を設定
+            point['before'] = full_before
+            point['after'] = final_after
+            point['level'] = normalized_level
+            point['sentence_no'] = sentence_no
+            
+            normalized_points.append(point)
+            logger.info(f"Point {i+1}: Normalized successfully (sentence_no={sentence_no})")
+        
+        except Exception as e:
+            logger.error(f"Error normalizing point {i+1}: {e}")
+            # エラーが発生した場合はスキップ
+            continue
+    
+    # sentence_no 昇順でソート
+    normalized_points.sort(key=lambda p: p.get('sentence_no', 9999))
+    
+    logger.info(f"Points normalization complete: {len(normalized_points)} points")
+    return normalized_points
+
+
+=== constraint_validator.py ===
+
+"""
+制約検証モジュール - サーバーサイド決定的チェック
+宮崎大学医学部英作文特訓システム
+
+このモジュールはLLMに依存せず、確実に以下をチェックします：
+1. 語数カウント（100-120語または80-120語）
+2. 2つの理由/提案/例の検出（ヒューリスティック）
+"""
+import re
+import logging
+from typing import Dict, Any, List, Tuple
+
+logger = logging.getLogger(__name__)
+
+
+def normalize_punctuation(text: str) -> str:
+    """
+    全角記号を半角に正規化
+    
+    ユーザーが全角で入力する可能性のある記号を半角に変換します：
+    - 全角ピリオド（．）→ 半角ピリオド（.）
+    - 全角カンマ（，）→ 半角カンマ（,）
+    - 全角疑問符（？）→ 半角疑問符（?）
+    - 全角感嘆符（！）→ 半角感嘆符（!）
+    - 全角コロン（：）→ 半角コロン（:）
+    - 全角セミコロン（；）→ 半角セミコロン（;）
+    - 全角引用符（""''）→ 半角引用符（""''）
+    - 全角ハイフン（ー）→ 半角ハイフン（-）
+    
+    Args:
+        text: 正規化対象のテキスト
+        
+    Returns:
+        正規化されたテキスト
+    """
+    if not text:
+        return text
+    
+    # 全角→半角の変換マップ
+    replacements = {
+        '。': '.',  # 日本語の句点
+        '．': '.',  # 全角ピリオド
+        '，': ',',
+        '？': '?',
+        '！': '!',
+        '：': ':',
+        '；': ';',
+        '"': '"',
+        '"': '"',
+        ''': "'",
+        ''': "'",
+        '（': '(',  # 全角左括弧
+        '）': ')',  # 全角右括弧
+        '　': ' ',  # 全角スペース → 半角スペース
+        'ー': '-',
+        '－': '-',
+        '—': '-',
+        '–': '-',
+    }
+    
+    result = text
+    for full_width, half_width in replacements.items():
+        result = result.replace(full_width, half_width)
+    
+    return result
+
+
+def deterministic_word_count(text: str) -> int:
+    """
+    決定的な語数カウント（LLM非依存）
+    
+    ルール:
+    - 英単語のみをカウント（日本語は除外）
+    - 句読点を除外
+    - アポストロフィを含む単語（don't, it's）は1語としてカウント
+    - ハイフンでつながった単語（well-being）は1語としてカウント
+    - 全角記号は自動的に半角に変換されます
+    
+    Args:
+        text: カウント対象のテキスト
+        
+    Returns:
+        語数（整数）
+    """
+    if not text or not text.strip():
+        return 0
+    
+    # 全角記号を半角に正規化
+    text = normalize_punctuation(text)
+    
+    # 英単語パターン（アポストロフィとハイフンを含む）
+    # \b[\w']+\b はアポストロフィを含む単語にマッチ
+    # ハイフンでつながった単語は1語としてカウント
+    tokens = re.findall(r"\b[\w'-]+\b", text, re.UNICODE)
+    
+    # 英語の単語のみをフィルタ（少なくとも1文字の英字を含む）
+    english_words = [token for token in tokens if re.search(r'[a-zA-Z]', token)]
+    
+    count = len(english_words)
+    logger.debug(f"Word count: {count} (text length: {len(text)} chars)")
+    
+    return count
+
+
+def detect_discourse_markers(text: str) -> List[Tuple[str, int]]:
+    """
+    ディスコースマーカー（論理展開の指標）を検出
+    
+    検出対象:
+    - First/Firstly/First of all
+    - Second/Secondly
+    - Another/Also/Moreover/Furthermore/In addition
+    - One reason is/Another reason is
+    - For example/For instance (複数の例がある場合)
+    
+    Args:
+        text: 検証対象のテキスト
+        
+    Returns:
+        [(マーカー文字列, 位置), ...] のリスト
+    """
+    # 全角記号を半角に正規化
+    text = normalize_punctuation(text)
+    
+    markers_patterns = [
+        r'\bfirst(?:ly)?\b',
+        r'\bfirst of all\b',
+        r'\bsecond(?:ly)?\b',
+        r'\bthird(?:ly)?\b',
+        r'\banother\b',
+        r'\balso\b',
+        r'\bmoreover\b',
+        r'\bfurthermore\b',
+        r'\bin addition\b',
+        r'\bone reason is\b',
+        r'\banother reason is\b',
+        r'\bfor example\b',
+        r'\bfor instance\b',
+        r'\badditionally\b',
+        r'\bbesides\b',
+    ]
+    
+    found_markers = []
+    
+    for pattern in markers_patterns:
+        for match in re.finditer(pattern, text, re.IGNORECASE):
+            found_markers.append((match.group(), match.start()))
+    
+    # 位置順にソート
+    found_markers.sort(key=lambda x: x[1])
+    
+    return found_markers
+
+
+def detect_because_clauses(text: str) -> int:
+    """
+    理由を示す接続詞（because, since, as）の数をカウント
+    
+    Args:
+        text: 検証対象のテキスト
+        
+    Returns:
+        理由接続詞の数
+    """
+    # 全角記号を半角に正規化
+    text = normalize_punctuation(text)
+    
+    patterns = [
+        r'\bbecause\b',
+        r'\bsince\b',
+        r'\bas\b(?!\s+(?:well|usual))',  # "as well", "as usual"を除外
+    ]
+    
+    count = 0
+    for pattern in patterns:
+        matches = re.findall(pattern, text, re.IGNORECASE)
+        count += len(matches)
+    
+    return count
+
+
+def detect_sentence_boundaries(text: str) -> int:
+    """
+    文の数をカウント（ピリオド、感嘆符、疑問符で区切る）
+    
+    全角記号（．！？）は自動的に半角（.!?）に変換されます。
+    
+    Args:
+        text: 検証対象のテキスト
+        
+    Returns:
+        文の数
+    """
+    # 全角記号を半角に正規化
+    text = normalize_punctuation(text)
+    
+    # Mr., Dr., U.S. などの略語に注意
+    # 簡易的な文末検出
+    sentences = re.split(r'[.!?]+\s+', text.strip())
+    # 最後の文（ピリオドの後にスペースがない場合）を含める
+    sentences = [s for s in sentences if s.strip()]
+    
+    return len(sentences)
+
+
+def detect_two_units(text: str) -> Dict[str, Any]:
+    """
+    2つの理由/提案/例の存在を検出（ヒューリスティック）
+    
+    検出方法:
+    1. ディスコースマーカー（First, Second, Another等）
+    2. 理由を示す接続詞（because, since）の複数回使用
+    3. 文の数（4文以上あれば2理由の可能性が高い）
+    
+    Args:
+        text: 検証対象のテキスト
+        
+    Returns:
+        {
+            "detected_units": 検出された単位数（0-2）,
+            "has_two_units": 2単位以上か,
+            "markers_found": 検出されたマーカーのリスト,
+            "because_count": 理由接続詞の数,
+            "sentence_count": 文の数,
+            "confidence": 信頼度（"high", "medium", "low"）,
+            "suggestions": 改善提案のリスト
+        }
+    """
+    markers = detect_discourse_markers(text)
+    because_count = detect_because_clauses(text)
+    sentence_count = detect_sentence_boundaries(text)
+    
+    detected_units = 0
+    confidence = "low"
+    suggestions = []
+    
+    # マーカーベースの検出
+    # First/Second のペアがあれば確実に2単位
+    markers_text = [m[0].lower() for m in markers]
+    has_first = any('first' in m for m in markers_text)
+    has_second = any('second' in m for m in markers_text)
+    
+    if has_first and has_second:
+        detected_units = 2
+        confidence = "high"
+    elif has_first or has_second:
+        detected_units = 1
+        confidence = "medium"
+        suggestions.append("片方のマーカー（First/Second）しか検出されませんでした。もう一方も明示すると明確になります。")
+    
+    # Another, Also等の追加マーカーをカウント
+    additional_markers = [m for m in markers_text if m in ['another', 'also', 'moreover', 'furthermore', 'in addition', 'additionally']]
+    
+    if detected_units == 0 and len(additional_markers) >= 1:
+        detected_units = 1
+        confidence = "medium"
+        if len(additional_markers) >= 2:
+            detected_units = 2
+            confidence = "medium"
+    
+    # 理由接続詞（because等）が2回以上あれば2理由の可能性
+    if detected_units == 0 and because_count >= 2:
+        detected_units = 2
+        confidence = "medium"
+        suggestions.append("理由を示す接続詞（because等）が複数検出されました。First, Second などのマーカーを使うとより明確になります。")
+    
+    # 文の数で推定（4文以上あれば2理由の可能性が高い）
+    if detected_units == 0 and sentence_count >= 4:
+        detected_units = 2
+        confidence = "low"
+        suggestions.append("4文以上ありますが、論理構造が明確ではありません。First, Second などのマーカーを使って理由を明示してください。")
+    
+    # 検出できない場合の提案
+    if detected_units == 0:
+        suggestions.append("2つの理由/提案/例が明確に区別できません。'First, ...' と 'Second, ...' のような構造を使ってください。")
+    elif detected_units == 1:
+        suggestions.append("1つの理由/提案のみが検出されました。もう1つ追加して、2つの理由を明確に示してください。")
+    
+    return {
+        "detected_units": min(detected_units, 2),  # 最大2
+        "has_two_units": detected_units >= 2,
+        "markers_found": [m[0] for m in markers],
+        "because_count": because_count,
+        "sentence_count": sentence_count,
+        "confidence": confidence,
+        "suggestions": suggestions
+    }
+
+
+def validate_constraints(
+    text: str,
+    min_words: int,
+    max_words: int,
+    required_units: int = 2
+) -> Dict[str, Any]:
+    """
+    すべての制約を検証（統合関数）
+    
+    Args:
+        text: 検証対象のテキスト
+        min_words: 最小語数
+        max_words: 最大語数
+        required_units: 必要な理由/提案/例の数（デフォルト: 2）
+        
+    Returns:
+        {
+            "word_count": 実際の語数,
+            "within_word_range": 語数範囲内か,
+            "required_units": 必要な単位数,
+            "detected_units": 検出された単位数,
+            "has_required_units": 必要な単位数を満たしているか,
+            "unit_detection_confidence": 単位検出の信頼度,
+            "notes": 詳細メッセージのリスト,
+            "suggestions": 改善提案のリスト
+        }
+    """
+    # 語数カウント
+    word_count = deterministic_word_count(text)
+    within_range = min_words <= word_count <= max_words
+    
+    # 2単位検出（翻訳問題ではrequired_units=0でスキップ）
+    if required_units > 0:
+        unit_detection = detect_two_units(text)
+        detected_units = unit_detection["detected_units"]
+        has_required = detected_units >= required_units
+    else:
+        # 翻訳問題: 単位検出をスキップ
+        unit_detection = {
+            "detected_units": 0,
+            "confidence": "n/a",
+            "markers_found": [],
+            "because_count": 0,
+            "sentence_count": 0,
+            "suggestions": []
+        }
+        detected_units = 0
+        has_required = True  # required_units=0なら常に満たす
+    
+    # メッセージ生成
+    notes = []
+    suggestions = []
+    
+    # 語数チェック
+    if not within_range:
+        if word_count < min_words:
+            shortage = min_words - word_count
+            notes.append(f"⚠️ 語数不足: {word_count}語（{shortage}語不足）")
+            suggestions.append(f"あと{shortage}語以上追加してください（目標: {min_words}-{max_words}語）")
+        else:
+            excess = word_count - max_words
+            notes.append(f"⚠️ 語数超過: {word_count}語（{excess}語超過）")
+            suggestions.append(f"{excess}語以上削減してください（目標: {min_words}-{max_words}語）")
+    else:
+        notes.append(f"✅ 語数OK: {word_count}語（{min_words}-{max_words}語）")
+    
+    # 単位数チェック（required_units > 0の場合のみ）
+    if required_units > 0:
+        if not has_required:
+            notes.append(f"⚠️ 理由/提案が不足: {detected_units}個検出（{required_units}個必要）")
+            suggestions.extend(unit_detection["suggestions"])
+        else:
+            confidence_label = {
+                "high": "明確",
+                "medium": "やや明確",
+                "low": "不明確"
+            }.get(unit_detection["confidence"], "不明")
+            notes.append(f"✅ 理由/提案OK: {detected_units}個検出（{confidence_label}）")
+            
+            # 信頼度が低い場合は改善提案を追加
+            if unit_detection["confidence"] == "low":
+                suggestions.append("論理構造をより明確にするため、'First, ...' と 'Second, ...' のようなマーカーの使用を推奨します。")
+    
+    return {
+        "word_count": word_count,
+        "within_word_range": within_range,
+        "required_units": required_units,
+        "detected_units": detected_units,
+        "has_required_units": has_required,
+        "unit_detection_confidence": unit_detection["confidence"],
+        "markers_found": unit_detection["markers_found"],
+        "because_count": unit_detection["because_count"],
+        "sentence_count": unit_detection["sentence_count"],
+        "notes": notes,
+        "suggestions": suggestions
+    }
+
+
+=== test_sentence_split_debug.py ===
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+ユーザー報告の文分割不具合を再現するテスト
+"""
+from constraint_validator import normalize_punctuation
+from points_normalizer import normalize_user_input, split_into_sentences
+
+# ユーザーの入力（実際の入力）
+user_input = """According to a recent survey.Japan is getting older, and the demand for nursing home are increasing very fast.As the number of elderly people increase, care service cannot keep up, and many facilities are full by people
+so a lot of families cannot get in.this situation is a big problem for local communities,and the government must act fast.If there was more staff, the services will be enough."""
+
+print("=" * 80)
+print("【ステップ1】元の入力:")
+print("=" * 80)
+print(user_input)
+print()
+
+print("=" * 80)
+print("【ステップ2】normalize_punctuation 後:")
+print("=" * 80)
+normalized_punct = normalize_punctuation(user_input)
+print(normalized_punct)
+print()
+
+print("=" * 80)
+print("【ステップ3】normalize_user_input 後:")
+print("=" * 80)
+normalized = normalize_user_input(normalized_punct)
+print(normalized)
+print()
+
+print("=" * 80)
+print("【ステップ4】split_into_sentences 後:")
+print("=" * 80)
+sentences = split_into_sentences(normalized)
+for i, sent in enumerate(sentences, 1):
+    print(f"{i}文目: {sent}")
+print()
+
+print("=" * 80)
+print("【期待される文数】: 3文")
+print(f"【実際の文数】: {len(sentences)}文")
+print("=" * 80)
+
+# 問題点の確認
+print("\n【問題点の詳細分析】")
+print("-" * 80)
+print("1. ピリオドの後にスペースがない箇所:")
+issues = [
+    "survey.Japan",
+    "fast.As", 
+    "in.this"
+]
+for issue in issues:
+    if issue in user_input:
+        print(f"   ✗ {issue} が見つかりました")
+    
+print("\n2. 改行の途中で文が切れている:")
+if "\n" in user_input:
+    print("   ✗ 改行あり（改行前に文末記号なし）")
+    print(f"   改行位置: '...full by people\\nso a lot...'")
+
+print("\n3. 小文字で始まる文:")
+lowercase_starts = []
+for line in user_input.split("\n"):
+    if line and line[0].islower():
+        lowercase_starts.append(line[:30] + "...")
+        
+if lowercase_starts:
+    print("   ✗ 小文字始まりあり:")
+    for start in lowercase_starts:
+        print(f"     - {start}")
+
+
+=== prompts_translation_simple.py (判断順序とreasonフォーマット部分) ===
+
+2. 各英文について評価する：
+   - 同じ文の繰り返しの場合：最初の1文を評価し、「同じ文が繰り返されています」と指摘
+   - 意味不明な文字列の場合：「英文として意味をなしていません」と指摘
+   - 通常の文の場合：文法・表現を評価
+
+### 判断順序【必須】
+
+以下の順番で判断し、該当するものがあればそこで判定を確定する：
+
+1. **🚨🚨🚨 明確な文法ミス（最優先・必ず検出）🚨🚨🚨** → ❌文法ミス
+   
+   **【主語と動詞の不一致】** - 絶対に❌にすること（最重要）：
+   - 単数主語 + 複数動詞：
+     ❌ "This habit are" → "This habit is"
+     ❌ "This new habit are" → "This new habit is"
+     ❌ "The method work" → "The method works"
+     ❌ "My sister like" → "My sister likes"
+     ❌ "He don't" → "He doesn't"
+   
+   - 複数主語 + 単数動詞：
+     ❌ "These habits is" → "These habits are"
+     ❌ "The students likes" → "The students like"
+     ❌ "They doesn't" → "They don't"
+   
+   **【チェック方法】文法ミスを見逃さないために：**
+   - 主語を特定（this/that/a/the + 単数名詞 → 単数、these/those/複数名詞 → 複数）
+   - 動詞の形を確認（is/are, -s付き/なし、does/do）
+   - 一致しない場合は**必ず❌**（beforeとafterが同一でも❌）
+   
+   **【不完全な文】** - 絶対に❌にすること：
+   - 文末が接続詞で終わっている：
+     ❌ "I like apples and" → 「and」の後に文が続かない
+     ❌ "eight hours and Afterward" → 「and」の後に文が続くべき
+   - 文末が前置詞で終わっている（形式的な場合を除く）
+   
+   **【句読点の誤り】** - 絶対に❌にすること：
+   - ピリオドの後に小文字の接続詞：
+     ❌ "highest scores. while the group" → ピリオドの後に小文字の「while」
+     ❌ "important point. and then" → ピリオドの後に小文字の「and」
+   - カンマの代わりにピリオド：
+     ❌ "As a trial. I started" → ピリオドの代わりにカンマが必要
+   
+   **【時制の誤り】** - 絶対に❌にすること：
+   - "Yesterday, I go" → "Yesterday, I went"
+   
+   **【冠詞の明確な誤り】** - 絶対に❌にすること：
+   - "I am student" → "I am a student"
+
+2. **beforeとafterが完全に同一かチェック**
+   - 同一なら → ✅正しい表現
+   - 異なるなら → 次のステップへ
+
+3. **日本語原文の内容が正確に伝わっていない** → ❌意味不一致
+   例：
+   - 日本語「毎日」→ 英語「sometimes」（頻度が違う）
+   - 日本語「増加した」→ 英語「decreased」（逆の意味）
+   - 日本語「3つの理由」→ 英語「two reasons」（数が違う）
+
+4. **明確なコロケーションミス** → ❌誤用
+   例：
+   - "make a mistake" を "do a mistake" と書いた場合
+   - "take a shower" を "make a shower" と書いた場合
+
+5. **それ以外（beforeとafterが異なるが文法ミスではない）** → ✅正しい表現として扱う
+   - **重要：この場合、afterをbeforeと同一にすること**
+   - 語彙選択の好み、構文の選択肢、文体の違い → 全て✅
+   - beforeが正しければ、afterも同じ内容にする
+
+**🚨🚨🚨絶対厳守🚨🚨🚨**
+- **✅正しい表現の場合、beforeとafterは完全に同一にすること**
+- **語彙や構文の好みの違いは、全て✅として扱う**
+- **💡改善提案は絶対に出さない**
+
+### 【出力ラベルは2種類のみ - 💡改善提案は完全廃止】
+
+- **✅ 正しい表現**: 文法的に正しい、意味が通る → beforeとafterは完全に同一
+- **❌ 文法ミス / 意味不一致 / 誤用**: 減点レベルの明確な誤りのみ
+
+🚨🚨🚨【絶対厳守】💡改善提案は一切出さない！🚨🚨🚨
+- 「より良い表現がある」は ✅ として扱う（after=before）
+- 好みや文体の違いは ✅ として扱う（after=before）
+- 減点されない表現は全て ✅
+
+### level_typeの分類（❌を出す場合のみ必須）
+
+❌を出す場合は、以下から選ぶ：
+- "grammar_error" : 文法の誤り
+- "semantic_mismatch" : 意味の不一致
+- "collocation_error" : コロケーションミス
+
+### reasonの記述フォーマット【必須・厳守】- kagoshima風テンプレート
+
+🚨🚨🚨【出力例を必ず参考にしてください - ❌でも✅でも同じ形式】🚨🚨🚨
+
+**出力例1（✅の場合 - 正しい表現の語彙解説）:**
+```
+"reason": "1文目: The project aims to reduce traffic jams in cities by using AI technology.\\n（このプロジェクトは、AI技術を使って都市の交通渋滞を減らすことを目指している。）\\nreduce（動詞：減らす：対象が具体的な量）／alleviate（動詞：緩和する：対象が抽象的な事象）で、reduceは具体的な数値の減少に使われることが多く、alleviateは問題や負担の緩和に使われる。\\n【参考】reduce traffic（交通量を減らす）／alleviate congestion（渋滞を緩和する）\\n例：We need to reduce costs. (コストを削減する必要がある。)／Measures were taken to alleviate the pain. (痛みを和らげるための措置が取られた。)"
+```
+
+**出力例2（❌の場合 - 文法エラーの修正理由）:**
+```
+"reason": "2文目: In particular, a system was introduced that analyzes real-time traffic data and optimize the timing of traffic signals.\\n（特に、リアルタイムの交通データを分析し、信号のタイミングを最適化するシステムが導入された。）\\noptimize（動詞：最適化する：プロセスや機能）／improve（動詞：改善する：全般的に）で、optimizeは特定の条件下での最良化に使われ、improveは全体的な向上に使われる。文法エラー：'analyzes'と並列の'optimize'は'optimizes'にすべき。\\n【参考】optimize performance（性能を最適化する）／improve quality（品質を改善する）\\n例：We aim to optimize the system's efficiency. (システムの効率を最適化することを目指しています。)／Efforts were made to improve the service. (サービスの改善に努めた。)"
+```
+
+**出力例3（a number of / the number of - ❌の場合）:**
+```
+"reason": "1文目: A number of students submitted the form online.\\n（多くの学生がその用紙をオンラインで提出した。）\\na number of（名詞句：多くの～）／the number of（名詞句：～の数）で、a number of は「たくさん」という量、the number of は「数そのもの」という数量を表します。a number of は後ろが複数名詞なので動詞も複数になりやすい（A number of students are …）。the number of は「数」が主語なので単数扱い（The number of students is …）。\\n【参考】a number of + 複数名詞（多くの～）／the number of + 複数名詞（～の数）\\n例：A number of people were absent. (多くの人が欠席した。)／The number of people was increasing. (人の数が増えていた。)"
+```
+
+**出力例4（主語動詞不一致 - ❌の場合）:**
+```
+"reason": "1文目: This new habit are very effective to reduce my stress.\\n（この新しい習慣は、私のストレスを減らすのに非常に効果的だ。）\\nare（動詞：～である：複数形）／is（動詞：～である：単数形）で、主語が単数形「This new habit」の場合、動詞は単数形の「is」を使う必要がある。\\n【参考】This habit is …（この習慣は～だ）／These habits are …（これらの習慣は～だ）\\n例：This method is effective. (この方法は効果的だ。)／These methods are effective. (これらの方法は効果的だ。)"
+```
+
+🚨🚨🚨【上記の出力例を必ず参考にすること】🚨🚨🚨
+- すべての例で「N文目: 」と「（日本語訳）」が含まれている
+- ❌でも✅でも同じフォーマット
+
+---
+
+**必須形式（kagoshima風・5点セット）- ❌/✅共通:**
+```
+N文目: [英文そのまま]
+（[日本語訳]）
+[語A]（品詞：意味：文脈）／[語B]（品詞：意味：文脈）で、[違いの詳細説明]。
+【参考】[文法パターンA]／[文法パターンB]
+例：[例文1] ([和訳1])／[例文2] ([和訳2])
+```
+
+**🚨重要🚨 このフォーマットは level が ❌ でも ✅ でも必ず適用する**
+- ❌の場合: 誤りの修正理由を説明
+- ✅の場合: 正しい表現の語彙解説を提供
+- **どちらの場合も「N文目: 」と「（日本語訳）」は省略禁止**
+
+**絶対厳守:**
+1. **❌でも✅でも、必ず「N文目: 英文全文」で始める**
+2. **❌でも✅でも、必ず次の行に「（日本語訳）」を記載**
+3. 語彙比較は必ずA／B形式で2つ以上
+4. 【参考】セクションは必須（文法・語法パターンを提示）
+5. 例文は必ず2つ、和訳は丸括弧()で囲む（日本語引用符「」は使わない）
+6. 例文は学生の英文と異なる新しい例を提示（同一文の繰り返し禁止）
+
+**出力例2（be likely to / It is likely that）:**
+```
+"reason": "2文目: She is likely to arrive late because of the traffic.\\n（交通のせいで、彼女は遅れて到着しそうだ。）\\nlikely（形容詞：～しそうだ）／possible（形容詞：あり得る）で、likely は「起こりそう（確率が高め）」、possible は「起こり得る（可能性がある）」という差が出ます。\\n【参考】be likely to do（～しそうだ）／It is likely that S+V（Sが～しそうだ）\\n例：He is likely to win. (彼は勝ちそうだ。)／It is likely that prices will rise. (物価は上がりそうだ。)"
+```
+
+**出力例3（due to / because of）:**
+```
+"reason": "3文目: He succeeded due to his careful planning.\\n（彼は綿密な計画のおかげで成功した。）\\ndue to（前置詞句：～が原因で）／because of（前置詞句：～のために）で、どちらも原因を表しますが、due to はやや硬めで「原因・要因」を述べる文に合いやすい（名詞と相性が良い）一方、because of はより万能で会話でも自然です。\\n【参考】due to A（Aが原因で）／because of A（Aのために）\\n例：The delay was due to the storm. (遅れは嵐が原因だった。)／We stayed home because of the storm. (嵐のため家にいた。)"
+```
+
+
+=== 使用例とGPTへの質問テンプレート ===
+
+
+
+================================================================================
+=== AGENT INSTRUCTIONS (エージェント指示) ===
+================================================================================
+
+# ✅ エージェント指示（コピペ用）
+
+あなたはこのリポジトリの英訳添削（translation_simple）系の不具合を修正する実装担当です。
+P0→P1→P2の優先度で、回帰を起こさずに直してください。
+
+---
+
+## 0) まず読むもの（必須）
+
+- **BUG_REPORT_20260129.md** - 不具合の再現条件・原因・期待動作・推奨修正
+- **HOW_TO_SUBMIT_TO_GPT.md** - 共有手順（今回は"修正実装"なので参考程度）
+- **GPT_SUBMISSION.txt** - 完全なコードとレポート
+
+---
+
+## P0（最優先）文分割が過剰になる問題を修正
+
+### ゴール（合格条件）
+
+- 日本語原文が3文なら、ユーザー英文も3文として扱えること（少なくとも「6文に増える」状態を潰す）
+- 具体例（BUG_REPORT記載の入力）で **6分割→3分割に改善**すること
+
+### 直す対象（優先順）
+
+**ファイル**: `points_normalizer.py`
+- `normalize_user_input()`
+- `split_into_sentences()`
+
+### 修正方針（保守的アプローチで実装）
+
+#### 1. 改行は文区切りにしない（句読点がない改行は、前後をスペースで結合する）
+
+現在「改行→ピリオド挿入」などをしているなら撤去/無効化し、基本は `\n+` → `" "` に正規化。
+
+```python
+# ❌ 現在（間違い）
+lines = text.split('\n')
+for line in lines:
+    if not line.endswith('.'):
+        line += '.'  # ← これが過剰分割の原因
+
+# ✅ 修正後
+text = text.replace('\n', ' ')  # 改行は単なるスペースに
+```
+
+#### 2. `split_into_sentences()` の分割条件を厳格化
+
+現在、小文字開始も許容している正規表現を、原則として **[.!?] + whitespace + (大文字 or " or ' or () のときだけ分割** に変更する。
+
+```python
+# ❌ 現在（間違い）
+r'([.!?])\s*(?=[A-Za-z0-9"\'\(])'  # 小文字も分割
+
+# ✅ 修正後
+r'([.!?])\s+(?=[A-Z"\'\(])'  # 大文字のみ分割
+```
+
+これにより、`... people so ...` や `... in. this ...` のような小文字開始を「新文」と誤認しない。
+
+#### 3. ピリオド直後のスペース不足（`survey.Japan` 等）を救う
+
+`normalize_user_input()` で「句読点直後にスペースが無い」ケースは、スペースを挿入してOK（これは正しい）。
+
+ただし、その結果 `split_into_sentences()` が過剰分割しないように上の厳格分割ルールに合わせる。
+
+#### 4. （推奨）期待文数（日本語原文の文数）に合わせる最終セーフティ
+
+可能なら、処理のどこかで「日本語原文の文数」を取得できるなら、
+`split結果 > expected` のときは **マージして expected に収める**。
+
+**マージ優先条件例：**
+- 次の断片が小文字開始（`so`/`and`/`but`/`this`/`that`/`because`/`if`/`when`/`while` など）なら前と結合
+- 前の断片が極端に短い（例：`According to a recent survey.` のような導入だけ）場合も次と結合候補
+
+※実装が重ければ、まずは(1)(2)(3)だけでOK。今回の致命傷は「過剰分割」なので。
+
+### 必須の回帰テスト追加
+
+`test_sentence_split_debug.py` に加え、最低でも以下をテストに入れる（新規ファイルでも可）：
+
+```python
+# テストケース1: ピリオド直後スペースなし
+assert split("I like apples.She likes oranges.") == 2文
+
+# テストケース2: 改行で途中切れ
+assert split("I like apples\nbut she likes oranges.") == 1文（結合）
+
+# テストケース3: 小文字開始
+assert split("I like apples. so does she.") == 1文（過剰分割しない）
+```
+
+---
+
+## P1（高優先）「未提出」なのにLLMが勝手に生成・無関係解説する問題
+
+### ゴール（合格条件）
+
+- 「未提出」扱いの文について、LLMが模範英作文を勝手に生成しない
+- 「未提出」扱いの文について、無関係語彙解説（`appropriate`/`suitable`等）を出さない
+
+### 修正方針（おすすめ：アプリ側で抑止）
+
+**LLMに"未提出文"を渡さない設計に寄せるのが最も安全。**
+
+例：文対応付けの段階で「ユーザー英文が存在しない」なら、その項目は **固定テンプレ出力で埋める**（Python側で）。
+
+- `reason` には必ず日本語訳（原文）を入れる（P2にも効く）
+
+### もしプロンプト側で対応する場合（最低限）
+
+`prompts_translation_simple.py` に以下のルールを明文化し、出力例も追加：
+
+```python
+### 未提出の文の処理【重要】
+
+原文にある文だが、ユーザーが英訳を提出していない場合:
+- level: "✅"
+- before: "(未提出)"
+- after: "(未提出)"
+- reason: "N文目: （未提出）\n（日本語訳: [原文をそのまま記載]）\nこの文は提出されていません。"
+- 模範解答を勝手に生成しない
+- 無関係な語彙解説を出さない（ゼロにする）
+```
+
+---
+
+## P2（中優先）日本語訳（N文目: …）の表示欠落を修正
+
+### ゴール（合格条件）
+
+- ✅でも❌でも未提出でも、全項目に必ず
+  ```
+  N文目:（日本語訳 ...）
+  ```
+  が入ること
+
+### 実装ポイント
+
+1. 「未提出」分岐だけ日本語訳が出ない、などの例外分岐漏れを潰す
+2. できれば `reason` を組み立てる関数を1か所に寄せて、必須要素を強制する（テンプレ化）
+
+---
+
+## 仕上げ（必須）
+
+1. **再現テスト**: BUG_REPORTの入力で、分割数・出力形式が改善したログを残す
+2. **全テスト実行**: 既存テスト + 追加テストが通ること
+3. **差分提示**: 変更した関数は「置き換え可能な完全コード」で提示（部分貼りではなく）
+4. **コミット**:
+   ```
+   fix: sentence splitting no longer over-splits
+   fix: prevent hallucinations for missing sentences
+   fix: always show Japanese translation in reason
+   ```
+
+---
+
+## 期待する最終アウトプット（この順で返して）
+
+1. **修正内容の要約**（P0/P1/P2）
+2. **変更ファイル一覧**
+3. **置換用の完全コード**（該当関数 or 該当ファイル差分）
+4. **追加したテストコード**
+5. **BUG_REPORT例に対する "改善後の分割結果" の具体表示**
+
+---
+
+## 📎 添付ファイル参照
+
+このフォルダ内の以下のファイルを参照してください：
+
+1. **GPT_SUBMISSION.txt** - 完全なコードとバグレポート
+2. **BUG_REPORT_20260129.md** - 詳細な不具合分析
+3. **test_sentence_split_debug.py** - 不具合を再現するテスト
+4. **points_normalizer.py** - 修正対象ファイル
+5. **constraint_validator.py** - 関連ファイル
+6. **prompts_translation_simple.py** - プロンプト定義
+
+---
+
+## 🎯 使い方
+
+1. このファイルの内容をコピー
+2. ChatGPT / Claude に貼り付け
+3. 「GPT_SUBMISSION.txt の内容も確認してください」と追記
+4. 修正コードを受け取る
+5. テストして確認
+6. コミット
+
+---
+
+**作成日**: 2026年1月29日
+**対象システム**: miyazaki_igaku_100words（宮崎大学医学部英作文特訓システム）
