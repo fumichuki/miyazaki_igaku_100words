@@ -11,7 +11,7 @@ from openai import OpenAI
 from pydantic import ValidationError
 from models import QuestionResponse, CorrectionResponse, SubmissionRequest, TargetWords, ConstraintChecks
 from constraint_validator import validate_constraints as validate_constraints_func, normalize_punctuation
-from points_normalizer import normalize_points
+from points_normalizer import normalize_points, normalize_user_input, split_into_sentences
 import config
 
 # 添削プロンプトは簡潔版を使用
@@ -1519,8 +1519,6 @@ def determine_required_points(question_text: str, user_answer: str) -> int:
     Returns:
         required_points: 必要な項目数
     """
-    from points_normalizer import split_into_sentences
-    
     # 1. 原文の文数をカウント（句点・ピリオドで分割）
     if question_text and question_text.strip():
         # 句点（。）またはピリオド（.）で分割
@@ -1551,9 +1549,13 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
     Args:
         submission: 提出データ
     """
-    # ユーザー入力の全角記号を半角に正規化
+    # ステップ1: ユーザー入力の全角記号を半角に正規化
     normalized_answer = normalize_punctuation(submission.user_answer)
-    logger.info(f"Normalized user answer (first 100 chars): {normalized_answer[:100]}...")
+    logger.info(f"Step 1 - Punctuation normalized (first 100 chars): {normalized_answer[:100]}...")
+    
+    # ステップ2: ユーザー入力を正規化（ピリオド後のスペース不足などを修正）
+    normalized_answer = normalize_user_input(normalized_answer)
+    logger.info(f"Step 2 - User input normalized (first 100 chars): {normalized_answer[:100]}...")
     
     # 問題文を取得（優先順位: japanese_paragraphs > japanese_sentences > question_text）
     if submission.japanese_paragraphs:

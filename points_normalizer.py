@@ -27,6 +27,9 @@ def _protect_abbreviations(text: str) -> str:
     """
     省略形のピリオドを一時的にプレースホルダーに置換して保護する
     
+    文末の省略形（例: "U.S. It"）の場合、省略形内部のピリオドのみ保護し、
+    文末のピリオドは保護しない
+    
     Args:
         text: 元のテキスト
     
@@ -35,12 +38,29 @@ def _protect_abbreviations(text: str) -> str:
     """
     protected = text
     
-    # 省略形を完全に保護（文末でも中間でも）
+    # 省略形を保護（ただし、文末判定のため特別な処理が必要）
     for abbr in _ABBREVIATIONS:
         # 大文字小文字を区別せずにマッチング
+        # ただし、省略形の後にスペース+大文字が続く場合は文の区切りと見なす
+        # 例: "U.S. It" の場合、"U.S." 全体ではなく "U.S" のみ保護
         pattern = re.compile(re.escape(abbr), re.IGNORECASE)
-        # すべてのピリオドをプレースホルダーに置換
-        protected = pattern.sub(lambda m: m.group(0).replace(".", _DOT_PLACEHOLDER), protected)
+        
+        # 省略形の後にスペース+大文字が続く場合は、最後のピリオド以外を保護
+        # 例: "U.S." → "U<DOT>S."
+        if abbr.endswith('.'):
+            abbr_without_last_dot = abbr[:-1]  # "U.S." → "U.S"
+            # "U.S." の後にスペース+大文字が続く場合のみ、最後のピリオドを残す
+            protected = re.sub(
+                re.escape(abbr) + r'(?=\s+[A-Z])',
+                abbr_without_last_dot.replace(".", _DOT_PLACEHOLDER) + ".",
+                protected,
+                flags=re.IGNORECASE
+            )
+            # それ以外の場合は全体を保護
+            protected = pattern.sub(
+                lambda m: m.group(0).replace(".", _DOT_PLACEHOLDER),
+                protected
+            )
     
     # イニシャル形式（A.B.C.など）を保護
     protected = re.sub(r'\b([A-Z])\.(?=\s*[A-Z]\.)', r'\1' + _DOT_PLACEHOLDER, protected)
@@ -64,11 +84,51 @@ def _restore_abbreviations(text: str) -> str:
     return text.replace(_DOT_PLACEHOLDER, ".")
 
 
+def normalize_user_input(text: str) -> str:
+    """
+    ユーザー入力を正規化する
+    
+    以下の修正を行う：
+    - ピリオド直後にスペースなく大文字が続く場合、スペースを挿入（例: "word.In" → "word. In"）
+    - 複数の連続スペースを1つに統一
+    - 文末にピリオドがない場合は追加
+    - 文頭の余分な空白を削除
+    
+    Args:
+        text: ユーザーが入力した英文
+    
+    Returns:
+        正規化された英文
+    """
+    if not text or not text.strip():
+        return ""
+    
+    # 前後の空白を削除
+    normalized = text.strip()
+    
+    # ステップ1: ピリオド直後にスペースなく大文字が続く場合、スペースを挿入
+    # 省略形を保護する前に実行（p.m.In → p.m. In）
+    normalized = re.sub(r'\.([A-Z])', r'. \1', normalized)
+    
+    # ステップ2: 疑問符・感嘆符の直後も同様
+    normalized = re.sub(r'([?!])([A-Z])', r'\1 \2', normalized)
+    
+    # ステップ3: 複数の連続スペースを1つに統一
+    normalized = re.sub(r'\s+', ' ', normalized)
+    
+    # ステップ4: 文末にピリオド・疑問符・感嘆符がない場合は、ピリオドを追加
+    if not normalized.endswith(('.', '?', '!')):
+        normalized = normalized + '.'
+    
+    return normalized.strip()
+
+
 def split_into_sentences(text: str) -> List[str]:
     """
     英文をセンテンスに分割する（省略形に対応）
     
     p.m., a.m., e.g., U.S. などの省略形のピリオドで分割されないようにする
+    ピリオド直後のスペースの有無に関わらず分割可能
     
     Args:
         text: 英文テキスト
@@ -91,27 +151,27 @@ def split_into_sentences(text: str) -> List[str]:
     # ステップ1: 省略形のピリオドを保護
     protected = _protect_abbreviations(text.strip())
     
-    # ステップ2: 文末候補のピリオドを検出（. の後に空白 + 大文字）
-    # プレースホルダーでないピリオドの後に、空白+大文字が来る場合は分割
-    parts = re.split(r'(\.)\s+(?=[A-Z])', protected)
+    # ステップ2: 文末候補のピリオドを検出
+    # プレースホルダーでないピリオドまたは疑問符・感嘆符の後に、
+    # 空白あり/なしで大文字・数字・引用符が来る場合は分割
+    # (?<![<DOT_PLACEHOLDER>]) で保護されたピリオドの直後でないことを確認
+    parts = re.split(r'([.!?])\s*(?=[A-Z0-9"\'\(])', protected)
     
     # ステップ3: 分割結果を文に再構成
     sentences = []
     i = 0
     while i < len(parts):
-        if i + 1 < len(parts) and parts[i + 1] == '.':
-            # テキスト + ピリオドを結合
+        if i + 1 < len(parts) and parts[i + 1] in '.!?':
+            # テキスト + 句読点を結合
             sentence = parts[i] + parts[i + 1]
-            # このピリオドがプレースホルダーの直後にある場合（U.S. のケース）
-            # プレースホルダーを復元した後、実際にはピリオドが2つ連続する（U<DOT>S<DOT>. → U.S..）
-            # これを避けるため、プレースホルダーを先に復元
+            # プレースホルダーを復元
             restored = _restore_abbreviations(sentence)
             # 重複ピリオドを削除（U.S.. → U.S.）
             restored = re.sub(r'\.\.+', '.', restored)
             sentences.append(restored)
             i += 2
         else:
-            # 最後の部分（ピリオドなし）
+            # 最後の部分（句読点なし）
             if parts[i].strip():
                 restored = _restore_abbreviations(parts[i])
                 sentences.append(restored)
