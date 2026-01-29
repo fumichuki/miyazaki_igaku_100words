@@ -1088,10 +1088,28 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
     )
     
     max_retries = 3
+    retry_reason = []
+    
     for attempt in range(max_retries):
         try:
+            # リトライ時は条件を追記
+            current_prompt = prompt
+            if attempt > 0 and retry_reason:
+                retry_instructions = "\n\n【前回の生成で以下の問題がありました。修正してください】\n"
+                if 'paragraph_count_mismatch' in retry_reason:
+                    retry_instructions += "- 段落数が excerpt_type と一致していません\n"
+                if 'too_many_sentences' in retry_reason:
+                    retry_instructions += "- 1段落の文数が多すぎます（5文以内にしてください）\n"
+                if 'missing_excerpt_type' in retry_reason:
+                    retry_instructions += "- excerpt_type フィールドが必須です（P1_ONLY/P2_P3/P3_ONLY/P4_P5から選択）\n"
+                if 'too_many_paragraphs' in retry_reason:
+                    retry_instructions += "- 段落数が多すぎます（1〜3段落にしてください）\n"
+                
+                current_prompt += retry_instructions
+                logger.info(f"リトライ {attempt + 1}: 修正指示を追加")
+            
             # OpenAI APIを呼び出し
-            response = call_openai_with_retry(prompt)
+            response = call_openai_with_retry(current_prompt)
             
             # JSONをクリーンアップ
             cleaned = clean_json_response(response)
@@ -1100,7 +1118,7 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
             # JSONをパース
             data = json.loads(cleaned)
             
-            # Pydanticでバリデーション
+            # Pydanticでバリデーション（ここでValueErrorが発生する可能性）
             question = QuestionResponse(**data)
             
             # themeが7ジャンル固定語のいずれかか確認
@@ -1108,11 +1126,24 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
                 logger.warning(f"Invalid theme: {question.theme}, using fallback")
                 raise ValidationError(f"Theme must be one of: {TRANSLATION_GENRES}")
             
-            logger.info(f"Successfully generated question: {question.theme}")
+            logger.info(f"Successfully generated question: {question.theme}, excerpt_type: {question.excerpt_type}")
             return question
             
-        except (json.JSONDecodeError, ValidationError) as e:
-            logger.warning(f"Question generation failed (attempt {attempt + 1}): {e}")
+        except (json.JSONDecodeError, ValidationError, ValueError) as e:
+            logger.warning(f"Question generation failed (attempt {attempt + 1}/{max_retries}): {e}")
+            
+            # 次回リトライのための理由を記録
+            retry_reason = []
+            error_msg = str(e)
+            
+            if '段落数' in error_msg and 'excerpt_type' in error_msg:
+                retry_reason.append('paragraph_count_mismatch')
+            if '文数が多すぎ' in error_msg:
+                retry_reason.append('too_many_sentences')
+            if 'excerpt_type' in error_msg and '必須' not in error_msg:
+                retry_reason.append('missing_excerpt_type')
+            if '1〜3個である必要' in error_msg:
+                retry_reason.append('too_many_paragraphs')
             
             if attempt == max_retries - 1:
                 # 最後のリトライでも失敗したらフォールバック

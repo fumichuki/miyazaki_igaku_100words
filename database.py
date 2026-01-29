@@ -42,6 +42,7 @@ def init_database():
                 id TEXT PRIMARY KEY,
                 mode TEXT DEFAULT 'general',
                 theme TEXT NOT NULL,
+                excerpt_type TEXT,
                 japanese_sentences TEXT NOT NULL,
                 hints TEXT NOT NULL,
                 target_words TEXT NOT NULL,
@@ -51,6 +52,15 @@ def init_database():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
+        
+        # 既存テーブルにexcerpt_typeカラムが無ければ追加
+        cursor.execute("PRAGMA table_info(questions)")
+        columns = [col[1] for col in cursor.fetchall()]
+        
+        if 'excerpt_type' not in columns:
+            cursor.execute("ALTER TABLE questions ADD COLUMN excerpt_type TEXT")
+            logger.info("Added excerpt_type column to questions table")
+            conn.commit()
         
         # 提出テーブル
         cursor.execute("""
@@ -121,15 +131,22 @@ def save_question(question: QuestionResponse) -> str:
             cursor.execute("ALTER TABLE questions ADD COLUMN japanese_paragraphs TEXT")
             conn.commit()
         
+        # excerpt_typeカラムがなければ追加
+        if 'excerpt_type' not in columns:
+            logger.info("Adding excerpt_type column to questions table")
+            cursor.execute("ALTER TABLE questions ADD COLUMN excerpt_type TEXT")
+            conn.commit()
+        
         cursor.execute("""
             INSERT INTO questions (
-                id, mode, theme, question_text, japanese_sentences, japanese_paragraphs, 
+                id, mode, theme, excerpt_type, question_text, japanese_sentences, japanese_paragraphs, 
                 hints, target_words, model_answer, alternative_answer, common_mistakes
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             question_id,
             "general",  # 理系・文系版のみ
             question.theme,
+            question.excerpt_type,  # ← 追加
             question.question_text,  # 英語の問題文を保存
             json.dumps(question.japanese_sentences, ensure_ascii=False),
             json.dumps(question.japanese_paragraphs if question.japanese_paragraphs else [], ensure_ascii=False),
@@ -141,7 +158,7 @@ def save_question(question: QuestionResponse) -> str:
         ))
         
         conn.commit()
-        logger.info(f"Question saved: {question_id} - {question.theme}")
+        logger.info(f"Question saved: {question_id} - {question.theme} ({question.excerpt_type})")
     
     # 既出テーマを記録
     record_used_theme(question.theme, "general")
@@ -295,6 +312,30 @@ def get_statistics() -> Dict[str, Any]:
                 'word_count': round(avg_scores['avg_word_count'] or 0, 2)
             }
         }
+
+
+def get_recent_excerpt_types(limit: int = 10) -> List[str]:
+    """直近N問の抜粋タイプを取得"""
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT excerpt_type 
+            FROM questions 
+            WHERE excerpt_type IS NOT NULL
+            ORDER BY created_at DESC 
+            LIMIT ?
+        """, (limit,))
+        
+        return [row[0] for row in cursor.fetchall() if row[0]]
+
+
+def should_avoid_excerpt_type(excerpt_type: str) -> bool:
+    """特定の抜粋タイプを避けるべきか判定"""
+    recent = get_recent_excerpt_types(10)
+    count = recent.count(excerpt_type)
+    
+    # 直近10問で3回以上同じタイプなら避ける
+    return count >= 3
 
 
 # ===== 既出テーマ管理（重複回避） =====

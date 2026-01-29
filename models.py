@@ -32,6 +32,7 @@ class TargetWords(BaseModel):
 class QuestionResponse(BaseModel):
     """出題APIのレスポンス"""
     theme: str = Field(..., min_length=1, description="テーマ")
+    excerpt_type: Optional[str] = Field(None, description="抜粋タイプ（P1_ONLY/P2_P3/P3_ONLY/P4_P5/MIDDLE）")
     question_text: Optional[str] = Field(None, description="英語の問題文（大問５形式）")
     japanese_sentences: Optional[List[str]] = Field(default_factory=list, description="日本語文のリスト（旧形式）")
     japanese_paragraphs: Optional[List[str]] = Field(default_factory=list, description="日本語段落リスト（翻訳形式）")
@@ -52,6 +53,47 @@ class QuestionResponse(BaseModel):
     def validate_sentences(cls, v):
         if v and not all(isinstance(s, str) and len(s) > 0 for s in v):
             raise ValueError("All japanese_sentences must be non-empty strings")
+        return v
+    
+    @field_validator('japanese_paragraphs')
+    @classmethod
+    def validate_paragraphs(cls, v, info):
+        """段落の妥当性をチェック"""
+        if v is None or len(v) == 0:
+            return v
+        
+        # 段落数チェック（1〜3段落）
+        if not (1 <= len(v) <= 3):
+            raise ValueError(f"japanese_paragraphs は 1〜3個である必要があります（現在: {len(v)}個）")
+        
+        # excerpt_type との整合性チェック
+        values_dict = info.data if hasattr(info, 'data') else {}
+        excerpt_type = values_dict.get('excerpt_type')
+        
+        if excerpt_type:
+            expected_counts = {
+                'P1_ONLY': [1],
+                'P2_P3': [2],
+                'P3_ONLY': [1],
+                'P4_P5': [2],
+                'MIDDLE': [1, 2]
+            }
+            
+            if excerpt_type in expected_counts:
+                expected = expected_counts[excerpt_type]
+                if len(v) not in expected:
+                    raise ValueError(
+                        f"excerpt_type={excerpt_type} の場合、段落数は {expected} のいずれかである必要があります（現在: {len(v)}）"
+                    )
+        
+        # 段落あたりの文数チェック（極端に長い段落を弾く）
+        for i, paragraph in enumerate(v):
+            sentence_count = paragraph.count('。')
+            if sentence_count > 5:
+                raise ValueError(
+                    f"段落{i+1}の文数が多すぎます（{sentence_count}文）。1段落は5文以内にしてください。"
+                )
+        
         return v
 
 

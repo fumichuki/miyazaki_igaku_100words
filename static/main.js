@@ -247,11 +247,31 @@ function displayQuestion(data) {
   } else if (data.japanese_paragraphs && data.japanese_paragraphs.length > 0) {
     // 翻訳形式（段落→一文一文箇条書き）の場合
     const theme = data.theme || "学術";
+    
+    // テーマヘッダー
     const themeHeader = document.createElement("div");
     themeHeader.className = "theme-header-question";
     themeHeader.textContent = `📌 テーマ: ${theme}　　下記を英訳せよ`;
     container.appendChild(themeHeader);
     
+    // 抜粋タイプの表示を追加
+    if (data.excerpt_type) {
+      const excerptInfo = document.createElement("div");
+      excerptInfo.className = "excerpt-type-info";
+      
+      const excerptLabels = {
+        'P1_ONLY': '（抜粋：段落①のみ）',
+        'P2_P3': '（抜粋：段落②〜③）',
+        'P3_ONLY': '（抜粋：段落③のみ）',
+        'P4_P5': '（抜粋：段落④〜⑤）',
+        'MIDDLE': '（抜粋：中盤部分）'
+      };
+      
+      excerptInfo.textContent = excerptLabels[data.excerpt_type] || '（抜粋）';
+      container.appendChild(excerptInfo);
+    }
+    
+    // 問題文の表示（箇条書き）
     const ul = document.createElement("ul");
     ul.className = "question-sentences-list";
     data.japanese_paragraphs.forEach((paragraph, idx) => {

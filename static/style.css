@@ -637,6 +637,13 @@ body {
   color: #1e293b;
 }
 
+.excerpt-type-info {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
 .question-sentences-list {
   list-style-type: disc;
   padding-left: 20px;
