@@ -205,9 +205,9 @@ $user_answer
 
 ### reasonの記述フォーマット【必須・厳守】- kagoshima風テンプレート
 
-🚨🚨🚨【reason は以下の形式で必ず記述すること】🚨🚨🚨
+🚨🚨🚨【reason は ❌でも✅でも以下の形式で必ず記述すること】🚨🚨🚨
 
-**必須形式（kagoshima風・5点セット）:**
+**必須形式（kagoshima風・5点セット）- ❌/✅共通:**
 ```
 N文目: [英文そのまま]
 （[日本語訳]）
@@ -216,17 +216,35 @@ N文目: [英文そのまま]
 例：[例文1] ([和訳1])／[例文2] ([和訳2])
 ```
 
-**絶対厳守:**
-1. 英文の後に必ず（日本語訳）を括弧内に記載
-2. 語彙比較は必ずA／B形式で2つ以上
-3. 【参考】セクションは必須（文法・語法パターンを提示）
-4. 例文は必ず2つ、和訳は丸括弧()で囲む（日本語引用符「」は使わない）
-5. 例文は学生の英文と異なる新しい例を提示（同一文の繰り返し禁止）
+**🚨重要🚨 このフォーマットは level が ❌ でも ✅ でも必ず適用する**
+- ❌の場合: 誤りの修正理由を説明
+- ✅の場合: 正しい表現の語彙解説を提供
+- **どちらの場合も「N文目: 」と「（日本語訳）」は省略禁止**
 
-**出力例1（a number of / the number of）:**
+**絶対厳守:**
+1. **❌でも✅でも、必ず「N文目: 英文全文」で始める**
+2. **❌でも✅でも、必ず次の行に「（日本語訳）」を記載**
+3. 語彙比較は必ずA／B形式で2つ以上
+4. 【参考】セクションは必須（文法・語法パターンを提示）
+5. 例文は必ず2つ、和訳は丸括弧()で囲む（日本語引用符「」は使わない）
+6. 例文は学生の英文と異なる新しい例を提示（同一文の繰り返し禁止）
+
+**出力例1（✅の場合 - 正しい表現の語彙解説）:**
+```
+"reason": "1文目: The project aims to reduce traffic jams in cities by using AI technology.\\n（このプロジェクトは、AI技術を使って都市の交通渋滞を減らすことを目指している。）\\nreduce（動詞：減らす：対象が具体的な量）／alleviate（動詞：緩和する：対象が抽象的な事象）で、reduceは具体的な数値の減少に使われることが多く、alleviateは問題や負担の緩和に使われる。\\n【参考】reduce traffic（交通量を減らす）／alleviate congestion（渋滞を緩和する）\\n例：We need to reduce costs. (コストを削減する必要がある。)／Measures were taken to alleviate the pain. (痛みを和らげるための措置が取られた。)"
+```
+
+**出力例2（❌の場合 - 文法エラーの修正理由）:**
+```
+"reason": "2文目: In particular, a system was introduced that analyzes real-time traffic data and optimize the timing of traffic signals.\\n（特に、リアルタイムの交通データを分析し、信号のタイミングを最適化するシステムが導入された。）\\noptimize（動詞：最適化する：プロセスや機能）／improve（動詞：改善する：全般的に）で、optimizeは特定の条件下での最良化に使われ、improveは全体的な向上に使われる。文法エラー：'analyzes'と並列の'optimize'は'optimizes'にすべき。\\n【参考】optimize performance（性能を最適化する）／improve quality（品質を改善する）\\n例：We aim to optimize the system's efficiency. (システムの効率を最適化することを目指しています。)／Efforts were made to improve the service. (サービスの改善に努めた。)"
+```
+
+**出力例3（a number of / the number of - ❌の場合）:**
 ```
 "reason": "1文目: A number of students submitted the form online.\\n（多くの学生がその用紙をオンラインで提出した。）\\na number of（名詞句：多くの～）／the number of（名詞句：～の数）で、a number of は「たくさん」という量、the number of は「数そのもの」という数量を表します。a number of は後ろが複数名詞なので動詞も複数になりやすい（A number of students are …）。the number of は「数」が主語なので単数扱い（The number of students is …）。\\n【参考】a number of + 複数名詞（多くの～）／the number of + 複数名詞（～の数）\\n例：A number of people were absent. (多くの人が欠席した。)／The number of people was increasing. (人の数が増えていた。)"
 ```
+
+🚨🚨🚨【再確認】すべての例で「N文目: 」と「（日本語訳）」が含まれていることを確認🚨🚨🚨
 
 **出力例2（be likely to / It is likely that）:**
 ```
