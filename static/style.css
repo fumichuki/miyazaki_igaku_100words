@@ -631,32 +631,23 @@ body {
 
 /* 新形式：一文一文箇条書き */
 .theme-header-question {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  font-size: 16px;
+  margin-bottom: 12px;
+  font-size: 15px;
   font-weight: 600;
+  color: #1e293b;
 }
 
 .question-sentences-list {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
+  list-style-type: disc;
+  padding-left: 20px;
   margin-bottom: 16px;
 }
 
 .question-sentence-item {
-  position: relative;
-  padding: 12px 16px 12px 16px;
-  margin-bottom: 12px;
   line-height: 1.8;
   font-size: 15px;
   color: #1e293b;
-  background: #f8fafc;
-  border-left: 3px solid #667eea;
-  border-radius: 4px;
+  margin-bottom: 8px;
 }
 
 .question-sentence-item:last-child {

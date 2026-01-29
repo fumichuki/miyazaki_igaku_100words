@@ -250,22 +250,22 @@ function displayQuestion(data) {
     const theme = data.theme || "学術";
     const themeHeader = document.createElement("div");
     themeHeader.className = "theme-header-question";
-    themeHeader.innerHTML = `📌 テーマ: ${theme}　　下記を英訳せよ`;
+    themeHeader.textContent = `📌 テーマ: ${theme}　　下記を英訳せよ`;
     container.appendChild(themeHeader);
     
-    const paragraphs = document.createElement("div");
-    paragraphs.className = "question-sentences-list";
+    const ul = document.createElement("ul");
+    ul.className = "question-sentences-list";
     data.japanese_paragraphs.forEach((paragraph, idx) => {
       // 段落内の文を句点で分割
       const sentences = paragraph.split('。').filter(s => s.trim());
       sentences.forEach((sentence, sentenceIdx) => {
-        const sentenceDiv = document.createElement("div");
-        sentenceDiv.className = "question-sentence-item";
-        sentenceDiv.textContent = sentence.trim() + '。';
-        paragraphs.appendChild(sentenceDiv);
+        const li = document.createElement("li");
+        li.className = "question-sentence-item";
+        li.textContent = sentence.trim() + '。';
+        ul.appendChild(li);
       });
     });
-    container.appendChild(paragraphs);
+    container.appendChild(ul);
   } else if (data.japanese_sentences && data.japanese_sentences.length > 0) {
     // 旧形式（日本語文）の場合
     const sentences = document.createElement("div");
