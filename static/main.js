@@ -592,15 +592,18 @@ function displayCorrection(data) {
     const reason = document.createElement("div");
     reason.className = "point-reason";
     
-    // reasonから重複英文行を削除（N文目: 英文... の行）
+    // reasonから不要な行を削除（N文目: の行と括弧だけの行）
     let reasonText = point.reason || '';
     const reasonLines = reasonText.split('\n');
     const filteredLines = [];
     
     for (let line of reasonLines) {
-      // N文目: で始まる行
-      if (line.match(/^\d+文目:\s+[A-Z]/)) {
-        // 英文行と判定（大文字で始まる）→ スキップ
+      // N文目: で始まる行（日本語・英語問わず）→ スキップ
+      if (line.match(/^\d+文目:/)) {
+        continue;
+      }
+      // 括弧だけの行（日本語訳）→ スキップ
+      if (line.match(/^[（(].*[）)]$/)) {
         continue;
       }
       // その他の行は保持
