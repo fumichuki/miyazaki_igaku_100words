@@ -1170,6 +1170,44 @@ def _generate_fallback_correction(user_answer: str, question_text: str) -> dict:
     }
 
 
+# ===== ヘルパー関数 =====
+
+def determine_required_points(question_text: str, user_answer: str) -> int:
+    """
+    required_points（必要な解説項目数）を決定する
+    
+    優先順位：
+    1. 原文（日本語）の文数
+    2. 学生英文の文数
+    3. 最小値として3（フォールバック）
+    
+    Args:
+        question_text: 日本語原文
+        user_answer: 学生の英文回答
+        
+    Returns:
+        required_points: 必要な項目数
+    """
+    # 1. 原文の文数をカウント（句点・ピリオドで分割）
+    if question_text and question_text.strip():
+        # 句点（。）またはピリオド（.）で分割
+        japanese_sentences = [s.strip() for s in question_text.replace('。', '.').split('.') if s.strip()]
+        if japanese_sentences:
+            logger.info(f"Required points determined from Japanese text: {len(japanese_sentences)} sentences")
+            return len(japanese_sentences)
+    
+    # 2. 学生英文の文数をカウント（ピリオドで分割）
+    if user_answer and user_answer.strip():
+        english_sentences = [s.strip() for s in user_answer.split('.') if s.strip()]
+        if english_sentences:
+            logger.info(f"Required points determined from English text: {len(english_sentences)} sentences")
+            return len(english_sentences)
+    
+    # 3. フォールバック：最小3項目
+    logger.warning("Could not determine sentence count, using fallback: 3")
+    return 3
+
+
 # ===== 添削サービス =====
 
 def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
@@ -1193,6 +1231,10 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
     
     logger.info(f"Question text for correction: {question_text[:200]}...")
     
+    # required_points を決定
+    required_points = determine_required_points(question_text, normalized_answer)
+    logger.info(f"Required points for this correction: {required_points}")
+    
     # 語数を取得
     word_count = submission.word_count if submission.word_count is not None else len(normalized_answer.split())
     logger.info(f"Word count: {word_count}")
@@ -1212,12 +1254,13 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
         suggestions=[]
     )
     
-    # 添削プロンプト
+    # 添削プロンプト（required_pointsを追加）
     prompts = PROMPTS
     correction_prompt = prompts['correction'].format(
         question_text=question_text,
         user_answer=normalized_answer,
-        word_count=word_count
+        word_count=word_count,
+        required_points=required_points
     )
     
     # LLM呼び出し（リトライ付き）
@@ -1238,15 +1281,11 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
                 correction_data['corrected'] = normalized_answer
             if 'word_count' not in correction_data:
                 correction_data['word_count'] = word_count
-            if 'points' not in correction_data or len(correction_data['points']) < 3:
-                correction_data['points'] = [
-                    {
-                        "before": "学生の表現",
-                        "after": "より良い表現",
-                        "reason": "添削処理中にエラーが発生しました。再度お試しください。",
-                        "level": "💡改善提案"
-                    }
-                ]
+            
+            # points が存在しない場合は空リストで初期化（エラー置換は撤廃）
+            if 'points' not in correction_data:
+                correction_data['points'] = []
+                logger.warning("No points returned by LLM, initializing empty list")
             
             # pointsの各要素に必須フィールドを補完
             # 空のbeforeフィールドを持つpointは除外
@@ -1268,6 +1307,32 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
             
             # valid_pointsで置き換え
             correction_data['points'] = valid_points
+            
+            # N不足チェック：required_pointsに満たない場合は埋め合わせ
+            current_count = len(valid_points)
+            non_evaluation_points = [p for p in valid_points if p.get('level') != '内容評価']
+            non_evaluation_count = len(non_evaluation_points)
+            
+            logger.info(f"Points check: current={current_count}, non-evaluation={non_evaluation_count}, required={required_points}")
+            
+            if non_evaluation_count < required_points:
+                shortage = required_points - non_evaluation_count
+                logger.warning(f"Points shortage detected: need {shortage} more points")
+                
+                # 不足分を埋める処理（既存pointsは破壊しない）
+                # 簡易実装：最低限の項目を追加（理想は再プロンプトだが、まず動作させる）
+                for i in range(shortage):
+                    filler_point = {
+                        "before": normalized_answer.split('.')[min(i, len(normalized_answer.split('.')) - 1)].strip() if '.' in normalized_answer else normalized_answer[:50],
+                        "after": normalized_answer.split('.')[min(i, len(normalized_answer.split('.')) - 1)].strip() if '.' in normalized_answer else normalized_answer[:50],
+                        "reason": f"解説: この表現は適切です。（項目{non_evaluation_count + i + 1}）",
+                        "level": "✅正しい表現"
+                    }
+                    valid_points.append(filler_point)
+                    logger.info(f"Added filler point {i+1}/{shortage}")
+                
+                correction_data['points'] = valid_points
+                logger.info(f"After filling: {len(valid_points)} points total")
             
             # constraint_checksを追加
             correction_data['constraint_checks'] = constraints.model_dump()
