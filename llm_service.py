@@ -12,12 +12,19 @@ from pydantic import ValidationError
 from models import QuestionResponse, CorrectionResponse, SubmissionRequest, TargetWords, ConstraintChecks
 from constraint_validator import validate_constraints as validate_constraints_func, normalize_punctuation
 import config
+
+# 添削プロンプトは簡潔版を使用
+from prompts_translation_simple import (
+    CORRECTION_PROMPT_MIYAZAKI_TRANSLATION,
+    PROMPTS,
+    TRANSLATION_GENRES,
+    PAST_QUESTIONS_REFERENCE
+)
+
+# 問題生成・模範解答は元のプロンプトを使用
 from prompts_translation import (
     QUESTION_PROMPT_MIYAZAKI_TRANSLATION,
-    CORRECTION_PROMPT_MIYAZAKI_TRANSLATION,
-    MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION,
-    PAST_QUESTIONS_REFERENCE,
-    TRANSLATION_GENRES
+    MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION
 )
 
 logger = logging.getLogger(__name__)
@@ -1042,6 +1049,10 @@ def call_openai_with_retry(prompt: str, max_retries: int = 3, is_model_answer: b
             
             content = response.choices[0].message.content
             logger.info(f"OpenAI API response (attempt {attempt + 1}): {content[:200]}...")
+            
+            # 🔍 デバッグ：完全なLLM応答をログ出力（添削の場合）
+            if not is_model_answer:
+                logger.info(f"[DEBUG] Full LLM response for correction:\n{content}")
             
             return content
             
