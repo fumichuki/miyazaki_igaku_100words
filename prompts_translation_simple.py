@@ -3,6 +3,8 @@
 kagoshima_100wordsの成功パターンをベースに、必要最小限の指示のみに絞る
 """
 
+from string import Template
+
 # 7ジャンル定義（themeの固定語）
 TRANSLATION_GENRES = [
     "研究紹介",  # Research summary
@@ -77,10 +79,10 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 - 医学部レベルの正確性と流暢性が求められる
 
 # 日本語原文
-{question_text}
+$question_text
 
-# 学生の回答（語数：{word_count}語）
-{user_answer}
+# 学生の回答（語数：$word_count語）
+$user_answer
 
 # 添削方針【重要】
 
@@ -118,9 +120,9 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 - **「内容が不完全だから添削しない」「意味不明だから添削しない」は絶対NG**
 - **どんな入力でも必ず1つ以上のpointを作成すること**
 
-**【🚨最重要🚨】必ず{required_points}個の解説項目を作成すること**
+**【🚨最重要🚨】必ず$required_points個の解説項目を作成すること**
 
-原文は{required_points}文あります。必ず{required_points}個の非「内容評価」pointを返してください。
+原文は$required_points文あります。必ず$required_points個の非「内容評価」pointを返してください。
 
 ### 基本的な添削の流れ
 
@@ -317,14 +319,14 @@ N文目: [英文そのまま]
 
 **🚨重要な注意事項：**
 - correctedは必ず完全な英訳（100-120語）を含めること
-- **pointsは必ず{required_points}個含めること**（非「内容評価」の項目）
+- **pointsは必ず$required_points個含めること**（非「内容評価」の項目）
 - 各pointのreasonは上記のkagoshima風5点セット形式を厳守すること
   - N文目: 英文（日本語訳）
   - 語彙比較A／B（品詞・意味・文脈）
   - 【参考】文法パターン
   - 例：例文1 (和訳1)／例文2 (和訳2)
 - levelは「✅」または「❌」のみ（💡は使わない）
-- {required_points}個のpointsが足りない場合は、追加の解説を作成すること
+- $required_points個のpointsが足りない場合は、追加の解説を作成すること
 - 例文は学生の英文と異なる新しい例を必ず2つ提示すること
 - beforeは学生英文に存在する文字列のみ使用（未提出の場合は "(未提出：原文第N文)" プレースホルダを使用）
 """

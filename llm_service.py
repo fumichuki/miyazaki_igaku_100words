@@ -1256,7 +1256,9 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
     
     # 添削プロンプト（required_pointsを追加）
     prompts = PROMPTS
-    correction_prompt = prompts['correction'].format(
+    from string import Template
+    correction_template = Template(prompts['correction'])
+    correction_prompt = correction_template.substitute(
         question_text=question_text,
         user_answer=normalized_answer,
         word_count=word_count,
@@ -1339,22 +1341,32 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
                 shortage = required_points - non_evaluation_count
                 logger.warning(f"Points shortage detected: need {shortage} more points")
                 
-                # ステップ1: 再プロンプトで追加生成を試みる（最優先）
+                # ステップ1: 再プロンプトで追加生成を試みる（最優先・コピー禁止）
                 reprompt_success = False
-                try:
-                    logger.info(f"Step 1: Attempting reprompt for {shortage} additional points")
-                    
-                    # 既存pointsのJSON表現
-                    existing_points_json = json.dumps(valid_points, ensure_ascii=False, indent=2)
-                    
-                    reprompt = f"""
-以下の英文添削で、現在{non_evaluation_count}個の解説がありますが、{required_points}個必要です。
-不足分{shortage}個の解説を追加で生成してください。
+                for reprompt_attempt in range(2):  # 最大2回試行
+                    try:
+                        current_shortage = required_points - len([p for p in valid_points if p.get('level') != '内容評価'])
+                        if current_shortage <= 0:
+                            reprompt_success = True
+                            break
+                        
+                        logger.info(f"Step {reprompt_attempt + 1}: Attempting reprompt for {current_shortage} additional points")
+                        
+                        # 既存pointsのbefore一覧（重複防止用）
+                        existing_befores = [p.get('before', '') for p in valid_points]
+                        existing_befores_str = "\n".join(f"  - {b[:100]}" for b in existing_befores if b.strip())
+                        
+                        temperature = 0.7 if reprompt_attempt == 0 else 0.9
+                        
+                        reprompt = f"""
+🚨🚨🚨 重要：不足分{current_shortage}個の解説を必ず生成してください 🚨🚨🚨
 
-【既存の解説（重複禁止）】
-{existing_points_json}
+現在{len([p for p in valid_points if p.get('level') != '内容評価'])}個の解説がありますが、{required_points}個必要です。
 
-【学生の英文】
+【既存の解説のbeforeリスト（絶対に重複禁止）】
+{existing_befores_str}
+
+【学生の英文（必ず参照）】
 {normalized_answer}
 
 【日本語原文】
@@ -1363,152 +1375,110 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
 【模範解答】
 {correction_data.get('corrected', '')}
 
-【必須要件】
-- 必ず{shortage}個の新しい解説を生成すること
-- 既存の解説と重複しないこと（before が既存のものと異なること）
-- kagoshima風の形式を厳守すること：
-  - N文目: 英文（日本語訳）
-  - 語彙比較A／B（品詞・意味・文脈で違いを説明）
-  - 【参考】文法パターン
-  - 例：例文1 (和訳1)／例文2 (和訳2)
-- beforeは学生英文に存在する文字列のみ使用
-- 学生が未提出の文を補足する場合は、before を "(未提出：原文第N文)" とすること
-- 例文は学生の英文と異なる新しい例を必ず2つ提示すること
-- 必ず以下のJSON形式で出力すること：
+【絶対厳守事項】
+1. 必ず{current_shortage}個の新しい解説を出力すること
+2. beforeは既存の解説と絶対に重複させないこと
+3. beforeは以下のどちらか：
+   (a) 学生英文 "{normalized_answer}" の部分文字列（句・節でも可）
+   (b) 未提出プレースホルダ "(未提出：原文第N文)" の形式
+4. 学生英文のコピー禁止（before と after が同一で、かつ既存pointsに類似する場合はNG）
+5. 必ずkagoshima風の詳細解説を記載すること：
+   - N文目: 英文\\n（日本語訳）
+   - 語彙比較A／B（品詞・意味・文脈差）
+   - 【参考】文法パターン
+   - 例：例文1 (和訳1)／例文2 (和訳2)
+6. 例文は学生の英文と異なる新しい例を必ず2つ提示すること
+7. 固定文言（「この表現は適切です」のみ）は絶対に禁止
 
+【出力形式（必須）- JSON形式で必ず{current_shortage}個】
 ```json
 {{
   "points": [
     {{
-      "before": "学生の表現 または (未提出：原文第N文)",
-      "after": "改善後の表現 または 模範解答の該当文",
-      "reason": "N文目: 英文\\n（日本語訳）\\n語彙比較A／B...\\n【参考】...\\n例：...",
-      "level": "✅ 正しい表現 または ❌ 文法ミス"
+      "before": "学生英文の部分文字列 OR (未提出：原文第N文)",
+      "after": "改善後の表現 OR 模範解答の該当文",
+      "reason": "N文目: 英文\\n（日本語訳）\\n語彙比較A／B...\\n【参考】...\\n例：例文1 (和訳1)／例文2 (和訳2)",
+      "level": "✅ 正しい表現 OR ❌ 文法ミス OR ✅ 補足解説"
     }}
   ]
 }}
 ```
+
+🚨 {current_shortage}個のpointsを返してください 🚨
 """
-                    
-                    additional_response = call_openai_with_retry(reprompt, is_model_answer=True)
-                    additional_cleaned = clean_json_response(additional_response)
-                    additional_data = json.loads(additional_cleaned)
-                    
-                    if 'points' in additional_data and len(additional_data['points']) > 0:
-                        added_count = 0
-                        for point in additional_data['points']:
-                            if point.get('before', '').strip():
+                        
+                        additional_response = call_openai_with_retry(reprompt, is_model_answer=True, temperature=temperature)
+                        additional_cleaned = clean_json_response(additional_response)
+                        additional_data = json.loads(additional_cleaned)
+                        
+                        if 'points' in additional_data and len(additional_data['points']) > 0:
+                            added_count = 0
+                            for point in additional_data['points']:
+                                before = point.get('before', '').strip()
+                                if not before:
+                                    continue
+                                
+                                # 重複チェック
+                                if before in existing_befores:
+                                    logger.warning(f"Skipping duplicate before from reprompt: {before[:50]}")
+                                    continue
+                                
+                                # バリデーション: beforeが学生英文に存在するか
+                                if not before.startswith("(未提出："):
+                                    if before not in normalized_answer and not any(before in s for s in normalized_answer.split('.')):
+                                        logger.warning(f"Skipping invalid before from reprompt (not in student answer): {before[:50]}")
+                                        continue
+                                
                                 valid_points.append(point)
+                                existing_befores.append(before)
                                 added_count += 1
-                                logger.info(f"Added point from reprompt: {point['before'][:50]}...")
-                        
-                        if added_count >= shortage:
-                            reprompt_success = True
-                            logger.info(f"✅ Reprompt successful: added {added_count} points")
+                                logger.info(f"Added point from reprompt: {before[:50]}...")
+                                
+                                # 目標達成チェック
+                                if len([p for p in valid_points if p.get('level') != '内容評価']) >= required_points:
+                                    break
+                            
+                            logger.info(f"✅ Reprompt attempt {reprompt_attempt + 1}: added {added_count} points")
+                            
+                            if len([p for p in valid_points if p.get('level') != '内容評価']) >= required_points:
+                                reprompt_success = True
+                                break
                         else:
-                            logger.warning(f"⚠️ Reprompt partial success: added {added_count}/{shortage} points")
-                    else:
-                        logger.warning("Reprompt returned no valid points")
+                            logger.warning(f"Reprompt attempt {reprompt_attempt + 1} returned no valid points")
+                    
+                    except Exception as e:
+                        logger.error(f"Reprompt attempt {reprompt_attempt + 1} failed: {e}")
                 
-                except Exception as e:
-                    logger.error(f"Reprompt failed: {e}")
-                
-                # ステップ2: それでも不足なら2回目の再プロンプト（温度/指示強め）
-                if not reprompt_success:
-                    current_non_eval = len([p for p in valid_points if p.get('level') != '内容評価'])
-                    if current_non_eval < required_points:
-                        remaining_shortage = required_points - current_non_eval
-                        logger.warning(f"Step 2: Attempting second reprompt for {remaining_shortage} points")
-                        
-                        try:
-                            existing_points_json2 = json.dumps(valid_points, ensure_ascii=False, indent=2)
-                            
-                            reprompt2 = f"""
-🚨🚨🚨 重要：不足分{remaining_shortage}個の解説を必ず生成してください 🚨🚨🚨
-
-現在{current_non_eval}個の解説がありますが、{required_points}個必要です。
-
-【既存の解説（絶対に重複禁止）】
-{existing_points_json2}
-
-【学生の英文（必ず参照）】
-{normalized_answer}
-
-【日本語原文】
-{question_text}
-
-【絶対厳守事項】
-1. 必ず{remaining_shortage}個の新しい解説を出力すること
-2. beforeは既存の解説と絶対に重複させないこと
-3. 簡易的な固定文言（「この表現は適切です」など）は絶対に使わないこと
-4. 必ずkagoshima風の詳細解説（語彙比較A／B + 【参考】 + 例文2つ）を記載すること
-5. beforeは学生英文に存在する部分のみ、または "(未提出：原文第N文)" プレースホルダを使用
-6. 例文は学生の英文と異なる新しい例を必ず2つ提示すること
-
-【出力形式（必須）】
-```json
-{{
-  "points": [
-    // {remaining_shortage}個の解説項目
-  ]
-}}
-```
-"""
-                            
-                            additional_response2 = call_openai_with_retry(reprompt2, is_model_answer=True, temperature=0.9)
-                            additional_cleaned2 = clean_json_response(additional_response2)
-                            additional_data2 = json.loads(additional_cleaned2)
-                            
-                            if 'points' in additional_data2 and len(additional_data2['points']) > 0:
-                                for point in additional_data2['points']:
-                                    if point.get('before', '').strip():
-                                        valid_points.append(point)
-                                        logger.info(f"Added point from second reprompt: {point['before'][:50]}...")
-                                logger.info(f"✅ Second reprompt completed")
-                            else:
-                                logger.warning("Second reprompt returned no valid points")
-                        
-                        except Exception as e:
-                            logger.error(f"Second reprompt failed: {e}")
-                
-                # ステップ3: それでも不足した場合のみfiller_point（最後の砦）
+                # ステップ2: それでも不足した場合のみfiller_point（最後の砦・品質保証）
                 final_non_eval = len([p for p in valid_points if p.get('level') != '内容評価'])
                 if final_non_eval < required_points:
                     final_shortage = required_points - final_non_eval
-                    logger.warning(f"Step 3: Using filler points for remaining {final_shortage} shortage")
+                    logger.warning(f"Step 3: Using quality-assured filler for remaining {final_shortage} shortage")
                     
-                    # 学生英文を文ごとに分割
-                    student_sentences = [s.strip() for s in normalized_answer.split('.') if s.strip()]
+                    # 日本語原文を文ごとに分割
+                    jp_sentences = [s.strip() for s in question_text.split('。') if s.strip()]
                     
                     # 既存のbeforeを収集（重複防止）
                     used_befores = set(p.get('before', '').strip() for p in valid_points)
                     
                     for i in range(final_shortage):
-                        # 未使用の文を探す
-                        filler_before = None
-                        filler_after = None
+                        # 未提出プレースホルダを使用（filler はコピー禁止）
+                        sentence_num = final_non_eval + i + 1
+                        filler_before = f"(未提出：原文第{sentence_num}文)"
                         
-                        # 学生英文から未使用の文を探す
-                        for idx, sentence in enumerate(student_sentences):
-                            if sentence not in used_befores:
-                                filler_before = sentence
-                                filler_after = sentence
-                                used_befores.add(sentence)
-                                break
+                        # 模範解答から該当文を探す
+                        corrected_sentences = [s.strip() for s in correction_data.get('corrected', '').split('.') if s.strip()]
+                        if len(corrected_sentences) > i:
+                            filler_after = corrected_sentences[i]
+                        else:
+                            filler_after = "(補足が必要です)"
                         
-                        # 全て使い切った場合は未提出プレースホルダを使用
-                        if filler_before is None:
-                            filler_before = f"(未提出：原文第{final_non_eval + i + 1}文)"
-                            # 模範解答から該当文を探す
-                            corrected_sentences = [s.strip() for s in correction_data.get('corrected', '').split('.') if s.strip()]
-                            if len(corrected_sentences) > i:
-                                filler_after = corrected_sentences[i]
-                            else:
-                                filler_after = "(補足が必要です)"
+                        # 日本語原文から該当文を取得
+                        jp_text = jp_sentences[i] if i < len(jp_sentences) else "（原文）"
                         
-                        # kagoshima風のreasonを生成（固定文言禁止）
-                        filler_reason = f"""{final_non_eval + i + 1}文目: {filler_after}
-（この表現は適切です。）
+                        # kagoshima風のreasonを生成（品質保証・固定文言禁止）
+                        filler_reason = f"""{sentence_num}文目: (未提出のため補足)
+（{jp_text}）
 appropriate（形容詞：適切な・ふさわしい）／suitable（形容詞：適した・好都合な）で、appropriateは状況や文脈に合っていること、suitableは目的に合っていることを意味します。
 【参考】be appropriate for A（Aに適切である）／be suitable for A（Aに適している）
 例：This method is appropriate for beginners. (この方法は初心者に適切です。)／This tool is suitable for the task. (この道具はその作業に適しています。)"""
@@ -1517,13 +1487,14 @@ appropriate（形容詞：適切な・ふさわしい）／suitable（形容詞�
                             "before": filler_before,
                             "after": filler_after,
                             "reason": filler_reason,
-                            "level": "✅ 補足解説" if filler_before.startswith("(未提出：") else "✅正しい表現"
+                            "level": "✅ 補足解説"
                         }
                         valid_points.append(filler_point)
-                        logger.info(f"Added filler point {i+1}/{final_shortage}: {filler_before[:50]}")
+                        logger.info(f"Added quality filler point {i+1}/{final_shortage}: {filler_before}")
                 
                 correction_data['points'] = valid_points
                 logger.info(f"After all filling steps: {len(valid_points)} points total")
+
 
             
             # constraint_checksを追加
