@@ -1256,8 +1256,19 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
     logger.info("翻訳問題を生成中...")
     
     # 🎲 直近のtheme（ジャンル）をチェックし、偏りを防ぐ
-    from database import get_recent_themes
+    from database import get_recent_themes, get_recent_subtopics
     recent_themes = get_recent_themes(30)
+    
+    # 🔍 直近のサブトピック（A-H）を取得
+    recent_subtopics = get_recent_subtopics(10)
+    logger.info(f"📊 直近10問のサブトピック: {recent_subtopics}")
+    
+    # 現在のジャンルの直近トピックをフィルタリング
+    recent_topics_for_theme = []
+    for subtopic_str in recent_subtopics:
+        if ":" in subtopic_str:
+            st_theme, st_topic = subtopic_str.split(":", 1)
+            recent_topics_for_theme.append(f"{st_theme}:{st_topic}")
     
     # 🚀 システムレベルでthemeの多様性を強制的に確保
     forced_theme = enforce_theme_diversity(recent_themes, TRANSLATION_GENRES)
@@ -1280,6 +1291,23 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
 
 この指定されたthemeを必ず使用してください。
 他のジャンル（{', '.join([t for t in TRANSLATION_GENRES if t != forced_theme])}）は選択禁止です。
+
+🎯🎯🎯【トピック多様性の指示 - 超重要】🎯🎯🎯
+直近10問で以下のトピックが使用されています：
+{chr(10).join([f"  - {st}" for st in recent_topics_for_theme[-10:]])}
+
+【🚨絶対厳守🚨】これらのトピック（A〜H）は今回使用禁止です。
+必ず新しいトピック領域を選んでください。
+
+【重要な注意】
+- 同じトピックレター（A-H）が連続して使われることは厳禁
+- 特定のトピック（例: C睡眠・集中、D運動・健康）に偏らないこと
+- できるだけ未使用または使用頻度が低いトピックを選ぶこと
+
+例：
+- もし「研究紹介:C（睡眠・集中）」が直近に出ていたら、今回は A/B/D/E/F/G/H のいずれかから選ぶ
+- もし「研究紹介:D（運動・健康）」が直近に2回以上出ていたら、今回は A/B/C/E/F/G/H を優先
+- もし「時事:A（医療・公衆衛生）」が直近に出ていたら、今回は B/C/D/E/F/G/H のいずれかから選ぶ
 
 🚨🚨🚨【システム強制指示 2 - excerpt_type（段落位置）】🚨🚨🚨
 今回のexcerpt_typeは以下に決定されました：
