@@ -198,37 +198,56 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 - "semantic_mismatch" : 意味の不一致
 - "collocation_error" : コロケーションミス
 
-### reasonの記述フォーマット【必須・厳守】
+### reasonの記述フォーマット【必須・厳守】- kagoshima風テンプレート
 
-🚨🚨🚨【reasonは必ず「解説：」で始めること】🚨🚨🚨
-🚨🚨🚨【reasonは簡潔に（200文字以内を目標）】🚨🚨🚨
+🚨🚨🚨【reason は以下の形式で必ず記述すること】🚨🚨🚨
 
-**必須要素：**
-1. **「解説：」で始まる**
-2. **語の選択・文法の簡潔な説明**（なぜそうなるのか）
-3. **例文は1つのみ**（before → after形式、または単独の例文）
-
-**✅正しい表現の場合のreasonの書き方：**
+**必須形式（kagoshima風・5点セット）:**
 ```
-"reason": "解説：[語/表現]（意味）は適切。[比較語]（意味）との違いに注意。例：[例文1つ]"
+N文目: [英文そのまま]
+（[日本語訳]）
+[語A]（品詞：意味：文脈）／[語B]（品詞：意味：文脈）で、[違いの詳細説明]。
+【参考】[文法パターンA]／[文法パターンB]
+例：[例文1] ([和訳1])／[例文2] ([和訳2])
 ```
 
-例：
+**絶対厳守:**
+1. 英文の後に必ず（日本語訳）を括弧内に記載
+2. 語彙比較は必ずA／B形式で2つ以上
+3. 【参考】セクションは必須（文法・語法パターンを提示）
+4. 例文は必ず2つ、和訳は丸括弧()で囲む（日本語引用符「」は使わない）
+5. 例文は学生の英文と異なる新しい例を提示（同一文の繰り返し禁止）
+
+**出力例1（a number of / the number of）:**
 ```
-"reason": "解説：cognitive bias（認知バイアス）は適切。cognitive distortion（認知の歪み）との違いに注意。例：Cognitive biases affect decision-making."
+"reason": "1文目: A number of students submitted the form online.\\n（多くの学生がその用紙をオンラインで提出した。）\\na number of（名詞句：多くの～）／the number of（名詞句：～の数）で、a number of は「たくさん」という量、the number of は「数そのもの」という数量を表します。a number of は後ろが複数名詞なので動詞も複数になりやすい（A number of students are …）。the number of は「数」が主語なので単数扱い（The number of students is …）。\\n【参考】a number of + 複数名詞（多くの～）／the number of + 複数名詞（～の数）\\n例：A number of people were absent. (多くの人が欠席した。)／The number of people was increasing. (人の数が増えていた。)"
 ```
 
-**❌修正必須の場合のreasonの書き方：**
+**出力例2（be likely to / It is likely that）:**
 ```
-"reason": "解説：[問題点の説明]。[正しい表現の説明]。例：[誤った例] → [正しい例]"
-```
-
-例：
-```
-"reason": "解説：前置詞 through の後には動名詞が必要。travel（動詞）→ traveling（動名詞）。例：I learned through traveling."
+"reason": "2文目: She is likely to arrive late because of the traffic.\\n（交通のせいで、彼女は遅れて到着しそうだ。）\\nlikely（形容詞：～しそうだ）／possible（形容詞：あり得る）で、likely は「起こりそう（確率が高め）」、possible は「起こり得る（可能性がある）」という差が出ます。\\n【参考】be likely to do（～しそうだ）／It is likely that S+V（Sが～しそうだ）\\n例：He is likely to win. (彼は勝ちそうだ。)／It is likely that prices will rise. (物価は上がりそうだ。)"
 ```
 
-**🚨重要🚨 例文は1つだけ！複数の例文は不要！**
+**出力例3（due to / because of）:**
+```
+"reason": "3文目: He succeeded due to his careful planning.\\n（彼は綿密な計画のおかげで成功した。）\\ndue to（前置詞句：～が原因で）／because of（前置詞句：～のために）で、どちらも原因を表しますが、due to はやや硬めで「原因・要因」を述べる文に合いやすい（名詞と相性が良い）一方、because of はより万能で会話でも自然です。\\n【参考】due to A（Aが原因で）／because of A（Aのために）\\n例：The delay was due to the storm. (遅れは嵐が原因だった。)／We stayed home because of the storm. (嵐のため家にいた。)"
+```
+
+**🚨🚨🚨 重要：未提出英文を添削しないルール 🚨🚨🚨**
+
+- beforeは「学生英文に存在する文字列」のみ使用すること
+- 学生が提出していない文を添削する場合は、beforeを明示的なプレースホルダにする：
+  `before = "(未提出：原文第N文)"`
+- その場合afterは模範解答の該当文を置き、reason内で「未提出のため補足」と明記
+- プレースホルダ使用例：
+```json
+{
+  "before": "(未提出：原文第4文)",
+  "after": "This method helps in converting short-term memory into long-term memory.",
+  "reason": "4文目: (未提出のため補足)\\n（この手法は短期記憶を長期記憶に変換するのに役立つ。）\\nconvert（動詞：変換する・変える：形や性質を変える文脈）／transform（動詞：変形させる・一変させる：完全に変える文脈）で、convertは形や性質を変えること、transformは全体を一変させることを指します。\\n【参考】convert A into B（AをBに変換する）／transform A into B（AをBに変形させる）\\n例：We need to convert this data. (このデータを変換する必要があります。)／The city was transformed. (都市は一変しました。)",
+  "level": "✅ 補足解説"
+}
+```
 
 ---
 
@@ -299,9 +318,15 @@ CORRECTION_PROMPT_MIYAZAKI_TRANSLATION = """
 **🚨重要な注意事項：**
 - correctedは必ず完全な英訳（100-120語）を含めること
 - **pointsは必ず{required_points}個含めること**（非「内容評価」の項目）
-- 各pointのreasonは「解説：」で始まり、2つ以上の例を含むこと
+- 各pointのreasonは上記のkagoshima風5点セット形式を厳守すること
+  - N文目: 英文（日本語訳）
+  - 語彙比較A／B（品詞・意味・文脈）
+  - 【参考】文法パターン
+  - 例：例文1 (和訳1)／例文2 (和訳2)
 - levelは「✅」または「❌」のみ（💡は使わない）
 - {required_points}個のpointsが足りない場合は、追加の解説を作成すること
+- 例文は学生の英文と異なる新しい例を必ず2つ提示すること
+- beforeは学生英文に存在する文字列のみ使用（未提出の場合は "(未提出：原文第N文)" プレースホルダを使用）
 """
 
 # プロンプト辞書のエクスポート
