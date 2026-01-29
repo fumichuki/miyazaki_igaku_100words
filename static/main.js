@@ -246,13 +246,24 @@ function displayQuestion(data) {
     wordCountInfo.textContent = "📝 100-120語の英語で答えてください";
     container.appendChild(wordCountInfo);
   } else if (data.japanese_paragraphs && data.japanese_paragraphs.length > 0) {
-    // 翻訳形式（段落）の場合
+    // 翻訳形式（段落→一文一文箇条書き）の場合
+    const theme = data.theme || "学術";
+    const themeHeader = document.createElement("div");
+    themeHeader.className = "theme-header-question";
+    themeHeader.innerHTML = `📌 テーマ: ${theme}　　下記を英訳せよ`;
+    container.appendChild(themeHeader);
+    
     const paragraphs = document.createElement("div");
-    paragraphs.className = "question-sentences";
+    paragraphs.className = "question-sentences-list";
     data.japanese_paragraphs.forEach((paragraph, idx) => {
-      const p = document.createElement("p");
-      p.textContent = paragraph;
-      paragraphs.appendChild(p);
+      // 段落内の文を句点で分割
+      const sentences = paragraph.split('。').filter(s => s.trim());
+      sentences.forEach((sentence, sentenceIdx) => {
+        const sentenceDiv = document.createElement("div");
+        sentenceDiv.className = "question-sentence-item";
+        sentenceDiv.textContent = sentence.trim() + '。';
+        paragraphs.appendChild(sentenceDiv);
+      });
     });
     container.appendChild(paragraphs);
   } else if (data.japanese_sentences && data.japanese_sentences.length > 0) {
