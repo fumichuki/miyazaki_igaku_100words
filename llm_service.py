@@ -1067,6 +1067,107 @@ def call_openai_with_retry(prompt: str, max_retries: int = 3, is_model_answer: b
 
 # ===== 出題サービス =====
 
+def enforce_excerpt_type_diversity(recent_types: List[str]) -> str:
+    """
+    直近の出題傾向から、次に選ぶべきexcerpt_typeを強制的に決定
+    
+    【目標分布】
+    - P1_ONLY: 20%
+    - P2_P3: 50%
+    - P3_ONLY: 20%
+    - P4_P5: 10%
+    
+    Args:
+        recent_types: 直近N問のexcerpt_typeリスト（新しい順）
+    
+    Returns:
+        強制的に選ぶべきexcerpt_type
+    """
+    import random
+    
+    if not recent_types:
+        # データなしの場合はデフォルト確率で選択
+        return random.choices(
+            ["P1_ONLY", "P2_P3", "P3_ONLY", "P4_P5"],
+            weights=[20, 50, 20, 10],
+            k=1
+        )[0]
+    
+    # 直近5問をチェック
+    recent_5 = recent_types[:5] if len(recent_types) >= 5 else recent_types
+    
+    # ルール1: P2_P3が3回以上連続している → 強制的に他を選ぶ
+    consecutive_p2p3 = 0
+    for t in recent_5:
+        if t == "P2_P3":
+            consecutive_p2p3 += 1
+        else:
+            break
+    
+    if consecutive_p2p3 >= 3:
+        logger.warning(f"🚨 P2_P3が{consecutive_p2p3}回連続 → 強制的に他のタイプを選択")
+        return random.choice(["P1_ONLY", "P3_ONLY", "P4_P5"])
+    
+    # ルール2: 直近10問でP2_P3が70%超 → 必ず他を選ぶ
+    recent_10 = recent_types[:10] if len(recent_types) >= 10 else recent_types
+    if len(recent_10) >= 5:
+        p2p3_ratio = recent_10.count("P2_P3") / len(recent_10)
+        if p2p3_ratio > 0.7:
+            logger.warning(f"🚨 直近{len(recent_10)}問でP2_P3が{p2p3_ratio*100:.1f}% → 強制的に他を選択")
+            return random.choice(["P1_ONLY", "P3_ONLY", "P4_P5"])
+    
+    # ルール3: 不足しているタイプを優先（直近20問基準）
+    recent_20 = recent_types[:20] if len(recent_types) >= 20 else recent_types
+    if len(recent_20) >= 10:
+        counts = {
+            "P1_ONLY": recent_20.count("P1_ONLY"),
+            "P2_P3": recent_20.count("P2_P3"),
+            "P3_ONLY": recent_20.count("P3_ONLY"),
+            "P4_P5": recent_20.count("P4_P5")
+        }
+        
+        # 実際の比率
+        total = len(recent_20)
+        actual_ratios = {k: v / total for k, v in counts.items()}
+        
+        # 目標比率
+        target_ratios = {
+            "P1_ONLY": 0.20,
+            "P2_P3": 0.50,
+            "P3_ONLY": 0.20,
+            "P4_P5": 0.10
+        }
+        
+        # 目標との差分（負の値 = 不足）
+        deficits = {k: actual_ratios[k] - target_ratios[k] for k in target_ratios}
+        
+        logger.info(f"📊 直近{total}問の分布: " + 
+                   ", ".join([f"{k}={actual_ratios[k]*100:.1f}%" for k in sorted(deficits.keys())]))
+        
+        # 最も不足しているタイプ（負の値が大きい = 目標より少ない）
+        most_deficit = min(deficits, key=deficits.get)
+        
+        # 10%以上不足している場合は優先的に選択
+        if deficits[most_deficit] < -0.10:
+            logger.info(f"🎯 {most_deficit}が{-deficits[most_deficit]*100:.1f}%不足 → 優先的に選択")
+            return most_deficit
+    
+    # ルール4: デフォルトは目標分布に従った確率的選択
+    # ただし、P2_P3の確率を若干下げて調整
+    adjusted_weights = {
+        "P1_ONLY": 25,  # 20% → 25%に増加
+        "P2_P3": 40,    # 50% → 40%に減少
+        "P3_ONLY": 25,  # 20% → 25%に増加
+        "P4_P5": 10     # 10%維持
+    }
+    
+    return random.choices(
+        list(adjusted_weights.keys()),
+        weights=list(adjusted_weights.values()),
+        k=1
+    )[0]
+
+
 def generate_question(difficulty: str = "intermediate", excluded_themes: List[str] = None) -> QuestionResponse:
     """
     翻訳問題を生成（リトライ付き）
@@ -1084,35 +1185,51 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
     from database import get_recent_excerpt_types
     recent_types = get_recent_excerpt_types(10)
     
-    # 強制的に多様性を確保
-    avoid_instructions = ""
-    if recent_types:
-        p2_p3_count = recent_types.count('P2_P3')
-        p1_only_count = recent_types.count('P1_ONLY')
-        p3_only_count = recent_types.count('P3_ONLY')
-        p4_p5_count = recent_types.count('P4_P5')
-        
-        logger.info(f"直近10問の分布: P2_P3={p2_p3_count}, P1_ONLY={p1_only_count}, P3_ONLY={p3_only_count}, P4_P5={p4_p5_count}")
-        
-        # P2_P3が7問以上なら強制的に他を選ばせる
-        if p2_p3_count >= 7:
-            avoid_instructions = "\n\n🚨🚨🚨【緊急指示】🚨🚨🚨\n直近10問でP2_P3が7問以上出ています。\n**今回は必ずP1_ONLY、P3_ONLY、P4_P5のいずれかを選んでください。**\nP2_P3は絶対に選ばないこと！\n"
-            logger.warning("P2_P3が多すぎるため、強制的に他のタイプを選択させます")
-        
-        # P1_ONLYが0問なら推奨
-        elif p1_only_count == 0 and len(recent_types) >= 5:
-            avoid_instructions = "\n\n🎯【推奨】直近でP1_ONLYが1つも出ていません。今回はP1_ONLYを選ぶことを強く推奨します。\n"
-            logger.info("P1_ONLYを推奨")
-        
-        # P3_ONLYが0問なら推奨
-        elif p3_only_count == 0 and len(recent_types) >= 5:
-            avoid_instructions = "\n\n🎯【推奨】直近でP3_ONLYが1つも出ていません。今回はP3_ONLYを選ぶことを強く推奨します。\n"
-            logger.info("P3_ONLYを推奨")
-        
-        # P4_P5が0問なら推奨
-        elif p4_p5_count == 0 and len(recent_types) >= 8:
-            avoid_instructions = "\n\n🎯【推奨】直近でP4_P5が1つも出ていません。今回はP4_P5を選ぶことを推奨します（10%の確率）。\n"
-            logger.info("P4_P5を推奨")
+    # 🚀 システムレベルで強制的に多様性を確保
+    forced_type = enforce_excerpt_type_diversity(recent_types)
+    logger.info(f"🎯 システムが選択したexcerpt_type: {forced_type}")
+    
+    # 強制的に多様性を確保（プロンプトに明示）
+    avoid_instructions = f"""
+
+🚨🚨🚨【システム強制指示 - 絶対厳守】🚨🚨🚨
+今回のexcerpt_typeは以下に決定されました：
+**{forced_type}**
+
+この指定されたexcerpt_typeを必ず使用してください。
+他のタイプ（{', '.join([t for t in ['P1_ONLY', 'P2_P3', 'P3_ONLY', 'P4_P5'] if t != forced_type])}）は選択禁止です。
+
+【{forced_type}の要件】
+"""
+    
+    # タイプ別の詳細指示
+    if forced_type == "P1_ONLY":
+        avoid_instructions += """- 第1段落のみ（導入・背景）を1段落で書く
+- 自己完結する内容にする
+- 段落数: 1
+- 例：「ある研究によると、右手を握りしめることで記憶が良くなることが明らかになった。」
+"""
+    elif forced_type == "P2_P3":
+        avoid_instructions += """- 第2-3段落（中盤・本論）を2段落で書く
+- 方法/条件/比較/影響などを含める
+- 接続語（「その研究では」「また」「一方で」）を含める
+- 段落数: 2
+"""
+    elif forced_type == "P3_ONLY":
+        avoid_instructions += """- 第3段落のみ（結果・評価）を1段落で書く
+- 「その結果」「このように」などで始めてよい
+- ただし指示語で破綻しないよう、冒頭に最小限の前提を置く
+- 段落数: 1
+- 例：「記憶時に右手・想起時に左手を握りしめたグループが最も良い成績を収めた。」
+"""
+    elif forced_type == "P4_P5":
+        avoid_instructions += """- 第4-5段落（結論・まとめ）を2段落で書く
+- まとめ/提案/見通しなどを含める
+- 段落数: 2
+- 例：「日記をつけることの精神的効果は実証されている。専門家も勧めている。」
+"""
+    
+    avoid_instructions += "\n🚨 この指示に従わない場合、システムは問題を却下します 🚨\n"
     
     # プロンプトを取得（翻訳用）
     prompt_template = PROMPTS['question']
@@ -1134,6 +1251,8 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
             current_prompt = prompt
             if attempt > 0 and retry_reason:
                 retry_instructions = "\n\n【前回の生成で以下の問題がありました。修正してください】\n"
+                if 'wrong_excerpt_type' in retry_reason:
+                    retry_instructions += f"- excerpt_typeは必ず {forced_type} を使用してください（他のタイプは却下されます）\n"
                 if 'paragraph_count_mismatch' in retry_reason:
                     retry_instructions += "- 段落数が excerpt_type と一致していません\n"
                 if 'too_many_sentences' in retry_reason:
@@ -1159,6 +1278,13 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
             # Pydanticでバリデーション（ここでValueErrorが発生する可能性）
             question = QuestionResponse(**data)
             
+            # 🚨 強制されたタイプと一致するか検証
+            if question.excerpt_type != forced_type:
+                logger.error(f"❌ excerpt_type不一致: 期待={forced_type}, 実際={question.excerpt_type}")
+                raise ValueError(f"システムが指定したexcerpt_type（{forced_type}）と異なります。生成された問題は却下されます。")
+            
+            logger.info(f"✅ excerpt_type検証成功: {question.excerpt_type}")
+            
             # themeが7ジャンル固定語のいずれかか確認
             if question.theme not in TRANSLATION_GENRES:
                 logger.warning(f"Invalid theme: {question.theme}, using fallback")
@@ -1173,6 +1299,11 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
             # 次回リトライのための理由を記録
             retry_reason = []
             error_msg = str(e)
+            
+            # excerpt_type不一致の場合は専用のリトライ理由を追加
+            if 'excerpt_type' in error_msg and forced_type in error_msg:
+                retry_reason.append('wrong_excerpt_type')
+                logger.warning(f"⚠️ excerpt_type不一致でリトライ: {forced_type}を使用してください")
             
             if '段落数' in error_msg and 'excerpt_type' in error_msg:
                 retry_reason.append('paragraph_count_mismatch')
