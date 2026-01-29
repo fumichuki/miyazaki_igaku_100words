@@ -1,0 +1,228 @@
+"""
+添削ポイントの正規化処理
+- 断片を全文に拡張
+- level を ❌ または ✅ に強制
+- ✅ の場合は after=before に矯正
+- sentence_no を付与
+"""
+import logging
+import re
+from typing import List, Dict, Any
+
+logger = logging.getLogger(__name__)
+
+
+def split_into_sentences(text: str) -> List[str]:
+    """
+    英文をセンテンスに分割する
+    
+    Args:
+        text: 英文テキスト
+    
+    Returns:
+        センテンスのリスト
+    """
+    # ピリオド、感嘆符、疑問符で分割（スペースの有無に関わらず）
+    # ピリオドの後に続く文を検出するため、先頭が大文字の位置で分割
+    sentences = re.split(r'[.!?]+\s*', text)
+    # 空の要素を削除し、trimする
+    sentences = [s.strip() + '.' for s in sentences if s.strip()]
+    # 最後の要素からピリオドを削除（元のテキストに存在しない場合）
+    if sentences and not text.rstrip().endswith(('.', '!', '?')):
+        sentences[-1] = sentences[-1].rstrip('.')
+    return sentences
+
+
+def find_sentence_containing_fragment(fragment: str, sentences: List[str]) -> tuple:
+    """
+    断片を含むセンテンスを探す
+    
+    Args:
+        fragment: 断片テキスト
+        sentences: センテンスのリスト
+    
+    Returns:
+        (sentence_index, sentence_text) または (None, None)
+    """
+    fragment_lower = fragment.lower().strip()
+    
+    for i, sentence in enumerate(sentences):
+        if fragment_lower in sentence.lower():
+            return (i, sentence)
+    
+    return (None, None)
+
+
+def replace_fragment_in_sentence(sentence: str, before_fragment: str, after_fragment: str) -> str:
+    """
+    センテンス内の断片を置換する（1回のみ）
+    
+    Args:
+        sentence: 元のセンテンス
+        before_fragment: 置換前の断片
+        after_fragment: 置換後の断片
+    
+    Returns:
+        置換後のセンテンス
+    """
+    # 大文字小文字を区別せずに1回だけ置換
+    pattern = re.compile(re.escape(before_fragment), re.IGNORECASE)
+    result = pattern.sub(after_fragment, sentence, count=1)
+    return result
+
+
+def normalize_level(level: str, before: str, after: str) -> tuple:
+    """
+    level を ❌ または ✅ に正規化し、after を調整する
+    
+    ルール:
+    - 💡 が含まれる → ✅ に変換し、after=before
+    - level が無い → ✅ に変換し、after=before
+    - ❌ のときは before≠after を許可
+    - ✅ のときは after=before に矯正
+    
+    Args:
+        level: 元の level
+        before: 修正前の英文（全文）
+        after: 修正後の英文（全文）
+    
+    Returns:
+        (normalized_level, normalized_after)
+    """
+    # level が無い、または 💡 を含む場合
+    if not level or '💡' in level:
+        logger.info(f"Normalizing level: '{level}' → '✅ 正しい表現' (after=before)")
+        return ('✅ 正しい表現', before)
+    
+    # ❌ の場合はそのまま
+    if '❌' in level:
+        logger.info(f"Level is ❌, keeping after: '{after[:50]}...'")
+        return (level, after)
+    
+    # ✅ の場合は after=before に矯正
+    if '✅' in level:
+        if before != after:
+            logger.info(f"Level is ✅ but after≠before. Setting after=before")
+        return (level, before)
+    
+    # その他の場合はデフォルトで ✅
+    logger.info(f"Unknown level '{level}', defaulting to '✅ 正しい表現' (after=before)")
+    return ('✅ 正しい表現', before)
+
+
+def normalize_points(
+    points: List[Dict[str, Any]],
+    normalized_answer: str,
+    japanese_sentences: List[str]
+) -> List[Dict[str, Any]]:
+    """
+    points を正規化する
+    
+    1. before/after を全文に拡張
+    2. level を ❌ または ✅ に強制
+    3. ✅ の場合は after=before に矯正
+    4. sentence_no を付与
+    5. sentence_no 昇順でソート
+    
+    Args:
+        points: LLMから返された points
+        normalized_answer: 正規化された学生英文
+        japanese_sentences: 日本語原文のセンテンスリスト
+    
+    Returns:
+        正規化された points
+    """
+    logger.info(f"Starting points normalization: {len(points)} points")
+    
+    # 学生英文をセンテンスに分割
+    student_sentences = split_into_sentences(normalized_answer)
+    logger.info(f"Student answer split into {len(student_sentences)} sentences")
+    
+    normalized_points = []
+    
+    for i, point in enumerate(points):
+        try:
+            original_before = point.get('before', '').strip()
+            original_after = point.get('after', '').strip()
+            original_level = point.get('level', '')
+            
+            logger.info(f"Processing point {i+1}: before='{original_before[:50]}...', level='{original_level}'")
+            
+            # before が空の場合はスキップ
+            if not original_before:
+                logger.warning(f"Point {i+1}: Empty before, skipping")
+                continue
+            
+            # before が "(未提出：...)" の場合は特別処理
+            if original_before.startswith("(未提出："):
+                # 未提出プレースホルダはそのまま（正規化不要）
+                logger.info(f"Point {i+1}: Placeholder, keeping as-is")
+                
+                # level だけ正規化
+                normalized_level, normalized_after = normalize_level(original_level, original_before, original_after)
+                
+                point['before'] = original_before
+                point['after'] = normalized_after
+                point['level'] = normalized_level
+                point['sentence_no'] = i + 1  # fallback
+                
+                normalized_points.append(point)
+                continue
+            
+            # 断片 → 全文に拡張
+            sentence_index, full_sentence = find_sentence_containing_fragment(original_before, student_sentences)
+            
+            if full_sentence is None:
+                # 見つからない場合は警告してスキップ
+                logger.warning(f"Point {i+1}: Fragment '{original_before[:50]}' not found in student answer, skipping")
+                continue
+            
+            logger.info(f"Point {i+1}: Found in sentence {sentence_index + 1}: '{full_sentence[:50]}...'")
+            
+            # before を全文に置換
+            full_before = full_sentence
+            
+            # after を全文に拡張（original_after が断片の場合、センテンス内で置換）
+            if '❌' in original_level and original_before != original_after:
+                # 修正が必要な場合：original_before を original_after に置換
+                full_after = replace_fragment_in_sentence(full_sentence, original_before, original_after)
+                logger.info(f"Point {i+1}: Replaced fragment in sentence: '{full_after[:50]}...'")
+            else:
+                # 修正不要な場合：after は before と同じ
+                full_after = full_before
+            
+            # level を正規化し、必要なら after を調整
+            normalized_level, final_after = normalize_level(original_level, full_before, full_after)
+            
+            # sentence_no を付与
+            # japanese_sentence があればそれを元に特定、なければ sentence_index+1
+            sentence_no = sentence_index + 1
+            if point.get('japanese_sentence'):
+                # 日本語原文から index を特定（完全一致）
+                try:
+                    jp_index = japanese_sentences.index(point['japanese_sentence'])
+                    sentence_no = jp_index + 1
+                    logger.info(f"Point {i+1}: Matched Japanese sentence, sentence_no={sentence_no}")
+                except ValueError:
+                    # 見つからない場合は sentence_index+1 を使用
+                    logger.warning(f"Point {i+1}: Japanese sentence not found in original, using sentence_index+1")
+            
+            # 正規化結果を設定
+            point['before'] = full_before
+            point['after'] = final_after
+            point['level'] = normalized_level
+            point['sentence_no'] = sentence_no
+            
+            normalized_points.append(point)
+            logger.info(f"Point {i+1}: Normalized successfully (sentence_no={sentence_no})")
+        
+        except Exception as e:
+            logger.error(f"Error normalizing point {i+1}: {e}")
+            # エラーが発生した場合はスキップ
+            continue
+    
+    # sentence_no 昇順でソート
+    normalized_points.sort(key=lambda p: p.get('sentence_no', 9999))
+    
+    logger.info(f"Points normalization complete: {len(normalized_points)} points")
+    return normalized_points

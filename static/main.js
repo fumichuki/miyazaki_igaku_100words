@@ -300,7 +300,7 @@ function displayQuestion(data) {
   // ヒント
   const hintsTitle = document.createElement("div");
   hintsTitle.className = "hints-title";
-  hintsTitle.textContent = "💡 ヒント単語:";
+  hintsTitle.textContent = "ヒント単語:";
   container.appendChild(hintsTitle);
   
   const hints = document.createElement("div");
@@ -511,7 +511,7 @@ function displayCorrection(data) {
   const pointsTitle = document.createElement("h3");
   // 全体評価を除いた数をカウント
   const nonEvaluationPoints = data.points.filter(p => p.level !== "内容評価").length;
-  pointsTitle.textContent = `💡 文法・表現のポイント解説（${nonEvaluationPoints}項目）`;
+  pointsTitle.textContent = `文法・表現のポイント解説（${nonEvaluationPoints}項目）`;
   pointsSection.appendChild(pointsTitle);
   
   let pointCounter = 0;
@@ -533,82 +533,60 @@ function displayCorrection(data) {
     const pointContent = document.createElement("div");
     pointContent.className = "point-content";
     
-    // 日本語原文を表示（japanese_sentenceがある場合）
-    if (point.japanese_sentence) {
-      const japaneseSentence = document.createElement("div");
-      japaneseSentence.className = "japanese-sentence";
-      japaneseSentence.style.fontWeight = "bold";
-      japaneseSentence.style.fontSize = "15px";
-      japaneseSentence.style.marginBottom = "8px";
-      japaneseSentence.style.color = "#2c3e50";
-      japaneseSentence.textContent = `【${point.japanese_sentence}】`;
-      pointContent.appendChild(japaneseSentence);
-    }
-    
     const beforeAfter = document.createElement("div");
     beforeAfter.className = "before-after";
     
-    // パターン判定: levelとreasonの内容に基づいて判断
-    let beforeIcon = '💡';
-    let beforeClass = 'before-improvement'; // デフォルトは改善提案
-    const levelLower = (point.level || '').toLowerCase();
-    const reasonLower = (point.reason || '').toLowerCase();
-    const beforeLower = (point.before || '').toLowerCase();
+    // 新仕様：levelに完全依存（💡廃止）
+    const levelText = (point.level || '').trim();
+    let beforeIcon = '❓'; // fallback
+    let beforeClass = 'before-improvement';
     
-    // パターン1: 問題文の内容と異なる（最優先で判定、赤背景）
-    if (beforeLower.includes('問題文の内容と異なります') || 
-        reasonLower.includes('問題文の内容と異なります') ||
-        reasonLower.includes('内容不一致') ||
-        levelLower.includes('問題文の内容と異なります')) {
-      beforeIcon = '❌';
-      beforeClass = 'before-mismatch'; // 新しいクラス
-    }
-    // パターン2: 明確なミス
-    else if (reasonLower.includes('❌') || reasonLower.includes('(❌') || reasonLower.includes('（❌') ||
-        reasonLower.includes('ミス') || reasonLower.includes('誤り') || reasonLower.includes('間違') ||
-        levelLower.includes('誤り') || levelLower.includes('間違') || levelLower.includes('不適切') ||
-        levelLower.includes('ミス') || levelLower.includes('エラー') || 
-        reasonLower.includes('文法的に不正') || reasonLower.includes('スペルミス') ||
-        reasonLower.includes('文法エラー')) {
+    // levelに基づいて判定（シンプル）
+    if (levelText.includes('❌')) {
       beforeIcon = '❌';
       beforeClass = 'before-error';
-    }
-    // パターン3: 正解（reasonに「正しい」があり、かつ「ミス」「誤り」「❌」がない場合）
-    else if ((reasonLower.includes('正しい') || reasonLower.includes('どちらも') || reasonLower.includes('良い表現')) &&
-             !reasonLower.includes('❌') && !reasonLower.includes('ミス') && !reasonLower.includes('誤り') && !reasonLower.includes('間違')) {
+    } else if (levelText.includes('✅')) {
       beforeIcon = '✅';
       beforeClass = 'before-correct';
     }
-    // パターン4: levelに「正しい」が含まれる
-    else if ((levelLower.includes('正しい') || levelLower.includes('どちらも') || levelLower.includes('良い')) &&
-             !levelLower.includes('ミス') && !levelLower.includes('誤り') && !levelLower.includes('間違') &&
-             !reasonLower.includes('ミス') && !reasonLower.includes('誤り') && !reasonLower.includes('間違')) {
-      beforeIcon = '✅';
-      beforeClass = 'before-correct';
-    }
-    // パターン5: それ以外は改善提案（デフォルト）
     
-    // 【重要】before と after が同じ場合は必ず正解（✅）として扱う
-    // afterから日本語訳を除いた英文部分だけを比較
+    // before と after が同じかどうかで表示を分ける
     const afterEnglishOnly = point.after.split('\n')[0].trim();
     const isSame = point.before.trim() === afterEnglishOnly;
     
+    // 日本語原文を表示（sentence_no を使用）
+    const sentenceNoText = point.sentence_no ? `${point.sentence_no}文目` : `${pointCounter}文目`;
+    const japaneseText = point.japanese_sentence || '';
+    
     if (isSame) {
-      // 正解の場合：矢印なし、beforeのみ表示
-      beforeIcon = '✅';
-      beforeClass = 'before-correct';
+      // ✅ の場合：beforeのみ表示
       const formattedText = escapeHtml(point.before).replace(/\n/g, '<br>');
       beforeAfter.innerHTML = `
         <span class="${beforeClass}">${beforeIcon} ${formattedText}</span>
       `;
     } else {
-      // 修正が必要な場合：矢印あり、before → after を表示
+      // ❌ の場合：before → after を表示
+      const formattedBefore = escapeHtml(point.before).replace(/\n/g, '<br>');
       const formattedAfter = escapeHtml(point.after).replace(/\n/g, '<br>');
       beforeAfter.innerHTML = `
-        <span class="${beforeClass}">${beforeIcon} ${escapeHtml(point.before)}</span>
+        <span class="${beforeClass}">${beforeIcon} ${formattedBefore}</span>
         <span class="arrow">→</span>
         <span class="after">✅ ${formattedAfter}</span>
       `;
+    }
+    
+    pointContent.appendChild(beforeAfter);
+    
+    // 日本語原文をbefore/afterの後に表示
+    if (japaneseText) {
+      const japaneseLine = document.createElement("div");
+      japaneseLine.className = "japanese-line";
+      japaneseLine.style.fontSize = "14px";
+      japaneseLine.style.color = "#64748b";
+      japaneseLine.style.marginTop = "4px";
+      japaneseLine.style.marginBottom = "8px";
+      japaneseLine.textContent = `${sentenceNoText}: （${japaneseText}）`;
+      pointContent.appendChild(japaneseLine);
     }
     
     const reason = document.createElement("div");
@@ -616,7 +594,6 @@ function displayCorrection(data) {
     // reasonの改行も<br>に変換
     reason.innerHTML = escapeHtml(point.reason).replace(/\n/g, '<br>');
     
-    pointContent.appendChild(beforeAfter);
     pointContent.appendChild(reason);
     
     // altフィールドは表示しない（reasonで代替表現を紹介済み）

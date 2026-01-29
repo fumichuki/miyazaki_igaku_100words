@@ -186,12 +186,15 @@ $user_answer
 - **語彙や構文の好みの違いは、全て✅として扱う**
 - **💡改善提案は絶対に出さない**
 
-### 【出力ラベルは2種類のみ】
+### 【出力ラベルは2種類のみ - 💡改善提案は完全廃止】
 
-- **✅ 正しい表現**: beforeとafterが完全に同一
-- **❌ 文法ミス / 意味不一致 / 誤用**: 明確な誤りがある場合のみ
+- **✅ 正しい表現**: 文法的に正しい、意味が通る → beforeとafterは完全に同一
+- **❌ 文法ミス / 意味不一致 / 誤用**: 減点レベルの明確な誤りのみ
 
-💡改善提案は絶対に出さない！
+🚨🚨🚨【絶対厳守】💡改善提案は一切出さない！🚨🚨🚨
+- 「より良い表現がある」は ✅ として扱う（after=before）
+- 好みや文体の違いは ✅ として扱う（after=before）
+- 減点されない表現は全て ✅
 
 ### level_typeの分類（❌を出す場合のみ必須）
 
@@ -235,10 +238,15 @@ N文目: [英文そのまま]
 "reason": "3文目: He succeeded due to his careful planning.\\n（彼は綿密な計画のおかげで成功した。）\\ndue to（前置詞句：～が原因で）／because of（前置詞句：～のために）で、どちらも原因を表しますが、due to はやや硬めで「原因・要因」を述べる文に合いやすい（名詞と相性が良い）一方、because of はより万能で会話でも自然です。\\n【参考】due to A（Aが原因で）／because of A（Aのために）\\n例：The delay was due to the storm. (遅れは嵐が原因だった。)／We stayed home because of the storm. (嵐のため家にいた。)"
 ```
 
-**🚨🚨🚨 重要：未提出英文を添削しないルール 🚨🚨🚨**
+**🚨🚨🚨 重要：before/afterは必ず完全な1文（全文）🚨🚨🚨**
 
-- beforeは「学生英文に存在する文字列」のみ使用すること
-- 学生が提出していない文を添削する場合は、beforeを明示的なプレースホルダにする：
+- beforeは「学生英文の完全な1文」のみ使用（句・節だけは絶対禁止）
+  - 例（NG）: "were divide into"
+  - 例（OK）: "In the study, the participants were divide into three different groups."
+- afterも「完全な1文」にすること
+  - ❌ の場合: beforeの全文を修正した完全な1文
+  - ✅ の場合: beforeと完全に同一
+- 学生が提出していない文を添削する場合のみ、beforeを明示的なプレースホルダにする：
   `before = "(未提出：原文第N文)"`
 - その場合afterは模範解答の該当文を置き、reason内で「未提出のため補足」と明記
 - プレースホルダ使用例：
@@ -307,11 +315,12 @@ N文目: [英文そのまま]
   "word_count": 語数（数値）,
   "points": [
     {{
-      "before": "学生の表現",
-      "after": "改善後の表現",
+      "before": "学生英文の完全な1文（全文・句や節だけは不可）",
+      "after": "修正後の完全な1文（❌の場合）OR beforeと同一（✅の場合）",
       "reason": "解説：[説明] 例：[例1] → [正しい例1]、[例2] → [正しい例2]",
-      "level": "✅ 正しい表現 または ❌ 文法ミス / ❌ 意味不一致 / ❌ 誤用",
-      "level_type": "grammar_error / semantic_mismatch / collocation_error（❌の場合のみ）"
+      "level": "✅ 正しい表現 OR ❌ 文法ミス / ❌ 意味不一致 / ❌ 誤用",
+      "level_type": "grammar_error / semantic_mismatch / collocation_error（❌の場合のみ）",
+      "japanese_sentence": "対応する日本語原文（optional）"
     }}
   ]
 }}

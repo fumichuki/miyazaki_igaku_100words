@@ -11,6 +11,7 @@ from openai import OpenAI
 from pydantic import ValidationError
 from models import QuestionResponse, CorrectionResponse, SubmissionRequest, TargetWords, ConstraintChecks
 from constraint_validator import validate_constraints as validate_constraints_func, normalize_punctuation
+from points_normalizer import normalize_points
 import config
 
 # 添削プロンプトは簡潔版を使用
@@ -1321,7 +1322,7 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
                 logger.warning("No points returned by LLM, initializing empty list")
             
             # pointsの各要素に必須フィールドを補完
-            # バリデーション：未提出英文の添削を防止
+            # 【重要】バリデーションは緩めにして、正規化処理で全文化する
             valid_points = []
             seen_befores = set()  # 重複排除用
             
@@ -1333,30 +1334,53 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
                 
                 before_text = point['before'].strip()
                 
-                # バリデーション: beforeが学生英文に存在するかチェック
-                # プレースホルダ "(未提出：...)" は許可
-                if not before_text.startswith("(未提出："):
-                    # 学生英文に部分一致するかチェック
-                    if before_text not in normalized_answer and not any(before_text in sentence for sentence in normalized_answer.split('.')):
-                        # 完全一致も部分一致もしない場合は不採用
+                # 🚨重要：バリデーションは最小限に（正規化処理で全文化するため）
+                # プレースホルダのみチェック、それ以外は後で正規化
+                if before_text.startswith("(未提出："):
+                    # プレースホルダはそのまま通す
+                    pass
+                else:
+                    # 断片でも通す（正規化処理で全文に拡張される）
+                    # 最低限、学生英文に部分一致するかだけチェック
+                    if before_text not in normalized_answer and not any(before_text.lower() in sentence.lower() for sentence in normalized_answer.split('.')):
+                        # 完全一致も部分一致もしない場合のみスキップ
                         logger.warning(f"Skipping point {i+1}: before '{before_text[:50]}' not found in student answer")
                         continue
                 
-                # 重複排除: 同じ before/after の組み合わせは1つだけ採用
-                key = (before_text, point.get('after', '').strip())
-                if key in seen_befores:
+                # 重複排除: 同じ before の組み合わせは1つだけ採用（after は正規化前なので比較しない）
+                if before_text in seen_befores:
                     logger.warning(f"Skipping duplicate point {i+1}: {before_text[:50]}")
                     continue
-                seen_befores.add(key)
+                seen_befores.add(before_text)
                     
                 if 'after' not in point or not point.get('after', '').strip():
                     point['after'] = point['before']
                 if 'reason' not in point:
                     point['reason'] = "指摘理由"
                 if 'level' not in point:
-                    point['level'] = "💡改善提案"
+                    # 💡改善提案をデフォルトにしない（正規化で✅に変換される）
+                    point['level'] = "✅ 正しい表現"
                     
                 valid_points.append(point)
+            
+            # ===== 【最重要】points の正規化処理 =====
+            # 1. before/after を全文に拡張
+            # 2. level を ❌ または ✅ に強制
+            # 3. ✅ の場合は after=before に矯正
+            # 4. sentence_no を付与
+            # 5. sentence_no 昇順でソート
+            
+            # 日本語原文をセンテンスに分割
+            japanese_sentences = [s.strip() for s in question_text.replace('。', '.').split('.') if s.strip()]
+            
+            logger.info(f"Before normalization: {len(valid_points)} points")
+            valid_points = normalize_points(
+                points=valid_points,
+                normalized_answer=normalized_answer,
+                japanese_sentences=japanese_sentences
+            )
+            logger.info(f"After normalization: {len(valid_points)} points")
+            # ===== 正規化処理終了 =====
             
             # valid_pointsで置き換え
             correction_data['points'] = valid_points
@@ -1409,27 +1433,23 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
 【絶対厳守事項】
 1. 必ず{current_shortage}個の新しい解説を出力すること
 2. beforeは既存の解説と絶対に重複させないこと
-3. beforeは以下のどちらか：
-   (a) 学生英文 "{normalized_answer}" の部分文字列（句・節でも可）
-   (b) 未提出プレースホルダ "(未提出：原文第N文)" の形式
-4. 学生英文のコピー禁止（before と after が同一で、かつ既存pointsに類似する場合はNG）
-5. 必ずkagoshima風の詳細解説を記載すること：
-   - N文目: 英文\\n（日本語訳）
-   - 語彙比較A／B（品詞・意味・文脈差）
-   - 【参考】文法パターン
-   - 例：例文1 (和訳1)／例文2 (和訳2)
-6. 例文は学生の英文と異なる新しい例を必ず2つ提示すること
-7. 固定文言（「この表現は適切です」のみ）は絶対に禁止
+3. 【重要】beforeは必ず「学生英文の完全な1文」であること（句・節だけは絶対禁止）
+   - 例（NG）: "were divide into"
+   - 例（OK）: "In the study, the participants were divide into three different groups."
+4. 【重要】levelは必ず「✅ 正しい表現」または「❌ 文法ミス」のみ（💡改善提案は廃止）
+5. ✅ 正しい表現の場合、afterはbeforeと完全に同一にすること
+6. 未提出の文がある場合のみ "(未提出：原文第N文)" を許可
+7. reasonは短く（1〜2文）、例文は不要
 
 【出力形式（必須）- JSON形式で必ず{current_shortage}個】
 ```json
 {{
   "points": [
     {{
-      "before": "学生英文の部分文字列 OR (未提出：原文第N文)",
-      "after": "改善後の表現 OR 模範解答の該当文",
-      "reason": "N文目: 英文\\n（日本語訳）\\n語彙比較A／B...\\n【参考】...\\n例：例文1 (和訳1)／例文2 (和訳2)",
-      "level": "✅ 正しい表現 OR ❌ 文法ミス OR ✅ 補足解説"
+      "before": "学生英文の完全な1文（全文）",
+      "after": "修正後の完全な1文（❌の場合）OR beforeと同一（✅の場合）",
+      "reason": "簡潔な説明（1〜2文）",
+      "level": "✅ 正しい表現 OR ❌ 文法ミス"
     }}
   ]
 }}

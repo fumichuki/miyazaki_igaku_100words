@@ -101,11 +101,12 @@ class QuestionResponse(BaseModel):
 class CorrectionPoint(BaseModel):
     """添削ポイント"""
     japanese_sentence: Optional[str] = Field(None, description="対応する日本語の原文（翻訳形式）")
-    before: str = Field(..., min_length=1, description="修正前の表現")
-    after: str = Field(..., min_length=1, description="修正後の表現")
+    before: str = Field(..., min_length=1, description="修正前の表現（必ず完全な文）")
+    after: str = Field(..., min_length=1, description="修正後の表現（必ず完全な文）")
     reason: str = Field(..., min_length=1, description="修正理由")
-    level: Optional[str] = Field(None, description="レベル（内容評価、❌文法ミス、✅正しい表現、💡改善提案）")
+    level: Optional[str] = Field(None, description="レベル（❌文法ミス、✅正しい表現）※💡改善提案は廃止")
     alt: Optional[str] = Field(None, description="別の表現（オプション）")
+    sentence_no: Optional[int] = Field(None, description="文番号（1,2,3...）", ge=1)
 
 
 class Score(BaseModel):
