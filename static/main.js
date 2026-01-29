@@ -227,14 +227,13 @@ function displayQuestion(data) {
   const container = document.createElement("div");
   container.className = "question-container";
   
-  // テーマ
-  const theme = document.createElement("div");
-  theme.className = "question-theme";
-  theme.textContent = `📌 テーマ: ${data.theme}`;
-  container.appendChild(theme);
-  
   // 問題文（英語）
   if (data.question_text) {
+    // テーマ
+    const theme = document.createElement("div");
+    theme.className = "question-theme";
+    theme.textContent = `📌 テーマ: ${data.theme}`;
+    container.appendChild(theme);
     const questionText = document.createElement("div");
     questionText.className = "question-text";
     questionText.textContent = data.question_text;
