@@ -1247,7 +1247,7 @@ def determine_required_points(question_text: str, user_answer: str) -> int:
     
     優先順位：
     1. 原文（日本語）の文数
-    2. 学生英文の文数
+    2. 学生英文の文数（省略形対応の分割を使用）
     3. 最小値として3（フォールバック）
     
     Args:
@@ -1257,6 +1257,8 @@ def determine_required_points(question_text: str, user_answer: str) -> int:
     Returns:
         required_points: 必要な項目数
     """
+    from points_normalizer import split_into_sentences
+    
     # 1. 原文の文数をカウント（句点・ピリオドで分割）
     if question_text and question_text.strip():
         # 句点（。）またはピリオド（.）で分割
@@ -1265,11 +1267,12 @@ def determine_required_points(question_text: str, user_answer: str) -> int:
             logger.info(f"Required points determined from Japanese text: {len(japanese_sentences)} sentences")
             return len(japanese_sentences)
     
-    # 2. 学生英文の文数をカウント（ピリオドで分割）
+    # 2. 学生英文の文数をカウント（省略形対応の分割を使用）
     if user_answer and user_answer.strip():
-        english_sentences = [s.strip() for s in user_answer.split('.') if s.strip()]
+        # 省略形（p.m., U.S. など）に対応した分割を使用
+        english_sentences = split_into_sentences(user_answer)
         if english_sentences:
-            logger.info(f"Required points determined from English text: {len(english_sentences)} sentences")
+            logger.info(f"Required points determined from English text (split_into_sentences): {len(english_sentences)} sentences")
             return len(english_sentences)
     
     # 3. フォールバック：最小3項目

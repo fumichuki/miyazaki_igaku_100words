@@ -12,9 +12,63 @@ from typing import List, Dict, Any
 logger = logging.getLogger(__name__)
 
 
+# 省略形リスト（ピリオドを含むが文末ではないもの）
+_ABBREVIATIONS = [
+    "a.m.", "p.m.", "e.g.", "i.e.", "etc.",
+    "Mr.", "Mrs.", "Ms.", "Dr.", "Prof.",
+    "U.S.", "U.K.", "vs.", "vol.", "fig.",
+    "Jan.", "Feb.", "Mar.", "Apr.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec.",
+    "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat.", "Sun."
+]
+_DOT_PLACEHOLDER = "<DOT>"
+
+
+def _protect_abbreviations(text: str) -> str:
+    """
+    省略形のピリオドを一時的にプレースホルダーに置換して保護する
+    
+    Args:
+        text: 元のテキスト
+    
+    Returns:
+        保護されたテキスト
+    """
+    protected = text
+    
+    # 省略形を完全に保護（文末でも中間でも）
+    for abbr in _ABBREVIATIONS:
+        # 大文字小文字を区別せずにマッチング
+        pattern = re.compile(re.escape(abbr), re.IGNORECASE)
+        # すべてのピリオドをプレースホルダーに置換
+        protected = pattern.sub(lambda m: m.group(0).replace(".", _DOT_PLACEHOLDER), protected)
+    
+    # イニシャル形式（A.B.C.など）を保護
+    protected = re.sub(r'\b([A-Z])\.(?=\s*[A-Z]\.)', r'\1' + _DOT_PLACEHOLDER, protected)
+    
+    # 小数（3.14など）を保護
+    protected = re.sub(r'(\d)\.(\d)', r'\1' + _DOT_PLACEHOLDER + r'\2', protected)
+    
+    return protected
+
+
+def _restore_abbreviations(text: str) -> str:
+    """
+    プレースホルダーをピリオドに戻す
+    
+    Args:
+        text: 保護されたテキスト
+    
+    Returns:
+        復元されたテキスト
+    """
+    return text.replace(_DOT_PLACEHOLDER, ".")
+
+
 def split_into_sentences(text: str) -> List[str]:
     """
-    英文をセンテンスに分割する
+    英文をセンテンスに分割する（省略形に対応）
+    
+    p.m., a.m., e.g., U.S. などの省略形のピリオドで分割されないようにする
     
     Args:
         text: 英文テキスト
@@ -22,14 +76,50 @@ def split_into_sentences(text: str) -> List[str]:
     Returns:
         センテンスのリスト
     """
-    # ピリオド、感嘆符、疑問符で分割（スペースの有無に関わらず）
-    # ピリオドの後に続く文を検出するため、先頭が大文字の位置で分割
-    sentences = re.split(r'[.!?]+\s*', text)
-    # 空の要素を削除し、trimする
-    sentences = [s.strip() + '.' for s in sentences if s.strip()]
-    # 最後の要素からピリオドを削除（元のテキストに存在しない場合）
-    if sentences and not text.rstrip().endswith(('.', '!', '?')):
-        sentences[-1] = sentences[-1].rstrip('.')
+    if not text or not text.strip():
+        return []
+    
+    # まず改行で分割を試みる（ユーザーが改行で文を区切っている場合）
+    lines = [line.strip() for line in text.strip().split('\n') if line.strip()]
+    if len(lines) > 1:
+        # 改行で明確に分割されている場合はそれを採用
+        return lines
+    
+    # 改行がない場合は、省略形に対応した分割を行う
+    # 戦略: 省略形の "内部" のピリオドのみ保護し、文末のピリオドは保護しない
+    
+    # ステップ1: 省略形のピリオドを保護
+    protected = _protect_abbreviations(text.strip())
+    
+    # ステップ2: 文末候補のピリオドを検出（. の後に空白 + 大文字）
+    # プレースホルダーでないピリオドの後に、空白+大文字が来る場合は分割
+    parts = re.split(r'(\.)\s+(?=[A-Z])', protected)
+    
+    # ステップ3: 分割結果を文に再構成
+    sentences = []
+    i = 0
+    while i < len(parts):
+        if i + 1 < len(parts) and parts[i + 1] == '.':
+            # テキスト + ピリオドを結合
+            sentence = parts[i] + parts[i + 1]
+            # このピリオドがプレースホルダーの直後にある場合（U.S. のケース）
+            # プレースホルダーを復元した後、実際にはピリオドが2つ連続する（U<DOT>S<DOT>. → U.S..）
+            # これを避けるため、プレースホルダーを先に復元
+            restored = _restore_abbreviations(sentence)
+            # 重複ピリオドを削除（U.S.. → U.S.）
+            restored = re.sub(r'\.\.+', '.', restored)
+            sentences.append(restored)
+            i += 2
+        else:
+            # 最後の部分（ピリオドなし）
+            if parts[i].strip():
+                restored = _restore_abbreviations(parts[i])
+                sentences.append(restored)
+            i += 1
+    
+    # 空の要素を削除し、両端の空白を削除
+    sentences = [s.strip() for s in sentences if s.strip()]
+    
     return sentences
 
 
@@ -151,22 +241,6 @@ def normalize_points(
             # before が空の場合はスキップ
             if not original_before:
                 logger.warning(f"Point {i+1}: Empty before, skipping")
-                continue
-            
-            # before が "(未提出：...)" の場合は特別処理
-            if original_before.startswith("(未提出："):
-                # 未提出プレースホルダはそのまま（正規化不要）
-                logger.info(f"Point {i+1}: Placeholder, keeping as-is")
-                
-                # level だけ正規化
-                normalized_level, normalized_after = normalize_level(original_level, original_before, original_after)
-                
-                point['before'] = original_before
-                point['after'] = normalized_after
-                point['level'] = normalized_level
-                point['sentence_no'] = i + 1  # fallback
-                
-                normalized_points.append(point)
                 continue
             
             # 断片 → 全文に拡張

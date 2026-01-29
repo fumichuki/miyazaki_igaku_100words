@@ -591,8 +591,24 @@ function displayCorrection(data) {
     
     const reason = document.createElement("div");
     reason.className = "point-reason";
-    // reasonの改行も<br>に変換
-    reason.innerHTML = escapeHtml(point.reason).replace(/\n/g, '<br>');
+    
+    // reasonから重複英文行を削除（N文目: 英文... の行）
+    let reasonText = point.reason || '';
+    const reasonLines = reasonText.split('\n');
+    const filteredLines = [];
+    
+    for (let line of reasonLines) {
+      // N文目: で始まる行
+      if (line.match(/^\d+文目:\s+[A-Z]/)) {
+        // 英文行と判定（大文字で始まる）→ スキップ
+        continue;
+      }
+      // その他の行は保持
+      filteredLines.push(line);
+    }
+    
+    // フィルタリング後のreasonを表示（改行も<br>に変換）
+    reason.innerHTML = escapeHtml(filteredLines.join('\n')).replace(/\n/g, '<br>');
     
     pointContent.appendChild(reason);
     
