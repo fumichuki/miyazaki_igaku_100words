@@ -7,7 +7,9 @@
 - **形式**: 100字指定の英作文問題
 
 ## システム構成
-- **Backend**: Flask + OpenAI GPT-4o
+- **Backend**: Flask + OpenAI 減点されるほどの修正がない場合はユーザの英文は正解とする。もっといい表現などがあれば、解説で紹介する。
+減点されるほどの修正がない場合はユーザの英文は正解とする。もっといい表現などがあれば、解説で紹介する。
+PT-4o
 - **Frontend**: Vanilla JavaScript
 - **Database**: SQLite (miyazaki_igaku_eisakubun.db)
 - **Port**: 8001
