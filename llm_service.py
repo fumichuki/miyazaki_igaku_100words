@@ -1080,6 +1080,40 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
     
     logger.info("翻訳問題を生成中...")
     
+    # 🎲 直近のexcerpt_typeをチェックし、偏りを防ぐ
+    from database import get_recent_excerpt_types
+    recent_types = get_recent_excerpt_types(10)
+    
+    # 強制的に多様性を確保
+    avoid_instructions = ""
+    if recent_types:
+        p2_p3_count = recent_types.count('P2_P3')
+        p1_only_count = recent_types.count('P1_ONLY')
+        p3_only_count = recent_types.count('P3_ONLY')
+        p4_p5_count = recent_types.count('P4_P5')
+        
+        logger.info(f"直近10問の分布: P2_P3={p2_p3_count}, P1_ONLY={p1_only_count}, P3_ONLY={p3_only_count}, P4_P5={p4_p5_count}")
+        
+        # P2_P3が7問以上なら強制的に他を選ばせる
+        if p2_p3_count >= 7:
+            avoid_instructions = "\n\n🚨🚨🚨【緊急指示】🚨🚨🚨\n直近10問でP2_P3が7問以上出ています。\n**今回は必ずP1_ONLY、P3_ONLY、P4_P5のいずれかを選んでください。**\nP2_P3は絶対に選ばないこと！\n"
+            logger.warning("P2_P3が多すぎるため、強制的に他のタイプを選択させます")
+        
+        # P1_ONLYが0問なら推奨
+        elif p1_only_count == 0 and len(recent_types) >= 5:
+            avoid_instructions = "\n\n🎯【推奨】直近でP1_ONLYが1つも出ていません。今回はP1_ONLYを選ぶことを強く推奨します。\n"
+            logger.info("P1_ONLYを推奨")
+        
+        # P3_ONLYが0問なら推奨
+        elif p3_only_count == 0 and len(recent_types) >= 5:
+            avoid_instructions = "\n\n🎯【推奨】直近でP3_ONLYが1つも出ていません。今回はP3_ONLYを選ぶことを強く推奨します。\n"
+            logger.info("P3_ONLYを推奨")
+        
+        # P4_P5が0問なら推奨
+        elif p4_p5_count == 0 and len(recent_types) >= 8:
+            avoid_instructions = "\n\n🎯【推奨】直近でP4_P5が1つも出ていません。今回はP4_P5を選ぶことを推奨します（10%の確率）。\n"
+            logger.info("P4_P5を推奨")
+    
     # プロンプトを取得（翻訳用）
     prompt_template = PROMPTS['question']
     
@@ -1087,6 +1121,9 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
         excluded_themes=", ".join(excluded_themes) if excluded_themes else "なし",
         past_questions_reference=PAST_QUESTIONS_REFERENCE
     )
+    
+    # 多様性指示を追加
+    prompt += avoid_instructions
     
     max_retries = 3
     retry_reason = []
