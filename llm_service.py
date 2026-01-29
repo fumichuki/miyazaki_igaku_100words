@@ -1067,6 +1067,80 @@ def call_openai_with_retry(prompt: str, max_retries: int = 3, is_model_answer: b
 
 # ===== 出題サービス =====
 
+def enforce_theme_diversity(recent_themes: List[str], all_genres: List[str]) -> str:
+    """
+    直近の出題傾向から、次に選ぶべきtheme（ジャンル）を強制的に決定
+    
+    【目標】全7ジャンルを均等に出題（各14.3%）
+    
+    Args:
+        recent_themes: 直近N問のthemeリスト（新しい順）
+        all_genres: 全ジャンルのリスト
+    
+    Returns:
+        強制的に選ぶべきtheme
+    """
+    import random
+    
+    if not recent_themes:
+        # データなしの場合はランダムに選択
+        return random.choice(all_genres)
+    
+    # ルール1: 同じジャンルが3回以上連続 → 強制的に他を選ぶ
+    recent_3 = recent_themes[:3] if len(recent_themes) >= 3 else recent_themes
+    if len(recent_3) >= 2 and len(set(recent_3)) == 1:
+        # 全て同じジャンル
+        logger.warning(f"🚨 {recent_3[0]}が{len(recent_3)}回連続 → 強制的に他を選択")
+        other_genres = [g for g in all_genres if g != recent_3[0]]
+        return random.choice(other_genres)
+    
+    # ルール2: 直近20問で特定ジャンルが30%超 → そのジャンルを避ける
+    recent_20 = recent_themes[:20] if len(recent_themes) >= 20 else recent_themes
+    if len(recent_20) >= 10:
+        genre_counts = {g: recent_20.count(g) for g in all_genres}
+        for genre, count in genre_counts.items():
+            ratio = count / len(recent_20)
+            if ratio > 0.30:
+                logger.warning(f"🚨 {genre}が{ratio*100:.1f}% → 今回は避ける")
+                other_genres = [g for g in all_genres if g != genre]
+                return random.choice(other_genres)
+    
+    # ルール3: 未使用または使用頻度が極端に低いジャンルを優先
+    recent_30 = recent_themes[:30] if len(recent_themes) >= 30 else recent_themes
+    if len(recent_30) >= 15:
+        genre_counts = {g: recent_30.count(g) for g in all_genres}
+        
+        # 使用回数が0のジャンル
+        unused = [g for g, count in genre_counts.items() if count == 0]
+        if unused:
+            selected = random.choice(unused)
+            logger.info(f"🎯 未使用ジャンルを選択: {selected}")
+            return selected
+        
+        # 目標比率（均等）
+        target_ratio = 1.0 / len(all_genres)  # 14.3% for 7 genres
+        
+        # 実際の比率
+        actual_ratios = {g: count / len(recent_30) for g, count in genre_counts.items()}
+        
+        # 目標との差分（負の値 = 不足）
+        deficits = {g: actual_ratios[g] - target_ratio for g in all_genres}
+        
+        logger.info(f"📊 直近{len(recent_30)}問の分布: " + 
+                   ", ".join([f"{g}={actual_ratios[g]*100:.1f}%" for g in sorted(all_genres)]))
+        
+        # 最も不足しているジャンル
+        most_deficit = min(deficits, key=deficits.get)
+        
+        # 10%以上不足している場合は優先的に選択
+        if deficits[most_deficit] < -0.10:
+            logger.info(f"🎯 {most_deficit}が{-deficits[most_deficit]*100:.1f}%不足 → 優先的に選択")
+            return most_deficit
+    
+    # ルール4: デフォルトは均等確率でランダム選択
+    return random.choice(all_genres)
+
+
 def enforce_excerpt_type_diversity(recent_types: List[str]) -> str:
     """
     直近の出題傾向から、次に選ぶべきexcerpt_typeを強制的に決定
@@ -1181,6 +1255,14 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
     
     logger.info("翻訳問題を生成中...")
     
+    # 🎲 直近のtheme（ジャンル）をチェックし、偏りを防ぐ
+    from database import get_recent_themes
+    recent_themes = get_recent_themes(30)
+    
+    # 🚀 システムレベルでthemeの多様性を強制的に確保
+    forced_theme = enforce_theme_diversity(recent_themes, TRANSLATION_GENRES)
+    logger.info(f"🎯 システムが選択したtheme: {forced_theme}")
+    
     # 🎲 直近のexcerpt_typeをチェックし、偏りを防ぐ
     from database import get_recent_excerpt_types
     recent_types = get_recent_excerpt_types(10)
@@ -1192,7 +1274,14 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
     # 強制的に多様性を確保（プロンプトに明示）
     avoid_instructions = f"""
 
-🚨🚨🚨【システム強制指示 - 絶対厳守】🚨🚨🚨
+🚨🚨🚨【システム強制指示 1 - theme（ジャンル）】🚨🚨🚨
+今回のthemeは以下に決定されました：
+**{forced_theme}**
+
+この指定されたthemeを必ず使用してください。
+他のジャンル（{', '.join([t for t in TRANSLATION_GENRES if t != forced_theme])}）は選択禁止です。
+
+🚨🚨🚨【システム強制指示 2 - excerpt_type（段落位置）】🚨🚨🚨
 今回のexcerpt_typeは以下に決定されました：
 **{forced_type}**
 
@@ -1251,6 +1340,8 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
             current_prompt = prompt
             if attempt > 0 and retry_reason:
                 retry_instructions = "\n\n【前回の生成で以下の問題がありました。修正してください】\n"
+                if 'wrong_theme' in retry_reason:
+                    retry_instructions += f"- themeは必ず {forced_theme} を使用してください（他のジャンルは却下されます）\n"
                 if 'wrong_excerpt_type' in retry_reason:
                     retry_instructions += f"- excerpt_typeは必ず {forced_type} を使用してください（他のタイプは却下されます）\n"
                 if 'paragraph_count_mismatch' in retry_reason:
@@ -1285,6 +1376,13 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
             
             logger.info(f"✅ excerpt_type検証成功: {question.excerpt_type}")
             
+            # 🚨 強制されたthemeと一致するか検証
+            if question.theme != forced_theme:
+                logger.error(f"❌ theme不一致: 期待={forced_theme}, 実際={question.theme}")
+                raise ValueError(f"システムが指定したtheme（{forced_theme}）と異なります。生成された問題は却下されます。")
+            
+            logger.info(f"✅ theme検証成功: {question.theme}")
+            
             # themeが7ジャンル固定語のいずれかか確認
             if question.theme not in TRANSLATION_GENRES:
                 logger.warning(f"Invalid theme: {question.theme}, using fallback")
@@ -1299,6 +1397,11 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
             # 次回リトライのための理由を記録
             retry_reason = []
             error_msg = str(e)
+            
+            # theme不一致の場合は専用のリトライ理由を追加
+            if 'theme' in error_msg and forced_theme in error_msg:
+                retry_reason.append('wrong_theme')
+                logger.warning(f"⚠️ theme不一致でリトライ: {forced_theme}を使用してください")
             
             # excerpt_type不一致の場合は専用のリトライ理由を追加
             if 'excerpt_type' in error_msg and forced_type in error_msg:

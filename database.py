@@ -400,5 +400,30 @@ def get_theme_statistics() -> List[Dict[str, Any]]:
         return [dict(row) for row in rows]
 
 
+def get_recent_themes(limit: int = 20) -> List[str]:
+    """
+    直近N問のtheme（ジャンル）を取得（新しい順）
+    
+    Args:
+        limit: 取得する問題数
+    
+    Returns:
+        themeのリスト（新しい順）
+    """
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT theme
+            FROM questions
+            ORDER BY created_at DESC
+            LIMIT ?
+        """, (limit,))
+        
+        rows = cursor.fetchall()
+        themes = [row['theme'] for row in rows]
+        
+        return themes
+
+
 # 初期化
 init_database()
