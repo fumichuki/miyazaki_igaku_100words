@@ -1182,20 +1182,38 @@ function displayCorrection(data) {
   }, 500);
 }
 
-// マルチ入力モード用：模範解答をチャット内に表示（次の問題の前に配置）
+// マルチ入力モード用：模範解答を入力エリアの下に表示
 function displayModelAnswerBelowInput(data) {
+  // 既存の模範解答セクションを削除
+  const existingSection = document.getElementById('model-answer-below-input');
+  if (existingSection) {
+    existingSection.remove();
+  }
+  const existingNextBtn = document.getElementById('next-question-below-input');
+  if (existingNextBtn) {
+    existingNextBtn.remove();
+  }
+  
   // 理想的な英文セクション（model_answerがある場合のみ表示）
   if (data.model_answer && data.model_answer_explanation) {
-    const container = document.createElement("div");
-    container.className = "correction-container";
-    
     const modelAnswerSection = document.createElement("div");
+    modelAnswerSection.id = 'model-answer-below-input';
     modelAnswerSection.className = "model-answer-section";
+    modelAnswerSection.style.marginTop = "24px";
+    modelAnswerSection.style.padding = "20px";
+    modelAnswerSection.style.backgroundColor = "#f8f9fa";
+    modelAnswerSection.style.borderRadius = "12px";
+    modelAnswerSection.style.border = "2px solid #e9ecef";
     
     // 解説の見出し
     const explanationTitle = document.createElement("h3");
     explanationTitle.className = "model-answer-title";
     explanationTitle.textContent = "🌟 理想的な英文と文法・表現のポイント解説";
+    explanationTitle.style.marginTop = "0";
+    explanationTitle.style.marginBottom = "16px";
+    explanationTitle.style.fontSize = "18px";
+    explanationTitle.style.fontWeight = "700";
+    explanationTitle.style.color = "#1e293b";
     modelAnswerSection.appendChild(explanationTitle);
     
     const modelExplanation = document.createElement("div");
@@ -1226,47 +1244,62 @@ function displayModelAnswerBelowInput(data) {
       modelExplanation.innerHTML = processedLines.join('<br>');
     }
     modelAnswerSection.appendChild(modelExplanation);
-    container.appendChild(modelAnswerSection);
     
-    // チャット内に追加（これで次の問題の前に配置される）
-    addMessage(container, "ai");
+    // 入力エリアの後に挿入（DOM上の位置：画面下部）
+    const inputArea = document.getElementById('input-area');
+    if (inputArea && inputArea.parentNode) {
+      inputArea.parentNode.insertBefore(modelAnswerSection, inputArea.nextSibling);
+    }
     
-    // 「次の問題」ボタンをチャット内に追加
-    setTimeout(() => {
-      const nextQuestionDiv = document.createElement('div');
-      nextQuestionDiv.style.display = 'flex';
-      nextQuestionDiv.style.alignItems = 'center';
-      nextQuestionDiv.style.gap = '12px';
-      nextQuestionDiv.style.flexWrap = 'wrap';
-      
-      const textSpan = document.createElement('span');
-      textSpan.textContent = '次の問題にチャレンジしますか？';
-      
-      const newBtn = document.createElement('button');
-      newBtn.textContent = '新しい問題を出題';
-      newBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-      newBtn.style.color = 'white';
-      newBtn.style.border = 'none';
-      newBtn.style.padding = '8px 16px';
-      newBtn.style.borderRadius = '6px';
-      newBtn.style.cursor = 'pointer';
-      newBtn.style.fontSize = '14px';
-      newBtn.style.fontWeight = '600';
-      newBtn.style.transition = 'all 0.2s';
-      newBtn.addEventListener('click', () => fetchNewQuestion());
-      newBtn.addEventListener('mouseenter', () => {
-        newBtn.style.transform = 'translateY(-2px)';
-        newBtn.style.boxShadow = '0 4px 8px rgba(102, 126, 234, 0.3)';
-      });
-      newBtn.addEventListener('mouseleave', () => {
-        newBtn.style.transform = 'translateY(0)';
-        newBtn.style.boxShadow = 'none';
-      });
-      
-      nextQuestionDiv.appendChild(textSpan);
-      nextQuestionDiv.appendChild(newBtn);
-      addMessage(nextQuestionDiv, "ai");
-    }, 500);
+    // 「次の問題」ボタンを模範解答の下に追加
+    const nextQuestionDiv = document.createElement('div');
+    nextQuestionDiv.id = 'next-question-below-input';
+    nextQuestionDiv.style.marginTop = '20px';
+    nextQuestionDiv.style.padding = '20px';
+    nextQuestionDiv.style.display = 'flex';
+    nextQuestionDiv.style.alignItems = 'center';
+    nextQuestionDiv.style.gap = '12px';
+    nextQuestionDiv.style.flexWrap = 'wrap';
+    
+    const textSpan = document.createElement('span');
+    textSpan.textContent = '次の問題にチャレンジしますか？';
+    textSpan.style.fontSize = '15px';
+    textSpan.style.fontWeight = '600';
+    
+    const newBtn = document.createElement('button');
+    newBtn.textContent = '新しい問題を出題';
+    newBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    newBtn.style.color = 'white';
+    newBtn.style.border = 'none';
+    newBtn.style.padding = '10px 20px';
+    newBtn.style.borderRadius = '8px';
+    newBtn.style.cursor = 'pointer';
+    newBtn.style.fontSize = '15px';
+    newBtn.style.fontWeight = '600';
+    newBtn.style.transition = 'all 0.2s';
+    newBtn.addEventListener('click', () => {
+      // 模範解答と次の問題ボタンを削除してから新しい問題を取得
+      const section = document.getElementById('model-answer-below-input');
+      if (section) section.remove();
+      const nextBtn = document.getElementById('next-question-below-input');
+      if (nextBtn) nextBtn.remove();
+      fetchNewQuestion();
+    });
+    newBtn.addEventListener('mouseenter', () => {
+      newBtn.style.transform = 'translateY(-2px)';
+      newBtn.style.boxShadow = '0 4px 8px rgba(102, 126, 234, 0.3)';
+    });
+    newBtn.addEventListener('mouseleave', () => {
+      newBtn.style.transform = 'translateY(0)';
+      newBtn.style.boxShadow = 'none';
+    });
+    
+    nextQuestionDiv.appendChild(textSpan);
+    nextQuestionDiv.appendChild(newBtn);
+    
+    if (modelAnswerSection.parentNode) {
+      modelAnswerSection.parentNode.insertBefore(nextQuestionDiv, modelAnswerSection.nextSibling);
+    }
   }
 }
 
