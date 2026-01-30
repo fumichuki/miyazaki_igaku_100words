@@ -1023,157 +1023,64 @@ points[0]は作成せず、points[1]から始める（日本語原文の各文�
 
 # モデル解答生成用プロンプト（翻訳形式）
 MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION = """
-あなたは宮崎大学医学部の和文英訳問題の模範解答作成専門家です。
+あなたは英語教育の専門家です。以下の日本語を自然な英語に翻訳し、学習者向けの解説を作成してください。
 
-# 原文（日本語）
+# 日本語原文
 {question_text}
 
-### 🚨🚨🚨【翻訳の忠実性（絶対厳守）】🚨🚨🚨
-1. **原文に書かれていない内容を絶対に追加してはならない**
-   - 例文、結論、まとめ、補足説明、勧告等の創作は厳禁
-   - "For example", "Therefore", "Overall", "In conclusion" 等で原文にない情報を追加することは厳禁
-   
-2. **原文の文数と模範解答の文数は必ず完全一致**
-   - 原文が2文なら模範解答も必ず2文（3文以上にしてはいけない）
-   - 原文が4文なら模範解答も必ず4文
-   - 原文が5文なら模範解答も必ず5文
-   - **1文でも追加・省略したら不正解**
-   
-3. **各文は原文の対応する1文のみを忠実に翻訳**
-   - 1文目→原文1文目のみ翻訳
-   - 2文目→原文2文目のみ翻訳
-   - 原文にない内容は1語たりとも追加しない
+# タスク
 
-4. **文数チェックリスト（出力前に必ず確認）**
-   - ✅ 原文の文数をカウント（句点で区切る）
-   - ✅ 模範解答の文数が原文と一致するか確認
-   - ✅ 追加文がないか最終チェック
-   - ❌ 不一致の場合は生成をやり直す
+## 1. 模範英訳（model_answer）
+- 原文を忠実に、自然な英語に翻訳してください
+- 100-120語程度
+- 原文の文数と同じ文数で翻訳（原文4文→英訳4文）
+- 各文を\\n\\nで区切る
 
-**【❌ 禁止例】**
-原文が2文なのに、以下のように3文以上にする：
-```
-1文目: As a result, it has been shown...
-2文目: With the enforcement of this law...
-3文目: However, in the long term...  ← ❌ 原文にない追加文
-4文目: Overall, the law aims to...  ← ❌ 原文にない追加文
-```
+## 2. 解説（model_answer_explanation）
 
-**【✅ 正しい例】**
-原文が2文の場合、模範解答も必ず2文：
-```
-1文目: As a result, it has been shown...
-2文目: With the enforcement of this law...
-（以上、追加文なし）
-```
-
-# 要件
-
-1. **model_answer**: 自然で正確な英訳（100-120語目安）
-   - 段落構造を維持
-   - 翻訳として理想的な表現
-   - 必ず100-120語に収める
-   - 各文を改行（\\n\\n）で区切る
-   - **🚨原文の文数と必ず完全一致（追加・省略厳禁）🚨**
-
-2. **model_answer_explanation**: 一文ずつ詳細に解説（以下のフォーマット厳守）
-   - **🚨原文にない内容の解説は絶対に書かない🚨**
-   - **🚨模範解答の文数=原文の文数（必ず一致）🚨**
-   - 模範解答の全ての文（原文対応分のみ）を解説
-   - 原文が2文なら解説も1文目・2文目のみ（3文目以降は書かない）
-
-**【必須フォーマット - kagoshima_100wordsスタイル】**:
+以下のフォーマットで記述してください：
 
 ```
 文法・表現のポイント解説
 
-1文目: （英文全文）
-（日本語訳）← 🚨🚨🚨 この日本語訳は原文の1文目を正確に反映すること。簡略化・要約は厳禁 🚨🚨🚨
-重要語A（品詞：意味の詳細説明：使用される文脈）／重要語B（品詞：意味の詳細説明：使用される文脈）で、AとBの使い分けを説明。例：例文1「日本語訳」／例文2「日本語訳」
+1文目: （模範英訳の1文目をそのまま記載）
+（日本語原文の1文目をそのまま記載）
+重要語A（品詞：意味）／重要語B（品詞：意味）で、使い分けを説明。
+【参考】パターン例A / パターン例B
+例: 例文A (日本語訳) / 例文B (日本語訳)
 
-2文目: （英文全文）
-（日本語訳）← 🚨🚨🚨 この日本語訳は原文の2文目を正確に反映すること。簡略化・要約は厳禁 🚨🚨🚨
-重要語C（品詞：意味の詳細説明：使用される文脈）／重要語D（品詞：意味の詳細説明：使用される文脈）で、CとDの使い分けを説明。例：例文1「日本語訳」／例文2「日本語訳」
+2文目: （模範英訳の2文目をそのまま記載）
+（日本語原文の2文目をそのまま記載）
+重要語C（品詞：意味）／重要語D（品詞：意味）で、使い分けを説明。
+【参考】パターン例C / パターン例D
+例: 例文C (日本語訳) / 例文D (日本語訳)
 
-（以下、全ての文について同様に記述）
+（原文の文数分だけ続ける）
 ```
 
-🚨🚨🚨【日本語訳の正確性（最重要）】🚨🚨🚨
-各文の（日本語訳）は、原文の対応する文を**一語一句正確に**反映すること。
-- ❌NG: 原文「会話の途中で意識的に相手の話を聞く姿勢を取ることを試みています」→ 訳「会話中に意識的に聞くことを試みています」（簡略化）
-- ✅OK: 原文「会話の途中で意識的に相手の話を聞く姿勢を取ることを試みています」→ 訳「会話の途中で意識的に相手の話を聞く姿勢を取ることを試みています」（原文そのまま）
+# 重要なルール
 
-**解説の詳細ルール**:
-- 【絶対厳守】「英文:」「日本語訳:」「解説:」のラベルは書かない
-- 【絶対厳守】Markdown記号（#、**、・など）や太字記号を使わない
-- 【絶対厳守】原文の文数と解説の文数を一致させる（原文2文なら解説も2文のみ）
-- 【必須】冒頭に「文法・表現のポイント解説」と書く
-- 【必須】各文は「n文目: 英文全文」で始める
-- 【必須】次の行に「（日本語訳）」を書く
-- 【必須】語彙解説は「単語A（品詞：詳細説明：文脈）／単語B（品詞：詳細説明：文脈）」形式
-- 【必須】使い分けの説明と例文2つ以上（日本語訳付き、「／」で区切る）
-- 模範解答の全ての文を解説（省略禁止・追加禁止）
+1. **日本語訳は原文をそのままコピー** - 省略や要約は絶対にしない
+2. **文数を必ず一致させる** - 原文4文なら、模範英訳も解説も4文
+3. **原文にない情報は追加しない** - "For example", "In conclusion"などで文を増やさない
 
-# 解説の良い例
+# 出力例
 
-## 例1：原文が2文の場合（2文のみ解説）
+原文が2文の場合：
 
-```
-文法・表現のポイント解説
-
-1文目: As a result, it has been shown that the new law strengthens workers' rights while potentially increasing costs for companies.
-（その結果、新しい法律は労働者の権利を強化する一方で、企業にとってはコストの増加をもたらす可能性があることが示された。）
-show（動詞：情報やデータを示す・表示する：直接的な提示の文脈）／indicate（動詞：暗示する・示唆する：間接的な示唆の文脈）で、showは直接的に情報を伝える際に使われ、indicateは暗示的な場合に使われます。例：The report shows clear evidence.「報告書は明確な証拠を示しています。」／The symptoms indicate an illness.「症状は病気を示唆しています。」
-
-2文目: With the enforcement of this law, it is expected that companies will face an increased burden in the short term, but in the long term, improvements in the working environment are anticipated.
-（この法律が施行されることで、短期的には企業の負担が増すことが予想されるが、長期的には労働環境の改善が期待される。）
-expect（動詞：予想する・期待する：未来の出来事を予想する文脈）／anticipate（動詞：予期する・事前に備える：準備するための予測の文脈）で、expectは一般的な未来の予想で、anticipateは備えるために予測します。例：We expect rain tomorrow.「明日は雨が降ると予想しています。」／We anticipate a busy season.「忙しい季節を予期しています。」
+```json
+{{
+  "model_answer": "Recently, I have been trying a new approach by consciously listening during conversations.\\n\\nSpecifically, I make an effort to nod when the other person is speaking.",
+  "model_answer_explanation": "文法・表現のポイント解説\\n\\n1文目: Recently, I have been trying a new approach by consciously listening during conversations.\\n（そのため、最近では新しいアプローチとして、会話の途中で意識的に相手の話を聞く姿勢を取ることを試みています。）\\nconsciously（副詞：意識的に）／deliberately（副詞：故意に）で、consciouslyは自覚的な行動、deliberatelyは計画的な行動を示します。\\n【参考】consciously decide (意識的に決める) / deliberately avoid (故意に避ける)\\n例: She consciously chose to help. (彼女は意識的に助けることを選んだ。) / He deliberately ignored the warning. (彼は故意に警告を無視した。)\\n\\n2文目: Specifically, I make an effort to nod when the other person is speaking.\\n（具体的には、相手が話しているときにうなずいたり、相槌を打つことを意識しています。）\\nspecifically（副詞：具体的に）／particularly（副詞：特に）で、specificallyは詳細を示し、particularlyは特定の焦点を強調します。\\n【参考】specifically mention (具体的に言及する) / particularly interesting (特に興味深い)\\n例: She specifically mentioned her concerns. (彼女は具体的に懸念を述べた。) / This task is particularly challenging. (この作業は特に難しい。)"
+}}
 ```
 
-**🚨重要：原文が2文なので、解説も1文目・2文目のみ（3文目以降は書かない）**
+# 出力形式
 
-## 例2：原文が4文の場合（4文全て解説）
-
-```
-文法・表現のポイント解説
-
-1文目: This table shows the annual average temperature changes in a certain city.
-（この表は、ある都市の年間平均気温の変化を示している。）
-show（動詞：情報やデータを示す・表示する：客観的な提示の文脈）／indicate（動詞：兆候や傾向を示す・指し示す：間接的な示唆の文脈）で、showは直接的に見せること、indicateは間接的に示唆することを指します。例：The graph shows a clear trend.「グラフは明確な傾向を示しています。」／This indicates a problem.「これは問題を示唆しています。」
-
-2文目: Looking at the high school student data, we can see a sharp rise in temperature from spring to summer.
-（高校生データを見ると、春から夏にかけて急激に気温が上昇していることがわかる。）
-sharp（形容詞：急激な・鋭い：突然の大きな変化の文脈）／gradual（形容詞：段階的な・徐々の：ゆっくりとした変化の文脈）で、sharpは急激で明確な変化、gradualは緩やかな変化を示します。例：There was a sharp increase.「急激な増加がありました。」／The change was gradual.「変化は段階的でした。」
-
-3文目: On the other hand, the university student data reveals a more pronounced temperature drop from autumn to winter.
-（一方、大学生データでは、秋から冬にかけての気温低下がより顕著に現れている。）
-pronounced（形容詞：顕著な・はっきりした：目立つ特徴の文脈）／noticeable（形容詞：目立つ・気づきやすい：認識できる程度の文脈）で、pronouncedはより強く際立っていること、noticeableは気づく程度であることを指します。例：There was a pronounced difference.「顕著な違いがありました。」／The change was noticeable.「変化は目立ちました。」
-
-4文目: These data suggest that adjusting lifestyle habits according to seasonal temperature changes is important.
-（これらのデータは、季節ごとの気温変化に応じた生活習慣の調整が重要であることを示唆している。）
-suggest（動詞：提案する・示唆する：間接的に意味を伝える文脈）／prove（動詞：証明する・立証する：確実な根拠を示す文脈）で、suggestは可能性や推測を示し、proveは確実な証拠による証明を指します。例：The data suggest a correlation.「データは相関関係を示唆しています。」／This proves the theory.「これは理論を証明します。」
-```
-
-# 出力JSON形式
-
-🚨🚨🚨【出力前の最終チェック】🚨🚨🚨
-1. model_answer の文数 = 原文の文数（必ず一致）
-2. model_answer_explanation の文数 = 原文の文数（必ず一致）
-3. 原文にない内容が含まれていないか確認
-4. 不一致の場合は生成をやり直す
+JSON形式で出力してください（コードブロック不要）：
 
 {{
-  \"model_answer\": \"（模範英訳、100-120語、各文を\\n\\nで区切る、🚨原文と文数一致🚨）\",
-  \"model_answer_explanation\": \"文法・表現のポイント解説\\n\\n1文目: ...\\n（...）\\n語彙解説...\\n\\n2文目: ...\\n（...）\\n語彙解説...\\n\\n（🚨原文の文数分のみ、追加禁止🚨）\"
+  "model_answer": "（模範英訳）",
+  "model_answer_explanation": "（解説）"
 }}
-
-# 注意事項
-- JSON のみで返す
-- コードブロック（```）禁止
-- 「英文:」「日本語訳:」「解説:」ラベル禁止
-- Markdown 記号（#、**など）禁止
-- 日本語の引用符「」『』は使わない（半角ダブルクォートのみ）
-- 引用符のエスケープを厳守
-- 改行は \\n を使用
-- 🚨🚨🚨 模範解答と解説の文数は必ず原文と一致 🚨🚨🚨
 """
