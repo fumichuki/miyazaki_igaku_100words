@@ -207,8 +207,38 @@ function resetMultiInputUI() {
   }
 }
 
+// 入力エリア下の模範解答をチャット履歴に移動
+function moveModelAnswerToChat() {
+  const modelAnswerSection = document.getElementById('model-answer-below-input');
+  const nextQuestionDiv = document.getElementById('next-question-below-input');
+  
+  if (modelAnswerSection) {
+    // 模範解答セクションのクローンを作成してチャット内に追加
+    const container = document.createElement("div");
+    container.className = "correction-container";
+    
+    const clonedSection = modelAnswerSection.cloneNode(true);
+    clonedSection.removeAttribute('id'); // IDを削除（重複防止）
+    clonedSection.style.marginTop = "0"; // チャット内ではマージンをリセット
+    container.appendChild(clonedSection);
+    
+    addMessage(container, "ai");
+    
+    // 元の要素を削除
+    modelAnswerSection.remove();
+  }
+  
+  // 次の問題ボタンは削除（チャット内に追加しない）
+  if (nextQuestionDiv) {
+    nextQuestionDiv.remove();
+  }
+}
+
 // 新しい問題を取得
 function fetchNewQuestion() {
+  // 入力エリア下の模範解答をチャット履歴に移動
+  moveModelAnswerToChat();
+  
   // マルチ入力UIをリセット（新しい問題用に準備）
   resetMultiInputUI();
   
@@ -1278,11 +1308,8 @@ function displayModelAnswerBelowInput(data) {
     newBtn.style.fontWeight = '600';
     newBtn.style.transition = 'all 0.2s';
     newBtn.addEventListener('click', () => {
-      // 模範解答と次の問題ボタンを削除してから新しい問題を取得
-      const section = document.getElementById('model-answer-below-input');
-      if (section) section.remove();
-      const nextBtn = document.getElementById('next-question-below-input');
-      if (nextBtn) nextBtn.remove();
+      // fetchNewQuestion内でmoveModelAnswerToChatが呼ばれるため、
+      // ここでは削除処理を行わずに直接fetchNewQuestionを呼ぶ
       fetchNewQuestion();
     });
     newBtn.addEventListener('mouseenter', () => {
