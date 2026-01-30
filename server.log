@@ -1,91 +1,158 @@
 nohup: ignoring input
-2026-01-30 23:21:58 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:21:58 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:21:58 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-30 23:27:38 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-30 23:27:38 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-30 23:27:38 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-30 23:21:58 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-30 23:27:38 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-30 23:21:58 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-30 23:21:58 - werkzeug - INFO -  * Restarting with stat
-2026-01-30 23:21:59 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:21:59 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:21:59 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-30 23:21:59 - werkzeug - WARNING -  * Debugger is active!
-2026-01-30 23:21:59 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-30 23:22:03 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:22:03] "GET /health HTTP/1.1" 200 -
-2026-01-30 23:22:10 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:22:10] "GET /health HTTP/1.1" 200 -
-2026-01-30 23:26:43 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/points_normalizer.py', reloading
-2026-01-30 23:26:43 - werkzeug - INFO -  * Restarting with stat
-2026-01-30 23:26:45 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:26:45 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:26:45 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-30 23:26:45 - werkzeug - WARNING -  * Debugger is active!
-2026-01-30 23:26:45 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-30 23:26:58 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/prompts_correction_respect.py', reloading
-2026-01-30 23:26:58 - werkzeug - INFO -  * Restarting with stat
-2026-01-30 23:26:59 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:26:59 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:26:59 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-30 23:26:59 - werkzeug - WARNING -  * Debugger is active!
-2026-01-30 23:26:59 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-30 23:27:06 - database - INFO - Excluded themes: ['コラム', '学術', '図表', '研究紹介', 'レビュー', 'ブログ', '時事']
-2026-01-30 23:27:06 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-30 23:27:06 - llm_service - INFO - 📊 直近10問のサブトピック: ['コラム:C', '学術:F', '図表:C', '研究紹介:D', '学術:H', 'レビュー:F', '図表:E', 'コラム:A', 'ブログ:B', '研究紹介:B']
-2026-01-30 23:27:06 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=10.0%, 図表=13.3%, 学術=13.3%, 時事=16.7%, 研究紹介=16.7%
-2026-01-30 23:27:06 - llm_service - INFO - 🎯 システムが選択したtheme: コラム
-2026-01-30 23:27:06 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=50.0%, P3_ONLY=30.0%, P4_P5=0.0%
-2026-01-30 23:27:06 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
-2026-01-30 23:27:07 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-01-30 23:27:07 - openai._base_client - INFO - Retrying request to /chat/completions in 0.482358 seconds
-2026-01-30 23:27:16 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:27:16 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "コラム",
-  "topic_label": "B",
-  "excerpt_type": "P2_P3",
+2026-01-30 23:27:38 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-30 23:27:38 - werkzeug - INFO -  * Restarting with stat
+2026-01-30 23:27:39 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-30 23:27:39 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-30 23:27:39 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-30 23:27:39 - werkzeug - WARNING -  * Debugger is active!
+2026-01-30 23:27:39 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-30 23:27:44 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:27:44] "GET /health HTTP/1.1" 200 -
+2026-01-30 23:27:50 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:27:50] "GET /health HTTP/1.1" 200 -
+2026-01-30 23:39:00 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:39:00] "GET / HTTP/1.1" 200 -
+2026-01-30 23:39:00 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:39:00] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-30 23:39:00 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:39:00] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
+2026-01-30 23:39:00 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:39:00] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
+2026-01-30 23:39:01 - database - INFO - Excluded themes: ['コラム', '学術', '図表', '研究紹介', 'レビュー', 'ブログ', '時事']
+2026-01-30 23:39:01 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-30 23:39:01 - llm_service - INFO - 📊 直近10問のサブトピック: ['コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D', '学術:H', 'レビュー:F', '図表:E', 'コラム:A', 'ブログ:B']
+2026-01-30 23:39:01 - llm_service - INFO - 📊 直近30問の分布: コラム=20.0%, ブログ=10.0%, レビュー=10.0%, 図表=13.3%, 学術=13.3%, 時事=16.7%, 研究紹介=16.7%
+2026-01-30 23:39:01 - llm_service - INFO - 🎯 システムが選択したtheme: 学術
+2026-01-30 23:39:01 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=60.0%, P3_ONLY=20.0%, P4_P5=0.0%
+2026-01-30 23:39:01 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P3_ONLY
+2026-01-30 23:39:08 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:39:08 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "学術",
+  "topic_label": "D",
+  "excerpt_type": "P3_ONLY",
   "japanese_paragraphs": [
-    "リモートワークが普及したことで、家庭内での時間管理が重要度を増している。一方で、仕事とプライベートの境界が曖昧になり、ストレスを感じる人も増えている。",
-    "そのため、時間管理のスキルを向上...
-2026-01-30 23:27:16 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+    "その結果、意思決定の際に左右の脳半球が異なる役割を果たしていることが示された。特に、左脳が論理的な選択を、右脳が直感的な選択を促進する傾向があることがわかった。これにより、複雑な問題に取り組む際の...
+2026-01-30 23:39:08 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "theme": "コラム",
-  "topic_label": "B",
-  "excerpt_type": "P2_P3",
+  "theme": "学術",
+  "topic_label": "D",
+  "excerpt_type": "P3_ONLY",
   "japanese_paragraphs": [
-    "リモートワークが普及したことで、家庭内での時間管理が重要度を増している。一方で、仕事とプライベートの境界が曖昧になり、ストレスを感じる人も増えている。",
-    "そのため、時間管理のスキルを向上させるために、日々のスケジュールを明確にし、休憩時間を積極的に設けることが推奨されている。また、家族や同僚とのコミュニケーションを円滑にする努力も必要である。"
+    "その結果、意思決定の際に左右の脳半球が異なる役割を果たしていることが示された。特に、左脳が論理的な選択を、右脳が直感的な選択を促進する傾向があることがわかった。これにより、複雑な問題に取り組む際の脳の機能について新たな理解が得られる可能性がある。"
   ],
   "hints": [
-    {"en": "remote work", "ja": "リモートワーク", "kana": "リモートワーク", "pos": "名詞", "usage": "Remote work allows flexibility「リモートワークは柔軟性を可能にする」"},
-    {"en": "time management", "ja": "時間管理", "kana": "タイムマネジメント", "pos": "名詞", "usage": "Effective time management reduces stress「効果的な時間管理はストレスを減らす」"},
-    {"en": "boundary", "ja": "境界", "kana": "バウンダリー", "pos": "名詞", "usage": "The boundary between work and life「仕事と生活の境界」"},
-    {"en": "stress", "ja": "ストレス", "kana": "ストレス", "pos": "名詞", "usage": "Stress can affect health「ストレスは健康に影響を与える」"},
-    {"en": "communication", "ja": "コミュニケーション", "kana": "コミュニケーション", "pos": "名詞", "usage": "Effective communication is key「効果的なコミュニケーションが鍵である」"}
+    {
+      "en": "decision-making",
+      "ja": "意思決定",
+      "kana": "イシケッテイ",
+      "pos": "名詞",
+      "usage": "Effective decision-making is crucial in business.「効果的な意思決定はビジネスにおいて重要です。」"
+    },
+    {
+      "en": "hemisphere",
+      "ja": "半球",
+      "kana": "ハンキュウ",
+      "pos": "名詞",
+      "usage": "The left hemisphere is responsible for language.「左半球は言語を司る。」"
+    },
+    {
+      "en": "logical",
+      "ja": "論理的な",
+      "kana": "ロンリテキナ",
+      "pos": "形容詞",
+      "usage": "He presented a logical argument.「彼は論理的な議論を提示した。」"
+    },
+    {
+      "en": "intuitive",
+      "ja": "直感的な",
+      "kana": "チョッカンテキナ",
+      "pos": "形容詞",
+      "usage": "She has an intuitive understanding of art.「彼女は芸術に対して直感的な理解を持っている。」"
+    },
+    {
+      "en": "function",
+      "ja": "機能",
+      "kana": "キノウ",
+      "pos": "名詞",
+      "usage": "The function of the heart is to pump blood.「心臓の機能は血液を送ることです。」"
+    }
   ],
-  "target_words": {"min": 100, "max": 120}
+  "target_words": {
+    "min": 100,
+    "max": 120
+  }
 }
-2026-01-30 23:27:16 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "コラム",
-  "topic_label": "B",
-  "excerpt_type": "P2_P3",
+2026-01-30 23:39:08 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "学術",
+  "topic_label": "D",
+  "excerpt_type": "P3_ONLY",
   "japanese_paragraphs": [
-    "リモートワークが普及したことで、家庭内での時間管理が重要度を増している。一方で、仕事とプライベートの境界が曖昧になり、ストレスを感じる人も増えている。",
-    "そのため、時間管理のスキルを向上させるために、日々のスケジュールを明確にし、休憩時間を積極的に設けることが推奨されている。また、家族や同僚とのコミュニケーションを円滑にする努力も必要である。"
+    "その結果、意思決定の際に左右の脳半球が異なる役割を果たしていることが示された。特に、左脳が論理的な選択を、右脳が直感的な選択を促進する傾向があることがわかった。これにより、複雑な問題に取り組む際の脳の機能について新たな理解が得られる可能性がある。"
   ],
   "hints": [
- ...
-2026-01-30 23:27:16 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
-2026-01-30 23:27:16 - llm_service - INFO - ✅ theme検証成功: コラム
-2026-01-30 23:27:16 - llm_service - INFO - Successfully generated question: コラム, excerpt_type: P2_P3
-2026-01-30 23:27:16 - database - INFO - Question saved: q_20260130_d698190d - コラム (P2_P3)
-2026-01-30 23:27:16 - database - INFO - Theme recorded: コラム (mode: general)
-2026-01-30 23:27:16 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:27:16] "POST /api/question HTTP/1.1" 200 -
-2026-01-30 23:27:17 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/prompts_correction_respect.py', reloading
-2026-01-30 23:27:17 - werkzeug - INFO -  * Restarting with stat
-2026-01-30 23:27:18 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:27:18 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:27:18 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-30 23:27:18 - werkzeug - WARNING -  * Debugger is active!
-2026-01-30 23:27:18 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+    {
+      "en": "decision-making",
+      "ja": "意思決定"...
+2026-01-30 23:39:08 - llm_service - INFO - ✅ excerpt_type検証成功: P3_ONLY
+2026-01-30 23:39:08 - llm_service - INFO - ✅ theme検証成功: 学術
+2026-01-30 23:39:08 - llm_service - INFO - Successfully generated question: 学術, excerpt_type: P3_ONLY
+2026-01-30 23:39:08 - database - INFO - Question saved: q_20260130_5ee7071e - 学術 (P3_ONLY)
+2026-01-30 23:39:08 - database - INFO - Theme recorded: 学術 (mode: general)
+2026-01-30 23:39:08 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:39:08] "POST /api/question HTTP/1.1" 200 -
+2026-01-30 23:40:17 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): As a result, it was shown that the left and right cerebral hemispheres plays different roles in deci...
+2026-01-30 23:40:17 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): As a result, it was shown that the left and right cerebral hemispheres plays different roles in deci...
+2026-01-30 23:40:17 - llm_service - INFO - Question text for correction: その結果、意思決定の際に左右の脳半球が異なる役割を果たしていることが示された。
+特に、左脳が論理的な選択を、右脳が直感的な選択を促進する傾向があることがわかった。
+これにより、複雑な問題に取り組む際の脳の機能について新たな理解が得られる可能性がある。...
+2026-01-30 23:40:17 - llm_service - INFO - Required points determined from Japanese text: 3 sentences
+2026-01-30 23:40:17 - llm_service - INFO - Required points for this correction: 3
+2026-01-30 23:40:17 - llm_service - INFO - Word count: 57
+2026-01-30 23:40:17 - llm_service - INFO - Correction attempt 1/3
+2026-01-30 23:40:59 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:40:59 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "As a result, it was shown that the left and right cerebral hemispheres plays different roles in decisionmaking. In particular, it was found that the left hemisphere tends to promote l...
+2026-01-30 23:40:59 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 28 column 6 (char 3668)
+2026-01-30 23:41:01 - llm_service - INFO - Correction attempt 2/3
+2026-01-30 23:41:26 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:41:26 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "As a result, it was shown that the left and right cerebral hemispheres plays different roles in decisionmaking. In particular, it was found that the left hemisphere tends to promote l...
+2026-01-30 23:41:26 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-30 23:41:26 - llm_service - INFO - Before normalization: 3 points
+2026-01-30 23:41:26 - points_normalizer - INFO - Starting points normalization: 3 points
+2026-01-30 23:41:26 - points_normalizer - INFO - Student answer split into 3 sentences
+2026-01-30 23:41:26 - points_normalizer - INFO - Processing point 1: before='As a result, it was shown that the left and right ...', level='❌文法ミス'
+2026-01-30 23:41:26 - points_normalizer - INFO - Point 1: Found in sentence 1: 'As a result, it was shown that the left and right ...'
+2026-01-30 23:41:26 - points_normalizer - INFO - Point 1: Replaced fragment in sentence: 'As a result, it was shown that the left and right ...'
+2026-01-30 23:41:26 - points_normalizer - INFO - Level is ❌, keeping after: 'As a result, it was shown that the left and right ...'
+2026-01-30 23:41:26 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-30 23:41:26 - points_normalizer - INFO - Processing point 2: before='In particular, it was found that the left hemisphe...', level='✅正しい表現'
+2026-01-30 23:41:26 - points_normalizer - INFO - Point 2: Found in sentence 2: 'In particular, it was found that the left hemisphe...'
+2026-01-30 23:41:26 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-30 23:41:26 - points_normalizer - INFO - Processing point 3: before='This should like to a new understanding of how the...', level='❌文法ミス'
+2026-01-30 23:41:26 - points_normalizer - INFO - Point 3: Found in sentence 3: 'This should like to a new understanding of how the...'
+2026-01-30 23:41:26 - points_normalizer - INFO - Point 3: Replaced fragment in sentence: 'This could lead to a new understanding of how the ...'
+2026-01-30 23:41:26 - points_normalizer - INFO - Level is ❌, keeping after: 'This could lead to a new understanding of how the ...'
+2026-01-30 23:41:26 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
+2026-01-30 23:41:26 - points_normalizer - INFO - Points normalization complete: 3 points
+2026-01-30 23:41:26 - llm_service - INFO - After normalization: 3 points
+2026-01-30 23:41:26 - llm_service - INFO - Points check: current=3, non-evaluation=3, required=3
+2026-01-30 23:41:26 - llm_service - INFO - ✅ Correction successful: 3 points
+2026-01-30 23:41:26 - database - INFO - Submission saved: s_20260130_949bd74f (mode: general, no scoring)
+2026-01-30 23:41:26 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:41:26] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-30 23:43:59 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/points_normalizer.py', reloading
+2026-01-30 23:43:59 - werkzeug - INFO -  * Restarting with stat
+2026-01-30 23:44:00 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-30 23:44:00 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-30 23:44:00 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-30 23:44:00 - werkzeug - WARNING -  * Debugger is active!
+2026-01-30 23:44:00 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-30 23:44:07 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/points_normalizer.py', reloading
+2026-01-30 23:44:07 - werkzeug - INFO -  * Restarting with stat
+2026-01-30 23:44:08 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-30 23:44:08 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-30 23:44:08 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-30 23:44:08 - werkzeug - WARNING -  * Debugger is active!
+2026-01-30 23:44:08 - werkzeug - INFO -  * Debugger PIN: 519-604-230

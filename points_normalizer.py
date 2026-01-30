@@ -89,6 +89,7 @@ def normalize_user_input(text: str) -> str:
     ユーザー入力を正規化する
     
     以下の修正を行う：
+    - 全角スペースを半角スペースに変換
     - 改行を単一スペースに変換（句読点がない改行は文の途中として扱う）
     - ピリオド直後にスペースなく文字が続く場合、スペースを挿入（例: "word.In" → "word. In"）
     - 複数の連続スペースを1つに統一
@@ -111,7 +112,10 @@ def normalize_user_input(text: str) -> str:
     # 前後の空白を削除
     normalized = text.strip()
     
-    # ステップ0: 改行を単一スペースに変換
+    # ステップ0a: 全角スペースを半角スペースに変換（最優先）
+    normalized = normalized.replace('　', ' ')
+    
+    # ステップ0b: 改行を単一スペースに変換
     # 改行は文の区切りではなく、入力の途中と見なす（過剰分割を防ぐ）
     # 例: "...full by people\nso a lot..." → "...full by people so a lot..."
     normalized = re.sub(r'\n+', ' ', normalized)
