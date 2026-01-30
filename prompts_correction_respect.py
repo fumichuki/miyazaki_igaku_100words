@@ -76,30 +76,50 @@ $user_answer
 
 ## ステップ1: 各文を評価
 
-提出された英文を1文ずつ分析し、以下を確認:
+🚨🚨🚨【評価の絶対ルール】🚨🚨🚨
+**日本語原文と英訳を1文ずつ並べて厳密に比較すること**
 
-1. 文法的に正しいか？
-2. 語法的に正しいか？
-3. 🚨🚨🚨 **語彙は正確か？（最重要: 日本語原文の接続詞・副詞が英訳に含まれているか必ずチェック）** 🚨🚨🚨
-   - **日本語原文に接続詞・副詞がある場合、英訳にも対応する表現が必須**
-   - ❌NG例: 「一方で、〜」→ (接続詞なし) [文頭に "However," / "On the other hand," が必要]
-   - ❌NG例: 「また、〜」→ (接続詞なし) [文頭に "Also," / "Moreover," / "In addition," が必要]
-   - ❌NG例: 「特に、〜」→ (接続詞なし) [文頭に "In particular," / "Especially," が必要]
-   - ❌NG例: 「しかし、〜」→ (接続詞なし) [文頭に "However," / "But," が必要]
-   - ❌NG例: 「その結果、〜」→ (接続詞なし) [文頭に "As a result," / "Therefore," が必要]
+提出された英文を1文ずつ分析し、以下を**すべて**確認:
+
+1. **文法的に正しいか？**
+   - 時制、主語動詞の一致、冠詞、前置詞、不定詞・動名詞、文構造
+   - 動詞の選択ミス（like → feel など）も厳密にチェック
+
+2. **語法的に正しいか？**
+   - 品詞の誤り、コロケーション、語順
+
+3. 🚨🚨🚨 **語彙は正確か？（最重要: 接続詞・副詞の欠落を1文ごとにチェック）** 🚨🚨🚨
    
-   **チェック項目:**
-   - 「一方で、」「一方、」→ "However," / "On the other hand," / "Meanwhile," のいずれかが含まれているか？
-   - 「また、」「さらに、」→ "Also," / "Moreover," / "In addition," / "Furthermore," のいずれかが含まれているか？
-   - 「特に、」→ "In particular," / "Especially," / "Particularly," のいずれかが含まれているか？
-   - 「しかし、」→ "However," / "But," のいずれかが含まれているか？
-   - 「その結果、」→ "As a result," / "Therefore," / "Consequently," のいずれかが含まれているか？
+   **【必須チェック手順】各文で以下を確認:**
    
-4. 日本語原文の意味を適切に反映しているか？
+   ステップ1: 日本語原文の文頭を確認
+   ステップ2: 接続詞・副詞があるか確認
+   ステップ3: 英訳の文頭に対応する表現があるか確認
+   
+   **具体的なチェック項目:**
+   - 「そのため、」「したがって、」→ "Therefore," / "Thus," / "For this reason," があるか？
+   - 「具体的には、」→ "Specifically," / "In detail," / "More specifically," があるか？
+   - 「一方で、」「一方、」→ "However," / "On the other hand," / "Meanwhile," があるか？
+   - 「また、」「さらに、」→ "Also," / "Moreover," / "In addition," / "Furthermore," があるか？
+   - 「特に、」→ "In particular," / "Especially," / "Particularly," があるか？
+   - 「しかし、」→ "However," / "But," があるか？
+   - 「その結果、」→ "As a result," / "Therefore," / "Consequently," があるか？
+   
+   **❌NG例:**
+   - 日本語: 「そのため、最近では〜」→ 英訳: "Recently, I try..." [❌ "Therefore,"がない]
+   - 日本語: 「具体的には、〜」→ 英訳: "When the other person..." [❌ "Specifically,"がない]
+   - 日本語: 「一方で、〜」→ 英訳: "Young people use..." [❌ "However,"がない]
+   - 日本語: 「また、〜」→ 英訳: "Using social media..." [❌ "Also,"がない]
+
+4. **日本語原文の意味を適切に反映しているか？**
+
+5. 🚨🚨🚨 **複数の誤りがある場合、すべてを列挙すること** 🚨🚨🚨
+   - 接続詞の欠落、動詞の誤り、文法エラーなど、すべてを番号付きで記載
 
 **判定:**
 - ✅ **正しい表現**: 上記すべてOK（文法・語法・語彙・意味すべて正しい）
 - ❌ **文法ミス**: 減点レベルの明確な誤りがある（文法エラー、語法エラー、語彙の欠落、意味の誤りのいずれか）
+  - **複数の誤りがある場合は必ず全て列挙する**
 
 ## ステップ2: 誤りの理由を説明
 
@@ -142,7 +162,7 @@ $user_answer
 例: In particular, this method is effective. (特に、この方法は効果的です。) / However, there are some problems. (しかし、いくつかの問題があります。)
 ```
 
-**具体例（複数の誤りがある場合）:**
+**具体例（複数の誤りがある場合 - 例1）:**
 ```
 ❌ Recently, distrust of has risen, many people avoid to get a shot.
 →
@@ -150,6 +170,16 @@ $user_answer
 複数の誤り: (1) 日本語原文の「しかし、」が英訳されていません。文頭に 'However,' が必要です。(2) 'distrust of' の後に具体的な対象 'vaccines' が必要です。(3) 'avoid to get' は 'avoid getting' にすべき。'avoid' の後には動名詞が続きます。(4) カンマで文を繋ぐのは誤り。'and' などの接続詞が必要です。
 【参考】However (しかし) / avoid doing (～することを避ける) / distrust of something (～への不信)
 例: However, there are problems. (しかし、問題があります。) / I avoid smoking. (私は喫煙を避けています。) / Distrust of the system has increased. (システムへの不信が高まった。)
+```
+
+**具体例（複数の誤りがある場合 - 例2: 動詞ミス＋文法エラー）:**
+```
+❌ By doing this, I like the tension becomes smaller, it helps me building trust.
+→
+✅ By doing this, I feel the tension becomes smaller and it helps me build trust.
+複数の誤り: (1) 'I like the tension becomes smaller' の 'like' は 'feel' にすべきです。'like'は好みを表す動詞で、感覚を表す場合は 'feel' を使います。(2) 'helps me building' は 'helps me build' にすべきです。'help + 人 + 動詞の原形' の形が正しいです。(3) カンマで2つの文を繋ぐのは誤りです。'and' で繋ぐ必要があります。
+【参考】feel (感じる) / like (好む) / help someone do (～するのを手伝う)
+例: I feel happy. (幸せに感じる。) / I like apples. (リンゴが好き。) / He helps me cook. (彼は料理を手伝ってくれる。)
 ```
 
 ---
