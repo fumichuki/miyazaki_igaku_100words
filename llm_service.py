@@ -1926,6 +1926,8 @@ def generate_model_answer_only(question_text: str) -> dict:
     Returns:
         dict: {"model_answer": str, "model_answer_explanation": str}
     """
+    from japanese_utils import split_japanese_sentences
+    
     prompt = PROMPTS['model_answer'].format(question_text=question_text)
     
     max_retries = 3
@@ -1941,10 +1943,46 @@ def generate_model_answer_only(question_text: str) -> dict:
             if 'model_answer' not in data or 'model_answer_explanation' not in data:
                 raise ValueError("Missing required fields: model_answer or model_answer_explanation")
             
+            # 🚨重要：日本語原文を直接追加（LLMの出力は信頼しない）
+            japanese_sentences = split_japanese_sentences(question_text)
+            logger.info(f"Japanese sentences from original: {japanese_sentences}")
+            
+            # model_answer_explanation を文単位に分割して日本語を挿入
+            explanation_lines = data['model_answer_explanation'].split('\n')
+            fixed_explanation_lines = []
+            sentence_index = 0
+            
+            for line in explanation_lines:
+                fixed_explanation_lines.append(line)
+                
+                # "N文目:" の次の行に日本語原文を挿入
+                import re
+                match = re.match(r'^(\d+)文目:', line.strip())
+                if match and sentence_index < len(japanese_sentences):
+                    # 次の行が日本語（括弧付き）か確認
+                    next_line_idx = explanation_lines.index(line) + 1
+                    if next_line_idx < len(explanation_lines):
+                        next_line = explanation_lines[next_line_idx].strip()
+                        # 次の行が括弧付き日本語なら置き換え、なければ追加
+                        if next_line.startswith('（') and next_line.endswith('）'):
+                            # 置き換え（次の行をスキップするため、fixed_explanation_linesから削除は不要）
+                            pass
+                        else:
+                            # 日本語がないので追加
+                            fixed_explanation_lines.append(f"（{japanese_sentences[sentence_index]}）")
+                    else:
+                        # 次の行がないので追加
+                        fixed_explanation_lines.append(f"（{japanese_sentences[sentence_index]}）")
+                    
+                    sentence_index += 1
+            
+            # 置き換えた説明文を再構築
+            data['model_answer_explanation'] = '\n'.join(fixed_explanation_lines)
+            logger.info(f"Fixed explanation with original Japanese sentences")
+            
             # 語数チェック（日本語訳を除外）
             model_text = data['model_answer']
             # 日本語訳部分（括弧内）を除去
-            import re
             english_only = re.sub(r'（[^）]*）', '', model_text)
             english_only = re.sub(r'\([^)]*\)', '', english_only)
             # 改行を削除して単語数をカウント
