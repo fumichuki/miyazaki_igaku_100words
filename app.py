@@ -29,6 +29,7 @@ from database import (
 )
 from constraint_validator import validate_constraints
 from outline_generator import generate_outline
+from japanese_utils import split_japanese_sentences
 import config
 
 # ロギング設定
@@ -195,6 +196,97 @@ def api_correct_answer():
                 'error': '申し訳ございません。一時的なエラーが発生しました。もう一度お試しください。',
                 'technical_details': str(e)
             }), 500
+
+
+@app.route('/api/split-japanese', methods=['POST'])
+def api_split_japanese():
+    """
+    日本語原文を文に分割
+    POST /api/split-japanese
+    Body: {"text": "日本語原文..."}
+    Response: {"sentences": ["文1", "文2", "文3"]}
+    """
+    try:
+        data = request.get_json()
+        text = data.get('text', '')
+        
+        if not text:
+            return jsonify({'error': '日本語原文が指定されていません'}), 400
+        
+        sentences = split_japanese_sentences(text)
+        
+        return jsonify({
+            'sentences': sentences,
+            'count': len(sentences)
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Japanese splitting error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/correct-multi', methods=['POST'])
+def api_correct_multi_sentences():
+    """
+    複数文を個別に添削（新形式）
+    POST /api/correct-multi
+    Body: {
+        "question_id": "q_xxx",
+        "japanese_sentences": ["日本文1", "日本文2", "日本文3"],
+        "user_sentences": ["英文1", "英文2", "英文3"],
+        "target_words": {"min": 100, "max": 120}
+    }
+    """
+    try:
+        data = request.get_json()
+        
+        # バリデーション
+        question_id = data.get('question_id')
+        japanese_sentences = data.get('japanese_sentences', [])
+        user_sentences = data.get('user_sentences', [])
+        target_words = data.get('target_words', {'min': 100, 'max': 120})
+        
+        if not question_id or not japanese_sentences or not user_sentences:
+            return jsonify({'error': '必須パラメータが不足しています'}), 400
+        
+        # 旧形式に変換して既存のcorrect_answer関数を利用
+        # 各文を改行で結合
+        combined_user_answer = '\n'.join(user_sentences)
+        
+        # SubmissionRequestを作成
+        submission = SubmissionRequest(
+            question_id=question_id,
+            japanese_sentences=japanese_sentences,
+            user_answer=combined_user_answer,
+            target_words=target_words
+        )
+        
+        # 添削を実行
+        correction = correct_answer(submission)
+        
+        # データベースに保存
+        submission_id = save_submission(
+            question_id=question_id,
+            user_answer=combined_user_answer,
+            correction=correction
+        )
+        
+        # レスポンスに文ごとの情報を追加
+        response_data = correction.model_dump()
+        response_data['submission_id'] = submission_id
+        response_data['sentence_count'] = len(user_sentences)
+        response_data['japanese_sentences'] = japanese_sentences
+        response_data['user_sentences'] = user_sentences
+        
+        return jsonify(response_data), 200
+        
+    except ValidationError as e:
+        logger.error(f"Validation error: {e}")
+        return jsonify({'error': 'Invalid request', 'details': e.errors()}), 400
+    
+    except Exception as e:
+        logger.error(f"Multi-sentence correction error: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/api/model_answer', methods=['POST'])

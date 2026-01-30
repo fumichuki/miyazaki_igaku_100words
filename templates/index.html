@@ -20,7 +20,17 @@
     <div id="chat-container"></div>
 
     <div id="input-area">
-      <textarea id="user-input" placeholder="1文ごとにピリオド（.）や疑問符（?）をしっかり記載すること。問題文の文の数に合わせた、英文を送ってください（例：問題文が３文なら３英文）英文は箇条書きでもOK！ゆづき頑張れ！！" rows="8"></textarea>
+      <!-- 旧形式（後方互換性用・非表示） -->
+      <textarea id="user-input" placeholder="1文ごとにピリオド（.）や疑問符（?）をしっかり記載すること。問題文の文の数に合わせた、英文を送ってください（例：問題文が３文なら３英文）英文は箇条書きでもOK！ゆづき頑張れ！！" rows="8" style="display:none;"></textarea>
+      
+      <!-- 新形式：文ごとの入力欄 -->
+      <div id="multi-input-container" style="display:none;">
+        <div class="multi-input-header">
+          <h3>✍️ 英訳を入力 <span id="progress-indicator"></span></h3>
+        </div>
+        <div id="sentence-inputs"></div>
+      </div>
+      
       <div class="input-footer">
         <div class="word-count-info">
           <span id="word-count">0 words</span>

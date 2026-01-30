@@ -1380,3 +1380,138 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* 新形式：文ごとの入力欄スタイル */
+.multi-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.multi-input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.multi-input-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+#progress-indicator {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 400;
+}
+
+#sentence-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sentence-input-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.sentence-input-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.sentence-input-card.filled {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+.sentence-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.sentence-status {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.sentence-status-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.sentence-label {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.japanese-preview-inline {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 1;
+  min-width: 200px;
+}
+
+.sentence-word-count {
+  margin-left: auto;
+  font-size: 13px;
+  color: #64748b;
+  padding: 4px 10px;
+  background: #f1f5f9;
+  border-radius: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.sentence-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Inter', system-ui, sans-serif;
+  resize: vertical;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.sentence-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.sentence-textarea::placeholder {
+  color: #94a3b8;
+}
+
+@media (max-width: 768px) {
+  .sentence-input-card {
+    padding: 12px;
+  }
+  
+  .japanese-preview {
+    font-size: 13px;
+    padding: 10px;
+  }
+  
+  .sentence-textarea {
+    min-height: 60px;
+    font-size: 14px;
+  }
+}

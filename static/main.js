@@ -7,6 +7,7 @@ const wordCountEl = document.getElementById("word-count");
 
 let currentQuestion = null;
 let currentQuestionId = null;
+let currentSentenceCount = null; // マルチ入力モードでの文数
 
 // ページ読み込み時に初期画面を表示
 showInitialScreen();
@@ -212,6 +213,7 @@ function fetchNewQuestion() {
     
     currentQuestion = data;
     currentQuestionId = data.question_id;
+    currentSentenceCount = null; // リセット
     
     // 問題を表示
     displayQuestion(data);
@@ -372,10 +374,250 @@ function displayQuestion(data) {
   instructionContainer.appendChild(modelAnswerBtn);
   
   addMessage(instructionContainer, "ai");
+  
+  // 新しいマルチ入力UIを表示（japanese_paragraphsまたはjapanese_sentences形式の場合のみ）
+  if ((data.japanese_paragraphs && data.japanese_paragraphs.length > 0) || 
+      (data.japanese_sentences && data.japanese_sentences.length > 0)) {
+    renderMultiInputUI(data);
+  }
+}
+
+// マルチ入力UIをレンダリング
+async function renderMultiInputUI(questionData) {
+  // 日本語文を取得
+  let japaneseSentences = [];
+  if (questionData.japanese_paragraphs && questionData.japanese_paragraphs.length > 0) {
+    // 段落形式の場合、文に分割
+    questionData.japanese_paragraphs.forEach(paragraph => {
+      const sentences = paragraph.split('。').filter(s => s.trim()).map(s => s.trim() + '。');
+      japaneseSentences = japaneseSentences.concat(sentences);
+    });
+  } else if (questionData.japanese_sentences && questionData.japanese_sentences.length > 0) {
+    japaneseSentences = questionData.japanese_sentences;
+  }
+  
+  if (japaneseSentences.length === 0) {
+    return; // 日本語文がない場合は通常モード
+  }
+  
+  const container = document.getElementById('sentence-inputs');
+  container.innerHTML = '';
+  
+  // 各文に対応する入力カードを作成
+  japaneseSentences.forEach((jpSentence, index) => {
+    const card = document.createElement('div');
+    card.className = 'sentence-input-card';
+    card.dataset.index = index;
+    
+    // ヘッダー（ステータス + ラベル + 語数）
+    const header = document.createElement('div');
+    header.className = 'sentence-card-header';
+    
+    const statusIcon = document.createElement('span');
+    statusIcon.className = 'sentence-status-icon';
+    statusIcon.textContent = '⏳';
+    statusIcon.dataset.index = index;
+    
+    const label = document.createElement('span');
+    label.className = 'sentence-label';
+    label.textContent = `${index + 1}文目`;
+    
+    const wordCount = document.createElement('span');
+    wordCount.className = 'sentence-word-count';
+    wordCount.textContent = '0語';
+    wordCount.dataset.index = index;
+    
+    header.appendChild(statusIcon);
+    header.appendChild(label);
+    
+    // セパレーター
+    const separator = document.createElement('span');
+    separator.textContent = '|';
+    separator.style.cssText = 'margin: 0 12px; color: #cbd5e1; font-weight: normal;';
+    header.appendChild(separator);
+    
+    // 日本語プレビュー（ヘッダー内に配置）
+    const preview = document.createElement('span');
+    preview.className = 'japanese-preview-inline';
+    preview.textContent = jpSentence;
+    header.appendChild(preview);
+    
+    // 語数カウント（右端）
+    header.appendChild(wordCount);
+    card.appendChild(header);
+    
+    // テキストエリア
+    const textarea = document.createElement('textarea');
+    textarea.className = 'sentence-textarea';
+    textarea.placeholder = `英訳を入力...`;
+    textarea.dataset.index = index;
+    textarea.rows = 3;
+    
+    textarea.addEventListener('input', () => {
+      updateSentenceWordCount(index);
+      updateSentenceStatus(index);
+      updateProgressIndicator();
+    });
+    
+    card.appendChild(textarea);
+    container.appendChild(card);
+  });
+  
+  // 進捗インジケーターを初期化
+  updateProgressIndicator();
+  
+  // マルチ入力UIを表示、通常の入力欄を非表示
+  document.getElementById('multi-input-container').style.display = 'block';
+  document.getElementById('user-input').style.display = 'none';
+}
+
+// 各文の語数をカウント
+function updateSentenceWordCount(index) {
+  const textarea = document.querySelector(`.sentence-textarea[data-index="${index}"]`);
+  const wordCountEl = document.querySelector(`.sentence-word-count[data-index="${index}"]`);
+  
+  if (!textarea || !wordCountEl) return;
+  
+  const text = textarea.value.trim();
+  const words = text.match(/\b[\w'-]+\b/g) || [];
+  const wordCount = words.filter(w => /[a-zA-Z]/.test(w)).length;
+  
+  wordCountEl.textContent = `${wordCount}語`;
+}
+
+// 各文のステータスを更新
+function updateSentenceStatus(index) {
+  const textarea = document.querySelector(`.sentence-textarea[data-index="${index}"]`);
+  const statusIcon = document.querySelector(`.sentence-status-icon[data-index="${index}"]`);
+  const card = document.querySelector(`.sentence-input-card[data-index="${index}"]`);
+  
+  if (!textarea || !statusIcon || !card) return;
+  
+  const text = textarea.value.trim();
+  
+  if (text.length > 0) {
+    statusIcon.textContent = '✅';
+    card.classList.add('filled');
+  } else {
+    statusIcon.textContent = '⏳';
+    card.classList.remove('filled');
+  }
+}
+
+// 進捗インジケーターを更新
+function updateProgressIndicator() {
+  const progressEl = document.getElementById('progress-indicator');
+  if (!progressEl) return;
+  
+  const textareas = document.querySelectorAll('.sentence-textarea');
+  let completed = 0;
+  
+  textareas.forEach(textarea => {
+    if (textarea.value.trim().length > 0) {
+      completed++;
+    }
+  });
+  
+  const total = textareas.length;
+  const dots = Array(total).fill(0).map((_, i) => i < completed ? '●' : '○').join('');
+  
+  progressEl.textContent = `進捗：${completed}/${total}完了 ${dots}`;
+}
+
+// マルチ文を送信
+function submitMultiSentences() {
+  const textareas = document.querySelectorAll('.sentence-textarea');
+  const userSentences = [];
+  
+  textareas.forEach(textarea => {
+    const text = textarea.value.trim();
+    if (text.length > 0) {
+      userSentences.push(text);
+    }
+  });
+  
+  if (userSentences.length === 0) {
+    alert("少なくとも1文は入力してください。");
+    return;
+  }
+  
+  if (!currentQuestion || !currentQuestionId) {
+    alert("問題が読み込まれていません。");
+    return;
+  }
+  
+  // 日本語文を取得
+  let japaneseSentences = [];
+  if (currentQuestion.japanese_paragraphs && currentQuestion.japanese_paragraphs.length > 0) {
+    currentQuestion.japanese_paragraphs.forEach(paragraph => {
+      const sentences = paragraph.split('。').filter(s => s.trim()).map(s => s.trim() + '。');
+      japaneseSentences = japaneseSentences.concat(sentences);
+    });
+  } else if (currentQuestion.japanese_sentences && currentQuestion.japanese_sentences.length > 0) {
+    japaneseSentences = currentQuestion.japanese_sentences;
+  }
+  
+  // ユーザーの回答を表示
+  const combinedAnswer = userSentences.join('\n');
+  addMessage(combinedAnswer, "user");
+  
+  // 文数を保存
+  currentSentenceCount = userSentences.length;
+  
+  // 入力欄をクリア
+  textareas.forEach(textarea => {
+    textarea.value = '';
+  });
+  updateProgressIndicator();
+  
+  // 添削リクエスト
+  addMessage("🔍 添削中...（1~2分かかります）", "ai");
+  
+  // 語数をカウント
+  const words = combinedAnswer.match(/\b[\w'-]+\b/g) || [];
+  const wordCount = words.filter(w => /[a-zA-Z]/.test(w)).length;
+  
+  fetch('/api/correct-multi', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      question_id: currentQuestionId,
+      user_sentences: userSentences,
+      japanese_sentences: japaneseSentences,
+      target_words: currentQuestion.target_words,
+      word_count: wordCount
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    // ローディングメッセージを削除
+    chat.lastChild.remove();
+    
+    if (data.error) {
+      addMessage(`❌ エラー: ${data.error}`, "ai");
+      return;
+    }
+    
+    // 添削結果を表示
+    displayCorrection(data);
+  })
+  .catch(err => {
+    chat.lastChild.remove();
+    addMessage(`❌ エラー: ${err.message}`, "ai");
+  });
 }
 
 // 回答を提出
 function submitAnswer() {
+  // マルチ入力モードかチェック
+  const multiContainer = document.getElementById('multi-input-container');
+  if (multiContainer && multiContainer.style.display !== 'none') {
+    // マルチ文入力モード
+    submitMultiSentences();
+    return;
+  }
+  
+  // 通常モード
   const text = input.value.trim();
   
   if (!text) {
@@ -396,6 +638,9 @@ function submitAnswer() {
   addMessage(text, "user");
   input.value = "";
   wordCountEl.textContent = "0 words";
+  
+  // 通常モードではsentenceCountをnullにリセット
+  currentSentenceCount = null;
   
   // 添削リクエスト
   addMessage("🔍 添削中...（1~2分かかります）", "ai");
@@ -550,9 +795,30 @@ function displayCorrection(data) {
       beforeClass = 'before-correct';
     }
     
+    // マルチ入力モードの場合、beforeとafterを文番号で分割
+    let beforeText = point.before;
+    let afterText = point.after;
+    
+    if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      // 文を分割
+      const beforeSentences = splitIntoSentences(point.before, currentSentenceCount);
+      const afterSentences = splitIntoSentences(point.after.split('\n')[0], currentSentenceCount);
+      
+      // pointCounterに対応する文を抽出（pointCounter - 1 はインデックス）
+      const sentenceIndex = pointCounter - 1;
+      if (sentenceIndex < beforeSentences.length) {
+        beforeText = beforeSentences[sentenceIndex];
+      }
+      if (sentenceIndex < afterSentences.length) {
+        afterText = afterSentences[sentenceIndex];
+      }
+    } else {
+      // 通常モード：afterの最初の行のみ使用
+      afterText = point.after.split('\n')[0].trim();
+    }
+    
     // before と after が同じかどうかで表示を分ける
-    const afterEnglishOnly = point.after.split('\n')[0].trim();
-    const isSame = point.before.trim() === afterEnglishOnly;
+    const isSame = beforeText.trim() === afterText.trim();
     
     // 日本語原文を表示（sentence_no を使用）
     const sentenceNoText = point.sentence_no ? `${point.sentence_no}文目` : `${pointCounter}文目`;
@@ -560,14 +826,14 @@ function displayCorrection(data) {
     
     if (isSame) {
       // ✅ の場合：beforeのみ表示
-      const formattedText = escapeHtml(point.before).replace(/\n/g, '<br>');
+      const formattedText = escapeHtml(beforeText).replace(/\n/g, '<br>');
       beforeAfter.innerHTML = `
         <span class="${beforeClass}">${beforeIcon} ${formattedText}</span>
       `;
     } else {
       // ❌ の場合：before → after を表示
-      const formattedBefore = escapeHtml(point.before).replace(/\n/g, '<br>');
-      const formattedAfter = escapeHtml(point.after).replace(/\n/g, '<br>');
+      const formattedBefore = escapeHtml(beforeText).replace(/\n/g, '<br>');
+      const formattedAfter = escapeHtml(afterText).replace(/\n/g, '<br>');
       beforeAfter.innerHTML = `
         <span class="${beforeClass}">${beforeIcon} ${formattedBefore}</span>
         <span class="arrow">→</span>
@@ -646,28 +912,33 @@ function displayCorrection(data) {
     // 「文法・表現のポイント解説」という見出しを削除（重複を防ぐ）
     fullText = fullText.replace(/^文法・表現のポイント解説\s*\n*/g, '');
     
-    // 「N文目:」表記を削除し、英文部分を太字にする処理
-    let lines = fullText.split('\n');
-    let processedLines = [];
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      // N文目: 英文 のパターンを検出（英文と日本語訳が別行の場合）
-      const match = line.match(/^(\d+)文目:\s*(.+)$/);
-      if (match) {
-        // 「N文目:」表記を削除し、英文を太字化
-        const englishText = escapeHtml(match[2].trim());
-        processedLines.push('<strong>' + englishText + '</strong>');
-      } else if (line.match(/^（.+）$/)) {
-        // 日本語訳（全角括弧で囲まれた行）
-        processedLines.push(escapeHtml(line));
-      } else {
-        // その他の行
-        processedLines.push(escapeHtml(line));
+    // マルチ入力モードの場合、文数に基づいて処理
+    if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      modelExplanation.innerHTML = processModelAnswerBySentenceCount(fullText, currentSentenceCount);
+    } else {
+      // 通常モード：「N文目:」表記を削除し、英文部分を太字にする処理
+      let lines = fullText.split('\n');
+      let processedLines = [];
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        // N文目: 英文 のパターンを検出（英文と日本語訳が別行の場合）
+        const match = line.match(/^(\d+)文目:\s*(.+)$/);
+        if (match) {
+          // 「N文目:」表記を削除し、英文を太字化
+          const englishText = escapeHtml(match[2].trim());
+          processedLines.push('<strong>' + englishText + '</strong>');
+        } else if (line.match(/^（.+）$/)) {
+          // 日本語訳（全角括弧で囲まれた行）
+          processedLines.push(escapeHtml(line));
+        } else {
+          // その他の行
+          processedLines.push(escapeHtml(line));
+        }
       }
+      
+      // 改行を<br>に変換して表示
+      modelExplanation.innerHTML = processedLines.join('<br>');
     }
-    
-    // 改行を<br>に変換して表示
-    modelExplanation.innerHTML = processedLines.join('<br>');
     modelAnswerSection.appendChild(modelExplanation);
     
     container.appendChild(modelAnswerSection);
@@ -711,6 +982,130 @@ function displayCorrection(data) {
     container.appendChild(newBtn);
     addMessage(container, "ai");
   }, 500);
+}
+
+// マルチ入力モード用：文数に基づいて模範解答を処理
+function processModelAnswerBySentenceCount(fullText, sentenceCount) {
+  const lines = fullText.split('\n');
+  const processedLines = [];
+  
+  // 各ポイントを解析
+  let currentPoint = null;
+  let pointBuffer = [];
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    
+    // ポイント番号を検出（1, 2, 3...）
+    const pointMatch = line.match(/^(\d+)$/);
+    if (pointMatch) {
+      // 前のポイントがあれば処理
+      if (currentPoint !== null && pointBuffer.length > 0) {
+        processedLines.push(...processPointContent(pointBuffer, currentPoint, sentenceCount));
+        processedLines.push(''); // ポイント間に空行
+      }
+      
+      currentPoint = parseInt(pointMatch[1]);
+      pointBuffer = [];
+      continue;
+    }
+    
+    // 現在のポイントにコンテンツを追加
+    if (currentPoint !== null) {
+      pointBuffer.push(line);
+    } else {
+      // ポイント外のコンテンツ（タイトルなど）
+      if (line.length > 0) {
+        processedLines.push(escapeHtml(line));
+      }
+    }
+  }
+  
+  // 最後のポイントを処理
+  if (currentPoint !== null && pointBuffer.length > 0) {
+    processedLines.push(...processPointContent(pointBuffer, currentPoint, sentenceCount));
+  }
+  
+  return processedLines.join('<br>');
+}
+
+// 各ポイントのコンテンツを処理
+function processPointContent(buffer, pointNumber, totalSentences) {
+  const result = [];
+  let beforeText = '';
+  let afterText = '';
+  let explanationLines = [];
+  let inExplanation = false;
+  
+  for (let i = 0; i < buffer.length; i++) {
+    const line = buffer[i].trim();
+    
+    if (line.startsWith('❌')) {
+      beforeText = line.substring(1).trim();
+    } else if (line === '→') {
+      continue;
+    } else if (line.startsWith('✅')) {
+      afterText = line.substring(1).trim();
+    } else if (line.match(/^\d+文目:/)) {
+      inExplanation = true;
+      explanationLines.push(line);
+    } else if (inExplanation || line.match(/^（.+）$/) || line.includes('【参考】') || line.startsWith('例：')) {
+      explanationLines.push(line);
+    }
+  }
+  
+  // ポイント番号が文番号と一致すると仮定
+  const sentenceIndex = pointNumber - 1;
+  
+  // 修正後の文を抽出（afterTextから該当文を取り出す）
+  if (afterText) {
+    // afterTextを文に分割（ピリオド+スペースで分割）
+    const sentences = splitIntoSentences(afterText, totalSentences);
+    
+    if (sentenceIndex < sentences.length) {
+      const targetSentence = sentences[sentenceIndex];
+      result.push(`<strong>${escapeHtml(targetSentence)}</strong>`);
+    } else {
+      // インデックス外の場合は全文表示
+      result.push(`<strong>${escapeHtml(afterText)}</strong>`);
+    }
+  }
+  
+  // 説明部分を追加
+  explanationLines.forEach(line => {
+    if (line.match(/^\d+文目:/)) {
+      // 「N文目:」は削除
+      const cleanLine = line.replace(/^\d+文目:\s*/, '');
+      if (cleanLine) {
+        result.push(escapeHtml(cleanLine));
+      }
+    } else {
+      result.push(escapeHtml(line));
+    }
+  });
+  
+  return result;
+}
+
+// テキストをN個の文に分割
+function splitIntoSentences(text, count) {
+  // ピリオド、感嘆符、疑問符で分割
+  const sentences = [];
+  const regex = /[.!?]+\s+/g;
+  let lastIndex = 0;
+  let match;
+  
+  while ((match = regex.exec(text)) !== null && sentences.length < count - 1) {
+    sentences.push(text.substring(lastIndex, match.index + match[0].length).trim());
+    lastIndex = regex.lastIndex;
+  }
+  
+  // 残りのテキストを最後の文として追加
+  if (lastIndex < text.length) {
+    sentences.push(text.substring(lastIndex).trim());
+  }
+  
+  return sentences;
 }
 
 // HTMLエスケープ
@@ -767,28 +1162,33 @@ function fetchModelAnswerOnly() {
     // 「文法・表現のポイント解説」という見出しを削除（重複を防ぐ）
     fullText = fullText.replace(/^文法・表現のポイント解説\s*\n*/g, '');
     
-    // 「N文目:」表記を削除し、英文部分を太字にする処理
-    let lines = fullText.split('\n');
-    let processedLines = [];
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      // N文目: 英文 のパターンを検出（英文と日本語訳が別行の場合）
-      const match = line.match(/^(\d+)文目:\s*(.+)$/);
-      if (match) {
-        // 「N文目:」表記を削除し、英文を太字化
-        const englishText = escapeHtml(match[2].trim());
-        processedLines.push('<strong>' + englishText + '</strong>');
-      } else if (line.match(/^（.+）$/)) {
-        // 日本語訳（全角括弧で囲まれた行）
-        processedLines.push(escapeHtml(line));
-      } else {
-        // その他の行
-        processedLines.push(escapeHtml(line));
+    // マルチ入力モードの場合、文数に基づいて処理
+    if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      modelExplanation.innerHTML = processModelAnswerBySentenceCount(fullText, currentSentenceCount);
+    } else {
+      // 通常モード：「N文目:」表記を削除し、英文部分を太字にする処理
+      let lines = fullText.split('\n');
+      let processedLines = [];
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        // N文目: 英文 のパターンを検出（英文と日本語訳が別行の場合）
+        const match = line.match(/^(\d+)文目:\s*(.+)$/);
+        if (match) {
+          // 「N文目:」表記を削除し、英文を太字化
+          const englishText = escapeHtml(match[2].trim());
+          processedLines.push('<strong>' + englishText + '</strong>');
+        } else if (line.match(/^（.+）$/)) {
+          // 日本語訳（全角括弧で囲まれた行）
+          processedLines.push(escapeHtml(line));
+        } else {
+          // その他の行
+          processedLines.push(escapeHtml(line));
+        }
       }
+      
+      // 改行を<br>に変換して表示
+      modelExplanation.innerHTML = processedLines.join('<br>');
     }
-    
-    // 改行を<br>に変換して表示
-    modelExplanation.innerHTML = processedLines.join('<br>');
     modelAnswerSection.appendChild(modelExplanation);
     
     container.appendChild(modelAnswerSection);
