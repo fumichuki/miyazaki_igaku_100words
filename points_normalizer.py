@@ -321,13 +321,15 @@ def normalize_points(
             
             logger.info(f"Point {i+1}: Found in sentence {sentence_index + 1}: '{full_sentence[:50]}...'")
             
-            # before を全文に置換
+            # before を全文に置換（既に正規化済みの文字列を使用）
             full_before = full_sentence
             
             # after を全文に拡張（original_after が断片の場合、センテンス内で置換）
             if '❌' in original_level and original_before != original_after:
                 # 修正が必要な場合：original_before を original_after に置換
                 full_after = replace_fragment_in_sentence(full_sentence, original_before, original_after)
+                # 修正後の文字列も正規化（ピリオル・スペースを統一）
+                full_after = normalize_user_input(full_after)
                 logger.info(f"Point {i+1}: Replaced fragment in sentence: '{full_after[:50]}...'")
             else:
                 # 修正不要な場合：after は before と同じ
