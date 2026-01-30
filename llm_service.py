@@ -14,10 +14,14 @@ from constraint_validator import validate_constraints as validate_constraints_fu
 from points_normalizer import normalize_points, normalize_user_input, split_into_sentences
 import config
 
-# 添削プロンプトは簡潔版を使用
+# 添削プロンプトは Respect First 版を使用
+from prompts_correction_respect import (
+    PROMPTS as CORRECTION_PROMPTS,
+    get_correction_prompt
+)
+
+# 問題ジャンル定義とサンプル（問題生成用）
 from prompts_translation_simple import (
-    CORRECTION_PROMPT_MIYAZAKI_TRANSLATION,
-    PROMPTS,
     TRANSLATION_GENRES,
     PAST_QUESTIONS_REFERENCE
 )
@@ -27,6 +31,13 @@ from prompts_translation import (
     QUESTION_PROMPT_MIYAZAKI_TRANSLATION,
     MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION
 )
+
+# 統合されたプロンプト辞書を作成
+PROMPTS = {
+    'question': QUESTION_PROMPT_MIYAZAKI_TRANSLATION,
+    'correction': CORRECTION_PROMPTS['correction'],
+    'model_answer': MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION
+}
 
 logger = logging.getLogger(__name__)
 
@@ -901,12 +912,8 @@ promote（動詞：促進する・奨励する：発展や普及を支援する�
 """
 
 
-# ===== プロンプト辞書（翻訳モード） =====
-PROMPTS = {
-    'question': QUESTION_PROMPT_MIYAZAKI_TRANSLATION,
-    'correction': CORRECTION_PROMPT_MIYAZAKI_TRANSLATION,
-    'model_answer': MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION
-}
+# ===== （このセクションは削除 - prompts_correction_respect.py で定義済み） =====
+# PROMPTS 辞書は prompts_correction_respect.py からインポートされています
 
 
 # ===== ユーティリティ関数 =====
@@ -1591,15 +1598,11 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
         suggestions=[]
     )
     
-    # 添削プロンプト（required_pointsを追加）
-    prompts = PROMPTS
-    from string import Template
-    correction_template = Template(prompts['correction'])
-    correction_prompt = correction_template.substitute(
+    # 添削プロンプトを生成（Respect First版）
+    correction_prompt = get_correction_prompt(
         question_text=question_text,
         user_answer=normalized_answer,
-        word_count=word_count,
-        required_points=required_points
+        word_count=word_count
     )
     
     # LLM呼び出し（リトライ付き）
