@@ -248,7 +248,9 @@ $user_answer
 
 ## reasonの記述フォーマット（必須・厳守）
 
-**✅正しい表現の場合も❌文法ミスの場合も、以下の形式:**
+**reasonの記述フォーマット:**
+
+### ✅正しい表現の場合:
 
 ```
 N文目: [英文全文]
@@ -258,16 +260,38 @@ N文目: [英文全文]
 例: [例文1] ([和訳1]) / [例文2] ([和訳2])
 ```
 
-**🚨重要: このフォーマットは ❌ でも ✅ でも必ず適用**
-
-**具体例（✅正しい表現の場合）:**
+**具体例:**
 ```
 "reason": "1文目: Recently, I decided to read books on my way to work.\\n（最近、通勤途中に本を読むことに決めた。）\\ndecide（動詞：決める：意志を持って選択）／plan（動詞：計画する：予定を立てる）で、decideは決断を表し、planは計画を立てることを意味します。\\n【参考】decide to go（行くことを決める）/ plan to go（行く予定を立てる）\\n例: I decided to study English. (英語を勉強することに決めた。) / I plan to study English. (英語を勉強する予定です。)"
 ```
 
-**具体例（❌文法ミスの場合）:**
+### ❌文法ミスの場合:
+
+🚨🚨🚨 **必ず以下の順序で記述（語彙解説の前に誤りの説明）** 🚨🚨🚨
+
 ```
-"reason": "1文目: Recently, I decided to reading books on my way to work.\\n（最近、通勤途中に本を読むことに決めた。）\\ndecide（動詞：決める：意志を持って選択）／plan（動詞：計画する：予定を立てる）で、decideは決断を表し、planは計画を立てることを意味します。文法エラー: 'decided to reading' は 'decided to read' にすべき。decide to do は、to の後に動詞の原形が必要です。\\n【参考】decide to go（行くことを決める）/ plan to study（勉強する予定を立てる）\\n例: I decided to study English. (英語を勉強することに決めた。) / I plan to visit Japan. (日本を訪れる予定です。)"
+【誤りの説明】: [何が間違っているか] + [なぜ間違いか] + [正しい形]
+【参考】[文法パターンA] / [文法パターンB]
+例: [例文1] ([和訳1]) / [例文2] ([和訳2])
+
+N文目: [正しい英文全文]
+（[日本語訳]）
+[語A]（品詞：意味：文脈）／[語B]（品詞：意味：文脈）で、[違いの詳細説明]。
+```
+
+**具体例（文法エラー）:**
+```
+"reason": "【誤りの説明】: 'decided to reading' は 'decided to read' にすべきです。decide to do（～することを決める）は、to の後に動詞の原形が必要です。to reading のように動名詞を置くことはできません。\\n【参考】decide to go（行くことを決める）/ plan to study（勉強する予定を立てる）\\n例: I decided to study English. (英語を勉強することに決めた。) / I plan to visit Japan. (日本を訪れる予定です。)\\n\\n1文目: Recently, I decided to read books on my way to work.\\n（最近、通勤途中に本を読むことに決めた。）\\ndecide（動詞：決める：意志を持って選択）／plan（動詞：計画する：予定を立てる）で、decideは決断を表し、planは計画を立てることを意味します。"
+```
+
+**具体例（スペルミス）:**
+```
+"reason": "【誤りの説明】: 'passngers' は 'passengers' のスペルミスです。'passenger'（乗客）の複数形は 'passengers' で、'e' が必要です。\\n【参考】passenger（乗客）/ passengers（乗客たち）\\n例: The passengers boarded the plane. (乗客たちが飛行機に搭乗した。) / A passenger asked a question. (ある乗客が質問をした。)\\n\\n2文目: In particular, using smartphones on public transportation often feels unpleasant to surrounding passengers.\\n（特に、公共交通機関内でのスマートフォンの使用は、周囲の乗客にとって不快に感じることが多い。）\\npassenger（名詞：乗客：交通機関を利用する人）／traveler（名詞：旅行者：旅をする人）で、passengerは乗り物に乗っている人、travelerは旅行中の人を指します。"
+```
+
+**具体例（ピリオド欠落）:**
+```
+"reason": "【誤りの説明】: 文末にピリオド（.）がありません。英文は必ずピリオドで終わる必要があります。ピリオドは文の終わりを示す重要な句読点です。\\n【参考】文末にピリオドを付ける / 疑問文は ? / 感嘆文は !\\n例: I went to school. (私は学校に行った。) / She studies hard. (彼女は熱心に勉強する。)\\n\\n1文目: Smartphone use in public places has been increasing, and there are concerns about the impact that volume and screen brightness can have on people around the user.\\n（公共の場でのスマートフォンの使用が増加しており、音量や画面の明るさが周囲に与える影響が懸念されている。）\\nincrease（動詞：増加する：数量が多くなる）／decrease（動詞：減少する：数量が少くなる）で、increaseは増えること、decreaseは減ることを表します。"
 ```
 
 ## 重要な制約
