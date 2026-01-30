@@ -111,35 +111,15 @@ $user_answer
    
    **【絶対厳守】日本語の接続詞・副詞が英文に存在するか確認:**
    
-   **ステップ1**: 日本語原文の文頭を読む
-   **ステップ2**: 接続詞・副詞があるか確認（「、」で区切られている）
-   **ステップ3**: 英訳の文頭に対応する英単語があるか確認
-   **ステップ4**: **なければ必ず❌文法ミスとして指摘**
-   
-   **🚨必須チェックリスト（以下の日本語があれば、対応する英語が必須）:**
-   
    | 日本語 | 必須の英語 |
    |--------|-----------|
-   | 「そのため、」「したがって、」 | Therefore, / Thus, / For this reason, |
-   | 「具体的には、」 | Specifically, / In detail, / More specifically, |
-   | 「一方で、」「一方、」 | However, / On the other hand, / Meanwhile, |
-   | 「また、」「さらに、」 | Also, / Moreover, / In addition, / Furthermore, |
-   | **「特に、」** | **Especially, / Particularly, / In particular,** |
-   | 「しかし、」 | However, / But, |
-   | 「その結果、」 | As a result, / Therefore, / Consequently, |
-   | 「例えば、」 | For example, / For instance, |
-   
-   **❌絶対NG例（必ず指摘すること）:**
-   - 日本語: 「そのため、最近では〜」→ 英訳: "Recently, I try..." 
-     → ❌ "Therefore," / "Thus," がない【必ず指摘】
-   - 日本語: 「具体的には、〜」→ 英訳: "When the other person..." 
-     → ❌ "Specifically," がない【必ず指摘】
-   - 日本語: 「一方で、〜」→ 英訳: "Young people use..." 
-     → ❌ "However," / "On the other hand," がない【必ず指摘】
-   - 日本語: 「また、〜」→ 英訳: "Using social media..." 
-     → ❌ "Also," / "Moreover," がない【必ず指摘】
-   - 日本語: **「特に、個人情報の取り扱いにおいては〜」** → 英訳: "when we handle personal information..." 
-     → ❌ **"Especially," / "Particularly," がない【必ず指摘】**
+   | 「そのため、」「したがって、」 | Therefore, / Thus, |
+   | 「具体的には、」 | Specifically, |
+   | 「一方で、」「しかし、」 | However, / On the other hand, |
+   | 「また、」「さらに、」 | Also, / Moreover, / Furthermore, |
+   | 「特に、」 | Especially, / In particular, |
+   | 「その結果、」 | As a result, / Therefore, |
+   | 「例えば、」 | For example, |
 
 4. **日本語原文の意味を適切に反映しているか？**
 
@@ -197,28 +177,14 @@ $user_answer
 →
 ✅ In particular, by making herd immunity, we can protect people who cannot get vaccines.
 語彙の欠落: 日本語原文の「特に、」が英訳されていません。文頭の接続詞・副詞は文脈を示す重要な要素であり、省略すると減点されます。
-【参考】In particular (特に) / Especially (特に) / However (しかし) / Moreover (さらに)
-例: In particular, this method is effective. (特に、この方法は効果的です。) / However, there are some problems. (しかし、いくつかの問題があります。)
-```
-
-**具体例（複数の誤りがある場合 - 例1）:**
+**具体例（複数の誤りがある場合）:**
 ```
 ❌ Recently, distrust of has risen, many people avoid to get a shot.
 →
 ✅ However, recently distrust of vaccines has risen, and many people avoid getting a shot.
-複数の誤り: (1) 日本語原文の「しかし、」が英訳されていません。文頭に 'However,' が必要です。(2) 'distrust of' の後に具体的な対象 'vaccines' が必要です。(3) 'avoid to get' は 'avoid getting' にすべき。'avoid' の後には動名詞が続きます。(4) カンマで文を繋ぐのは誤り。'and' などの接続詞が必要です。
-【参考】However (しかし) / avoid doing (～することを避ける) / distrust of something (～への不信)
-例: However, there are problems. (しかし、問題があります。) / I avoid smoking. (私は喫煙を避けています。) / Distrust of the system has increased. (システムへの不信が高まった。)
-```
-
-**具体例（複数の誤りがある場合 - 例2: 動詞ミス＋文法エラー）:**
-```
-❌ By doing this, I like the tension becomes smaller, it helps me building trust.
-→
-✅ By doing this, I feel the tension becomes smaller and it helps me build trust.
-複数の誤り: (1) 'I like the tension becomes smaller' の 'like' は 'feel' にすべきです。'like'は好みを表す動詞で、感覚を表す場合は 'feel' を使います。(2) 'helps me building' は 'helps me build' にすべきです。'help + 人 + 動詞の原形' の形が正しいです。(3) カンマで2つの文を繋ぐのは誤りです。'and' で繋ぐ必要があります。
-【参考】feel (感じる) / like (好む) / help someone do (～するのを手伝う)
-例: I feel happy. (幸せに感じる。) / I like apples. (リンゴが好き。) / He helps me cook. (彼は料理を手伝ってくれる。)
+複数の誤り: (1) 「しかし、」が英訳されていません。文頭に 'However,' が必要。(2) 'distrust of' の後に 'vaccines' が必要。(3) 'avoid to get' は 'avoid getting' にすべき。(4) カンマで文を繋ぐのは誤り。'and' が必要。
+【参考】However (しかし) / avoid doing (～を避ける)
+例: However, there are problems. (しかし、問題がある。) / I avoid smoking. (喫煙を避ける。)
 ```
 
 ---
@@ -279,19 +245,9 @@ N文目: [正しい英文全文]
 [語A]（品詞：意味：文脈）／[語B]（品詞：意味：文脈）で、[違いの詳細説明]。
 ```
 
-**具体例（文法エラー）:**
+**具体例:**
 ```
-"reason": "【誤りの説明】: 'decided to reading' は 'decided to read' にすべきです。decide to do（～することを決める）は、to の後に動詞の原形が必要です。to reading のように動名詞を置くことはできません。\\n【参考】decide to go（行くことを決める）/ plan to study（勉強する予定を立てる）\\n例: I decided to study English. (英語を勉強することに決めた。) / I plan to visit Japan. (日本を訪れる予定です。)\\n\\n1文目: Recently, I decided to read books on my way to work.\\n（最近、通勤途中に本を読むことに決めた。）\\ndecide（動詞：決める：意志を持って選択）／plan（動詞：計画する：予定を立てる）で、decideは決断を表し、planは計画を立てることを意味します。"
-```
-
-**具体例（スペルミス）:**
-```
-"reason": "【誤りの説明】: 'passngers' は 'passengers' のスペルミスです。'passenger'（乗客）の複数形は 'passengers' で、'e' が必要です。\\n【参考】passenger（乗客）/ passengers（乗客たち）\\n例: The passengers boarded the plane. (乗客たちが飛行機に搭乗した。) / A passenger asked a question. (ある乗客が質問をした。)\\n\\n2文目: In particular, using smartphones on public transportation often feels unpleasant to surrounding passengers.\\n（特に、公共交通機関内でのスマートフォンの使用は、周囲の乗客にとって不快に感じることが多い。）\\npassenger（名詞：乗客：交通機関を利用する人）／traveler（名詞：旅行者：旅をする人）で、passengerは乗り物に乗っている人、travelerは旅行中の人を指します。"
-```
-
-**具体例（ピリオド欠落）:**
-```
-"reason": "【誤りの説明】: 文末にピリオド（.）がありません。英文は必ずピリオドで終わる必要があります。ピリオドは文の終わりを示す重要な句読点です。\\n【参考】文末にピリオドを付ける / 疑問文は ? / 感嘆文は !\\n例: I went to school. (私は学校に行った。) / She studies hard. (彼女は熱心に勉強する。)\\n\\n1文目: Smartphone use in public places has been increasing, and there are concerns about the impact that volume and screen brightness can have on people around the user.\\n（公共の場でのスマートフォンの使用が増加しており、音量や画面の明るさが周囲に与える影響が懸念されている。）\\nincrease（動詞：増加する：数量が多くなる）／decrease（動詞：減少する：数量が少くなる）で、increaseは増えること、decreaseは減ることを表します。"
+"reason": "【誤りの説明】: 'decided to reading' は 'decided to read' にすべき。decide to do は to の後に動詞の原形が必要。\\n【参考】decide to go / plan to study\\n例: I decided to study. (勉強することに決めた。)\\n\\n1文目: Recently, I decided to read books.\\n（最近、本を読むことに決めた。）\\ndecide（動詞：決める）／plan（動詞：計画する）で、decideは決断、planは計画を表す。"
 ```
 
 ## 重要な制約

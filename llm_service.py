@@ -1051,7 +1051,7 @@ def call_openai_with_retry(prompt: str, max_retries: int = 3, is_model_answer: b
                 ],
                 response_format={"type": "json_object"},  # JSONモードを有効化
                 temperature=0.7,
-                max_tokens=4000,  # 2000から4000に増やして長い添削に対応
+                max_tokens=2000,  # メモリ節約のため2000に削減（Replit 512MB制限対策）
                 timeout=180.0  # タイムアウトを180秒に延長（OpenAI API応答待機）
             )
             
