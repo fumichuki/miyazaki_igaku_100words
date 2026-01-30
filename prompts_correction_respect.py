@@ -109,26 +109,37 @@ $user_answer
 
 3. 🚨🚨🚨 **語彙は正確か？（最重要: 接続詞・副詞の欠落を1文ごとにチェック）** 🚨🚨🚨
    
-   **【必須チェック手順】各文で以下を確認:**
+   **【絶対厳守】日本語の接続詞・副詞が英文に存在するか確認:**
    
-   ステップ1: 日本語原文の文頭を確認
-   ステップ2: 接続詞・副詞があるか確認
-   ステップ3: 英訳の文頭に対応する表現があるか確認
+   **ステップ1**: 日本語原文の文頭を読む
+   **ステップ2**: 接続詞・副詞があるか確認（「、」で区切られている）
+   **ステップ3**: 英訳の文頭に対応する英単語があるか確認
+   **ステップ4**: **なければ必ず❌文法ミスとして指摘**
    
-   **具体的なチェック項目:**
-   - 「そのため、」「したがって、」→ "Therefore," / "Thus," / "For this reason," があるか？
-   - 「具体的には、」→ "Specifically," / "In detail," / "More specifically," があるか？
-   - 「一方で、」「一方、」→ "However," / "On the other hand," / "Meanwhile," があるか？
-   - 「また、」「さらに、」→ "Also," / "Moreover," / "In addition," / "Furthermore," があるか？
-   - 「特に、」→ "In particular," / "Especially," / "Particularly," があるか？
-   - 「しかし、」→ "However," / "But," があるか？
-   - 「その結果、」→ "As a result," / "Therefore," / "Consequently," があるか？
+   **🚨必須チェックリスト（以下の日本語があれば、対応する英語が必須）:**
    
-   **❌NG例:**
-   - 日本語: 「そのため、最近では〜」→ 英訳: "Recently, I try..." [❌ "Therefore,"がない]
-   - 日本語: 「具体的には、〜」→ 英訳: "When the other person..." [❌ "Specifically,"がない]
-   - 日本語: 「一方で、〜」→ 英訳: "Young people use..." [❌ "However,"がない]
-   - 日本語: 「また、〜」→ 英訳: "Using social media..." [❌ "Also,"がない]
+   | 日本語 | 必須の英語 |
+   |--------|-----------|
+   | 「そのため、」「したがって、」 | Therefore, / Thus, / For this reason, |
+   | 「具体的には、」 | Specifically, / In detail, / More specifically, |
+   | 「一方で、」「一方、」 | However, / On the other hand, / Meanwhile, |
+   | 「また、」「さらに、」 | Also, / Moreover, / In addition, / Furthermore, |
+   | **「特に、」** | **Especially, / Particularly, / In particular,** |
+   | 「しかし、」 | However, / But, |
+   | 「その結果、」 | As a result, / Therefore, / Consequently, |
+   | 「例えば、」 | For example, / For instance, |
+   
+   **❌絶対NG例（必ず指摘すること）:**
+   - 日本語: 「そのため、最近では〜」→ 英訳: "Recently, I try..." 
+     → ❌ "Therefore," / "Thus," がない【必ず指摘】
+   - 日本語: 「具体的には、〜」→ 英訳: "When the other person..." 
+     → ❌ "Specifically," がない【必ず指摘】
+   - 日本語: 「一方で、〜」→ 英訳: "Young people use..." 
+     → ❌ "However," / "On the other hand," がない【必ず指摘】
+   - 日本語: 「また、〜」→ 英訳: "Using social media..." 
+     → ❌ "Also," / "Moreover," がない【必ず指摘】
+   - 日本語: **「特に、個人情報の取り扱いにおいては〜」** → 英訳: "when we handle personal information..." 
+     → ❌ **"Especially," / "Particularly," がない【必ず指摘】**
 
 4. **日本語原文の意味を適切に反映しているか？**
 
