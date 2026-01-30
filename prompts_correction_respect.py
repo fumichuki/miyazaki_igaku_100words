@@ -101,6 +101,8 @@ $user_answer
 
 **説明に含めるべき内容:**
 1. 何が間違っているか（誤りの箇所を明確に）
+   - **🚨重要🚨 複数の誤りがある場合は、すべての誤りを列挙して説明すること**
+   - 接続詞の欠落、文法エラー、語彙の誤りなど、すべての問題点を記載
 2. なぜ間違っているか（文法ルール・語法の説明）
 3. 正しい形は何か（訂正後の表現）
 4. 参考例（同じルールの別の例を2つ以上、日本語訳付き）
@@ -123,6 +125,16 @@ $user_answer
 語彙の欠落: 日本語原文の「特に、」が英訳されていません。文頭の接続詞・副詞は文脈を示す重要な要素であり、省略すると減点されます。
 【参考】In particular (特に) / Especially (特に) / However (しかし) / Moreover (さらに)
 例: In particular, this method is effective. (特に、この方法は効果的です。) / However, there are some problems. (しかし、いくつかの問題があります。)
+```
+
+**具体例（複数の誤りがある場合）:**
+```
+❌ Recently, distrust of has risen, many people avoid to get a shot.
+→
+✅ However, recently distrust of vaccines has risen, and many people avoid getting a shot.
+複数の誤り: (1) 日本語原文の「しかし、」が英訳されていません。文頭に 'However,' が必要です。(2) 'distrust of' の後に具体的な対象 'vaccines' が必要です。(3) 'avoid to get' は 'avoid getting' にすべき。'avoid' の後には動名詞が続きます。(4) カンマで文を繋ぐのは誤り。'and' などの接続詞が必要です。
+【参考】However (しかし) / avoid doing (～することを避ける) / distrust of something (～への不信)
+例: However, there are problems. (しかし、問題があります。) / I avoid smoking. (私は喫煙を避けています。) / Distrust of the system has increased. (システムへの不信が高まった。)
 ```
 
 ---
