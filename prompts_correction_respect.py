@@ -196,11 +196,13 @@ $user_answer
 ```json
 {
   "before": "ユーザーの英文（そのまま）",
-  "after": "訂正後の英文\\n(日本語訳)",
+  "after": "訂正後の英文（英語のみ、日本語訳は含めない）",
   "reason": "間違いの理由（❌の場合のみ詳細説明、✅の場合は語彙解説）",
   "level": "✅正しい表現 または ❌文法ミス または 内容評価"
 }
 ```
+
+**重要**: afterフィールドには英文のみを記載してください。日本語訳や括弧は含めないでください。
 
 ## reasonの記述フォーマット（必須・厳守）
 
@@ -351,19 +353,19 @@ hesitate（動詞：躊躇する・ためらう：決断をためらう文脈）
     },
     {
       "before": "Recently, I decided to read books on my way to work.",
-      "after": "Recently, I decided to read books on my way to work.\\n（最近、通勤途中に本を読むことに決めた。）",
+      "after": "Recently, I decided to read books on my way to work.",
       "reason": "1文目: Recently, I decided to read books on my way to work.\\n（最近、通勤途中に本を読むことに決めた。）\\ndecide（動詞：決める：意志を持って選択）／plan（動詞：計画する：予定を立てる）で、decideは決断を表し、planは計画を立てることを意味します。\\n【参考】decide to go（行くことを決める）/ plan to go（行く予定を立てる）\\n例: I decided to study English. (英語を勉強することに決めた。) / I plan to study English. (英語を勉強する予定です。)",
       "level": "✅正しい表現"
     },
     {
       "before": "This new habit has reduced my stress.",
-      "after": "This new habit has reduced my stress.\\n（この新しい習慣は、私のストレスを減らした。）",
+      "after": "This new habit has reduced my stress.",
       "reason": "2文目: This new habit has reduced my stress.\\n（この新しい習慣は、私のストレスを減らした。）\\nreduce（動詞：減らす：意図的に量を減少させる）／decrease（動詞：減少する：自然に少なくなる）で、reduceは主体的な行動による削減、decreaseは自然な減少を指します。\\n【参考】reduce stress（ストレスを減らす）/ decrease naturally（自然に減少する）\\n例: Exercise reduces stress. (運動はストレスを減らす。) / The temperature decreased overnight. (気温が一晩で下がった。)",
       "level": "✅正しい表現"
     },
     {
       "before": "Now, I feel more relaxed after reading.",
-      "after": "Now, I feel more relaxed after reading.\\n（今、読書の後はよりリラックスした気分になる。）",
+      "after": "Now, I feel more relaxed after reading.",
       "reason": "3文目: Now, I feel more relaxed after reading.\\n（今、読書の後はよりリラックスした気分になる。）\\nrelaxed（形容詞：リラックスした：緊張が解けた状態）／calm（形容詞：穏やかな：感情が平静な状態）で、relaxedは緊張からの解放を強調し、calmは平静な状態を示します。\\n【参考】feel relaxed（リラックスした気分になる）/ remain calm（落ち着いている）\\n例: I feel relaxed after yoga. (ヨガの後はリラックスする。) / She remained calm during the crisis. (彼女は危機の間も落ち着いていました。)",
       "level": "✅正しい表現"
     }
