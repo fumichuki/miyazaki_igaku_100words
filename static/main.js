@@ -250,17 +250,35 @@ function displayQuestion(data) {
     // 翻訳形式（段落→一文一文箇条書き）の場合
     const theme = data.theme || "学術";
     
-    // テーマヘッダー
+    // テーマヘッダー（抜粋タイプを含める）
     const themeHeader = document.createElement("div");
     themeHeader.className = "theme-header-question";
-    themeHeader.textContent = `📌 テーマ: ${theme}　　下記を英訳せよ`;
-    container.appendChild(themeHeader);
     
-    // 抜粋タイプの表示を追加
+    // トピックラベルを日本語名に変換
+    let topicName = '';
+    if (data.topic_label) {
+      const topicLabels = {
+        "研究紹介": {"A": "記憶", "B": "習慣", "C": "睡眠・集中", "D": "運動・健康", "E": "食事", "F": "感情", "G": "デジタル", "H": "社会"},
+        "時事": {"A": "医療・公衆衛生", "B": "災害", "C": "国際", "D": "環境", "E": "経済・ビジネス", "F": "科学技術", "G": "教育", "H": "地域活性"},
+        "ブログ": {"A": "健康・運動", "B": "勉強", "C": "習慣", "D": "趣味", "E": "人間関係", "F": "旅行", "G": "食事", "H": "睡眠"},
+        "書評": {"A": "小説", "B": "ビジネス", "C": "自己啓発", "D": "健康", "E": "伝記", "F": "哲学", "G": "歴史", "H": "エッセイ"},
+        "メール・レター": {"A": "お礼", "B": "依頼", "C": "案内", "D": "報告", "E": "謝罪", "F": "祝賀", "G": "提案", "H": "近況"},
+        "体験記": {"A": "インターン", "B": "留学", "C": "記事・ドキュメンタリー", "D": "展示・イベント", "E": "ボランティア", "F": "図書館・施設", "G": "仕事・職業", "H": "場面・心に残る"},
+        "コラム": {"A": "マナー", "B": "教育", "C": "働き方", "D": "医療", "E": "地域・多文化", "F": "デジタル", "G": "環境", "H": "若者・家庭"},
+        "図表": {"A": "学習時間", "B": "睡眠時間", "C": "施設利用", "D": "交通", "E": "運動・健康", "F": "アンケート", "G": "年代別", "H": "地域別"}
+      };
+      topicName = topicLabels[theme]?.[data.topic_label] || '';
+    }
+    
+    // テーマとトピックを見やすく表示
+    let themeTopicText = `📌 ${theme}`;
+    if (topicName) {
+      themeTopicText += ` - ${topicName}`;
+    }
+    themeHeader.innerHTML = themeTopicText;
+    
+    // 抜粋タイプを追加（グレー色）
     if (data.excerpt_type) {
-      const excerptInfo = document.createElement("div");
-      excerptInfo.className = "excerpt-type-info";
-      
       const excerptLabels = {
         'P1_ONLY': '（抜粋：段落①のみ）',
         'P2_P3': '（抜粋：段落②〜③）',
@@ -268,25 +286,29 @@ function displayQuestion(data) {
         'P4_P5': '（抜粋：段落④〜⑤）',
         'MIDDLE': '（抜粋：中盤部分）'
       };
-      
-      excerptInfo.textContent = excerptLabels[data.excerpt_type] || '（抜粋）';
-      container.appendChild(excerptInfo);
+      const excerptSpan = document.createElement('span');
+      excerptSpan.className = 'excerpt-type-gray';
+      excerptSpan.textContent = ' ' + (excerptLabels[data.excerpt_type] || '（抜粋）');
+      themeHeader.appendChild(excerptSpan);
     }
     
-    // 問題文の表示（箇条書き）
-    const ul = document.createElement("ul");
-    ul.className = "question-sentences-list";
-    data.japanese_paragraphs.forEach((paragraph, idx) => {
-      // 段落内の文を句点で分割
-      const sentences = paragraph.split('。').filter(s => s.trim());
-      sentences.forEach((sentence, sentenceIdx) => {
-        const li = document.createElement("li");
-        li.className = "question-sentence-item";
-        li.textContent = sentence.trim() + '。';
-        ul.appendChild(li);
-      });
-    });
-    container.appendChild(ul);
+    container.appendChild(themeHeader);
+    
+    // 問題文を1つの段落として表示
+    const problemTextDiv = document.createElement("div");
+    problemTextDiv.className = "question-problem-text";
+    
+    // 全ての段落を連結して1つの段落として表示
+    const allText = data.japanese_paragraphs
+      .map(p => p.trim())
+      .join('');
+    
+    const textElement = document.createElement("p");
+    textElement.className = "question-sentence-line";
+    textElement.textContent = allText;
+    problemTextDiv.appendChild(textElement);
+    
+    container.appendChild(problemTextDiv);
   } else if (data.japanese_sentences && data.japanese_sentences.length > 0) {
     // 旧形式（日本語文）の場合
     const sentences = document.createElement("div");
@@ -299,7 +321,7 @@ function displayQuestion(data) {
     container.appendChild(sentences);
   }
   
-  // ヒント
+  // ヒント単語（シンプル表示）
   const hintsTitle = document.createElement("div");
   hintsTitle.className = "hints-title";
   hintsTitle.textContent = "ヒント単語:";
@@ -310,70 +332,12 @@ function displayQuestion(data) {
   data.hints.forEach(hint => {
     const span = document.createElement("span");
     span.className = "hint-item";
-    
-    // 動詞の場合は用法も表示
-    if (hint.pos === "動詞" && hint.usage) {
-      span.innerHTML = `<strong>${hint.en}</strong>：${hint.ja}（${hint.pos}）<br><span style="font-size: 0.9em; color: #64748b;">例：${hint.usage}</span>`;
-    } else {
-      span.textContent = `${hint.en}：${hint.ja}（${hint.pos}）`;
-    }
-    
+    span.textContent = `${hint.en}：${hint.ja}（${hint.pos}）`;
     hints.appendChild(span);
   });
   container.appendChild(hints);
   
   addMessage(container, "ai");
-  
-  // メッセージとボタンをコンテナにまとめる
-  const instructionContainer = document.createElement("div");
-  instructionContainer.className = "instruction-container";
-  instructionContainer.style.cssText = `
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  `;
-  
-  const instructionText = document.createElement("span");
-  instructionText.textContent = "✍️ 英作文を入力して、添削を受けてください。";
-  instructionText.style.cssText = `
-    font-size: 15px;
-    color: #1e293b;
-  `;
-  
-  const modelAnswerBtn = document.createElement("button");
-  modelAnswerBtn.textContent = "模範解答のみ閲覧";
-  modelAnswerBtn.className = "model-answer-inline-btn";
-  modelAnswerBtn.style.cssText = `
-    padding: 8px 16px;
-    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  `;
-  
-  modelAnswerBtn.addEventListener("mouseover", () => {
-    modelAnswerBtn.style.transform = "translateY(-1px)";
-    modelAnswerBtn.style.boxShadow = "0 4px 12px rgba(243, 156, 18, 0.4)";
-  });
-  
-  modelAnswerBtn.addEventListener("mouseout", () => {
-    modelAnswerBtn.style.transform = "translateY(0)";
-    modelAnswerBtn.style.boxShadow = "none";
-  });
-  
-  modelAnswerBtn.addEventListener("click", () => {
-    fetchModelAnswerOnly();
-  });
-  
-  instructionContainer.appendChild(instructionText);
-  instructionContainer.appendChild(modelAnswerBtn);
-  
-  addMessage(instructionContainer, "ai");
   
   // 新しいマルチ入力UIを表示（japanese_paragraphsまたはjapanese_sentences形式の場合のみ）
   if ((data.japanese_paragraphs && data.japanese_paragraphs.length > 0) || 
@@ -460,6 +424,14 @@ async function renderMultiInputUI(questionData) {
     });
     
     card.appendChild(textarea);
+    
+    // 解説表示エリア（初期は非表示）
+    const explanationDiv = document.createElement('div');
+    explanationDiv.className = 'sentence-explanation';
+    explanationDiv.dataset.index = index;
+    explanationDiv.style.display = 'none';
+    card.appendChild(explanationDiv);
+    
     container.appendChild(card);
   });
   
@@ -469,6 +441,16 @@ async function renderMultiInputUI(questionData) {
   // マルチ入力UIを表示、通常の入力欄を非表示
   document.getElementById('multi-input-container').style.display = 'block';
   document.getElementById('user-input').style.display = 'none';
+  
+  // 模範解答ボタンを表示してイベントを設定
+  const modelAnswerBtn = document.getElementById('model-answer-btn');
+  if (modelAnswerBtn) {
+    modelAnswerBtn.style.display = 'block';
+    // 既存のイベントリスナーをクリア
+    const newBtn = modelAnswerBtn.cloneNode(true);
+    modelAnswerBtn.parentNode.replaceChild(newBtn, modelAnswerBtn);
+    newBtn.addEventListener('click', fetchModelAnswerOnly);
+  }
 }
 
 // 各文の語数をカウント
@@ -530,8 +512,21 @@ function submitMultiSentences() {
   const userSentences = [];
   
   textareas.forEach(textarea => {
-    const text = textarea.value.trim();
+    let text = textarea.value.trim();
     if (text.length > 0) {
+      // 全角記号を半角に変換
+      text = text.replace(/。$/g, '.').replace(/！$/g, '!').replace(/？$/g, '?');
+      
+      // 末尾に句読点がない場合、文の種類に応じて追加
+      if (!/[.!?]$/.test(text)) {
+        // 疑問文の判定（疑問詞または疑問形の助動詞で始まる）
+        const questionWords = /^(what|where|when|why|who|whom|whose|which|how|do|does|did|can|could|would|should|will|shall|may|might|must|is|are|was|were|has|have|had|am)\b/i;
+        if (questionWords.test(text)) {
+          text += '?';
+        } else {
+          text += '.';
+        }
+      }
       userSentences.push(text);
     }
   });
@@ -557,21 +552,21 @@ function submitMultiSentences() {
     japaneseSentences = currentQuestion.japanese_sentences;
   }
   
-  // ユーザーの回答を表示
+  // ユーザーの回答を表示（コメントアウト）
   const combinedAnswer = userSentences.join('\n');
-  addMessage(combinedAnswer, "user");
+  // addMessage(combinedAnswer, "user"); // 不要
   
   // 文数を保存
   currentSentenceCount = userSentences.length;
   
-  // 入力欄をクリア
-  textareas.forEach(textarea => {
-    textarea.value = '';
-  });
-  updateProgressIndicator();
+  // 入力欄は保持（クリアしない）
+  // textareas.forEach(textarea => {
+  //   textarea.value = '';
+  // });
+  // updateProgressIndicator();
   
-  // 添削リクエスト
-  addMessage("🔍 添削中...（1~2分かかります）", "ai");
+  // 添削リクエスト（ローディングメッセージを入力セクションの下に表示）
+  showLoadingBelowInput();
   
   // 語数をカウント
   const words = combinedAnswer.match(/\b[\w'-]+\b/g) || [];
@@ -591,20 +586,190 @@ function submitMultiSentences() {
   .then(res => res.json())
   .then(data => {
     // ローディングメッセージを削除
-    chat.lastChild.remove();
+    removeLoadingBelowInput();
     
     if (data.error) {
       addMessage(`❌ エラー: ${data.error}`, "ai");
       return;
     }
     
-    // 添削結果を表示
-    displayCorrection(data);
+    // 添削結果を表示（マルチ入力モードでは模範解答のみ）
+    if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      // マルチ入力モード：各カードに解説を表示し、模範解答は入力エリアの下に表示
+      displayExplanationsInCards(data.points);
+      displayModelAnswerBelowInput(data);
+    } else {
+      // 通常モード：全ての添削結果を表示
+      displayCorrection(data);
+    }
   })
   .catch(err => {
-    chat.lastChild.remove();
+    removeLoadingBelowInput();
     addMessage(`❌ エラー: ${err.message}`, "ai");
   });
+}
+
+// ローディングメッセージを入力セクションの下に表示
+function showLoadingBelowInput() {
+  const loadingDiv = document.createElement('div');
+  loadingDiv.id = 'loading-below-input';
+  loadingDiv.style.marginTop = '20px';
+  loadingDiv.style.padding = '16px';
+  loadingDiv.style.backgroundColor = '#f0f9ff';
+  loadingDiv.style.borderRadius = '8px';
+  loadingDiv.style.border = '2px solid #bae6fd';
+  loadingDiv.style.textAlign = 'center';
+  loadingDiv.style.fontSize = '15px';
+  loadingDiv.style.fontWeight = '600';
+  loadingDiv.style.color = '#0369a1';
+  loadingDiv.innerHTML = '🔍 添削中...（1~2分かかります）';
+  
+  const multiInputContainer = document.getElementById('multi-input-container');
+  if (multiInputContainer && multiInputContainer.parentNode) {
+    multiInputContainer.parentNode.insertBefore(loadingDiv, multiInputContainer.nextSibling);
+  }
+}
+
+// ローディングメッセージを削除
+function removeLoadingBelowInput() {
+  const loadingDiv = document.getElementById('loading-below-input');
+  if (loadingDiv) {
+    loadingDiv.remove();
+  }
+}
+
+// 各文の解説をカードに表示
+function displayExplanationsInCards(points) {
+  if (currentSentenceCount === null || currentSentenceCount === 0) {
+    return; // マルチ入力モードでない
+  }
+  
+  // 各ポイントを対応するカードに表示
+  let pointCounter = 0;
+  points.forEach((point, idx) => {
+    // 全体評価はスキップ
+    if (point.level === "内容評価") {
+      return;
+    }
+    
+    pointCounter++;
+    const cardIndex = pointCounter - 1;
+    const explanationDiv = document.querySelector(`.sentence-explanation[data-index="${cardIndex}"]`);
+    const textarea = document.querySelector(`.sentence-textarea[data-index="${cardIndex}"]`);
+    const card = document.querySelector(`.sentence-input-card[data-index="${cardIndex}"]`);
+    
+    if (!explanationDiv || !textarea || !card) {
+      return;
+    }
+    
+    // levelに基づいてアイコンを決定
+    const levelText = (point.level || '').trim();
+    let icon = '❓';
+    let iconClass = 'explanation-icon-improvement';
+    
+    if (levelText.includes('❌')) {
+      icon = '❌';
+      iconClass = 'explanation-icon-error';
+    } else if (levelText.includes('✅')) {
+      icon = '✅';
+      iconClass = 'explanation-icon-correct';
+    }
+    
+    // マルチ入力モードでbeforeとafterを取得
+    let beforeText = point.before;
+    let afterText = point.after;
+    
+    // ユーザーが実際に入力した文をtextareaから直接取得
+    const userInputText = textarea.value.trim();
+    
+    if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      // beforeは実際の入力文を使用
+      beforeText = userInputText;
+      
+      // afterは分割して対応する文を取得
+      const afterSentences = splitIntoSentences(point.after.split('\n')[0], currentSentenceCount);
+      if (cardIndex < afterSentences.length) {
+        afterText = afterSentences[cardIndex];
+      }
+    } else {
+      afterText = point.after.split('\n')[0].trim();
+    }
+    
+    const isSame = beforeText.trim() === afterText.trim();
+    
+    // 解説内容を生成
+    let explanationHTML = `<div class="explanation-content">`;
+    
+    // 英文表示
+    if (isSame) {
+      explanationHTML += `<div class="explanation-sentence ${iconClass}">${icon} ${escapeHtml(beforeText)}</div>`;
+    } else {
+      explanationHTML += `<div class="explanation-sentence explanation-icon-error">❌ ${escapeHtml(beforeText)}</div>`;
+      explanationHTML += `<div class="explanation-arrow">→</div>`;
+      explanationHTML += `<div class="explanation-sentence explanation-icon-correct">✅ ${escapeHtml(afterText)}</div>`;
+    }
+    
+    // reasonから不要な部分を削除
+    let reasonText = point.reason || '';
+    const reasonLines = reasonText.split('\n');
+    const filteredLines = [];
+    
+    for (let line of reasonLines) {
+      // N文目: で始まる行をスキップ
+      if (line.match(/^\d+文目:/)) {
+        continue;
+      }
+      // 括弧だけの行をスキップ
+      if (line.match(/^（.+）$/)) {
+        continue;
+      }
+      if (line.trim()) {
+        filteredLines.push(line);
+      }
+    }
+    
+    const cleanReason = filteredLines.join('\n');
+    if (cleanReason) {
+      explanationHTML += `<div class="explanation-reason">${escapeHtml(cleanReason).replace(/\n/g, '<br>')}</div>`;
+    }
+    
+    explanationHTML += `</div>`;
+    
+    // 解説をカードに追加
+    explanationDiv.innerHTML = explanationHTML;
+    explanationDiv.style.display = 'block';
+    
+    // textareaを非表示
+    textarea.style.display = 'none';
+    
+    // カードのステータスを更新
+    const statusIcon = card.querySelector('.sentence-status-icon');
+    if (statusIcon) {
+      statusIcon.textContent = icon;
+    }
+  });
+}
+
+// テキストをN個の文に分割
+// テキストをN個の文に分割
+function splitIntoSentences(text, count) {
+  // ピリオド、感嘆符、疑問符で分割
+  const sentences = [];
+  const regex = /[.!?]+\s+/g;
+  let lastIndex = 0;
+  let match;
+  
+  while ((match = regex.exec(text)) !== null && sentences.length < count - 1) {
+    sentences.push(text.substring(lastIndex, match.index + match[0].length).trim());
+    lastIndex = regex.lastIndex;
+  }
+  
+  // 残りのテキストを最後の文として追加
+  if (lastIndex < text.length) {
+    sentences.push(text.substring(lastIndex).trim());
+  }
+  
+  return sentences;
 }
 
 // 回答を提出
@@ -752,18 +917,25 @@ function displayCorrection(data) {
     pointsSection.appendChild(pointDiv);
   }
   
-  // 文法・表現のポイントのタイトル
-  const pointsTitle = document.createElement("h3");
-  // 全体評価を除いた数をカウント
-  const nonEvaluationPoints = data.points.filter(p => p.level !== "内容評価").length;
-  pointsTitle.textContent = `文法・表現のポイント解説（${nonEvaluationPoints}項目）`;
-  pointsSection.appendChild(pointsTitle);
+  // 文法・表現のポイントのタイトル（マルチ入力モードでは非表示）
+  if (currentSentenceCount === null || currentSentenceCount === 0) {
+    const pointsTitle = document.createElement("h3");
+    // 全体評価を除いた数をカウント
+    const nonEvaluationPoints = data.points.filter(p => p.level !== "内容評価").length;
+    pointsTitle.textContent = `文法・表現のポイント解説（${nonEvaluationPoints}項目）`;
+    pointsSection.appendChild(pointsTitle);
+  }
   
   let pointCounter = 0;
   data.points.forEach((point, idx) => {
     // 全体評価はスキップ（既に表示済み）
     if (point.level === "内容評価") {
       return; // 番号カウントせずに次へ
+    }
+    
+    // マルチ入力モードでは個別のカードに表示するため、この一覧表示はスキップ
+    if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      return;
     }
     
     // 通常の文法・表現ポイント
@@ -984,128 +1156,244 @@ function displayCorrection(data) {
   }, 500);
 }
 
+// マルチ入力モード用：模範解答を入力エリアの下に表示
+function displayModelAnswerBelowInput(data) {
+  // 既存の模範解答セクションを削除
+  const existingSection = document.getElementById('model-answer-below-input');
+  if (existingSection) {
+    existingSection.remove();
+  }
+  
+  // 理想的な英文セクション（model_answerがある場合のみ表示）
+  if (data.model_answer && data.model_answer_explanation) {
+    const modelAnswerSection = document.createElement("div");
+    modelAnswerSection.id = 'model-answer-below-input';
+    modelAnswerSection.className = "model-answer-section";
+    modelAnswerSection.style.marginTop = "24px";
+    modelAnswerSection.style.padding = "20px";
+    modelAnswerSection.style.backgroundColor = "#f8f9fa";
+    modelAnswerSection.style.borderRadius = "12px";
+    modelAnswerSection.style.border = "2px solid #e9ecef";
+    
+    // 解説の見出し
+    const explanationTitle = document.createElement("h3");
+    explanationTitle.className = "model-answer-title";
+    explanationTitle.textContent = "🌟 理想的な英文と文法・表現のポイント解説";
+    explanationTitle.style.marginTop = "0";
+    explanationTitle.style.marginBottom = "16px";
+    explanationTitle.style.fontSize = "18px";
+    explanationTitle.style.fontWeight = "700";
+    explanationTitle.style.color = "#1e293b";
+    modelAnswerSection.appendChild(explanationTitle);
+    
+    const modelExplanation = document.createElement("div");
+    modelExplanation.className = "model-explanation";
+    let fullText = data.model_answer_explanation;
+    // 「文法・表現のポイント解説」という見出しを削除
+    fullText = fullText.replace(/^文法・表現のポイント解説\s*\n*/g, '');
+    
+    // マルチ入力モードの場合、文数に基づいて処理
+    if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      modelExplanation.innerHTML = processModelAnswerBySentenceCount(fullText, currentSentenceCount);
+    } else {
+      // 通常モード
+      let lines = fullText.split('\n');
+      let processedLines = [];
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const match = line.match(/^(\d+)文目:\s*(.+)$/);
+        if (match) {
+          const englishText = escapeHtml(match[2].trim());
+          processedLines.push('<strong>' + englishText + '</strong>');
+        } else if (line.match(/^（.+）$/)) {
+          processedLines.push(escapeHtml(line));
+        } else {
+          processedLines.push(escapeHtml(line));
+        }
+      }
+      modelExplanation.innerHTML = processedLines.join('<br>');
+    }
+    modelAnswerSection.appendChild(modelExplanation);
+    
+    // マルチ入力コンテナの後に挿入
+    const multiInputContainer = document.getElementById('multi-input-container');
+    if (multiInputContainer && multiInputContainer.parentNode) {
+      multiInputContainer.parentNode.insertBefore(modelAnswerSection, multiInputContainer.nextSibling);
+    }
+    
+    // 「次の問題」ボタンを模範解答の下に追加
+    const nextQuestionDiv = document.createElement('div');
+    nextQuestionDiv.id = 'next-question-below-input';
+    nextQuestionDiv.style.marginTop = '20px';
+    nextQuestionDiv.style.display = 'flex';
+    nextQuestionDiv.style.alignItems = 'center';
+    nextQuestionDiv.style.gap = '12px';
+    nextQuestionDiv.style.flexWrap = 'wrap';
+    
+    const textSpan = document.createElement('span');
+    textSpan.textContent = '次の問題にチャレンジしますか？';
+    textSpan.style.fontSize = '15px';
+    textSpan.style.fontWeight = '600';
+    
+    const newBtn = document.createElement('button');
+    newBtn.textContent = '新しい問題を出題';
+    newBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    newBtn.style.color = 'white';
+    newBtn.style.border = 'none';
+    newBtn.style.padding = '10px 20px';
+    newBtn.style.borderRadius = '8px';
+    newBtn.style.cursor = 'pointer';
+    newBtn.style.fontSize = '15px';
+    newBtn.style.fontWeight = '600';
+    newBtn.style.transition = 'all 0.2s';
+    newBtn.addEventListener('click', () => {
+      // 模範解答と次の問題ボタンを削除
+      if (existingSection) existingSection.remove();
+      const nextBtn = document.getElementById('next-question-below-input');
+      if (nextBtn) nextBtn.remove();
+      fetchNewQuestion();
+    });
+    newBtn.addEventListener('mouseenter', () => {
+      newBtn.style.transform = 'translateY(-2px)';
+      newBtn.style.boxShadow = '0 4px 8px rgba(102, 126, 234, 0.3)';
+    });
+    newBtn.addEventListener('mouseleave', () => {
+      newBtn.style.transform = 'translateY(0)';
+      newBtn.style.boxShadow = 'none';
+    });
+    
+    nextQuestionDiv.appendChild(textSpan);
+    nextQuestionDiv.appendChild(newBtn);
+    
+    if (modelAnswerSection.parentNode) {
+      modelAnswerSection.parentNode.insertBefore(nextQuestionDiv, modelAnswerSection.nextSibling);
+    }
+  }
+}
+
+// マルチ入力モード用：模範解答のみを表示（チャット内）
+function displayModelAnswerOnly(data) {
+  const container = document.createElement("div");
+  container.className = "correction-container";
+  
+  // 理想的な英文セクション（model_answerがある場合のみ表示）
+  if (data.model_answer && data.model_answer_explanation) {
+    const modelAnswerSection = document.createElement("div");
+    modelAnswerSection.className = "model-answer-section";
+    
+    // 解説の見出し
+    const explanationTitle = document.createElement("h3");
+    explanationTitle.className = "model-answer-title";
+    explanationTitle.textContent = "🌟 理想的な英文と文法・表現のポイント解説";
+    modelAnswerSection.appendChild(explanationTitle);
+    
+    const modelExplanation = document.createElement("div");
+    modelExplanation.className = "model-explanation";
+    let fullText = data.model_answer_explanation;
+    // 「文法・表現のポイント解説」という見出しを削除
+    fullText = fullText.replace(/^文法・表現のポイント解説\s*\n*/g, '');
+    
+    // マルチ入力モードの場合、文数に基づいて処理
+    if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      modelExplanation.innerHTML = processModelAnswerBySentenceCount(fullText, currentSentenceCount);
+    } else {
+      // 通常モード
+      let lines = fullText.split('\n');
+      let processedLines = [];
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const match = line.match(/^(\d+)文目:\s*(.+)$/);
+        if (match) {
+          const englishText = escapeHtml(match[2].trim());
+          processedLines.push('<strong>' + englishText + '</strong>');
+        } else if (line.match(/^（.+）$/)) {
+          processedLines.push(escapeHtml(line));
+        } else {
+          processedLines.push(escapeHtml(line));
+        }
+      }
+      modelExplanation.innerHTML = processedLines.join('<br>');
+    }
+    modelAnswerSection.appendChild(modelExplanation);
+    container.appendChild(modelAnswerSection);
+  }
+  
+  addMessage(container, "ai");
+  
+  // 次の問題を促す
+  setTimeout(() => {
+    const promptContainer = document.createElement('div');
+    promptContainer.style.display = 'flex';
+    promptContainer.style.alignItems = 'center';
+    promptContainer.style.gap = '12px';
+    promptContainer.style.flexWrap = 'wrap';
+    
+    const textSpan = document.createElement('span');
+    textSpan.textContent = '次の問題にチャレンジしますか？';
+    
+    const newBtn = document.createElement('button');
+    newBtn.textContent = '新しい問題を出題';
+    newBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    newBtn.style.color = 'white';
+    newBtn.style.border = 'none';
+    newBtn.style.padding = '8px 16px';
+    newBtn.style.borderRadius = '6px';
+    newBtn.style.cursor = 'pointer';
+    newBtn.style.fontSize = '14px';
+    newBtn.style.fontWeight = '600';
+    newBtn.style.transition = 'all 0.2s';
+    newBtn.addEventListener('click', () => fetchNewQuestion());
+    newBtn.addEventListener('mouseenter', () => {
+      newBtn.style.transform = 'translateY(-2px)';
+      newBtn.style.boxShadow = '0 4px 8px rgba(102, 126, 234, 0.3)';
+    });
+    newBtn.addEventListener('mouseleave', () => {
+      newBtn.style.transform = 'translateY(0)';
+      newBtn.style.boxShadow = 'none';
+    });
+    
+    promptContainer.appendChild(textSpan);
+    promptContainer.appendChild(newBtn);
+    addMessage(promptContainer, "ai");
+  }, 500);
+}
+
 // マルチ入力モード用：文数に基づいて模範解答を処理
 function processModelAnswerBySentenceCount(fullText, sentenceCount) {
   const lines = fullText.split('\n');
   const processedLines = [];
   
-  // 各ポイントを解析
-  let currentPoint = null;
-  let pointBuffer = [];
-  
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    
-    // ポイント番号を検出（1, 2, 3...）
-    const pointMatch = line.match(/^(\d+)$/);
-    if (pointMatch) {
-      // 前のポイントがあれば処理
-      if (currentPoint !== null && pointBuffer.length > 0) {
-        processedLines.push(...processPointContent(pointBuffer, currentPoint, sentenceCount));
-        processedLines.push(''); // ポイント間に空行
+    const line = lines[i];
+    // N文目: 英文 のパターンを検出（英文と日本語訳が別行の場合）
+    const match = line.match(/^(\d+)文目:\s*(.+)$/);
+    if (match) {
+      const sentenceNum = parseInt(match[1]);
+      // currentSentenceCount以下の文のみ表示
+      if (sentenceNum <= sentenceCount) {
+        // 「N文目:」表記を削除し、英文を太字化
+        const englishText = escapeHtml(match[2].trim());
+        processedLines.push('<strong>' + englishText + '</strong>');
       }
-      
-      currentPoint = parseInt(pointMatch[1]);
-      pointBuffer = [];
-      continue;
-    }
-    
-    // 現在のポイントにコンテンツを追加
-    if (currentPoint !== null) {
-      pointBuffer.push(line);
+    } else if (line.match(/^（.+）$/)) {
+      // 日本語訳（全角括弧で囲まれた行）
+      // 直前に英文があれば表示
+      if (processedLines.length > 0) {
+        processedLines.push(escapeHtml(line));
+      }
     } else {
-      // ポイント外のコンテンツ（タイトルなど）
-      if (line.length > 0) {
+      // その他の行（説明など）
+      // 直前に英文があれば表示（文の説明として）
+      if (processedLines.length > 0 && line.trim().length > 0) {
+        processedLines.push(escapeHtml(line));
+      } else if (line.trim().length > 0) {
+        // 独立した行（タイトルなど）
         processedLines.push(escapeHtml(line));
       }
     }
   }
   
-  // 最後のポイントを処理
-  if (currentPoint !== null && pointBuffer.length > 0) {
-    processedLines.push(...processPointContent(pointBuffer, currentPoint, sentenceCount));
-  }
-  
   return processedLines.join('<br>');
-}
-
-// 各ポイントのコンテンツを処理
-function processPointContent(buffer, pointNumber, totalSentences) {
-  const result = [];
-  let beforeText = '';
-  let afterText = '';
-  let explanationLines = [];
-  let inExplanation = false;
-  
-  for (let i = 0; i < buffer.length; i++) {
-    const line = buffer[i].trim();
-    
-    if (line.startsWith('❌')) {
-      beforeText = line.substring(1).trim();
-    } else if (line === '→') {
-      continue;
-    } else if (line.startsWith('✅')) {
-      afterText = line.substring(1).trim();
-    } else if (line.match(/^\d+文目:/)) {
-      inExplanation = true;
-      explanationLines.push(line);
-    } else if (inExplanation || line.match(/^（.+）$/) || line.includes('【参考】') || line.startsWith('例：')) {
-      explanationLines.push(line);
-    }
-  }
-  
-  // ポイント番号が文番号と一致すると仮定
-  const sentenceIndex = pointNumber - 1;
-  
-  // 修正後の文を抽出（afterTextから該当文を取り出す）
-  if (afterText) {
-    // afterTextを文に分割（ピリオド+スペースで分割）
-    const sentences = splitIntoSentences(afterText, totalSentences);
-    
-    if (sentenceIndex < sentences.length) {
-      const targetSentence = sentences[sentenceIndex];
-      result.push(`<strong>${escapeHtml(targetSentence)}</strong>`);
-    } else {
-      // インデックス外の場合は全文表示
-      result.push(`<strong>${escapeHtml(afterText)}</strong>`);
-    }
-  }
-  
-  // 説明部分を追加
-  explanationLines.forEach(line => {
-    if (line.match(/^\d+文目:/)) {
-      // 「N文目:」は削除
-      const cleanLine = line.replace(/^\d+文目:\s*/, '');
-      if (cleanLine) {
-        result.push(escapeHtml(cleanLine));
-      }
-    } else {
-      result.push(escapeHtml(line));
-    }
-  });
-  
-  return result;
-}
-
-// テキストをN個の文に分割
-function splitIntoSentences(text, count) {
-  // ピリオド、感嘆符、疑問符で分割
-  const sentences = [];
-  const regex = /[.!?]+\s+/g;
-  let lastIndex = 0;
-  let match;
-  
-  while ((match = regex.exec(text)) !== null && sentences.length < count - 1) {
-    sentences.push(text.substring(lastIndex, match.index + match[0].length).trim());
-    lastIndex = regex.lastIndex;
-  }
-  
-  // 残りのテキストを最後の文として追加
-  if (lastIndex < text.length) {
-    sentences.push(text.substring(lastIndex).trim());
-  }
-  
-  return sentences;
 }
 
 // HTMLエスケープ

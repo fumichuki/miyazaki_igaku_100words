@@ -137,15 +137,22 @@ def save_question(question: QuestionResponse) -> str:
             cursor.execute("ALTER TABLE questions ADD COLUMN excerpt_type TEXT")
             conn.commit()
         
+        # topic_labelカラムがなければ追加
+        if 'topic_label' not in columns:
+            logger.info("Adding topic_label column to questions table")
+            cursor.execute("ALTER TABLE questions ADD COLUMN topic_label TEXT")
+            conn.commit()
+        
         cursor.execute("""
             INSERT INTO questions (
-                id, mode, theme, excerpt_type, question_text, japanese_sentences, japanese_paragraphs, 
+                id, mode, theme, topic_label, excerpt_type, question_text, japanese_sentences, japanese_paragraphs, 
                 hints, target_words, model_answer, alternative_answer, common_mistakes
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             question_id,
             "general",  # 理系・文系版のみ
             question.theme,
+            question.topic_label,  # トピックラベル（A-H）
             question.excerpt_type,  # ← 追加
             question.question_text,  # 英語の問題文を保存
             json.dumps(question.japanese_sentences, ensure_ascii=False),

@@ -1303,6 +1303,7 @@ def generate_question(difficulty: str = "intermediate", excluded_themes: List[st
 - 同じトピックレター（A-H）が連続して使われることは厳禁
 - 特定のトピック（例: C睡眠・集中、D運動・健康）に偏らないこと
 - できるだけ未使用または使用頻度が低いトピックを選ぶこと
+- 選択したトピックを必ず "topic_label" フィールドに記載（例: "A", "B", "C"など）
 
 例：
 - もし「研究紹介:C（睡眠・集中）」が直近に出ていたら、今回は A/B/D/E/F/G/H のいずれかから選ぶ

@@ -637,6 +637,11 @@ body {
   color: #1e293b;
 }
 
+.excerpt-type-gray {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
 .excerpt-type-info {
   font-size: 13px;
   color: #64748b;
@@ -644,25 +649,20 @@ body {
   font-style: italic;
 }
 
-.question-sentences-list {
-  list-style-type: disc;
-  padding-left: 20px;
+.question-problem-text {
+  padding: 12px 0;
   margin-bottom: 16px;
 }
 
-.question-sentence-item {
+.question-sentence-line {
   line-height: 1.8;
   font-size: 15px;
   color: #1e293b;
   margin-bottom: 8px;
 }
 
-.question-sentence-item:last-child {
+.question-sentence-line:last-child {
   margin-bottom: 0;
-}
-
-.question-sentence-item:hover {
-  background: #f1f5f9;
 }
 
 .question-text {
@@ -1390,22 +1390,42 @@ body {
 
 .multi-input-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  gap: 16px;
+  margin-bottom: 12px;
 }
 
-.multi-input-header h3 {
-  margin: 0;
-  font-size: 18px;
+.multi-input-header .input-label {
+  font-size: 16px;
   font-weight: 600;
   color: #1e293b;
+  flex-shrink: 0;
 }
 
 #progress-indicator {
   font-size: 14px;
   color: #64748b;
-  font-weight: 400;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.model-answer-header-btn {
+  margin-left: auto;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.model-answer-header-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
 }
 
 #sentence-inputs {
@@ -1498,6 +1518,54 @@ body {
 
 .sentence-textarea::placeholder {
   color: #94a3b8;
+}
+
+.sentence-explanation {
+  margin-top: 12px;
+}
+
+.explanation-content {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.explanation-sentence {
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.explanation-icon-correct {
+  background: #f0fdf4;
+  color: #15803d;
+  border-left: 3px solid #22c55e;
+}
+
+.explanation-icon-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-left: 3px solid #ef4444;
+}
+
+.explanation-arrow {
+  text-align: center;
+  color: #64748b;
+  font-size: 18px;
+  margin: 4px 0;
+}
+
+.explanation-reason {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.7;
 }
 
 @media (max-width: 768px) {

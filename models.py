@@ -32,6 +32,7 @@ class TargetWords(BaseModel):
 class QuestionResponse(BaseModel):
     """出題APIのレスポンス"""
     theme: str = Field(..., min_length=1, description="テーマ")
+    topic_label: Optional[str] = Field(None, description="トピックラベル（A-H）")
     excerpt_type: Optional[str] = Field(None, description="抜粋タイプ（P1_ONLY/P2_P3/P3_ONLY/P4_P5/MIDDLE）")
     question_text: Optional[str] = Field(None, description="英語の問題文（大問５形式）")
     japanese_sentences: Optional[List[str]] = Field(default_factory=list, description="日本語文のリスト（旧形式）")

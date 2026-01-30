@@ -86,6 +86,38 @@ $user_answer
 
 # 添削方針【重要】
 
+## 🚨🚨🚨【最優先チェックリスト】添削前に必ず確認🚨🚨🚨
+
+**以下の3つの誤りは絶対に見逃さないこと：**
+
+### 1. 語彙の抜け落ち（Critical）
+日本語原文の重要な語彙が英訳されているか確認：
+- ❌ "ラストシーン" → "The scene" （"last"が抜けている）
+- ✅ "ラストシーン" → "The last scene"
+
+- ❌ "20%向上した" → "improved" （"20%"が抜けている）
+- ✅ "20%向上した" → "improved by 20%"
+
+### 2. 品詞の誤り（Critical）
+動詞・名詞・形容詞が正しく使われているか確認：
+- ❌ "road to reborn" （rebornは動詞なので誤り）
+- ✅ "road to rebirth" / "path to recovery"
+
+- ❌ "make a compare" （compareは動詞なので誤り）
+- ✅ "make a comparison"
+
+### 3. 不完全な文構造（Critical）
+関係詞節、接続詞、前置詞句が完全か確認：
+- ❌ "where he smiles shows..." （whereの先行詞がない）
+- ✅ "the scene where he smiles shows..."
+
+- ❌ "I like apples and" （andの後に何もない）
+- ✅ "I like apples and oranges"
+
+**これらの誤りを発見した場合は、必ず❌として指摘し、正しい表現を提示すること**
+
+---
+
 ## ステップ1：提出内容が有効かチェックする
 
 **【🚨最優先チェック🚨】添削を開始する前に必ず確認すること**
@@ -138,66 +170,80 @@ $user_answer
 
 1. **🚨🚨🚨 明確な文法ミス（最優先・必ず検出）🚨🚨🚨** → ❌文法ミス
    
+   **【不定詞・動名詞の誤り】** - 絶対に❌にすること：
+   - ❌ "decided to reading" → "decided to read" (decide to + 動詞原形)
+   - ❌ "enjoy to read" → "enjoy reading" (enjoy + 動名詞)
+   - ❌ "finish to work" → "finish working" (finish + 動名詞)
+   
    **【主語と動詞の不一致】** - 絶対に❌にすること（最重要）：
    - 単数主語 + 複数動詞：
      ❌ "This habit are" → "This habit is"
-     ❌ "This new habit are" → "This new habit is"
      ❌ "The method work" → "The method works"
-     ❌ "My sister like" → "My sister likes"
      ❌ "He don't" → "He doesn't"
    
    - 複数主語 + 単数動詞：
      ❌ "These habits is" → "These habits are"
      ❌ "The students likes" → "The students like"
-     ❌ "They doesn't" → "They don't"
-   
-   **【チェック方法】文法ミスを見逃さないために：**
-   - 主語を特定（this/that/a/the + 単数名詞 → 単数、these/those/複数名詞 → 複数）
-   - 動詞の形を確認（is/are, -s付き/なし、does/do）
-   - 一致しない場合は**必ず❌**（beforeとafterが同一でも❌）
    
    **【不完全な文】** - 絶対に❌にすること：
    - 文末が接続詞で終わっている：
      ❌ "I like apples and" → 「and」の後に文が続かない
-     ❌ "eight hours and Afterward" → 「and」の後に文が続くべき
-   - 文末が前置詞で終わっている（形式的な場合を除く）
+   - 関係詞節に先行詞がない：
+     ❌ "where he smiles shows..." → "the scene where he smiles shows..."
    
    **【句読点の誤り】** - 絶対に❌にすること：
    - ピリオドの後に小文字の接続詞：
-     ❌ "highest scores. while the group" → ピリオドの後に小文字の「while」
-     ❌ "important point. and then" → ピリオドの後に小文字の「and」
-   - カンマの代わりにピリオド：
-     ❌ "As a trial. I started" → ピリオドの代わりにカンマが必要
+     ❌ "highest scores. while the group" → ピリオドの後は大文字
    
-   **【時制の誤り】** - 絶対に❌にすること：
-   - "Yesterday, I go" → "Yesterday, I went"
+   **【時制の明確な誤り】** - 絶対に❌にすること：
+   - ❌ "Yesterday, I go" → "Yesterday, I went"
    
    **【冠詞の明確な誤り】** - 絶対に❌にすること：
-   - "I am student" → "I am a student"
+   - ❌ "I am student" → "I am a student"
 
-2. **beforeとafterが完全に同一かチェック**
-   - 同一なら → ✅正しい表現
-   - 異なるなら → 次のステップへ
+2. **日本語原文の重要な語彙が抜けている** → ❌語彙の抜け
+   - ❌ "ラストシーン" → "The scene" (lastが抜けている)
+   - ✅ "ラストシーン" → "The last scene"
+   
+   - ❌ "20%向上した" → "improved" (20%が抜けている)
+   - ✅ "20%向上した" → "improved by 20%"
 
-3. **日本語原文の内容が正確に伝わっていない** → ❌意味不一致
-   例：
+3. **品詞の誤り** → ❌品詞ミス
+   - ❌ "road to reborn" (rebornは動詞なので誤り)
+   - ✅ "road to rebirth" / "path to recovery"
+
+4. **日本語原文の内容が正確に伝わっていない** → ❌意味不一致
    - 日本語「毎日」→ 英語「sometimes」（頻度が違う）
    - 日本語「増加した」→ 英語「decreased」（逆の意味）
-   - 日本語「3つの理由」→ 英語「two reasons」（数が違う）
 
-4. **明確なコロケーションミス** → ❌誤用
-   例：
-   - "make a mistake" を "do a mistake" と書いた場合
-   - "take a shower" を "make a shower" と書いた場合
+5. **明確なコロケーションミス** → ❌誤用
+   - ❌ "make a mistake" を "do a mistake" と書いた場合
+   - ❌ "take a shower" を "make a shower" と書いた場合
 
-5. **それ以外（beforeとafterが異なるが文法ミスではない）** → ✅正しい表現として扱う
-   - **重要：この場合、afterをbeforeと同一にすること**
-   - 語彙選択の好み、構文の選択肢、文体の違い → 全て✅
-   - beforeが正しければ、afterも同じ内容にする
+6. **時制の選択（どちらも文法的に正しい場合）** → ✅正しい（より自然な選択肢を提案）
+   
+   🚨【重要】以下のケースは「文法エラー」ではありません：
+   
+   **例1: 現在形 vs 現在完了**
+   - ✅ "After I started reading, I feel refreshed" (正しい - 現在の状態)
+   - ✅ "After I started reading, I have felt refreshed" (より自然 - 継続感)
+   
+   **判定**: beforeとafterは同一にし、reasonで「どちらも正しいが、現在完了の方が継続的な状態をより自然に表現できます」と説明
+   
+   **例2: 語彙の選択（意味が通る場合）**
+   - ✅ "getting smaller" (正しい - 意味は通じる)
+   - ✅ "decreasing" / "being reduced" (より自然)
+   
+   **判定**: beforeとafterは同一にし、reasonで「getting smallerも通じますが、decreaseやbe reducedの方が一般的です」と説明
+
+7. **beforeとafterが完全に同一かチェック**
+   - 同一なら → ✅正しい表現
+   - 異なるなら → 上記1-6のいずれかに該当するか再確認
 
 **🚨🚨🚨絶対厳守🚨🚨🚨**
-- **✅正しい表現の場合、beforeとafterは完全に同一にすること**
-- **語彙や構文の好みの違いは、全て✅として扱う**
+- **文法的に正しい表現は、必ず✅にすること**
+- **beforeとafterを変える場合は、明確な誤り（1-5）のみ**
+- **時制・語彙の選択（6）の場合は、beforeとafterを同一にし、reasonで自然な表現を提案**
 - **💡改善提案は絶対に出さない**
 
 ### 【出力ラベルは2種類のみ - 💡改善提案は完全廃止】
