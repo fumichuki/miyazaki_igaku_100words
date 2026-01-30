@@ -567,6 +567,7 @@ function submitMultiSentences() {
   const textareas = document.querySelectorAll('.sentence-textarea');
   const userSentences = [];
   
+  // 🚨重要：空の文も配列に含める（文の順序を保持するため）
   textareas.forEach(textarea => {
     let text = textarea.value.trim();
     if (text.length > 0) {
@@ -584,6 +585,9 @@ function submitMultiSentences() {
         }
       }
       userSentences.push(text);
+    } else {
+      // 空の文は空文字列として配列に追加（順序保持のため）
+      userSentences.push('');
     }
   });
   

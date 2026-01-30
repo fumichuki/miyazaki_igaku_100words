@@ -246,12 +246,22 @@ def api_correct_multi_sentences():
         user_sentences = data.get('user_sentences', [])
         target_words = data.get('target_words', {'min': 100, 'max': 120})
         
-        if not question_id or not japanese_sentences or not user_sentences:
+        if not question_id or not japanese_sentences:
             return jsonify({'error': '必須パラメータが不足しています'}), 400
+        
+        # 🚨重要：空文字列のuser_sentencesを "(未提出：原文第N文)" に置換
+        # これにより文の順序が保持され、バックエンドで正しく処理できる
+        processed_user_sentences = []
+        for i, sentence in enumerate(user_sentences):
+            if sentence.strip():
+                processed_user_sentences.append(sentence)
+            else:
+                # 未提出の文はプレースホルダーで置換
+                processed_user_sentences.append(f"(未提出：原文第{i+1}文)")
         
         # 旧形式に変換して既存のcorrect_answer関数を利用
         # 各文を改行で結合
-        combined_user_answer = '\n'.join(user_sentences)
+        combined_user_answer = '\n'.join(processed_user_sentences)
         
         # SubmissionRequestを作成
         submission = SubmissionRequest(
