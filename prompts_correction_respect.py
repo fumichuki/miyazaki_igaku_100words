@@ -43,8 +43,11 @@ $user_answer
 - 語順の誤り: I very like → I like very much
 
 ## 3. 語彙ミス (Vocabulary Errors)
-- 重要語彙の欠落: ラストシーン → the scene [❌ "last"が抜けている]
-- スペルミス: necesary → necessary
+- 重要語彙の欠落: ラストシーン → the scene [❌ "last"が抜けている]- 接続詞・副詞の欠落: 
+  - 特に → (なし) [❌ "In particular," や "Especially," が抜けている]
+  - しかし → (なし) [❌ "However," が抜けている]
+  - また → (なし) [❌ "Moreover," や "In addition," が抜けている]
+  - その結果 → (なし) [❌ "As a result," が抜けている]- スペルミス: necesary → necessary
 
 ## 4. 重大な意味の誤り (Critical Meaning Errors)
 - 日本語原文と正反対の意味
@@ -71,7 +74,12 @@ $user_answer
 
 1. 文法的に正しいか？
 2. 語法的に正しいか？
-3. 語彙は正確か？
+3. 語彙は正確か？（**重要: 日本語原文の接続詞・副詞も含めてチェック**）
+   - 「特に、」→ "In particular," / "Especially," は含まれているか？
+   - 「しかし、」→ "However," は含まれているか？
+   - 「また、」→ "Moreover," / "In addition," は含まれているか？
+   - 「その結果、」→ "As a result," / "Therefore," は含まれているか？
+   - 「一方で、」→ "On the other hand," / "Meanwhile," は含まれているか？
 4. 日本語原文の意味を適切に反映しているか？
 
 **判定:**
@@ -105,6 +113,16 @@ $user_answer
 文法エラー: 'decided to reading' は 'decided to read' にすべき。decide to do (動詞句: ～することを決める) は、to の後に動詞の原形が必要です。to reading のように動名詞を置くことはできません。
 【参考】decide to go (行くことを決める) / plan to study (勉強する予定を立てる)
 例: I decided to study English. (英語を勉強することに決めた。) / I plan to visit Japan. (日本を訪れる予定です。)
+```
+
+**具体例（接続詞の欠落）:**
+```
+❌ making herd immunity, we can protect people who cannot get vaccines
+→
+✅ In particular, by making herd immunity, we can protect people who cannot get vaccines.
+語彙の欠落: 日本語原文の「特に、」が英訳されていません。文頭の接続詞・副詞は文脈を示す重要な要素であり、省略すると減点されます。
+【参考】In particular (特に) / Especially (特に) / However (しかし) / Moreover (さらに)
+例: In particular, this method is effective. (特に、この方法は効果的です。) / However, there are some problems. (しかし、いくつかの問題があります。)
 ```
 
 ---
