@@ -92,8 +92,12 @@ def normalize_user_input(text: str) -> str:
     - 改行を単一スペースに変換（句読点がない改行は文の途中として扱う）
     - ピリオド直後にスペースなく文字が続く場合、スペースを挿入（例: "word.In" → "word. In"）
     - 複数の連続スペースを1つに統一
+    - 文末句読点の前の余分なスペースを削除
     - 文末にピリオドがない場合は追加
-    - 文頭の余分な空白を削除
+    - 各文の文頭を大文字化（自動整形）
+    - 前後の余分な空白を削除
+    
+    注意: スペルミス・文法ミス・語彙ミスは修正しない（添削対象として残す）
     
     Args:
         text: ユーザーが入力した英文
@@ -131,6 +135,24 @@ def normalize_user_input(text: str) -> str:
     # ステップ4: 文末にピリオド・疑問符・感嘆符がない場合は、ピリオドを追加
     if not normalized.endswith(('.', '?', '!')):
         normalized = normalized + '.'
+    
+    # ステップ5: 各文の文頭を大文字化（自動整形）
+    # 最初の文字を大文字化
+    if normalized:
+        normalized = normalized[0].upper() + normalized[1:]
+    
+    # 句読点（. ! ?）の後に続く文字を大文字化
+    # 例: "hello. the dog" → "hello. The dog"
+    # 注: 省略形（e.g., i.e., p.m.）の直後は大文字化しない
+    def capitalize_after_punctuation(match):
+        punctuation = match.group(1)  # . or ! or ?
+        space = match.group(2)        # スペース
+        letter = match.group(3)       # 文字
+        return punctuation + space + letter.upper()
+    
+    # パターン: [.!?] + スペース + 小文字
+    # 例: ". the" → ". The"
+    normalized = re.sub(r'([.!?])(\s+)([a-z])', capitalize_after_punctuation, normalized)
     
     return normalized.strip()
 
