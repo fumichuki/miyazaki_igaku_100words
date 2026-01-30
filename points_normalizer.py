@@ -123,6 +123,11 @@ def normalize_user_input(text: str) -> str:
     # ステップ3: 複数の連続スペースを1つに統一
     normalized = re.sub(r'\s+', ' ', normalized)
     
+    # ステップ3.5: 文末句読点の前の余分なスペースを削除（例: "word ." → "word."）
+    normalized = re.sub(r'\s+([.?!])$', r'\1', normalized)
+    # 文中の句読点の前の余分なスペースも削除（例: "word . Next" → "word. Next"）
+    normalized = re.sub(r'\s+([.?!])\s+', r'\1 ', normalized)
+    
     # ステップ4: 文末にピリオド・疑問符・感嘆符がない場合は、ピリオドを追加
     if not normalized.endswith(('.', '?', '!')):
         normalized = normalized + '.'
