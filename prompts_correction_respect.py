@@ -43,11 +43,17 @@ $user_answer
 - 語順の誤り: I very like → I like very much
 
 ## 3. 語彙ミス (Vocabulary Errors)
-- 重要語彙の欠落: ラストシーン → the scene [❌ "last"が抜けている]- 接続詞・副詞の欠落: 
-  - 特に → (なし) [❌ "In particular," や "Especially," が抜けている]
-  - しかし → (なし) [❌ "However," が抜けている]
-  - また → (なし) [❌ "Moreover," や "In addition," が抜けている]
-  - その結果 → (なし) [❌ "As a result," が抜けている]- スペルミス: necesary → necessary
+- 重要語彙の欠落: ラストシーン → the scene [❌ "last"が抜けている]
+- 🚨🚨🚨 **接続詞・副詞の欠落（最重要）**: 
+  - 「一方で、〜」→ young people use SNS... [❌ 文頭に "However," / "On the other hand," がない]
+  - 「また、〜」→ using social media can cause... [❌ 文頭に "Also," / "Moreover," / "In addition," がない]
+  - 「特に、〜」→ interactive exhibits... [❌ 文頭に "In particular," / "Especially," がない]
+  - 「しかし、〜」→ distrust of vaccines has risen [❌ 文頭に "However," がない]
+  - 「その結果、〜」→ traffic increased [❌ 文頭に "As a result," / "Therefore," がない]
+  
+  **判定ルール**: 日本語原文に接続詞・副詞がある場合、英訳にも対応する表現が必須。欠落は❌文法ミスとして扱う。
+  
+- スペルミス: necesary → necessary
 
 ## 4. 重大な意味の誤り (Critical Meaning Errors)
 - 日本語原文と正反対の意味
@@ -74,17 +80,26 @@ $user_answer
 
 1. 文法的に正しいか？
 2. 語法的に正しいか？
-3. 語彙は正確か？（**重要: 日本語原文の接続詞・副詞も含めてチェック**）
-   - 「特に、」→ "In particular," / "Especially," は含まれているか？
-   - 「しかし、」→ "However," は含まれているか？
-   - 「また、」→ "Moreover," / "In addition," は含まれているか？
-   - 「その結果、」→ "As a result," / "Therefore," は含まれているか？
-   - 「一方で、」→ "On the other hand," / "Meanwhile," は含まれているか？
+3. 🚨🚨🚨 **語彙は正確か？（最重要: 日本語原文の接続詞・副詞が英訳に含まれているか必ずチェック）** 🚨🚨🚨
+   - **日本語原文に接続詞・副詞がある場合、英訳にも対応する表現が必須**
+   - ❌NG例: 「一方で、〜」→ (接続詞なし) [文頭に "However," / "On the other hand," が必要]
+   - ❌NG例: 「また、〜」→ (接続詞なし) [文頭に "Also," / "Moreover," / "In addition," が必要]
+   - ❌NG例: 「特に、〜」→ (接続詞なし) [文頭に "In particular," / "Especially," が必要]
+   - ❌NG例: 「しかし、〜」→ (接続詞なし) [文頭に "However," / "But," が必要]
+   - ❌NG例: 「その結果、〜」→ (接続詞なし) [文頭に "As a result," / "Therefore," が必要]
+   
+   **チェック項目:**
+   - 「一方で、」「一方、」→ "However," / "On the other hand," / "Meanwhile," のいずれかが含まれているか？
+   - 「また、」「さらに、」→ "Also," / "Moreover," / "In addition," / "Furthermore," のいずれかが含まれているか？
+   - 「特に、」→ "In particular," / "Especially," / "Particularly," のいずれかが含まれているか？
+   - 「しかし、」→ "However," / "But," のいずれかが含まれているか？
+   - 「その結果、」→ "As a result," / "Therefore," / "Consequently," のいずれかが含まれているか？
+   
 4. 日本語原文の意味を適切に反映しているか？
 
 **判定:**
-- ✅ **正しい表現**: 上記すべてOK
-- ❌ **文法ミス**: 減点レベルの明確な誤りがある
+- ✅ **正しい表現**: 上記すべてOK（文法・語法・語彙・意味すべて正しい）
+- ❌ **文法ミス**: 減点レベルの明確な誤りがある（文法エラー、語法エラー、語彙の欠落、意味の誤りのいずれか）
 
 ## ステップ2: 誤りの理由を説明
 
