@@ -1,32 +1,20 @@
 {
-  "original": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n(未提出: 原文第2文).\n(未提出: 原文第3文).",
-  "corrected": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n\nThe study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.\n\nAs a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.",
+  "original": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
+  "corrected": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "全体的に英文は正確ですが、2文目と3文目が未提出であるため、情報が欠落しています。追加することで完全な回答になります。",
-      "reason": "解説: 提出された英文は一部のみで、全体の文構成が不完全です。日本語原文の全ての情報を含むためには、追加の文が必要です。",
+      "after": "学生の英文は日本語原文を正確に英訳しており、文法的にも正しいです。",
+      "reason": "解説: 提出された英文は、日本語原文の内容を適切に反映しています。文法や語法に問題がなく、自然な英語表現になっています。",
       "level": "内容評価"
     },
     {
-      "before": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.",
-      "after": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.",
-      "reason": "1文目: A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n（ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。）\nefficiently（副詞：効率的に：無駄なく効果的に行う文脈）／effectively（副詞：効果的に：目的を達成する文脈）で、efficientlyは無駄を省くことを強調し、effectivelyは目標達成を強調します。\n【参考】efficiently manage（効率的に管理する）／effectively communicate（効果的に伝える）\n例: She works efficiently. (彼女は効率的に働く。) / He communicates effectively. (彼は効果的に伝える。)",
+      "before": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
+      "after": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
+      "reason": "1文目: This new privacy protection regulation is expected to significantly change the way personal information is handled.\n（この新しいプライバシー保護規制は、個人情報の取り扱いを大きく変えることが期待されている。）\nexpected（形容詞：予想される：何かが起こることを期待する文脈）／anticipated（形容詞：予期された：期待して待つ文脈）で、expectedは一般的な予想、anticipatedは強い期待を伴う予想を表します。\n【参考】be expected to do（～すると予想される）／be anticipated to do（～することが期待される）\n例: The event is expected to start soon. (イベントはすぐに始まると予想されている。) / The project is anticipated to succeed. (プロジェクトは成功すると期待されている。)",
       "level": "✅正しい表現"
-    },
-    {
-      "before": "(未提出: 原文第2文).",
-      "after": "The study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.",
-      "reason": "【誤りの説明】: 文が未提出のため、原文の情報を完全に伝えていません。具体的に、研究が朝と夜の記憶力の違いに焦点を当て、異なる時間帯で同じテストを実施したことを説明する必要があります。\n【参考】focus on（～に焦点を当てる）／administer a test（テストを実施する）\n例: They focused on the main issue. (彼らは主な問題に焦点を当てた。) / The teacher administered the exam. (教師が試験を実施した。)",
-      "level": "❌文法ミス"
-    },
-    {
-      "before": "(未提出: 原文第3文).",
-      "after": "As a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.",
-      "reason": "【誤りの説明】: 文が未提出のため、原文の情報を完全に伝えていません。具体的に、朝に学習した情報がより長期間にわたって記憶に残りやすいという結果を示す必要があります。\n【参考】as a result（その結果）／tend to（～する傾向がある）\n例: As a result, sales increased. (その結果、売上が増加した。) / She tends to be late. (彼女は遅れがちだ。)",
-      "level": "❌文法ミス"
     }
   ],
-  "model_answer": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n\nThe study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.\n\nAs a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n（ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。）\nefficiently（副詞：効率的に：無駄なく効果的に行う文脈）／effectively（副詞：効果的に：目的を達成する文脈）で、efficientlyは無駄を省くことを強調し、effectivelyは目標達成を強調します。\n【参考】efficiently manage（効率的に管理する）／effectively communicate（効果的に伝える）\n例: She works efficiently. (彼女は効率的に働く。) / He communicates effectively. (彼は効果的に伝える。)\n\n2文目: The study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.\n（この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。）\nfocus on（動詞句：～に焦点を当てる：特定の分野や問題に集中する文脈）／administer（動詞：実施する：試験などを行う文脈）で、focus onは注意を向けることを意味し、administerは実際の行動を指します。\n【参考】focus on the issue（問題に集中する）／administer a survey（調査を実施する）\n例: He focused on his studies. (彼は勉強に集中した。) / The nurse administered the medication. (看護師が薬を投与した。)\n\n3文目: As a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.\n（結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。）\nAs a result（副詞句：その結果：前述の内容が引き起こす結果を示す文脈）／tend to（動詞句：～する傾向がある：ある状態や行動が一般的であることを示す文脈）で、As a resultは因果関係を示し、tend toは一般的な傾向を述べます。\n【参考】As a result of the study（研究の結果として）／tend to forget（忘れがちである）\n例: As a result, they succeeded. (その結果、彼らは成功した。) / He tends to make mistakes. (彼はミスをしがちだ。)"
+  "model_answer": "This new privacy protection regulation is expected to greatly alter the handling of personal information.\n\nFor example, companies may need to implement stricter data storage policies to comply with these regulations.\n\nAdditionally, individuals might have more control over how their personal data is used by businesses.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: This new privacy protection regulation is expected to greatly alter the handling of personal information.\n（この新しいプライバシー保護規制は、個人情報の取り扱いを大きく変えることが期待されている。）\ngreatly（副詞：大いに：程度が大きい文脈）／significantly（副詞：著しく：重要な変化を示す文脈）で、greatlyは一般的な程度の大きさ、significantlyは特に重要な変化を指します。\n【参考】greatly improve（大いに改善する）／significantly impact（大きな影響を与える）\n例: His health has greatly improved. (彼の健康は大いに改善した。) / The policy significantly impacts the economy. (その政策は経済に大きな影響を与える。)\n\n2文目: For example, companies may need to implement stricter data storage policies to comply with these regulations.\n（例えば、企業はこれらの規制に従うために、より厳しいデータ保管ポリシーを実施する必要があるかもしれません。）\nimplement（動詞：実施する：計画や政策を実際に行う文脈）／enforce（動詞：施行する：法律や規則を実行する文脈）で、implementは計画の実行、enforceは規則の施行を指します。\n【参考】implement a plan（計画を実施する）／enforce a law（法律を施行する）\n例: The company implemented a new policy. (会社は新しい方針を実施した。) / The police enforce traffic laws. (警察は交通法を施行する。)\n\n3文目: Additionally, individuals might have more control over how their personal data is used by businesses.\n（さらに、個人は企業による個人データの使用に対して、より多くのコントロールを持つかもしれません。）\ncontrol（名詞：コントロール：何かを管理する力）／authority（名詞：権限：公式な力や権利を持つ文脈）で、controlは一般的な管理、authorityは公式な権限を指します。\n【参考】have control over（～を管理する）／have authority over（～に権限を持つ）\n例: She has control over the project. (彼女はプロジェクトを管理している。) / He has authority over the staff. (彼はスタッフに対して権限を持っている。)"
 }

@@ -1,250 +1,300 @@
 nohup: ignoring input
-2026-01-31 03:24:49 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 03:24:49 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 03:24:49 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 03:34:54 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 03:34:54 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 03:34:54 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-31 03:24:49 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-31 03:34:54 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-31 03:24:49 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-31 03:24:49 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 03:24:50 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 03:24:50 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 03:24:50 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 03:24:50 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 03:24:50 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-31 03:26:00 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:00] "GET / HTTP/1.1" 200 -
-2026-01-31 03:26:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:01] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
-2026-01-31 03:26:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:01] "GET /static/main.js?v=20260131C HTTP/1.1" 200 -
-2026-01-31 03:26:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:01] "GET /static/textarea-resize.png HTTP/1.1" 200 -
-2026-01-31 03:26:01 - database - INFO - Excluded themes: ['図表', '研究紹介', 'コラム', '学術', 'ブログ', '時事', 'レビュー']
-2026-01-31 03:26:01 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-31 03:26:01 - llm_service - INFO - 📊 直近10問のサブトピック: ['図表:F', '研究紹介:B', 'コラム:F', '学術:D', 'ブログ:D', '図表:B', '研究紹介:E', '図表:D', 'コラム:A', '研究紹介:C']
-2026-01-31 03:26:01 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=6.7%, 図表=13.3%, 学術=23.3%, 時事=13.3%, 研究紹介=13.3%
-2026-01-31 03:26:01 - llm_service - INFO - 🎯 システムが選択したtheme: 研究紹介
-2026-01-31 03:26:01 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=50.0%, P3_ONLY=20.0%, P4_P5=10.0%
-2026-01-31 03:26:01 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
-2026-01-31 03:26:07 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 03:26:07 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "研究紹介",
-  "topic_label": "H",
-  "excerpt_type": "P2_P3",
+2026-01-31 03:34:54 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-31 03:34:54 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 03:34:54 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 03:34:54 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 03:34:54 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 03:34:54 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 03:34:54 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 03:35:16 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:35:16] "GET / HTTP/1.1" 200 -
+2026-01-31 03:35:16 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:35:16] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
+2026-01-31 03:35:16 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:35:16] "GET /static/textarea-resize.png HTTP/1.1" 200 -
+2026-01-31 03:35:16 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:35:16] "GET /static/main.js?v=1769830448 HTTP/1.1" 200 -
+2026-01-31 03:35:24 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:35:24] "GET / HTTP/1.1" 200 -
+2026-01-31 03:35:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:35:25] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
+2026-01-31 03:35:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:35:25] "GET /static/main.js?v=1769830448 HTTP/1.1" 200 -
+2026-01-31 03:35:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:35:25] "GET /static/textarea-resize.png HTTP/1.1" 200 -
+2026-01-31 03:35:48 - database - INFO - Excluded themes: ['研究紹介', '図表', 'コラム', '学術', 'ブログ', '時事', 'レビュー']
+2026-01-31 03:35:48 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 03:35:48 - llm_service - INFO - 📊 直近10問のサブトピック: ['研究紹介:A', '研究紹介:H', '図表:F', '研究紹介:B', 'コラム:F', '学術:D', 'ブログ:D', '図表:B', '研究紹介:E', '図表:D']
+2026-01-31 03:35:48 - llm_service - INFO - 📊 直近30問の分布: コラム=13.3%, ブログ=13.3%, レビュー=6.7%, 図表=13.3%, 学術=20.0%, 時事=13.3%, 研究紹介=20.0%
+2026-01-31 03:35:48 - llm_service - INFO - 🎯 システムが選択したtheme: コラム
+2026-01-31 03:35:48 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=50.0%, P3_ONLY=20.0%, P4_P5=10.0%
+2026-01-31 03:35:48 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P1_ONLY
+2026-01-31 03:35:53 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 03:35:53 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "コラム",
+  "topic_label": "B",
+  "excerpt_type": "P1_ONLY",
   "japanese_paragraphs": [
-    "その研究では、参加者たちは特定の協力課題に取り組むよう指示された。課題は、異なる背景を持つグループで協力し合うことを目的としていた。",
-    "また、各グループの成果を評価するために、協力の度...
-2026-01-31 03:26:07 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+    "近年、学校教育におけるICTの導入が注目されています。特に、オンライン授業やデジタル教材の活用が進んでおり、生徒たちの学習スタイルにも変化が見られます。これにより、教師の役割や授業の進め方にも新...
+2026-01-31 03:35:53 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "theme": "研究紹介",
-  "topic_label": "H",
-  "excerpt_type": "P2_P3",
+  "theme": "コラム",
+  "topic_label": "B",
+  "excerpt_type": "P1_ONLY",
   "japanese_paragraphs": [
-    "その研究では、参加者たちは特定の協力課題に取り組むよう指示された。課題は、異なる背景を持つグループで協力し合うことを目的としていた。",
-    "また、各グループの成果を評価するために、協力の度合いや相互の理解度が測定された。結果として、背景が異なるグループほど、高い協力度を示す傾向が見られた。"
+    "近年、学校教育におけるICTの導入が注目されています。特に、オンライン授業やデジタル教材の活用が進んでおり、生徒たちの学習スタイルにも変化が見られます。これにより、教師の役割や授業の進め方にも新たな工夫が求められています。"
   ],
   "hints": [
-    {"en": "participant", "ja": "参加者", "kana": "パーティシパント", "pos": "名詞", "usage": "The participants were asked to collaborate.「参加者たちは協力するように求められた。」"},
-    {"en": "cooperation", "ja": "協力", "kana": "コオペレーション", "pos": "名詞", "usage": "Cooperation is essential for success.「成功には協力が不可欠だ。」"},
-    {"en": "background", "ja": "背景", "kana": "バックグラウンド", "pos": "名詞", "usage": "People from different backgrounds worked together.「異なる背景を持つ人々が一緒に働いた。」"},
-    {"en": "measure", "ja": "測定する", "kana": "メジャー", "pos": "動詞", "usage": "They measured the level of cooperation.「彼らは協力の度合いを測定した。」"},
-    {"en": "tendency", "ja": "傾向", "kana": "テンダンシー", "pos": "名詞", "usage": "There is a tendency to cooperate more.「より協力する傾向がある。」"}
+    {"en": "ICT", "ja": "情報通信技術", "kana": "アイシーティー", "pos": "名詞", "usage": "ICTの導入が進んでいる。"},
+    {"en": "digital materials", "ja": "デジタル教材", "kana": "デジタルきょうざい", "pos": "名詞", "usage": "デジタル教材を使って勉強する。"},
+    {"en": "online class", "ja": "オンライン授業", "kana": "オンラインじゅぎょう", "pos": "名詞", "usage": "オンライン授業に参加する。"},
+    {"en": "learning style", "ja": "学習スタイル", "kana": "がくしゅうスタイル", "pos": "名詞", "usage": "学習スタイルが変わってきた。"},
+    {"en": "teacher's role", "ja": "教師の役割", "kana": "きょうしのやくわり", "pos": "名詞", "usage": "教師の役割が重要だ。"}
   ],
   "target_words": {"min": 100, "max": 120}
 }
-2026-01-31 03:26:07 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "研究紹介",
-  "topic_label": "H",
-  "excerpt_type": "P2_P3",
+2026-01-31 03:35:53 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "コラム",
+  "topic_label": "B",
+  "excerpt_type": "P1_ONLY",
   "japanese_paragraphs": [
-    "その研究では、参加者たちは特定の協力課題に取り組むよう指示された。課題は、異なる背景を持つグループで協力し合うことを目的としていた。",
-    "また、各グループの成果を評価するために、協力の度合いや相互の理解度が測定された。結果として、背景が異なるグループほど、高い協力度を示す傾向が見られた。"
+    "近年、学校教育におけるICTの導入が注目されています。特に、オンライン授業やデジタル教材の活用が進んでおり、生徒たちの学習スタイルにも変化が見られます。これにより、教師の役割や授業の進め方にも新たな工夫が求められています。"
   ],
   "hints": [
-    {"en": "participant", "ja...
-2026-01-31 03:26:07 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
-2026-01-31 03:26:07 - llm_service - INFO - ✅ theme検証成功: 研究紹介
-2026-01-31 03:26:07 - llm_service - INFO - Successfully generated question: 研究紹介, excerpt_type: P2_P3
-2026-01-31 03:26:07 - database - INFO - Question saved: q_20260131_2b03dca3 - 研究紹介 (P2_P3)
-2026-01-31 03:26:07 - database - INFO - Theme recorded: 研究紹介 (mode: general)
-2026-01-31 03:26:07 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:07] "POST /api/question HTTP/1.1" 200 -
-2026-01-31 03:26:43 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): The participants in the study were instructed to work on a specific collaborative task.
+    {"en": "ICT", "ja": "情報通信技術", "kana": "アイシーティー", "pos": "名詞", ...
+2026-01-31 03:35:53 - llm_service - INFO - ✅ excerpt_type検証成功: P1_ONLY
+2026-01-31 03:35:53 - llm_service - INFO - ✅ theme検証成功: コラム
+2026-01-31 03:35:53 - llm_service - INFO - Successfully generated question: コラム, excerpt_type: P1_ONLY
+2026-01-31 03:35:53 - database - INFO - Question saved: q_20260131_e3e67bf8 - コラム (P1_ONLY)
+2026-01-31 03:35:53 - database - INFO - Theme recorded: コラム (mode: general)
+2026-01-31 03:35:53 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:35:53] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 03:36:31 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): In recent years, the introduction of ICT in school education has attracted attention.
 (未提出:原文第2文)
+(未...
+2026-01-31 03:36:31 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): In recent years, the introduction of ICT in school education has attracted attention.
+(未提出: 原文第2文).
 ...
-2026-01-31 03:26:43 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): The participants in the study were instructed to work on a specific collaborative task.
-(未提出: 原文第2文)...
-2026-01-31 03:26:43 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
-2026-01-31 03:26:43 - llm_service - INFO - Question text for correction: その研究では、参加者たちは特定の協力課題に取り組むよう指示された。
-課題は、異なる背景を持つグループで協力し合うことを目的としていた。
-また、各グループの成果を評価するために、協力の度合いや相互の理解度が測定された。
-結果として、背景が異なるグループほど、高い協力度を示す傾向が見られた。...
-2026-01-31 03:26:43 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
-2026-01-31 03:26:43 - llm_service - INFO - Required points for this correction: 4
-2026-01-31 03:26:43 - llm_service - INFO - Word count: 20
-2026-01-31 03:26:43 - llm_service - INFO - Correction attempt 1/3
-2026-01-31 03:27:05 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 03:27:05 - llm_service - INFO - OpenAI API response (attempt 1): 
+2026-01-31 03:36:31 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 03:36:31 - llm_service - INFO - Question text for correction: 近年、学校教育におけるICTの導入が注目されています。
+特に、オンライン授業やデジタル教材の活用が進んでおり、生徒たちの学習スタイルにも変化が見られます。
+これにより、教師の役割や授業の進め方にも新たな工夫が求められています。...
+2026-01-31 03:36:31 - llm_service - INFO - Required points determined from Japanese text: 3 sentences
+2026-01-31 03:36:31 - llm_service - INFO - Required points for this correction: 3
+2026-01-31 03:36:31 - llm_service - INFO - Word count: 17
+2026-01-31 03:36:31 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 03:36:46 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 03:36:46 - llm_service - INFO - OpenAI API response (attempt 1): 
 {
-  "original": "The participants in the study were instructed to work on a specific collaborative task.\n(未提出: 原文第2文).\n(未提出: 原文第3文).\n(未提出: 原文第4文).",
-  "corrected": "The participants in the study w...
-2026-01-31 03:27:05 - llm_service - INFO - Full LLM response for correction (length: 5832 chars)
-2026-01-31 03:27:05 - llm_service - INFO - Response first 500 chars: 
+  "original": "In recent years, the introduction of ICT in school education has attracted attention.\n(未提出: 原文第2文).\n(未提出: 原文第3文).",
+  "corrected": "In recent years, the introduction of ICT in scho...
+2026-01-31 03:36:46 - llm_service - INFO - Full LLM response for correction (length: 4551 chars)
+2026-01-31 03:36:46 - llm_service - INFO - Response first 500 chars: 
 {
-  "original": "The participants in the study were instructed to work on a specific collaborative task.\n(未提出: 原文第2文).\n(未提出: 原文第3文).\n(未提出: 原文第4文).",
-  "corrected": "The participants in the study were instructed to work on a specific collaborative task.\n\nThe task aimed at fostering cooperation among groups with different backgrounds.\n\nAdditionally, the degree of cooperation and mutual understanding was measured to evaluate each group's performance.\n\nAs a result, groups with diverse back
-2026-01-31 03:27:05 - llm_service - INFO - Response last 500 chars: gram. (プログラムの効果を測定した。) / They evaluated the students' progress. (彼らは学生の進捗を評価した。）\n\n4文目: As a result, groups with diverse backgrounds tended to show higher levels of cooperation.\n（結果として、背景が異なるグループほど、高い協力度を示す傾向が見られた。）\ntend to（動詞句：〜する傾向がある：ある結果や行動がよく見られることを示す）／incline to（動詞句：〜する傾向がある：性質や習慣としてそうなる）で、tend toは一般的な傾向を表します。\n【参考】tend to agree（賛成する傾向がある）／incline to doubt（疑う傾向がある）\n例: People tend to forget small details. (人々は小さな詳細を忘れがちです。) / She inclines to trust others easily. (彼女は他人を簡単に信用する傾向がある。）"
+  "original": "In recent years, the introduction of ICT in school education has attracted attention.\n(未提出: 原文第2文).\n(未提出: 原文第3文).",
+  "corrected": "In recent years, the introduction of ICT in school education has attracted attention.\n\nParticularly, the use of online classes and digital materials has progressed, and changes in students' learning styles have been observed.\n\nAs a result, teachers are required to make new innovations in their roles and teaching methods.",
+  "points": [
+    {
+2026-01-31 03:36:46 - llm_service - INFO - Response last 500 chars: ／ We observed significant changes. (大きな変化を観察しました。)\n\n3文目: As a result, teachers are required to make new innovations in their roles and teaching methods.\n（これにより、教師の役割や授業の進め方にも新たな工夫が求められています。）\ninnovation（名詞：革新：新しい方法やアイデアを導入すること）／require（動詞：必要とする：特定の条件や基準を満たさなければならない）で、innovationは新しいアイデアの導入を強調し、requireは必要性を示します。\n【参考】make innovations（革新を起こす）／are required to do（～することが求められる）\n例：The company made significant innovations. (その会社は大きな革新を起こした。) ／ They are required to submit reports. (報告書の提出が求められている。)"
 }
-2026-01-31 03:27:05 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
-2026-01-31 03:27:05 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
-2026-01-31 03:27:05 - llm_service - INFO - Before normalization: 4 points
-2026-01-31 03:27:05 - points_normalizer - INFO - Starting points normalization: 4 points
-2026-01-31 03:27:05 - points_normalizer - INFO - Student answer split into 4 sentences
-2026-01-31 03:27:05 - points_normalizer - INFO - Original user input split into 4 sentences
-2026-01-31 03:27:05 - points_normalizer - INFO - Processing point 1: before='The participants in the study were instructed to w...', level='✅正しい表現'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 1: Normalized before='The participants in the study were instructed to w...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 1: Found in sentence 1: 'The participants in the study were instructed to w...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 1: Original user input: 'The participants in the study were instructed to w...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
-2026-01-31 03:27:05 - points_normalizer - INFO - Processing point 2: before='(未提出: 原文第2文)....', level='❌文法ミス'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Normalized before='(未提出: 原文第2文)....'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Found in sentence 2: '(未提出: 原文第2文)....'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'The task aimed at fostering cooperation among grou...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Level is ❌, keeping after: 'The task aimed at fostering cooperation among grou...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Original user input: '(未提出：原文第2文)...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
-2026-01-31 03:27:05 - points_normalizer - INFO - Processing point 3: before='(未提出: 原文第3文)....', level='❌文法ミス'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Normalized before='(未提出: 原文第3文)....'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Found in sentence 3: '(未提出: 原文第3文)....'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Replaced fragment in sentence: 'Additionally, the degree of cooperation and mutual...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Level is ❌, keeping after: 'Additionally, the degree of cooperation and mutual...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Original user input: '(未提出：原文第3文)...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
-2026-01-31 03:27:05 - points_normalizer - INFO - Processing point 4: before='(未提出: 原文第4文)....', level='❌文法ミス'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Normalized before='(未提出: 原文第4文)....'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Found in sentence 4: '(未提出: 原文第4文)....'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Replaced fragment in sentence: 'As a result, groups with diverse backgrounds tende...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Level is ❌, keeping after: 'As a result, groups with diverse backgrounds tende...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Original user input: '(未提出：原文第4文)...'
-2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Normalized successfully (sentence_no=4)
-2026-01-31 03:27:05 - points_normalizer - INFO - Points normalization complete: 4 points
-2026-01-31 03:27:05 - llm_service - INFO - After normalization: 4 points
-2026-01-31 03:27:05 - llm_service - INFO - Points check: current=4, non-evaluation=4, required=4
-2026-01-31 03:27:05 - llm_service - INFO - ✅ Correction successful: 4 points
-2026-01-31 03:27:05 - database - INFO - Submission saved: s_20260131_8fb034eb (mode: general, no scoring)
-2026-01-31 03:27:05 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:05] "POST /api/correct-multi HTTP/1.1" 200 -
-2026-01-31 03:27:56 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:56] "GET / HTTP/1.1" 200 -
-2026-01-31 03:27:56 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:56] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
-2026-01-31 03:27:56 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:56] "GET /static/main.js?v=20260131C HTTP/1.1" 200 -
-2026-01-31 03:27:56 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:56] "GET /static/textarea-resize.png HTTP/1.1" 200 -
-2026-01-31 03:28:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:02] "GET / HTTP/1.1" 200 -
-2026-01-31 03:28:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:02] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
-2026-01-31 03:28:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:02] "GET /static/main.js?v=20260131C HTTP/1.1" 200 -
-2026-01-31 03:28:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:02] "GET /static/textarea-resize.png HTTP/1.1" 200 -
-2026-01-31 03:28:06 - database - INFO - Excluded themes: ['研究紹介', '図表', 'コラム', '学術', 'ブログ', '時事', 'レビュー']
-2026-01-31 03:28:06 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-31 03:28:06 - llm_service - INFO - 📊 直近10問のサブトピック: ['研究紹介:H', '図表:F', '研究紹介:B', 'コラム:F', '学術:D', 'ブログ:D', '図表:B', '研究紹介:E', '図表:D', 'コラム:A']
-2026-01-31 03:28:06 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=6.7%, 図表=13.3%, 学術=20.0%, 時事=13.3%, 研究紹介=16.7%
-2026-01-31 03:28:06 - llm_service - INFO - 🎯 システムが選択したtheme: 研究紹介
-2026-01-31 03:28:06 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=10.0%, P2_P3=60.0%, P3_ONLY=20.0%, P4_P5=10.0%
-2026-01-31 03:28:06 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P1_ONLY
-2026-01-31 03:28:10 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 03:28:10 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "研究紹介",
-  "excerpt_type": "P1_ONLY",
-  "topic_label": "A",
+2026-01-31 03:36:46 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 03:36:46 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 03:36:46 - llm_service - INFO - Before normalization: 3 points
+2026-01-31 03:36:46 - points_normalizer - INFO - Starting points normalization: 3 points
+2026-01-31 03:36:46 - points_normalizer - INFO - Student answer split into 3 sentences
+2026-01-31 03:36:46 - points_normalizer - INFO - Original user input split into 3 sentences
+2026-01-31 03:36:46 - points_normalizer - INFO - Processing point 1: before='In recent years, the introduction of ICT in school...', level='✅正しい表現'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 1: Normalized before='In recent years, the introduction of ICT in school...'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 1: Found in sentence 1: 'In recent years, the introduction of ICT in school...'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 1: Original user input: 'In recent years, the introduction of ICT in school...'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 03:36:46 - points_normalizer - INFO - Processing point 2: before='(未提出: 原文第2文)....', level='❌文法ミス'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 2: Normalized before='(未提出: 原文第2文)....'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 2: Found in sentence 2: '(未提出: 原文第2文)....'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'Particularly, the use of online classes and digita...'
+2026-01-31 03:36:46 - points_normalizer - INFO - Level is ❌, keeping after: 'Particularly, the use of online classes and digita...'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 2: Original user input: '(未提出：原文第2文)...'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-31 03:36:46 - points_normalizer - INFO - Processing point 3: before='(未提出: 原文第3文)....', level='❌文法ミス'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 3: Normalized before='(未提出: 原文第3文)....'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 3: Found in sentence 3: '(未提出: 原文第3文)....'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 3: Replaced fragment in sentence: 'As a result, teachers are required to make new inn...'
+2026-01-31 03:36:46 - points_normalizer - INFO - Level is ❌, keeping after: 'As a result, teachers are required to make new inn...'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 3: Original user input: '(未提出：原文第3文)...'
+2026-01-31 03:36:46 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
+2026-01-31 03:36:46 - points_normalizer - INFO - Points normalization complete: 3 points
+2026-01-31 03:36:46 - llm_service - INFO - After normalization: 3 points
+2026-01-31 03:36:46 - llm_service - INFO - Points check: current=3, non-evaluation=3, required=3
+2026-01-31 03:36:46 - llm_service - INFO - ✅ Correction successful: 3 points
+2026-01-31 03:36:46 - database - INFO - Submission saved: s_20260131_3948b547 (mode: general, no scoring)
+2026-01-31 03:36:46 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:36:46] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 03:36:50 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:36:50] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
+2026-01-31 03:36:50 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:36:50] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:36:51 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:36:51] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:36:51 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:36:51] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:37:23 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:37:23] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:37:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:37:25] "GET /static/main.js HTTP/1.1" 200 -
+2026-01-31 03:37:33 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:37:33] "GET / HTTP/1.1" 200 -
+2026-01-31 03:37:54 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:37:54] "GET / HTTP/1.1" 200 -
+2026-01-31 03:37:55 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:37:55] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
+2026-01-31 03:37:55 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:37:55] "GET /static/main.js?v=1769830448 HTTP/1.1" 200 -
+2026-01-31 03:37:55 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:37:55] "GET /static/textarea-resize.png HTTP/1.1" 200 -
+2026-01-31 03:37:57 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:37:57] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
+2026-01-31 03:37:57 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:37:57] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:38:00 - database - INFO - Excluded themes: ['コラム', '研究紹介', '図表', '学術', 'ブログ', '時事', 'レビュー']
+2026-01-31 03:38:00 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 03:38:00 - llm_service - INFO - 📊 直近10問のサブトピック: ['コラム:B', '研究紹介:A', '研究紹介:H', '図表:F', '研究紹介:B', 'コラム:F', '学術:D', 'ブログ:D', '図表:B', '研究紹介:E']
+2026-01-31 03:38:00 - llm_service - INFO - 📊 直近30問の分布: コラム=13.3%, ブログ=13.3%, レビュー=6.7%, 図表=13.3%, 学術=20.0%, 時事=13.3%, 研究紹介=20.0%
+2026-01-31 03:38:00 - llm_service - INFO - 🎯 システムが選択したtheme: 時事
+2026-01-31 03:38:00 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=30.0%, P2_P3=50.0%, P3_ONLY=20.0%, P4_P5=0.0%
+2026-01-31 03:38:00 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
+2026-01-31 03:38:05 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 03:38:05 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "時事",
+  "topic_label": "H",
+  "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。結果として、朝に学習し...
-2026-01-31 03:28:10 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+    "この新しいプライバシー保護規制は、個人情報の取り扱いを大きく変えることが期待されている。特に企業が収集したデータの使用目的や、データの保存期間についての透明性が求められるようになる。",
+    "一...
+2026-01-31 03:38:05 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "theme": "研究紹介",
-  "excerpt_type": "P1_ONLY",
-  "topic_label": "A",
+  "theme": "時事",
+  "topic_label": "H",
+  "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。"
+    "この新しいプライバシー保護規制は、個人情報の取り扱いを大きく変えることが期待されている。特に企業が収集したデータの使用目的や、データの保存期間についての透明性が求められるようになる。",
+    "一方で、この規制により企業の運営コストが増加する可能性がある。中小企業にとっては、追加のリソースや専門知識が必要となり、負担が大きくなる懸念もある。"
   ],
   "hints": [
-    {"en": "optimal", "ja": "最適な", "kana": "オプティマル", "pos": "形容詞", "usage": "optimal time「最適な時間」"},
-    {"en": "short-term", "ja": "短期間", "kana": "ショートターム", "pos": "形容詞", "usage": "short-term memory「短期記憶」"},
-    {"en": "attention", "ja": "注意力", "kana": "アテンション", "pos": "名詞", "usage": "pay attention to details「細部に注意を払う」"},
-    {"en": "conduct", "ja": "実施する", "kana": "コンドクト", "pos": "動詞", "usage": "conduct a test「テストを実施する」"},
-    {"en": "retain", "ja": "保持する", "kana": "リテイン", "pos": "動詞", "usage": "retain information「情報を保持する」"}
+    {"en": "privacy", "ja": "プライバシー", "kana": "プライバシー", "pos": "名詞", "usage": "privacy protection「プライバシー保護」"},
+    {"en": "regulation", "ja": "規制", "kana": "レギュレーション", "pos": "名詞", "usage": "new regulations「新しい規制」"},
+    {"en": "transparency", "ja": "透明性", "kana": "トランスペアレンシー", "pos": "名詞", "usage": "increase transparency「透明性を高める」"},
+    {"en": "operation cost", "ja": "運営コスト", "kana": "オペレーションコスト", "pos": "名詞", "usage": "increase in operation costs「運営コストの増加」"},
+    {"en": "concern", "ja": "懸念", "kana": "コンセーン", "pos": "名詞", "usage": "raise concerns「懸念を引き起こす」"}
   ],
   "target_words": {"min": 100, "max": 120}
 }
-2026-01-31 03:28:10 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "研究紹介",
-  "excerpt_type": "P1_ONLY",
-  "topic_label": "A",
+2026-01-31 03:38:05 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "時事",
+  "topic_label": "H",
+  "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。"
+    "この新しいプライバシー保護規制は、個人情報の取り扱いを大きく変えることが期待されている。特に企業が収集したデータの使用目的や、データの保存期間についての透明性が求められるようになる。",
+    "一方で、この規制により企業の運営コストが増加する可能性がある。中小企業にとっては、追加のリソースや専門知識が必要となり、負担が大きくなる懸念もある。"
   ],
   "hints": [
-    {"en": "optimal", "ja": "最適な", "kana": "オプティマル...
-2026-01-31 03:28:10 - llm_service - INFO - ✅ excerpt_type検証成功: P1_ONLY
-2026-01-31 03:28:10 - llm_service - INFO - ✅ theme検証成功: 研究紹介
-2026-01-31 03:28:10 - llm_service - INFO - Successfully generated question: 研究紹介, excerpt_type: P1_ONLY
-2026-01-31 03:28:10 - database - INFO - Question saved: q_20260131_5c0cda23 - 研究紹介 (P1_ONLY)
-2026-01-31 03:28:10 - database - INFO - Theme recorded: 研究紹介 (mode: general)
-2026-01-31 03:28:10 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:10] "POST /api/question HTTP/1.1" 200 -
-2026-01-31 03:28:33 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): A study has revealed that there is an optimal time of day for memorizing information efficiently in ...
-2026-01-31 03:28:33 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): A study has revealed that there is an optimal time of day for memorizing information efficiently in ...
-2026-01-31 03:28:33 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
-2026-01-31 03:28:33 - llm_service - INFO - Question text for correction: ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。
-この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。
-結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。...
-2026-01-31 03:28:33 - llm_service - INFO - Required points determined from Japanese text: 3 sentences
-2026-01-31 03:28:33 - llm_service - INFO - Required points for this correction: 3
-2026-01-31 03:28:33 - llm_service - INFO - Word count: 26
-2026-01-31 03:28:33 - llm_service - INFO - Correction attempt 1/3
-2026-01-31 03:28:46 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 03:28:46 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n(未提出: 原文第2文).\n(未提出: 原文第3文).",
-  "corrected": "A study has...
-2026-01-31 03:28:46 - llm_service - INFO - Full LLM response for correction (length: 4369 chars)
-2026-01-31 03:28:46 - llm_service - INFO - Response first 500 chars: {
-  "original": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n(未提出: 原文第2文).\n(未提出: 原文第3文).",
-  "corrected": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n\nThe study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.\n\nAs a result, it was shown that inform
-2026-01-31 03:28:46 - llm_service - INFO - Response last 500 chars:  administered the medication. (看護師が薬を投与した。)\n\n3文目: As a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.\n（結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。）\nAs a result（副詞句：その結果：前述の内容が引き起こす結果を示す文脈）／tend to（動詞句：～する傾向がある：ある状態や行動が一般的であることを示す文脈）で、As a resultは因果関係を示し、tend toは一般的な傾向を述べます。\n【参考】As a result of the study（研究の結果として）／tend to forget（忘れがちである）\n例: As a result, they succeeded. (その結果、彼らは成功した。) / He tends to make mistakes. (彼はミスをしがちだ。)"
+    {"e...
+2026-01-31 03:38:05 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
+2026-01-31 03:38:05 - llm_service - INFO - ✅ theme検証成功: 時事
+2026-01-31 03:38:05 - llm_service - INFO - Successfully generated question: 時事, excerpt_type: P2_P3
+2026-01-31 03:38:05 - database - INFO - Question saved: q_20260131_d388546f - 時事 (P2_P3)
+2026-01-31 03:38:05 - database - INFO - Theme recorded: 時事 (mode: general)
+2026-01-31 03:38:05 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:38:05] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 03:38:20 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:38:20] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:38:36 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): This new privacy protection regulation is expected to significantly change the way personal informat...
+2026-01-31 03:38:36 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): This new privacy protection regulation is expected to significantly change the way personal informat...
+2026-01-31 03:38:36 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 03:38:36 - llm_service - INFO - Question text for correction: この新しいプライバシー保護規制は、個人情報の取り扱いを大きく変えることが期待されている。
+特に企業が収集したデータの使用目的や、データの保存期間についての透明性が求められるようになる。
+一方で、この規制により企業の運営コストが増加する可能性がある。
+中小企業にとっては、追加のリソースや専門知識が必要となり、負担が大きくなる懸念もある。...
+2026-01-31 03:38:36 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
+2026-01-31 03:38:36 - llm_service - INFO - Required points for this correction: 4
+2026-01-31 03:38:36 - llm_service - INFO - Word count: 22
+2026-01-31 03:38:36 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 03:39:02 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 03:39:02 - llm_service - INFO - OpenAI API response (attempt 1): 
+{
+  "original": "This new privacy protection regulation is expected to significantly change the way personal information is handled.\n(未提出: 原文第2文).\n(未提出: 原文第3文).\n(未提出: 原文第4文).",
+  "corrected": "Thi...
+2026-01-31 03:39:02 - llm_service - INFO - Full LLM response for correction (length: 5445 chars)
+2026-01-31 03:39:02 - llm_service - INFO - Response first 500 chars: 
+{
+  "original": "This new privacy protection regulation is expected to significantly change the way personal information is handled.\n(未提出: 原文第2文).\n(未提出: 原文第3文).\n(未提出: 原文第4文).",
+  "corrected": "This new privacy protection regulation is expected to significantly change the way personal information is handled.\n\nIn particular, transparency regarding the purposes of data use and the duration of data retention by companies will be required.\n\nOn the other hand, this regulation may increase the 
+2026-01-31 03:39:02 - llm_service - INFO - Response last 500 chars: あります。) / He covered all expenses. (彼はすべての出費を賄いました。)\n\n4文目: For small and medium-sized enterprises, there is a concern that additional resources and expertise will be necessary, increasing the burden.\n（中小企業にとっては、追加のリソースや専門知識が必要となり、負担が大きくなる懸念もある。）\nconcern（名詞：懸念：心配や不安の対象）／worry（名詞：心配：個人の不安感）で、concernは一般的な問題やリスクに対する不安、worryは個人的な不安や心配を指します。\n【参考】express concern（懸念を表明する）／feel worry（心配を感じる）\n例: There is concern about the future. (将来についての懸念がある。) / She feels worry about the exam. (彼女は試験について心配している。)"
 }
-2026-01-31 03:28:46 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
-2026-01-31 03:28:46 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
-2026-01-31 03:28:46 - llm_service - INFO - Before normalization: 3 points
-2026-01-31 03:28:46 - points_normalizer - INFO - Starting points normalization: 3 points
-2026-01-31 03:28:46 - points_normalizer - INFO - Student answer split into 3 sentences
-2026-01-31 03:28:46 - points_normalizer - INFO - Original user input split into 3 sentences
-2026-01-31 03:28:46 - points_normalizer - INFO - Processing point 1: before='A study has revealed that there is an optimal time...', level='✅正しい表現'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 1: Normalized before='A study has revealed that there is an optimal time...'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 1: Found in sentence 1: 'A study has revealed that there is an optimal time...'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 1: Original user input: 'A study has revealed that there is an optimal time...'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
-2026-01-31 03:28:46 - points_normalizer - INFO - Processing point 2: before='(未提出: 原文第2文)....', level='❌文法ミス'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Normalized before='(未提出: 原文第2文)....'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Found in sentence 2: '(未提出: 原文第2文)....'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'The study focused on the difference in memory betw...'
-2026-01-31 03:28:46 - points_normalizer - INFO - Level is ❌, keeping after: 'The study focused on the difference in memory betw...'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Original user input: '(未提出：原文第2文)...'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
-2026-01-31 03:28:46 - points_normalizer - INFO - Processing point 3: before='(未提出: 原文第3文)....', level='❌文法ミス'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Normalized before='(未提出: 原文第3文)....'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Found in sentence 3: '(未提出: 原文第3文)....'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Replaced fragment in sentence: 'As a result, it was shown that information learned...'
-2026-01-31 03:28:46 - points_normalizer - INFO - Level is ❌, keeping after: 'As a result, it was shown that information learned...'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Original user input: '(未提出：原文第3文)...'
-2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
-2026-01-31 03:28:46 - points_normalizer - INFO - Points normalization complete: 3 points
-2026-01-31 03:28:46 - llm_service - INFO - After normalization: 3 points
-2026-01-31 03:28:46 - llm_service - INFO - Points check: current=3, non-evaluation=3, required=3
-2026-01-31 03:28:46 - llm_service - INFO - ✅ Correction successful: 3 points
-2026-01-31 03:28:46 - database - INFO - Submission saved: s_20260131_a360923f (mode: general, no scoring)
-2026-01-31 03:28:46 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:46] "POST /api/correct-multi HTTP/1.1" 200 -
-2026-01-31 03:29:06 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:29:06] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
-2026-01-31 03:29:06 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:29:06] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
-2026-01-31 03:29:37 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:29:37] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
-2026-01-31 03:34:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:34:02] "HEAD /static/main.js HTTP/1.1" 200 -
-2026-01-31 03:34:33 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/app.py', reloading
-2026-01-31 03:34:33 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 03:34:34 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 03:34:34 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 03:34:34 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 03:34:34 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 03:34:34 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 03:39:02 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 03:39:02 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 03:39:02 - llm_service - INFO - Before normalization: 4 points
+2026-01-31 03:39:02 - points_normalizer - INFO - Starting points normalization: 4 points
+2026-01-31 03:39:02 - points_normalizer - INFO - Student answer split into 4 sentences
+2026-01-31 03:39:02 - points_normalizer - INFO - Original user input split into 4 sentences
+2026-01-31 03:39:02 - points_normalizer - INFO - Processing point 1: before='This new privacy protection regulation is expected...', level='✅正しい表現'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 1: Normalized before='This new privacy protection regulation is expected...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 1: Found in sentence 1: 'This new privacy protection regulation is expected...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 1: Original user input: 'This new privacy protection regulation is expected...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 03:39:02 - points_normalizer - INFO - Processing point 2: before='(未提出: 原文第2文)....', level='❌文法ミス'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 2: Normalized before='(未提出: 原文第2文)....'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 2: Found in sentence 2: '(未提出: 原文第2文)....'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'In particular, transparency regarding the purposes...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Level is ❌, keeping after: 'In particular, transparency regarding the purposes...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 2: Original user input: '(未提出：原文第2文)...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-31 03:39:02 - points_normalizer - INFO - Processing point 3: before='(未提出: 原文第3文)....', level='❌文法ミス'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 3: Normalized before='(未提出: 原文第3文)....'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 3: Found in sentence 3: '(未提出: 原文第3文)....'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 3: Replaced fragment in sentence: 'On the other hand, this regulation may increase th...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Level is ❌, keeping after: 'On the other hand, this regulation may increase th...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 3: Original user input: '(未提出：原文第3文)...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
+2026-01-31 03:39:02 - points_normalizer - INFO - Processing point 4: before='(未提出: 原文第4文)....', level='❌文法ミス'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 4: Normalized before='(未提出: 原文第4文)....'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 4: Found in sentence 4: '(未提出: 原文第4文)....'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 4: Replaced fragment in sentence: 'For small and medium-sized enterprises, there is a...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Level is ❌, keeping after: 'For small and medium-sized enterprises, there is a...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 4: Original user input: '(未提出：原文第4文)...'
+2026-01-31 03:39:02 - points_normalizer - INFO - Point 4: Normalized successfully (sentence_no=4)
+2026-01-31 03:39:02 - points_normalizer - INFO - Points normalization complete: 4 points
+2026-01-31 03:39:02 - llm_service - INFO - After normalization: 4 points
+2026-01-31 03:39:02 - llm_service - INFO - Points check: current=4, non-evaluation=4, required=4
+2026-01-31 03:39:02 - llm_service - INFO - ✅ Correction successful: 4 points
+2026-01-31 03:39:02 - database - INFO - Submission saved: s_20260131_e2ee5807 (mode: general, no scoring)
+2026-01-31 03:39:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:39:02] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 03:39:06 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:39:06] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:40:54 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:40:54] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:42:46 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): This new privacy protection regulation is expected to significantly change the way personal informat...
+2026-01-31 03:42:46 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): This new privacy protection regulation is expected to significantly change the way personal informat...
+2026-01-31 03:42:46 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 03:42:46 - llm_service - INFO - Question text for correction: この新しいプライバシー保護規制は、個人情報の取り扱いを大きく変えることが期待されている。...
+2026-01-31 03:42:46 - llm_service - INFO - Required points determined from Japanese text: 1 sentences
+2026-01-31 03:42:46 - llm_service - INFO - Required points for this correction: 1
+2026-01-31 03:42:46 - llm_service - INFO - Word count: 16
+2026-01-31 03:42:46 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 03:43:00 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 03:43:00 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
+  "corrected": "This new privacy protection regulation is expecte...
+2026-01-31 03:43:00 - llm_service - INFO - Full LLM response for correction (length: 2999 chars)
+2026-01-31 03:43:00 - llm_service - INFO - Response first 500 chars: {
+  "original": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
+  "corrected": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
+  "points": [
+    {
+      "before": "【全体評価】",
+      "after": "学生の英文は日本語原文を正確に英訳しており、文法的にも正しいです。",
+      "reason": "解説: 提出された英文は、日本語原文の内容を適切に反映しています。文法や語法に問題がなく、自然な英語表現になっています。",
+      "level": "内容評価"
+    },
+    {
+      "before": "T
+2026-01-31 03:43:00 - llm_service - INFO - Response last 500 chars: 社は新しい方針を実施した。) / The police enforce traffic laws. (警察は交通法を施行する。)\n\n3文目: Additionally, individuals might have more control over how their personal data is used by businesses.\n（さらに、個人は企業による個人データの使用に対して、より多くのコントロールを持つかもしれません。）\ncontrol（名詞：コントロール：何かを管理する力）／authority（名詞：権限：公式な力や権利を持つ文脈）で、controlは一般的な管理、authorityは公式な権限を指します。\n【参考】have control over（～を管理する）／have authority over（～に権限を持つ）\n例: She has control over the project. (彼女はプロジェクトを管理している。) / He has authority over the staff. (彼はスタッフに対して権限を持っている。)"
+}
+2026-01-31 03:43:00 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 03:43:00 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 03:43:00 - llm_service - INFO - Before normalization: 1 points
+2026-01-31 03:43:00 - points_normalizer - INFO - Starting points normalization: 1 points
+2026-01-31 03:43:00 - points_normalizer - INFO - Student answer split into 1 sentences
+2026-01-31 03:43:00 - points_normalizer - INFO - Original user input split into 1 sentences
+2026-01-31 03:43:00 - points_normalizer - INFO - Processing point 1: before='This new privacy protection regulation is expected...', level='✅正しい表現'
+2026-01-31 03:43:00 - points_normalizer - INFO - Point 1: Normalized before='This new privacy protection regulation is expected...'
+2026-01-31 03:43:00 - points_normalizer - INFO - Point 1: Found in sentence 1: 'This new privacy protection regulation is expected...'
+2026-01-31 03:43:00 - points_normalizer - INFO - Point 1: Original user input: 'This new privacy protection regulation is expected...'
+2026-01-31 03:43:00 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 03:43:00 - points_normalizer - INFO - Points normalization complete: 1 points
+2026-01-31 03:43:00 - llm_service - INFO - After normalization: 1 points
+2026-01-31 03:43:00 - llm_service - INFO - Points check: current=1, non-evaluation=1, required=1
+2026-01-31 03:43:00 - llm_service - INFO - ✅ Correction successful: 1 points
+2026-01-31 03:43:00 - database - INFO - Submission saved: s_20260131_f1074d7f (mode: general, no scoring)
+2026-01-31 03:43:00 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:43:00] "POST /api/correct-multi HTTP/1.1" 200 -

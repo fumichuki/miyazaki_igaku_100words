@@ -950,7 +950,9 @@ function submitAnswer() {
 
 // 添削結果を表示
 function displayCorrection(data) {
-  console.log("displayCorrection called with data:", data);
+  console.log("✅ displayCorrection called");
+  console.log("📦 Full data:", JSON.stringify(data, null, 2));
+  console.log(`📊 Points count: ${data.points ? data.points.length : 0}`);
   
   const container = document.createElement("div");
   container.className = "correction-container";
@@ -1044,14 +1046,19 @@ function displayCorrection(data) {
   }
   
   let pointCounter = 0;
+  console.log(`🔄 Starting to process ${data.points.length} points...`);
   data.points.forEach((point, idx) => {
+    console.log(`🔍 Point ${idx + 1}/${data.points.length}: level="${point.level}"`);
+    
     // 全体評価はスキップ（既に表示済み）
     if (point.level === "内容評価") {
+      console.log(`   ⏭️ Skipping 内容評価`);
       return; // 番号カウントせずに次へ
     }
     
     // マルチ入力モードでは個別のカードに表示するため、この一覧表示はスキップ
     if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      console.log(`   ⏭️ Skipping (multi-input mode, will be shown in cards)`);
       return;
     }
     
