@@ -33,6 +33,35 @@ function isEnglishText(text) {
   return alphabetCount / noSpaces.length >= 0.5;
 }
 
+// 比較用に英文を正規化（ピリオド・スペース・大文字を統一）
+function normalizeUserInputForComparison(text) {
+  if (!text) return '';
+  
+  let normalized = text.trim();
+  
+  // 1. ピリオドの前のスペースを削除
+  normalized = normalized.replace(/\s+\./g, '.');
+  
+  // 2. 文末にピリオドがない場合は追加
+  if (normalized && !normalized.match(/[.!?]$/)) {
+    normalized += '.';
+  }
+  
+  // 3. ピリオド後のスペース不足を修正（. The → . The）
+  normalized = normalized.replace(/([.!?])([A-Z])/g, '$1 $2');
+  
+  // 4. 文頭を大文字化
+  normalized = normalized.replace(/^([a-z])/, (match) => match.toUpperCase());
+  
+  // 5. ピリオド後の文頭を大文字化
+  normalized = normalized.replace(/([.!?])\s+([a-z])/g, (match, p1, p2) => p1 + ' ' + p2.toUpperCase());
+  
+  // 6. 複数スペースを1つに
+  normalized = normalized.replace(/\s{2,}/g, ' ');
+  
+  return normalized.trim();
+}
+
 // 語数カウンター + 英語チェック
 input.addEventListener("input", () => {
   let text = input.value.trim();
@@ -1082,8 +1111,10 @@ function displayCorrection(data) {
       afterText = point.after.split('\n')[0].trim();
     }
     
-    // original_before と after が同じかどうかで表示を分ける（正規化前の入力で比較）
-    const isSame = originalBeforeText.trim() === afterText.trim();
+    // 正規化前の入力を正規化して比較（ピリオル・大文字のみの違いは無視）
+    const normalizedOriginalBefore = normalizeUserInputForComparison(originalBeforeText);
+    const normalizedAfter = normalizeUserInputForComparison(afterText);
+    const isSame = normalizedOriginalBefore === normalizedAfter;
     
     // 日本語原文を表示（sentence_no を使用）
     const sentenceNoText = point.sentence_no ? `${point.sentence_no}文目` : `${pointCounter}文目`;
