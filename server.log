@@ -1,71 +1,246 @@
 nohup: ignoring input
-2026-01-31 01:45:54 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 01:45:54 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 01:45:54 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 01:57:22 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 01:57:22 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 01:57:22 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-31 01:45:54 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-31 01:57:22 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-31 01:45:54 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-31 01:45:54 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 01:45:55 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 01:45:55 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 01:45:55 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 01:45:55 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 01:45:55 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-31 01:45:56 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): according to a recent survey
-in particular during the morning...
-2026-01-31 01:45:56 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): According to a recent survey.
-In particular during the morning....
-2026-01-31 01:45:56 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
-2026-01-31 01:45:56 - llm_service - INFO - Question text for correction: 最近の調査によると、日本の都市部では交通渋滞が悪化している。
-特に朝の通勤ラッシュアワー時には、主要幹線道路での車両の流れが大幅に低下する。...
-2026-01-31 01:45:56 - llm_service - INFO - Required points determined from Japanese text: 2 sentences
-2026-01-31 01:45:56 - llm_service - INFO - Required points for this correction: 2
-2026-01-31 01:45:56 - llm_service - INFO - Word count: 10
-2026-01-31 01:45:56 - llm_service - INFO - Correction attempt 1/3
-2026-01-31 01:46:19 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 01:46:19 - llm_service - INFO - OpenAI API response (attempt 1): 
+2026-01-31 01:57:22 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-31 01:57:22 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 01:57:23 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 01:57:23 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 01:57:23 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 01:57:23 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 01:57:23 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 01:57:24 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): On the other hand, smartphone use in public places can sometimes cause noise-related problems...
+2026-01-31 01:57:24 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): On the other hand, smartphone use in public places can sometimes cause noise-related problems....
+2026-01-31 01:57:24 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 01:57:24 - llm_service - INFO - Question text for correction: 最近の調査によると、日本の都市部では交通渋滞が悪化している。...
+2026-01-31 01:57:24 - llm_service - INFO - Required points determined from Japanese text: 1 sentences
+2026-01-31 01:57:24 - llm_service - INFO - Required points for this correction: 1
+2026-01-31 01:57:24 - llm_service - INFO - Word count: 14
+2026-01-31 01:57:24 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 01:57:50 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 01:57:50 - llm_service - INFO - OpenAI API response (attempt 1): 
 {
-  "original": "According to a recent survey. In particular during the morning.",
-  "corrected": "According to a recent survey, traffic congestion in urban areas of Japan is worsening.\n\nIn particu...
-2026-01-31 01:46:19 - llm_service - INFO - Full LLM response for correction (length: 3191 chars)
-2026-01-31 01:46:19 - llm_service - INFO - Response first 500 chars: 
-{
-  "original": "According to a recent survey. In particular during the morning.",
-  "corrected": "According to a recent survey, traffic congestion in urban areas of Japan is worsening.\n\nIn particular, during the morning rush hour, the flow of vehicles on major roads significantly decreases.",
+  "original": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "corrected": "",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "提出された英文は、情報が不完全であり、日本語原文の内容を正確に反映していません。特に、交通渋滞が悪化していることや、朝の通勤ラッシュについての情報が欠落しています。",
-      "reason": "解説: 提出された英文は2文で、日本語原文の内容に対応していません。文法的に
-2026-01-31 01:46:19 - llm_service - INFO - Response last 500 chars: s are increasing. (報告書に基づくと、売上が増えています。)\n\n2文目: In particular, during the morning rush hour, the flow of vehicles on major roads significantly decreases.\n（特に朝の通勤ラッシュアワー時には、主要幹線道路での車両の流れが大幅に低下します。）\nflow（名詞：流れ：物や人が移動する様子）／decrease（動詞：減少する：量や数が少なくなる）で、flowは動きや流れ、decreaseは数や量の減少を示します。\n【参考】In particular, A happens during B / Specifically, A occurs at B\n例：In particular, productivity peaks in the morning. (特に、午前中に生産性がピークに達します。) / Specifically, errors occur during testing. (具体的には、テスト中にエラーが発生します。)"
+      "after": "学生の回...
+2026-01-31 01:57:50 - llm_service - INFO - Full LLM response for correction (length: 2623 chars)
+2026-01-31 01:57:50 - llm_service - INFO - Response first 500 chars: 
+{
+  "original": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "corrected": "",
+  "points": [
+    {
+      "before": "【全体評価】",
+      "after": "学生の回答は日本語原文に対応していません。文法的には正しいが、内容が完全に異なります。",
+      "reason": "解説: 提出された英文は日本語原文の内容を伝えていません。日本語原文は交通渋滞に関するものであるのに対し、学生の英文はスマートフォンの使用に関するものです。これは重大な意味の誤りです。",
+      "level": "内容評価"
+    },
+    {
+      "before": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.
+2026-01-31 01:57:50 - llm_service - INFO - Response last 500 chars: health. (汚染は健康に影響を及ぼす。)\n\n3文目: For example, in Tokyo, it now takes an average of 20 minutes longer to reach work during peak hours compared to five years ago.\n（例えば、東京では、5年前に比べて現在の通勤時間は平均で20分長くかかります。）\npeak hours（名詞句：ピーク時間：交通が最も混雑する時間帯）／compared to（前置詞句：～と比較して：二つ以上の事柄を対比する文脈）で、peak hoursは最も混雑する時間帯を、compared toは対比を示します。\n【参考】during rush hour（ラッシュアワー中に）／compared with last year（昨年と比較して）\n例：During peak hours, traffic is heavy. (ピーク時間中は交通が混雑している。) ／ It is better compared to before. (以前と比べて良くなった。)"
 }
-2026-01-31 01:46:19 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
-2026-01-31 01:46:19 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
-2026-01-31 01:46:19 - llm_service - INFO - Before normalization: 2 points
-2026-01-31 01:46:19 - points_normalizer - INFO - Starting points normalization: 2 points
-2026-01-31 01:46:19 - points_normalizer - INFO - Student answer split into 2 sentences
-2026-01-31 01:46:19 - points_normalizer - INFO - Original user input split into 2 sentences
-2026-01-31 01:46:19 - points_normalizer - INFO - Processing point 1: before='According to a recent survey....', level='❌文法ミス'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 1: Normalized before='According to a recent survey....'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 1: Found in sentence 1: 'According to a recent survey....'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 1: Replaced fragment in sentence: 'According to a recent survey, traffic congestion i...'
-2026-01-31 01:46:19 - points_normalizer - INFO - Level is ❌, keeping after: 'According to a recent survey, traffic congestion i...'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 1: Original user input: 'according to a recent survey...'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
-2026-01-31 01:46:19 - points_normalizer - INFO - Processing point 2: before='In particular during the morning....', level='❌文法ミス'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 2: Normalized before='In particular during the morning....'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 2: Found in sentence 2: 'In particular during the morning....'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'In particular, during the morning rush hour, the f...'
-2026-01-31 01:46:19 - points_normalizer - INFO - Level is ❌, keeping after: 'In particular, during the morning rush hour, the f...'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 2: Original user input: 'in particular during the morning...'
-2026-01-31 01:46:19 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
-2026-01-31 01:46:19 - points_normalizer - INFO - Points normalization complete: 2 points
-2026-01-31 01:46:19 - llm_service - INFO - After normalization: 2 points
-2026-01-31 01:46:19 - llm_service - INFO - Points check: current=2, non-evaluation=2, required=2
-2026-01-31 01:46:19 - llm_service - INFO - ✅ Correction successful: 2 points
-2026-01-31 01:46:19 - database - INFO - Submission saved: s_20260131_f58113b8 (mode: general, no scoring)
-2026-01-31 01:46:19 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:46:19] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 01:57:50 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 01:57:50 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 01:57:50 - llm_service - INFO - Before normalization: 1 points
+2026-01-31 01:57:50 - points_normalizer - INFO - Starting points normalization: 1 points
+2026-01-31 01:57:50 - points_normalizer - INFO - Student answer split into 1 sentences
+2026-01-31 01:57:50 - points_normalizer - INFO - Original user input split into 1 sentences
+2026-01-31 01:57:50 - points_normalizer - INFO - Processing point 1: before='On the other hand, smartphone use in public places...', level='❌文法ミス'
+2026-01-31 01:57:50 - points_normalizer - INFO - Point 1: Normalized before='On the other hand, smartphone use in public places...'
+2026-01-31 01:57:50 - points_normalizer - INFO - Point 1: Found in sentence 1: 'On the other hand, smartphone use in public places...'
+2026-01-31 01:57:50 - points_normalizer - INFO - Point 1: Replaced fragment in sentence: 'According to a recent survey, traffic congestion i...'
+2026-01-31 01:57:50 - points_normalizer - INFO - Level is ❌, keeping after: 'According to a recent survey, traffic congestion i...'
+2026-01-31 01:57:50 - points_normalizer - INFO - Point 1: Original user input: 'On the other hand, smartphone use in public places...'
+2026-01-31 01:57:50 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 01:57:50 - points_normalizer - INFO - Points normalization complete: 1 points
+2026-01-31 01:57:50 - llm_service - INFO - After normalization: 1 points
+2026-01-31 01:57:50 - llm_service - INFO - Points check: current=1, non-evaluation=1, required=1
+2026-01-31 01:57:50 - llm_service - ERROR - Validation error (attempt 1): 1 validation error for CorrectionResponse
+corrected
+  String should have at least 1 character [type=string_too_short, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.10/v/string_too_short
+2026-01-31 01:57:52 - llm_service - INFO - Correction attempt 2/3
+2026-01-31 01:58:41 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 01:58:41 - llm_service - INFO - OpenAI API response (attempt 1): 
+{
+  "original": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "corrected": "According to recent surveys, traffic congestion has worsened in urban...
+2026-01-31 01:58:41 - llm_service - INFO - Full LLM response for correction (length: 3526 chars)
+2026-01-31 01:58:41 - llm_service - INFO - Response first 500 chars: 
+{
+  "original": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "corrected": "According to recent surveys, traffic congestion has worsened in urban areas of Japan.",
+  "points": [
+    {
+      "before": "【全体評価】",
+      "after": "学生の英文は、日本語原文と全く異なる内容で、交通渋滞について触れていません。",
+      "reason": "解説: 提出された英文は、日本語原文の内容を正確に反映していません。日本語原文は、日本の都市部での交通渋滞の悪化について述べていますが、提出された英文はスマートフォンの使用に関連する問題について述べています。",
+      "level": "内容評価"
+    },
+    {
+      "before": "On
+2026-01-31 01:58:41 - llm_service - INFO - Response last 500 chars: ccess. (彼の努力が成功に寄与しました。)\n\n4文目: In conclusion, to alleviate traffic congestion, it is essential to improve public transportation and update traffic management systems.\n（結論として、交通渋滞を緩和するためには、公共交通機関を改善し、交通管理システムを更新することが重要です。）\nalleviate（動詞：緩和する：問題や苦痛を軽減する）／essential（形容詞：重要な：不可欠であること）で、問題解決や重要性を強調する際に使います。\n【参考】alleviate pain（痛みを和らげる）／essential for success（成功に不可欠）\n例：We need to alleviate the pressure. (圧力を緩和する必要があります。) ／ Good communication is essential for teamwork. (良好なコミュニケーションはチームワークに不可欠です。)"
+}
+2026-01-31 01:58:41 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_2.json
+2026-01-31 01:58:41 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 01:58:41 - llm_service - INFO - Before normalization: 1 points
+2026-01-31 01:58:41 - points_normalizer - INFO - Starting points normalization: 1 points
+2026-01-31 01:58:41 - points_normalizer - INFO - Student answer split into 1 sentences
+2026-01-31 01:58:41 - points_normalizer - INFO - Original user input split into 1 sentences
+2026-01-31 01:58:41 - points_normalizer - INFO - Processing point 1: before='On the other hand, smartphone use in public places...', level='❌文法ミス'
+2026-01-31 01:58:41 - points_normalizer - INFO - Point 1: Normalized before='On the other hand, smartphone use in public places...'
+2026-01-31 01:58:41 - points_normalizer - INFO - Point 1: Found in sentence 1: 'On the other hand, smartphone use in public places...'
+2026-01-31 01:58:41 - points_normalizer - INFO - Point 1: Replaced fragment in sentence: 'According to recent surveys, traffic congestion ha...'
+2026-01-31 01:58:41 - points_normalizer - INFO - Level is ❌, keeping after: 'According to recent surveys, traffic congestion ha...'
+2026-01-31 01:58:41 - points_normalizer - INFO - Point 1: Original user input: 'On the other hand, smartphone use in public places...'
+2026-01-31 01:58:41 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 01:58:41 - points_normalizer - INFO - Points normalization complete: 1 points
+2026-01-31 01:58:41 - llm_service - INFO - After normalization: 1 points
+2026-01-31 01:58:41 - llm_service - INFO - Points check: current=1, non-evaluation=1, required=1
+2026-01-31 01:58:41 - llm_service - INFO - ✅ Correction successful: 1 points
+2026-01-31 01:58:41 - database - INFO - Submission saved: s_20260131_eb4ba5d8 (mode: general, no scoring)
+2026-01-31 01:58:41 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:58:41] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 01:58:58 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): On the other hand, smartphone use in public places can sometimes cause noise-related problems...
+2026-01-31 01:58:58 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): On the other hand, smartphone use in public places can sometimes cause noise-related problems....
+2026-01-31 01:58:58 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 01:58:58 - llm_service - INFO - Question text for correction: 一方、公共の場でのスマートフォンの使用は、時に騒音関連の問題を引き起こすことがある。...
+2026-01-31 01:58:58 - llm_service - INFO - Required points determined from Japanese text: 1 sentences
+2026-01-31 01:58:58 - llm_service - INFO - Required points for this correction: 1
+2026-01-31 01:58:58 - llm_service - INFO - Word count: 14
+2026-01-31 01:58:58 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 01:59:28 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 01:59:28 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "corrected": "On the other hand, smartphone use in public places can sometimes cause...
+2026-01-31 01:59:28 - llm_service - INFO - Full LLM response for correction (length: 2626 chars)
+2026-01-31 01:59:28 - llm_service - INFO - Response first 500 chars: {
+  "original": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "corrected": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "points": [
+    {
+      "before": "【全体評価】",
+      "after": "学生の英文は文法的に正しく、日本語原文を適切に反映しています。接続詞\"On the other hand\"の使用も正しいです。",
+      "reason": "日本語原文にある「一方、」を正確に英訳しており、文全体の構造も適切です。内容的にも日本語の意味を正確に伝えています。",
+      "level": "内容評価"
+    },
+    {
+      "before": "On the other 
+2026-01-31 01:59:28 - llm_service - INFO - Response last 500 chars: ruits such as apples and bananas.（例えば、リンゴやバナナのような果物が好きです。）／Such as apples and bananas, I like fruits.（リンゴやバナナのような果物が好きです。）\n\n3文目: Moreover, playing music or videos without headphones can also be disruptive.\n（さらに、ヘッドフォンなしで音楽やビデオを再生することもまた邪魔になることがある。）\nmoreover（接続詞：さらに：追加の情報を提示する文脈）／in addition（接続詞：加えて：追加の情報を示す文脈）で、moreoverは文全体で使われ、in additionはより正式な文脈で使われることが多いです。\n【参考】Moreover, it's important to be polite.（さらに、礼儀正しくすることが重要です。）／In addition, it is necessary to study hard.（加えて、一生懸命勉強する必要があります。）"
+}
+2026-01-31 01:59:28 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 01:59:28 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 01:59:28 - llm_service - INFO - Before normalization: 1 points
+2026-01-31 01:59:28 - points_normalizer - INFO - Starting points normalization: 1 points
+2026-01-31 01:59:28 - points_normalizer - INFO - Student answer split into 1 sentences
+2026-01-31 01:59:28 - points_normalizer - INFO - Original user input split into 1 sentences
+2026-01-31 01:59:28 - points_normalizer - INFO - Processing point 1: before='On the other hand, smartphone use in public places...', level='✅正しい表現'
+2026-01-31 01:59:28 - points_normalizer - INFO - Point 1: Normalized before='On the other hand, smartphone use in public places...'
+2026-01-31 01:59:28 - points_normalizer - INFO - Point 1: Found in sentence 1: 'On the other hand, smartphone use in public places...'
+2026-01-31 01:59:28 - points_normalizer - INFO - Point 1: Original user input: 'On the other hand, smartphone use in public places...'
+2026-01-31 01:59:28 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 01:59:28 - points_normalizer - INFO - Points normalization complete: 1 points
+2026-01-31 01:59:28 - llm_service - INFO - After normalization: 1 points
+2026-01-31 01:59:28 - llm_service - INFO - Points check: current=1, non-evaluation=1, required=1
+2026-01-31 01:59:28 - llm_service - INFO - ✅ Correction successful: 1 points
+2026-01-31 01:59:28 - database - INFO - Submission saved: s_20260131_6fc64cdd (mode: general, no scoring)
+2026-01-31 01:59:28 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:59:28] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 01:59:41 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): on the other hand, smartphone use in public places can sometimes cause noise-related problems...
+2026-01-31 01:59:41 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): On the other hand, smartphone use in public places can sometimes cause noise-related problems....
+2026-01-31 01:59:41 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 01:59:41 - llm_service - INFO - Question text for correction: 一方、公共の場でのスマートフォンの使用は、時に騒音関連の問題を引き起こすことがある。...
+2026-01-31 01:59:41 - llm_service - INFO - Required points determined from Japanese text: 1 sentences
+2026-01-31 01:59:41 - llm_service - INFO - Required points for this correction: 1
+2026-01-31 01:59:41 - llm_service - INFO - Word count: 14
+2026-01-31 01:59:41 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 02:00:01 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 02:00:01 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "corrected": "On the other hand, smartphone use in public places can sometimes cause...
+2026-01-31 02:00:01 - llm_service - INFO - Full LLM response for correction (length: 2886 chars)
+2026-01-31 02:00:01 - llm_service - INFO - Response first 500 chars: {
+  "original": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "corrected": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "points": [
+    {
+      "before": "【全体評価】",
+      "after": "全体的に優れた英訳です。構文や語彙選択に誤りはなく、日本語の意味を正確に伝えています。",
+      "reason": "解説: 提出された英文は日本語原文の内容を正確に反映しています。接続詞の使用方法も適切で、文法的にも正しいです。全体的に自然な英語表現になっています。",
+      "level": "内容評価"
+    },
+    {
+      "before": "On the other hand,
+2026-01-31 02:00:01 - llm_service - INFO - Response last 500 chars: pted the speaker. (彼女は話者を中断させた。)\n\n3文目: Additionally, notifications and ringtones can be disruptive in quiet environments, such as libraries or waiting rooms.\n（さらに、通知音や着信音は、図書館や待合室などの静かな環境では迷惑になることがあります。）\nnotifications（名詞：通知：情報を知らせるためのメッセージ）／ringtones（名詞：着信音：電話の呼び出し音）で、notifications はメッセージやアラートを指し、ringtones は電話の呼び出し音を指します。\n【参考】receive notifications（通知を受け取る）／set a ringtone（着信音を設定する）\n例：I received a notification about the event. (イベントについての通知を受け取った。) ／ She changed her ringtone. (彼女は着信音を変えた。)"
+}
+2026-01-31 02:00:01 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 02:00:01 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 02:00:01 - llm_service - INFO - Before normalization: 1 points
+2026-01-31 02:00:01 - points_normalizer - INFO - Starting points normalization: 1 points
+2026-01-31 02:00:01 - points_normalizer - INFO - Student answer split into 1 sentences
+2026-01-31 02:00:01 - points_normalizer - INFO - Original user input split into 1 sentences
+2026-01-31 02:00:01 - points_normalizer - INFO - Processing point 1: before='On the other hand, smartphone use in public places...', level='✅正しい表現'
+2026-01-31 02:00:01 - points_normalizer - INFO - Point 1: Normalized before='On the other hand, smartphone use in public places...'
+2026-01-31 02:00:01 - points_normalizer - INFO - Point 1: Found in sentence 1: 'On the other hand, smartphone use in public places...'
+2026-01-31 02:00:01 - points_normalizer - INFO - Point 1: Original user input: 'on the other hand, smartphone use in public places...'
+2026-01-31 02:00:01 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 02:00:01 - points_normalizer - INFO - Points normalization complete: 1 points
+2026-01-31 02:00:01 - llm_service - INFO - After normalization: 1 points
+2026-01-31 02:00:01 - llm_service - INFO - Points check: current=1, non-evaluation=1, required=1
+2026-01-31 02:00:01 - llm_service - INFO - ✅ Correction successful: 1 points
+2026-01-31 02:00:01 - database - INFO - Submission saved: s_20260131_393624ee (mode: general, no scoring)
+2026-01-31 02:00:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 02:00:01] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 02:00:15 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): on the other hand smartphone use in public place can sometimes cause noise-related problem...
+2026-01-31 02:00:15 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): On the other hand smartphone use in public place can sometimes cause noise-related problem....
+2026-01-31 02:00:15 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 02:00:15 - llm_service - INFO - Question text for correction: 一方、公共の場でのスマートフォンの使用は、時に騒音関連の問題を引き起こすことがある。...
+2026-01-31 02:00:15 - llm_service - INFO - Required points determined from Japanese text: 1 sentences
+2026-01-31 02:00:15 - llm_service - INFO - Required points for this correction: 1
+2026-01-31 02:00:15 - llm_service - INFO - Word count: 14
+2026-01-31 02:00:15 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 02:00:57 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 02:00:57 - llm_service - INFO - OpenAI API response (attempt 1): 
+{
+  "original": "On the other hand smartphone use in public place can sometimes cause noise-related problem.",
+  "corrected": "On the other hand, smartphone use in public places can sometimes cause n...
+2026-01-31 02:00:57 - llm_service - INFO - Full LLM response for correction (length: 3550 chars)
+2026-01-31 02:00:57 - llm_service - INFO - Response first 500 chars: 
+{
+  "original": "On the other hand smartphone use in public place can sometimes cause noise-related problem.",
+  "corrected": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "points": [
+    {
+      "before": "【全体評価】",
+      "after": "提出された英文は、日本語原文の意味をほぼ正確に伝えていますが、冠詞や複数形の使用で誤りがあります。",
+      "reason": "接続詞や語彙の選択は適切ですが、冠詞の不足と名詞の単複不一致が見られます。特に、'a smartphone use' のように冠詞を加えるか、'in public places' のように場所を複数形にする必要があります。",
+      "level": "内容評価"
+    },
+ 
+2026-01-31 02:00:57 - llm_service - INFO - Response last 500 chars: りました。) / The phone call interrupted our meeting. (電話が会議を中断しました。)\n\n4文目: Therefore, it is important to be considerate of others when using smartphones in public spaces.\n（したがって、公共の場でスマートフォンを使用する際には、他者への配慮が重要です。）\nconsiderate（形容詞：配慮する：他人の気持ちや状況を考慮する）／space（名詞：空間：物理的または抽象的な広がり）で、considerateは他人への思いやりを示し、spaceは物理的または抽象的な広がりを指します。\n【参考】be considerate of others（他人を気遣う）／open spaces（開かれた空間）\n例: She is always considerate of her coworkers. (彼女は常に同僚を気遣っています。) / They enjoy open spaces. (彼らは開かれた空間を楽しみます。)"
+}
+2026-01-31 02:00:57 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 02:00:57 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 02:00:57 - llm_service - INFO - Before normalization: 1 points
+2026-01-31 02:00:57 - points_normalizer - INFO - Starting points normalization: 1 points
+2026-01-31 02:00:57 - points_normalizer - INFO - Student answer split into 1 sentences
+2026-01-31 02:00:57 - points_normalizer - INFO - Original user input split into 1 sentences
+2026-01-31 02:00:57 - points_normalizer - INFO - Processing point 1: before='On the other hand smartphone use in public place c...', level='❌文法ミス'
+2026-01-31 02:00:57 - points_normalizer - INFO - Point 1: Normalized before='On the other hand smartphone use in public place c...'
+2026-01-31 02:00:57 - points_normalizer - INFO - Point 1: Found in sentence 1: 'On the other hand smartphone use in public place c...'
+2026-01-31 02:00:57 - points_normalizer - INFO - Point 1: Replaced fragment in sentence: 'On the other hand, smartphone use in public places...'
+2026-01-31 02:00:57 - points_normalizer - INFO - Level is ❌, keeping after: 'On the other hand, smartphone use in public places...'
+2026-01-31 02:00:57 - points_normalizer - INFO - Point 1: Original user input: 'on the other hand smartphone use in public place c...'
+2026-01-31 02:00:57 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 02:00:57 - points_normalizer - INFO - Points normalization complete: 1 points
+2026-01-31 02:00:57 - llm_service - INFO - After normalization: 1 points
+2026-01-31 02:00:57 - llm_service - INFO - Points check: current=1, non-evaluation=1, required=1
+2026-01-31 02:00:57 - llm_service - INFO - ✅ Correction successful: 1 points
+2026-01-31 02:00:57 - database - INFO - Submission saved: s_20260131_acb28b0e (mode: general, no scoring)
+2026-01-31 02:00:57 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 02:00:57] "POST /api/correct-multi HTTP/1.1" 200 -

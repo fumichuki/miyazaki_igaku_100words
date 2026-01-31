@@ -1,48 +1,21 @@
+
 {
-  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant. Going forward, new measures will be needed to ensure transparency.",
-  "corrected": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant. Going forward, new measures will be needed to ensure transparency.",
+  "original": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+  "corrected": "According to recent surveys, traffic congestion has worsened in urban areas of Japan.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "全体的に良い英訳です。文法的に正しく、日本語原文の内容を適切に伝えています。ただし、5文目の 'Of particular' は 'In particular' に修正する必要があります。",
-      "reason": "解説: 提出された英文は6文で、日本語原文の内容を正確に英訳しています。文法的なミスはほとんどないが、5文目で接続詞 'In particular' の欠落がありました。これを修正することで、文の流れがより自然になります。",
+      "after": "学生の英文は、日本語原文と全く異なる内容で、交通渋滞について触れていません。",
+      "reason": "解説: 提出された英文は、日本語原文の内容を正確に反映していません。日本語原文は、日本の都市部での交通渋滞の悪化について述べていますが、提出された英文はスマートフォンの使用に関連する問題について述べています。",
       "level": "内容評価"
     },
     {
-      "before": "In the scientific community, a new case of research misconduct has been drawing attention.",
-      "after": "In the scientific community, a new case of research misconduct has been drawing attention.",
-      "reason": "1文目: In the scientific community, a new case of research misconduct has been drawing attention.\n（科学界では、新しい研究不正の事例が注目を集めている。）\ncommunity（名詞：共同体、集団：特定の分野や興味を共有する集団）／society（名詞：社会：一般的な人々の集まり）で、communityは特定の興味を持つ集団を指します。\n【参考】scientific community（科学界）／local community（地域社会）\n例: The scientific community supports collaboration. (科学界は協力を支持しています。) / The local community is very supportive. (地域社会はとても協力的です。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "A prominent researcher is alleged to have manipulated data and fabricated results.",
-      "after": "A prominent researcher is alleged to have manipulated data and fabricated results.",
-      "reason": "2文目: A prominent researcher is alleged to have manipulated data and fabricated results.\n（ある著名な研究者が、データを操作して結果を捏造していたとされる。）\nalleged（形容詞：疑われた、申し立てられた：証拠が不十分な状態での主張）／accused（動詞：告発された：具体的な証拠に基づく非難）で、allegedは証拠が不十分なときに使われます。\n【参考】alleged crime（疑われた犯罪）／accused of theft（窃盗で告発された）\n例: He is alleged to be involved. (彼は関与していると疑われている。) / She was accused of cheating. (彼女は不正をしたと告発された。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.",
-      "after": "This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.",
-      "reason": "3文目: This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.\n（この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査に乗り出している。）\nundermine（動詞：弱体化させる：信頼や価値を徐々に損なう）／damage（動詞：損害を与える：物理的または感情的な損害を与える）で、undermineは徐々に信頼を低下させることを指します。\n【参考】undermine trust（信頼を弱体化させる）／damage reputation（評判を損なう）\n例: His actions undermine his authority. (彼の行動は彼の権威を弱体化させる。) / The storm damaged the building. (嵐が建物に損害を与えた。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "Such cases not only hinder scientific progress but may also provide the public with false information.",
-      "after": "Such cases not only hinder scientific progress but may also provide the public with false information.",
-      "reason": "4文目: Such cases not only hinder scientific progress but may also provide the public with false information.\n（このような事例は、科学の進展を阻むだけでなく、一般の人々にも誤った情報を提供する可能性がある。）\nhinder（動詞：妨げる：進行を遅らせる、妨害する）／impede（動詞：妨げる：進行を妨げる）で、hinderは一般的な妨害、impedeはより強い妨害を意味します。\n【参考】hinder progress（進展を妨げる）／impede development（発展を妨げる）\n例: Traffic hinders our schedule. (交通が私たちの予定を妨げている。) / His actions impede the process. (彼の行動がプロセスを妨げている。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "Of particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.",
-      "after": "In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.",
-      "reason": "【誤りの説明】: 'Of particular' は 'In particular' にすべき。'In particular' は「特に」を意味し、特定の事柄を強調する際に使用します。\n【参考】In particular（特に）／Especially（特に）\n例: In particular, exercise is essential for health. (特に、運動は健康に不可欠です。) / She loves fruits, especially apples. (彼女は果物が好きで、特にリンゴが好きです。)\n\n5文目: In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.\n（特に、今回の不正が発覚した分野は、社会的に重要な研究テーマに関連しているため、その影響は少なくないと考えられる。）\nparticular（形容詞：特定の：明確に定められた）／specific（形容詞：具体的な：明確に定義された）で、particularは広い意味、specificはより狭義で使います。",
+      "before": "On the other hand, smartphone use in public places can sometimes cause noise-related problems.",
+      "after": "According to recent surveys, traffic congestion has worsened in urban areas of Japan.",
+      "reason": "【誤りの説明】: 日本語原文の内容から大きく逸脱しています。問題文は交通渋滞について述べているのに対し、回答はスマートフォンの使用に関する問題を取り上げています。正しい内容に基づく英文が必要です。\n\n1文目: According to recent surveys, traffic congestion has worsened in urban areas of Japan.\n（最近の調査によると、日本の都市部では交通渋滞が悪化している。）\naccording to（前置詞：～によると：情報源を示す文脈）／survey（名詞：調査：情報収集のための調査）で、情報の出典と内容を紹介する際に使います。\n【参考】according to the news（ニュースによると）／recent survey（最近の調査）\n例：According to experts, the economy is improving. (専門家によると、経済は改善しています。) ／ A recent survey shows increasing interest in health. (最近の調査では健康への関心が高まっていることがわかります。)",
       "level": "❌文法ミス"
-    },
-    {
-      "before": "Going forward, new measures will be needed to ensure transparency.",
-      "after": "Going forward, new measures will be needed to ensure transparency.",
-      "reason": "6文目: Going forward, new measures will be needed to ensure transparency.\n（今後、透明性を確保するための新たな対策が求められるだろう。）\nmeasure（名詞：措置、手段：問題を解決するための方法）／action（名詞：行動、実行：具体的な行為）で、measureは計画的手段を指し、actionは即時的な行動を指します。\n【参考】take measures（措置を講じる）／take action（行動を起こす）\n例: The government will take measures. (政府は措置を講じるだろう。) / We must take action now. (今すぐ行動しなければならない。)",
-      "level": "✅正しい表現"
     }
   ],
-  "model_answer": "In the scientific community
+  "model_answer": "According to a recent survey, traffic congestion has worsened in urban areas of Japan.\n\nFirst, the increase in the number of cars is a major cause. For instance, more people are using cars for daily commutes instead of public transportation.\n\nSecond, the lack of efficient traffic management systems contributes to the problem. For example, outdated traffic signals and insufficient roads lead to longer travel times.\n\nIn conclusion, to alleviate traffic congestion, it is essential to improve public transportation and update traffic management systems.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: According to a recent survey, traffic congestion has worsened in urban areas of Japan.\n（最近の調査によると、日本の都市部では交通渋滞が悪化している。）\naccording to（前置詞：～によると：情報源を示す文脈）／survey（名詞：調査：情報収集のための調査）で、情報の出典と内容を紹介する際に使います。\n【参考】according to the news（ニュースによると）／recent survey（最近の調査）\n例：According to experts, the economy is improving. (専門家によると、経済は改善しています。) ／ A recent survey shows increasing interest in health. (最近の調査では健康への関心が高まっていることがわかります。)\n\n2文目: First, the increase in the number of cars is a major cause.\n（まず、車の増加が主な原因です。）\nincrease（名詞：増加：数量や程度の上昇を指す）／cause（名詞：原因：出来事や状態を引き起こす要因）で、数量の変化を述べる際に使用します。\n【参考】an increase in demand（需要の増加）／cause of pollution（汚染の原因）\n例：There is an increase in interest rates. (金利が上昇しています。) ／ Smoking is a cause of cancer. (喫煙はがんの原因です。)\n\n3文目: Second, the lack of efficient traffic management systems contributes to the problem.\n（次に、効率的な交通管理システムの欠如が問題に寄与しています。）\nlack（名詞：欠如：必要なものが不足している状態）／contribute（動詞：寄与する：何かの一因となる）で、問題の要因や貢献を説明する際に使用します。\n【参考】lack of evidence（証拠の欠如）／contribute to development（発展に寄与する）\n例：The lack of support was a major issue. (サポートの不足が大きな問題でした。) ／ His efforts contributed to the success. (彼の努力が成功に寄与しました。)\n\n4文目: In conclusion, to alleviate traffic congestion, it is essential to improve public transportation and update traffic management systems.\n（結論として、交通渋滞を緩和するためには、公共交通機関を改善し、交通管理システムを更新することが重要です。）\nalleviate（動詞：緩和する：問題や苦痛を軽減する）／essential（形容詞：重要な：不可欠であること）で、問題解決や重要性を強調する際に使います。\n【参考】alleviate pain（痛みを和らげる）／essential for success（成功に不可欠）\n例：We need to alleviate the pressure. (圧力を緩和する必要があります。) ／ Good communication is essential for teamwork. (良好なコミュニケーションはチームワークに不可欠です。)"
+}

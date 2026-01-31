@@ -401,6 +401,18 @@ def normalize_points(
             # level を正規化し、必要なら after を調整
             normalized_level, final_after = normalize_level(original_level, full_before, full_after)
             
+            # ★★★ シンプルな判定ロジック ★★★
+            # A（正規化後のユーザー入力）== B（LLMのafter）なら、形式ミスのみ → ✅
+            # 正規化後の文字列同士を比較（大文字小文字・ピリオドなどの形式ミスを除外）
+            normalized_user_input = full_before.strip()
+            normalized_llm_after = final_after.strip()
+            
+            if normalized_user_input == normalized_llm_after:
+                # 正規化後に同じ = 形式ミスのみ = ✅
+                if '❌' in normalized_level:
+                    logger.info(f"Point {i+1}: Normalized input matches LLM output → changing ❌ to ✅")
+                    normalized_level = '✅正しい表現'
+            
             # 元のユーザー入力（正規化前）を取得
             original_before_text = full_before  # デフォルトは正規化後
             if original_sentences and sentence_index < len(original_sentences):
