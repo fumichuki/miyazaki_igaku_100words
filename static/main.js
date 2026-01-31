@@ -789,36 +789,21 @@ function displayExplanationsInCards(points) {
       iconClass = 'explanation-icon-correct';
     }
     
-    // マルチ入力モードでbeforeとafterを取得
-    let beforeText = point.before;
-    let afterText = point.after;
-    
-    // ユーザーが実際に入力した文をtextareaから直接取得
-    const userInputText = textarea.value.trim();
-    
-    if (currentSentenceCount !== null && currentSentenceCount > 0) {
-      // beforeは実際の入力文を使用
-      beforeText = userInputText;
-      
-      // afterは分割して対応する文を取得
-      const afterSentences = splitIntoSentences(point.after.split('\n')[0], currentSentenceCount);
-      if (cardIndex < afterSentences.length) {
-        afterText = afterSentences[cardIndex];
-      }
-    } else {
-      afterText = point.after.split('\n')[0].trim();
-    }
-    
-    const isSame = beforeText.trim() === afterText.trim();
+    // 表示するbefore/afterを決定
+    // - ✅ のとき: 形式差分（ピリオド/大文字など）でも❌表示しない。正規化済みのbeforeを表示。
+    // - ❌ のとき: ユーザー入力（original_beforeがあればそれ）→ after を表示。
+    const normalizedBeforeText = (point.before || '').trim();
+    const originalBeforeText = (point.original_before || textarea.value || '').trim();
+    const afterText = (point.after || '').split('\n')[0].trim();
     
     // 解説内容を生成
     let explanationHTML = `<div class="explanation-content">`;
     
-    // 英文表示
-    if (isSame) {
-      explanationHTML += `<div class="explanation-sentence ${iconClass}">${icon} ${escapeHtml(beforeText)}</div>`;
+    // 英文表示（バックエンドのlevelを信頼）
+    if (levelText.includes('✅')) {
+      explanationHTML += `<div class="explanation-sentence ${iconClass}">${icon} ${escapeHtml(normalizedBeforeText)}</div>`;
     } else {
-      explanationHTML += `<div class="explanation-sentence explanation-icon-error">❌ ${escapeHtml(beforeText)}</div>`;
+      explanationHTML += `<div class="explanation-sentence explanation-icon-error">❌ ${escapeHtml(originalBeforeText)}</div>`;
       explanationHTML += `<div class="explanation-arrow">→</div>`;
       explanationHTML += `<div class="explanation-sentence explanation-icon-correct">✅ ${escapeHtml(afterText)}</div>`;
     }
