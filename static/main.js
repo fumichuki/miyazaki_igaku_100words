@@ -649,7 +649,13 @@ function submitMultiSentences() {
     removeLoadingBelowInput();
     
     if (data.error) {
-      addMessage(`❌ エラー: ${data.error}`, "ai");
+      let errorMsg = `❌ エラー: ${data.error}`;
+      // バリデーションエラーの詳細を追加
+      if (data.details && Array.isArray(data.details)) {
+        const detailsMsg = data.details.map(d => d.msg || JSON.stringify(d)).join(', ');
+        errorMsg += `\n詳細: ${detailsMsg}`;
+      }
+      addMessage(errorMsg, "ai");
       return;
     }
     
@@ -889,7 +895,13 @@ function submitAnswer() {
     chat.lastChild.remove();
     
     if (data.error) {
-      addMessage(`❌ エラー: ${data.error}`, "ai");
+      let errorMsg = `❌ エラー: ${data.error}`;
+      // バリデーションエラーの詳細を追加
+      if (data.details && Array.isArray(data.details)) {
+        const detailsMsg = data.details.map(d => d.msg || JSON.stringify(d)).join(', ');
+        errorMsg += `\n詳細: ${detailsMsg}`;
+      }
+      addMessage(errorMsg, "ai");
       return;
     }
     

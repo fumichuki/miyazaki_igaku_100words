@@ -1,164 +1,79 @@
 nohup: ignoring input
-2026-01-31 00:01:53 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:01:53 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:01:53 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:15:11 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:15:11 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:15:11 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-31 00:01:53 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-31 00:15:11 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-31 00:01:53 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-31 00:01:53 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 00:01:54 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:01:54 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:01:54 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 00:01:54 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 00:01:54 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-31 00:02:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:01] "GET /health HTTP/1.1" 200 -
-2026-01-31 00:02:08 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:08] "GET /health HTTP/1.1" 200 -
-2026-01-31 00:02:36 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:36] "GET / HTTP/1.1" 200 -
-2026-01-31 00:02:36 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:36] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
-2026-01-31 00:02:36 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:36] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
-2026-01-31 00:02:36 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:36] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
-2026-01-31 00:02:37 - database - INFO - Excluded themes: ['ブログ', '学術', 'コラム', '図表', '研究紹介', 'レビュー', '時事']
-2026-01-31 00:02:37 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-31 00:02:37 - llm_service - INFO - 📊 直近10問のサブトピック: ['ブログ:A', '学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D', '学術:H', 'レビュー:F']
-2026-01-31 00:02:37 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=10.0%, 図表=13.3%, 学術=20.0%, 時事=16.7%, 研究紹介=10.0%
-2026-01-31 00:02:37 - llm_service - INFO - 🎯 システムが選択したtheme: コラム
-2026-01-31 00:02:37 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=10.0%, P2_P3=60.0%, P3_ONLY=30.0%, P4_P5=0.0%
-2026-01-31 00:02:37 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
-2026-01-31 00:02:48 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:02:48 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "コラム",
-  "topic_label": "E",
-  "excerpt_type": "P2_P3",
+2026-01-31 00:15:11 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-31 00:15:11 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 00:15:11 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:15:11 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:15:11 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:15:11 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 00:15:11 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 00:15:18 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:18] "GET /health HTTP/1.1" 200 -
+2026-01-31 00:15:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:25] "GET /health HTTP/1.1" 200 -
+2026-01-31 00:15:52 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:52] "GET / HTTP/1.1" 200 -
+2026-01-31 00:15:52 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:52] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-31 00:15:52 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:52] "GET /static/main.js?v=20260121N HTTP/1.1" 200 -
+2026-01-31 00:15:52 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:52] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
+2026-01-31 00:15:53 - database - INFO - Excluded themes: ['学術', 'コラム', 'ブログ', '図表', '研究紹介', 'レビュー', '時事']
+2026-01-31 00:15:53 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 00:15:53 - llm_service - INFO - 📊 直近10問のサブトピック: ['学術:E', 'コラム:E', 'ブログ:A', '学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D']
+2026-01-31 00:15:53 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=10.0%, 図表=13.3%, 学術=23.3%, 時事=13.3%, 研究紹介=10.0%
+2026-01-31 00:15:53 - llm_service - INFO - 🎯 システムが選択したtheme: 学術
+2026-01-31 00:15:53 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=10.0%, P2_P3=70.0%, P3_ONLY=20.0%, P4_P5=0.0%
+2026-01-31 00:15:53 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P1_ONLY
+2026-01-31 00:16:04 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:16:04 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "学術",
+  "topic_label": "C",
+  "excerpt_type": "P1_ONLY",
   "japanese_paragraphs": [
-    "そのため、多文化共生を実現するためには、地域レベルでの具体的な取り組みが求められる。例えば、地域住民と外国人住民が交流できる場を設けることが考えられる。",
-    "また、言語サポートの充実も重要...
-2026-01-31 00:02:48 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+    "睡眠不足は現代社会で多くの人々が抱える問題であり、特に若者において学業成績や集中力に影響を与えることが研究によって示されている。ある調査によると、十分な睡眠をとることができない学生は、テストの成績...
+2026-01-31 00:16:04 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "theme": "コラム",
-  "topic_label": "E",
-  "excerpt_type": "P2_P3",
+  "theme": "学術",
+  "topic_label": "C",
+  "excerpt_type": "P1_ONLY",
   "japanese_paragraphs": [
-    "そのため、多文化共生を実現するためには、地域レベルでの具体的な取り組みが求められる。例えば、地域住民と外国人住民が交流できる場を設けることが考えられる。",
-    "また、言語サポートの充実も重要であり、地域の図書館や市民センターでの無料日本語教室の開催が有効だろう。こうした取り組みによって、地域社会の一体感が高まることが期待される。"
+    "睡眠不足は現代社会で多くの人々が抱える問題であり、特に若者において学業成績や集中力に影響を与えることが研究によって示されている。ある調査によると、十分な睡眠をとることができない学生は、テストの成績が低下しやすいという結果が得られた。"
   ],
   "hints": [
-    {"en": "multicultural coexistence", "ja": "多文化共生", "kana": "たぶんかきょうせい", "pos": "名詞", "usage": "多文化共生を促進する"},
-    {"en": "local level", "ja": "地域レベル", "kana": "ちいきレベル", "pos": "名詞", "usage": "地域レベルでの取り組みが必要だ"},
-    {"en": "interaction", "ja": "交流", "kana": "こうりゅう", "pos": "名詞", "usage": "地域住民と外国人住民との交流"},
-    {"en": "language support", "ja": "言語サポート", "kana": "げんごサポート", "pos": "名詞", "usage": "言語サポートの充実が必要である"},
-    {"en": "community sense", "ja": "地域社会の一体感", "kana": "ちいきしゃかいのいったいかん", "pos": "名詞", "usage": "地域社会の一体感が高まる"}
+    {"en": "sleep deprivation", "ja": "睡眠不足", "kana": "スリープ ディプリベーション", "pos": "名詞", "usage": "Sleep deprivation affects cognitive functions.「睡眠不足は認知機能に影響を与える。」"},
+    {"en": "concentration", "ja": "集中力", "kana": "コンセントレーション", "pos": "名詞", "usage": "Lack of sleep impairs concentration.「睡眠不足は集中力を損なう。」"},
+    {"en": "academic performance", "ja": "学業成績", "kana": "アカデミック パフォーマンス", "pos": "名詞", "usage": "Good sleep enhances academic performance.「良い睡眠は学業成績を向上させる。」"},
+    {"en": "survey", "ja": "調査", "kana": "サーベイ", "pos": "名詞", "usage": "A recent survey highlights this issue.「最近の調査がこの問題を浮き彫りにしている。」"},
+    {"en": "students", "ja": "学生", "kana": "スチューデンツ", "pos": "名詞", "usage": "Students need adequate rest to perform well.「学生は良い成績を収めるために十分な休息が必要だ。」"}
   ],
   "target_words": {"min": 100, "max": 120}
 }
-2026-01-31 00:02:48 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "コラム",
-  "topic_label": "E",
-  "excerpt_type": "P2_P3",
+2026-01-31 00:16:04 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "学術",
+  "topic_label": "C",
+  "excerpt_type": "P1_ONLY",
   "japanese_paragraphs": [
-    "そのため、多文化共生を実現するためには、地域レベルでの具体的な取り組みが求められる。例えば、地域住民と外国人住民が交流できる場を設けることが考えられる。",
-    "また、言語サポートの充実も重要であり、地域の図書館や市民センターでの無料日本語教室の開催が有効だろう。こうした取り組みによって、地域社会の一体感が高まることが期待される。"
+    "睡眠不足は現代社会で多くの人々が抱える問題であり、特に若者において学業成績や集中力に影響を与えることが研究によって示されている。ある調査によると、十分な睡眠をとることができない学生は、テストの成績が低下しやすいという結果が得られた。"
   ],
   "hints": [
-    {"en":...
-2026-01-31 00:02:48 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
-2026-01-31 00:02:48 - llm_service - INFO - ✅ theme検証成功: コラム
-2026-01-31 00:02:48 - llm_service - INFO - Successfully generated question: コラム, excerpt_type: P2_P3
-2026-01-31 00:02:48 - database - INFO - Question saved: q_20260131_8de748ab - コラム (P2_P3)
-2026-01-31 00:02:48 - database - INFO - Theme recorded: コラム (mode: general)
-2026-01-31 00:02:48 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:48] "POST /api/question HTTP/1.1" 200 -
-2026-01-31 00:09:41 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:41] "GET / HTTP/1.1" 200 -
-2026-01-31 00:09:41 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:41] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
-2026-01-31 00:09:41 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:41] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
-2026-01-31 00:09:41 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:41] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
-2026-01-31 00:09:42 - database - INFO - Excluded themes: ['コラム', 'ブログ', '学術', '図表', '研究紹介', 'レビュー', '時事']
-2026-01-31 00:09:42 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-31 00:09:42 - llm_service - INFO - 📊 直近10問のサブトピック: ['コラム:E', 'ブログ:A', '学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D', '学術:H']
-2026-01-31 00:09:42 - llm_service - INFO - 📊 直近30問の分布: コラム=20.0%, ブログ=13.3%, レビュー=10.0%, 図表=13.3%, 学術=20.0%, 時事=13.3%, 研究紹介=10.0%
-2026-01-31 00:09:42 - llm_service - INFO - 🎯 システムが選択したtheme: 学術
-2026-01-31 00:09:42 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=10.0%, P2_P3=60.0%, P3_ONLY=30.0%, P4_P5=0.0%
-2026-01-31 00:09:42 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
-2026-01-31 00:09:51 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:09:51 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "学術",
-  "topic_label": "E",
-  "excerpt_type": "P2_P3",
-  "japanese_paragraphs": [
-    "この研究では、対人コミュニケーションにおける共感の役割を調査した。参加者は、対話中に相手の感情を読み取るタスクを与えられ、その能力が評価された。",
-    "また、共感力が高い人ほど、対話の満足度が...
-2026-01-31 00:09:51 - llm_service - INFO - [DEBUG] Full LLM response for correction:
-{
-  "theme": "学術",
-  "topic_label": "E",
-  "excerpt_type": "P2_P3",
-  "japanese_paragraphs": [
-    "この研究では、対人コミュニケーションにおける共感の役割を調査した。参加者は、対話中に相手の感情を読み取るタスクを与えられ、その能力が評価された。",
-    "また、共感力が高い人ほど、対話の満足度が高いことが分かった。一方で、共感力が低い場合、誤解が生じやすくなる傾向も観察された。"
-  ],
-  "hints": [
-    {"en": "empathy", "ja": "共感", "kana": "エンパシー", "pos": "名詞", "usage": "show empathy「共感を示す」"},
-    {"en": "interaction", "ja": "対話", "kana": "インタラクション", "pos": "名詞", "usage": "social interaction「社会的対話」"},
-    {"en": "evaluate", "ja": "評価する", "kana": "エバリュエイト", "pos": "動詞", "usage": "evaluate performance「パフォーマンスを評価する」"},
-    {"en": "misunderstanding", "ja": "誤解", "kana": "ミスアンダースタンディング", "pos": "名詞", "usage": "avoid misunderstanding「誤解を避ける」"},
-    {"en": "tendency", "ja": "傾向", "kana": "テンダンシー", "pos": "名詞", "usage": "a growing tendency「増加する傾向」"}
-  ],
-  "target_words": {"min": 100, "max": 120}
-}
-2026-01-31 00:09:51 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "学術",
-  "topic_label": "E",
-  "excerpt_type": "P2_P3",
-  "japanese_paragraphs": [
-    "この研究では、対人コミュニケーションにおける共感の役割を調査した。参加者は、対話中に相手の感情を読み取るタスクを与えられ、その能力が評価された。",
-    "また、共感力が高い人ほど、対話の満足度が高いことが分かった。一方で、共感力が低い場合、誤解が生じやすくなる傾向も観察された。"
-  ],
-  "hints": [
-    {"en": "empathy", "ja": "共感", "kan...
-2026-01-31 00:09:51 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
-2026-01-31 00:09:51 - llm_service - INFO - ✅ theme検証成功: 学術
-2026-01-31 00:09:51 - llm_service - INFO - Successfully generated question: 学術, excerpt_type: P2_P3
-2026-01-31 00:09:51 - database - INFO - Question saved: q_20260131_55af579c - 学術 (P2_P3)
-2026-01-31 00:09:51 - database - INFO - Theme recorded: 学術 (mode: general)
-2026-01-31 00:09:51 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:51] "POST /api/question HTTP/1.1" 200 -
-2026-01-31 00:11:33 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): This study investigated the role of empathy in interpersonal communication.
-Participants were given ...
-2026-01-31 00:11:33 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): This study investigated the role of empathy in interpersonal communication. Participants were given ...
-2026-01-31 00:11:33 - llm_service - INFO - Question text for correction: この研究では、対人コミュニケーションにおける共感の役割を調査した。
-参加者は、対話中に相手の感情を読み取るタスクを与えられ、その能力が評価された。
-また、共感力が高い人ほど、対話の満足度が高いことが分かった。
-一方で、共感力が低い場合、誤解が生じやすくなる傾向も観察された。...
-2026-01-31 00:11:33 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
-2026-01-31 00:11:33 - llm_service - INFO - Required points for this correction: 4
-2026-01-31 00:11:33 - llm_service - INFO - Word count: 65
-2026-01-31 00:11:33 - llm_service - INFO - Correction attempt 1/3
-2026-01-31 00:11:56 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:11:56 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "This study investigated the role of empathy in interpersonal communication. Participants were given a task to interpret their conversation partner’s emotions during dialogue, and thei...
-2026-01-31 00:11:56 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 34 column 6 (char 4055)
-2026-01-31 00:11:58 - llm_service - INFO - Correction attempt 2/3
-2026-01-31 00:12:34 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:12:34 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "This study investigated the role of empathy in interpersonal communication. Participants were given a task to interpret their conversation partner’s emotions during dialogue, and thei...
-2026-01-31 00:12:34 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 34 column 6 (char 4094)
-2026-01-31 00:12:36 - llm_service - INFO - Correction attempt 3/3
-2026-01-31 00:13:08 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:13:08 - llm_service - INFO - OpenAI API response (attempt 1): 
-{
-  "original": "This study investigated the role of empathy in interpersonal communication. Participants were given a task to interpret their conversation partner’s emotions during dialogue, and the...
-2026-01-31 00:13:08 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 34 column 6 (char 4035)
-2026-01-31 00:13:08 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
-2026-01-31 00:13:08 - llm_service - INFO - Generating fallback correction response
-2026-01-31 00:13:08 - database - INFO - Submission saved: s_20260131_9aea6327 (mode: general, no scoring)
-2026-01-31 00:13:08 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:13:08] "POST /api/correct-multi HTTP/1.1" 200 -
-2026-01-31 00:13:33 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:13:33] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
-2026-01-31 00:13:33 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:13:33] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
-2026-01-31 00:14:37 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/llm_service.py', reloading
-2026-01-31 00:14:37 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 00:14:38 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:14:38 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:14:38 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 00:14:38 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 00:14:38 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+    {"en": "sleep deprivation", "ja": "睡眠不足", "kana": "スリープ ディ...
+2026-01-31 00:16:04 - llm_service - INFO - ✅ excerpt_type検証成功: P1_ONLY
+2026-01-31 00:16:04 - llm_service - INFO - ✅ theme検証成功: 学術
+2026-01-31 00:16:04 - llm_service - INFO - Successfully generated question: 学術, excerpt_type: P1_ONLY
+2026-01-31 00:16:04 - database - INFO - Question saved: q_20260131_388a4aca - 学術 (P1_ONLY)
+2026-01-31 00:16:04 - database - INFO - Theme recorded: 学術 (mode: general)
+2026-01-31 00:16:04 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:16:04] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 00:16:16 - __main__ - ERROR - Validation error: 1 validation error for SubmissionRequest
+user_answer
+  String should have at least 10 characters [type=string_too_short, input_value='a.\na.', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.10/v/string_too_short
+2026-01-31 00:16:16 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:16:16] "[31m[1mPOST /api/correct-multi HTTP/1.1[0m" 400 -
+2026-01-31 00:16:20 - __main__ - ERROR - Validation error: 1 validation error for SubmissionRequest
+user_answer
+  String should have at least 10 characters [type=string_too_short, input_value='a.\na.', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.10/v/string_too_short
+2026-01-31 00:16:20 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:16:20] "[31m[1mPOST /api/correct-multi HTTP/1.1[0m" 400 -
