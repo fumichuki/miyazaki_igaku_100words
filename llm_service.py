@@ -1617,6 +1617,14 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
             logger.info(f"Response first 500 chars: {response[:500]}")
             logger.info(f"Response last 500 chars: {response[-500:]}")
             
+            # デバッグ：完全なレスポンスをファイルに保存
+            debug_dir = Path(__file__).parent / "debug"
+            debug_dir.mkdir(exist_ok=True)
+            debug_file = debug_dir / f"llm_response_{attempt+1}.json"
+            with open(debug_file, 'w', encoding='utf-8') as f:
+                f.write(response)
+            logger.info(f"Full response saved to: {debug_file}")
+            
             cleaned = clean_json_response(response)
             
             # JSONパース

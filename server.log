@@ -1,79 +1,221 @@
 nohup: ignoring input
-2026-01-31 00:15:11 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:15:11 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:15:11 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:19:30 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:19:30 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:19:30 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-31 00:15:11 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-31 00:19:30 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-31 00:15:11 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-31 00:15:11 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 00:15:11 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:15:11 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:15:11 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 00:15:11 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 00:15:11 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-31 00:15:18 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:18] "GET /health HTTP/1.1" 200 -
-2026-01-31 00:15:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:25] "GET /health HTTP/1.1" 200 -
-2026-01-31 00:15:52 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:52] "GET / HTTP/1.1" 200 -
-2026-01-31 00:15:52 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:52] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
-2026-01-31 00:15:52 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:52] "GET /static/main.js?v=20260121N HTTP/1.1" 200 -
-2026-01-31 00:15:52 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:15:52] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
-2026-01-31 00:15:53 - database - INFO - Excluded themes: ['学術', 'コラム', 'ブログ', '図表', '研究紹介', 'レビュー', '時事']
-2026-01-31 00:15:53 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-31 00:15:53 - llm_service - INFO - 📊 直近10問のサブトピック: ['学術:E', 'コラム:E', 'ブログ:A', '学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D']
-2026-01-31 00:15:53 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=10.0%, 図表=13.3%, 学術=23.3%, 時事=13.3%, 研究紹介=10.0%
-2026-01-31 00:15:53 - llm_service - INFO - 🎯 システムが選択したtheme: 学術
-2026-01-31 00:15:53 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=10.0%, P2_P3=70.0%, P3_ONLY=20.0%, P4_P5=0.0%
-2026-01-31 00:15:53 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P1_ONLY
-2026-01-31 00:16:04 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:16:04 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "学術",
-  "topic_label": "C",
-  "excerpt_type": "P1_ONLY",
-  "japanese_paragraphs": [
-    "睡眠不足は現代社会で多くの人々が抱える問題であり、特に若者において学業成績や集中力に影響を与えることが研究によって示されている。ある調査によると、十分な睡眠をとることができない学生は、テストの成績...
-2026-01-31 00:16:04 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+2026-01-31 00:19:30 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-31 00:19:30 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 00:19:31 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:19:31 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:19:31 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:19:31 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 00:19:31 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 00:19:36 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:19:36] "GET /health HTTP/1.1" 200 -
+2026-01-31 00:19:38 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): It was also found that people.
+It was also found that people with higher levels of empathy reported ...
+2026-01-31 00:19:38 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): It was also found that people. It was also found that people with higher levels of empathy reported ...
+2026-01-31 00:19:38 - llm_service - INFO - Question text for correction: 睡眠不足は現代社会で多くの人々が抱える問題であり、特に若者において学業成績や集中力に影響を与えることが研究によって示されている。
+ある調査によると、十分な睡眠をとることができない学生は、テストの成績が低下しやすいという結果が得られた。...
+2026-01-31 00:19:38 - llm_service - INFO - Required points determined from Japanese text: 2 sentences
+2026-01-31 00:19:38 - llm_service - INFO - Required points for this correction: 2
+2026-01-31 00:19:38 - llm_service - INFO - Word count: 23
+2026-01-31 00:19:38 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 00:19:42 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:19:42] "GET /health HTTP/1.1" 200 -
+2026-01-31 00:19:57 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:19:58 - llm_service - INFO - OpenAI API response (attempt 1): 
 {
-  "theme": "学術",
-  "topic_label": "C",
-  "excerpt_type": "P1_ONLY",
+  "original": "It was also found that people. It was also found that people with higher levels of empathy reported greater satisfaction with the dialogue.",
+  "corrected": "Sleep deprivation is a p...
+2026-01-31 00:19:58 - llm_service - INFO - Full LLM response for correction (length: 3570 chars)
+2026-01-31 00:19:58 - llm_service - INFO - Response first 500 chars: 
+{
+  "original": "It was also found that people. It was also found that people with higher levels of empathy reported greater satisfaction with the dialogue.",
+  "corrected": "Sleep deprivation is a problem that many people face in modern society, and studies have shown that it affects academic performance and concentration, especially in young people.\n\nAccording to a survey, students who cannot get enough sleep tend to score lower on tests.",
+  "points": [
+    {
+      "before": "【全体評価】",
+    
+2026-01-31 00:19:58 - llm_service - INFO - Response last 500 chars: essed the issue. (政府はその問題に対処しました。)\n\n2文目: According to a survey, students who cannot get enough sleep tend to score lower on tests.\n（ある調査によると、十分な睡眠をとることができない学生は、テストの成績が低下しやすいという結果が得られました。）\nsurvey（名詞：調査：データ収集のために多くの人に質問する方法）／research（名詞：研究：科学的な方法で情報を集めるプロセス）で、surveyは質問形式、researchは科学的調査を指します。\n【参考】conduct a survey（調査を行う）／carry out research（研究を行う）\n例：They conducted a survey on customer satisfaction. (彼らは顧客満足度に関する調査を行いました。) ／ We are carrying out research on climate change. (気候変動に関する研究を行っています。)"
+}
+2026-01-31 00:19:58 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 00:19:58 - llm_service - INFO - Before normalization: 2 points
+2026-01-31 00:19:58 - points_normalizer - INFO - Starting points normalization: 2 points
+2026-01-31 00:19:58 - points_normalizer - INFO - Student answer split into 2 sentences
+2026-01-31 00:19:58 - points_normalizer - INFO - Processing point 1: before='It was also found that people....', level='❌文法ミス'
+2026-01-31 00:19:58 - points_normalizer - INFO - Point 1: Found in sentence 1: 'It was also found that people....'
+2026-01-31 00:19:58 - points_normalizer - INFO - Point 1: Replaced fragment in sentence: 'Sleep deprivation is a problem that many people fa...'
+2026-01-31 00:19:58 - points_normalizer - INFO - Level is ❌, keeping after: 'Sleep deprivation is a problem that many people fa...'
+2026-01-31 00:19:58 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 00:19:58 - points_normalizer - INFO - Processing point 2: before='It was also found that people with higher levels o...', level='❌文法ミス'
+2026-01-31 00:19:58 - points_normalizer - INFO - Point 2: Found in sentence 2: 'It was also found that people with higher levels o...'
+2026-01-31 00:19:58 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'According to a survey, students who cannot get eno...'
+2026-01-31 00:19:58 - points_normalizer - INFO - Level is ❌, keeping after: 'According to a survey, students who cannot get eno...'
+2026-01-31 00:19:58 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-31 00:19:58 - points_normalizer - INFO - Points normalization complete: 2 points
+2026-01-31 00:19:58 - llm_service - INFO - After normalization: 2 points
+2026-01-31 00:19:58 - llm_service - INFO - Points check: current=2, non-evaluation=2, required=2
+2026-01-31 00:19:58 - llm_service - INFO - ✅ Correction successful: 2 points
+2026-01-31 00:19:58 - database - INFO - Submission saved: s_20260131_11ccfd24 (mode: general, no scoring)
+2026-01-31 00:19:58 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:19:58] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 00:20:15 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:20:15] "GET / HTTP/1.1" 200 -
+2026-01-31 00:20:15 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:20:15] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-31 00:20:15 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:20:15] "GET /static/main.js?v=20260121N HTTP/1.1" 200 -
+2026-01-31 00:20:15 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:20:15] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
+2026-01-31 00:20:16 - database - INFO - Excluded themes: ['学術', 'コラム', 'ブログ', '図表', '研究紹介', 'レビュー', '時事']
+2026-01-31 00:20:16 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 00:20:16 - llm_service - INFO - 📊 直近10問のサブトピック: ['学術:A', '学術:E', 'コラム:E', 'ブログ:A', '学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C']
+2026-01-31 00:20:16 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=10.0%, 図表=13.3%, 学術=23.3%, 時事=13.3%, 研究紹介=10.0%
+2026-01-31 00:20:16 - llm_service - INFO - 🎯 システムが選択したtheme: 時事
+2026-01-31 00:20:16 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=60.0%, P3_ONLY=20.0%, P4_P5=0.0%
+2026-01-31 00:20:16 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
+2026-01-31 00:20:25 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:20:25 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "時事",
+  "topic_label": "B",
+  "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "睡眠不足は現代社会で多くの人々が抱える問題であり、特に若者において学業成績や集中力に影響を与えることが研究によって示されている。ある調査によると、十分な睡眠をとることができない学生は、テストの成績が低下しやすいという結果が得られた。"
+    "科学界では、新しい研究不正の事例が注目を集めている。ある著名な研究者が、データを操作して結果を捏造していたとされる。この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査...
+2026-01-31 00:20:25 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+{
+  "theme": "時事",
+  "topic_label": "B",
+  "excerpt_type": "P2_P3",
+  "japanese_paragraphs": [
+    "科学界では、新しい研究不正の事例が注目を集めている。ある著名な研究者が、データを操作して結果を捏造していたとされる。この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査に乗り出している。",
+    "このような事例は、科学の進展を阻むだけでなく、一般の人々にも誤った情報を提供する可能性がある。特に、今回の不正が発覚した分野は、社会的に重要な研究テーマに関連しているため、その影響は少なくないと考えられる。今後、透明性を確保するための新たな対策が求められるだろう。"
   ],
   "hints": [
-    {"en": "sleep deprivation", "ja": "睡眠不足", "kana": "スリープ ディプリベーション", "pos": "名詞", "usage": "Sleep deprivation affects cognitive functions.「睡眠不足は認知機能に影響を与える。」"},
-    {"en": "concentration", "ja": "集中力", "kana": "コンセントレーション", "pos": "名詞", "usage": "Lack of sleep impairs concentration.「睡眠不足は集中力を損なう。」"},
-    {"en": "academic performance", "ja": "学業成績", "kana": "アカデミック パフォーマンス", "pos": "名詞", "usage": "Good sleep enhances academic performance.「良い睡眠は学業成績を向上させる。」"},
-    {"en": "survey", "ja": "調査", "kana": "サーベイ", "pos": "名詞", "usage": "A recent survey highlights this issue.「最近の調査がこの問題を浮き彫りにしている。」"},
-    {"en": "students", "ja": "学生", "kana": "スチューデンツ", "pos": "名詞", "usage": "Students need adequate rest to perform well.「学生は良い成績を収めるために十分な休息が必要だ。」"}
+    {"en": "fabricate", "ja": "捏造する", "kana": "ネツゾウスル", "pos": "動詞", "usage": "fabricate data「データを捏造する」"},
+    {"en": "integrity", "ja": "信頼性", "kana": "シンライセイ", "pos": "名詞", "usage": "scientific integrity「科学的信頼性」"},
+    {"en": "misconduct", "ja": "不正行為", "kana": "フセイコウイ", "pos": "名詞", "usage": "research misconduct「研究不正」"},
+    {"en": "transparency", "ja": "透明性", "kana": "トウメイセイ", "pos": "名詞", "usage": "ensure transparency「透明性を確保する」"},
+    {"en": "impact", "ja": "影響", "kana": "エイキョウ", "pos": "名詞", "usage": "social impact「社会的影響」"}
   ],
   "target_words": {"min": 100, "max": 120}
 }
-2026-01-31 00:16:04 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "学術",
-  "topic_label": "C",
-  "excerpt_type": "P1_ONLY",
+2026-01-31 00:20:25 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "時事",
+  "topic_label": "B",
+  "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "睡眠不足は現代社会で多くの人々が抱える問題であり、特に若者において学業成績や集中力に影響を与えることが研究によって示されている。ある調査によると、十分な睡眠をとることができない学生は、テストの成績が低下しやすいという結果が得られた。"
+    "科学界では、新しい研究不正の事例が注目を集めている。ある著名な研究者が、データを操作して結果を捏造していたとされる。この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査に乗り出している。",
+    "このような事例は、科学の進展を阻むだけでなく、一般の人々にも誤った情報を提供する可能性がある。特に、今回の不正が発覚した分野は、社会的に重要な研究テーマに関連している...
+2026-01-31 00:20:25 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
+2026-01-31 00:20:25 - llm_service - INFO - ✅ theme検証成功: 時事
+2026-01-31 00:20:25 - llm_service - INFO - Successfully generated question: 時事, excerpt_type: P2_P3
+2026-01-31 00:20:25 - database - INFO - Question saved: q_20260131_73f1db6d - 時事 (P2_P3)
+2026-01-31 00:20:25 - database - INFO - Theme recorded: 時事 (mode: general)
+2026-01-31 00:20:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:20:25] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 00:24:34 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention.
+A promine...
+2026-01-31 00:24:34 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention. A promine...
+2026-01-31 00:24:34 - llm_service - INFO - Question text for correction: 科学界では、新しい研究不正の事例が注目を集めている。
+ある著名な研究者が、データを操作して結果を捏造していたとされる。
+この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査に乗り出している。
+このような事例は、科学の進展を阻むだけでなく、一般の人々にも誤った情報を提供する可能性がある。
+特に、今回の不正が発覚した分野は、社会的に重要な研究テーマに関連しているため、そ...
+2026-01-31 00:24:34 - llm_service - INFO - Required points determined from Japanese text: 6 sentences
+2026-01-31 00:24:34 - llm_service - INFO - Required points for this correction: 6
+2026-01-31 00:24:34 - llm_service - INFO - Word count: 90
+2026-01-31 00:24:34 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 00:25:10 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:25:10 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
+2026-01-31 00:25:10 - llm_service - INFO - Full LLM response for correction (length: 6421 chars)
+2026-01-31 00:25:10 - llm_service - INFO - Response first 500 chars: {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
+2026-01-31 00:25:10 - llm_service - INFO - Response last 500 chars: ing attention.\n\nA prominent researcher is alleged to have manipulated data and fabricated results.\n\nThis misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.\n\nSuch cases not only hinder scientific progress but may also provide the public with false information.\n\nIn particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant
+2026-01-31 00:25:10 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 46 column 6 (char 5820)
+2026-01-31 00:25:12 - llm_service - INFO - Correction attempt 2/3
+2026-01-31 00:25:43 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:25:43 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
+2026-01-31 00:25:43 - llm_service - INFO - Full LLM response for correction (length: 6383 chars)
+2026-01-31 00:25:43 - llm_service - INFO - Response first 500 chars: {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
+2026-01-31 00:25:43 - llm_service - INFO - Response last 500 chars: 政府は新しい政策を策定した。)",
+      "level": "✅正しい表現"
+    }
   ],
-  "hints": [
-    {"en": "sleep deprivation", "ja": "睡眠不足", "kana": "スリープ ディ...
-2026-01-31 00:16:04 - llm_service - INFO - ✅ excerpt_type検証成功: P1_ONLY
-2026-01-31 00:16:04 - llm_service - INFO - ✅ theme検証成功: 学術
-2026-01-31 00:16:04 - llm_service - INFO - Successfully generated question: 学術, excerpt_type: P1_ONLY
-2026-01-31 00:16:04 - database - INFO - Question saved: q_20260131_388a4aca - 学術 (P1_ONLY)
-2026-01-31 00:16:04 - database - INFO - Theme recorded: 学術 (mode: general)
-2026-01-31 00:16:04 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:16:04] "POST /api/question HTTP/1.1" 200 -
-2026-01-31 00:16:16 - __main__ - ERROR - Validation error: 1 validation error for SubmissionRequest
-user_answer
-  String should have at least 10 characters [type=string_too_short, input_value='a.\na.', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.10/v/string_too_short
-2026-01-31 00:16:16 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:16:16] "[31m[1mPOST /api/correct-multi HTTP/1.1[0m" 400 -
-2026-01-31 00:16:20 - __main__ - ERROR - Validation error: 1 validation error for SubmissionRequest
-user_answer
-  String should have at least 10 characters [type=string_too_short, input_value='a.\na.', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.10/v/string_too_short
-2026-01-31 00:16:20 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:16:20] "[31m[1mPOST /api/correct-multi HTTP/1.1[0m" 400 -
+  "model_answer": "In the scientific community, a new case of research misconduct has been drawing attention.\n\nA prominent researcher is alleged to have manipulated data and fabricated results.\n\nThis misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.\n\nSuch cases not only hinder scientific progress but may also provide the public with false information.\n\n
+2026-01-31 00:25:43 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 46 column 6 (char 5930)
+2026-01-31 00:25:45 - llm_service - INFO - Correction attempt 3/3
+2026-01-31 00:26:23 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:26:23 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
+2026-01-31 00:26:23 - llm_service - INFO - Full LLM response for correction (length: 6131 chars)
+2026-01-31 00:26:23 - llm_service - INFO - Response first 500 chars: {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
+2026-01-31 00:26:23 - llm_service - INFO - Response last 500 chars: res will be needed to ensure transparency.",
+      "after": "Going forward, new measures will be needed to ensure transparency.",
+      "reason": "6文目: Going forward, new measures will be needed to ensure transparency.\n（今後、透明性を確保するための新たな対策が求められるだろう。）\nensure（動詞：確保する・保証する：確実にする文脈）／secure（動詞：確保する・守る：安全に保つ文脈）で、ensureは結果を確実にすることに焦点を当て、secureは安全性を重視します。\n【参考】ensure success（成功を確実にする）／secure a place（場所を確保する）\n例: We must ensure the project's success. (プロジェクトの成功を確実にしなければならない。) ／ He secured a seat at the
+2026-01-31 00:26:23 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 40 column 6 (char 5582)
+2026-01-31 00:26:23 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
+2026-01-31 00:26:23 - llm_service - INFO - Generating fallback correction response
+2026-01-31 00:26:23 - database - INFO - Submission saved: s_20260131_ccb8bf49 (mode: general, no scoring)
+2026-01-31 00:26:23 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:26:23] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 00:32:08 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention.
+A promine...
+2026-01-31 00:32:08 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention. A promine...
+2026-01-31 00:32:08 - llm_service - INFO - Question text for correction: 科学界では、新しい研究不正の事例が注目を集めている。
+ある著名な研究者が、データを操作して結果を捏造していたとされる。
+この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査に乗り出している。
+このような事例は、科学の進展を阻むだけでなく、一般の人々にも誤った情報を提供する可能性がある。
+特に、今回の不正が発覚した分野は、社会的に重要な研究テーマに関連しているため、そ...
+2026-01-31 00:32:08 - llm_service - INFO - Required points determined from Japanese text: 6 sentences
+2026-01-31 00:32:08 - llm_service - INFO - Required points for this correction: 6
+2026-01-31 00:32:08 - llm_service - INFO - Word count: 90
+2026-01-31 00:32:08 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 00:32:11 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:32:11] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-31 00:32:11 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:32:11] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 00:32:43 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:32:43 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
+2026-01-31 00:32:43 - llm_service - INFO - Full LLM response for correction (length: 6623 chars)
+2026-01-31 00:32:43 - llm_service - INFO - Response first 500 chars: {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
+2026-01-31 00:32:43 - llm_service - INFO - Response last 500 chars: .\n\nSuch cases not only hinder scientific progress but may also provide the public with false information.\n\nIn particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.\n\nGoing forward, new measures will be needed to ensure transparency.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: In the scientific community, a new case of research misconduct has been drawing attention.\n（科学界では、新しい研究不正の事例が注目を集め
+2026-01-31 00:32:43 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 46 column 6 (char 5781)
+2026-01-31 00:32:45 - llm_service - INFO - Correction attempt 2/3
+2026-01-31 00:33:24 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:33:24 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
+2026-01-31 00:33:24 - llm_service - INFO - Full LLM response for correction (length: 6291 chars)
+2026-01-31 00:33:24 - llm_service - INFO - Response first 500 chars: {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
+2026-01-31 00:33:24 - llm_service - INFO - Response last 500 chars: n【参考】ensure safety（安全を確保する）／guarantee quality（品質を保証する）\n例: We must ensure that this does not happen again. (これが二度と起こらないようにしなければなりません。) / The warranty guarantees the product for one year. (保証は製品を1年間保証します。)",
+      "level": "✅正しい表現"
+    }
+  ],
+  "model_answer": "In the scientific community, a new case of research misconduct has been drawing attention.\n\nA prominent researcher is alleged to have manipulated data and fabricated results.\n\nThis misconduct seriously undermines scientific credibility
+2026-01-31 00:33:24 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 46 column 6 (char 6027)
+2026-01-31 00:33:26 - llm_service - INFO - Correction attempt 3/3
+2026-01-31 00:34:09 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:34:09 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
+2026-01-31 00:34:09 - llm_service - INFO - Full LLM response for correction (length: 6279 chars)
+2026-01-31 00:34:09 - llm_service - INFO - Response first 500 chars: {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
+2026-01-31 00:34:09 - llm_service - INFO - Response last 500 chars: る）で、ensureはプロセスを強調し、guaranteeは結果を強調します。\n【参考】ensure success（成功を確実にする）／guarantee satisfaction（満足を保証する）\n例: We must ensure everyone's safety. (全員の安全を確保しなければならない。) / The product guarantees satisfaction. (その製品は満足を保証します。)",
+      "level": "✅正しい表現"
+    }
+  ],
+  "model_answer": "In the scientific community, a new case of research misconduct has been drawing attention.\n\nA prominent researcher is alleged to have manipulated data and fabricated results.\n\nThis misconduct seriously undermines scientific
+2026-01-31 00:34:09 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 46 column 6 (char 6027)
+2026-01-31 00:34:09 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
+2026-01-31 00:34:09 - llm_service - INFO - Generating fallback correction response
+2026-01-31 00:34:09 - database - INFO - Submission saved: s_20260131_aafac8c6 (mode: general, no scoring)
+2026-01-31 00:34:09 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:34:09] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 00:39:36 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/llm_service.py', reloading
+2026-01-31 00:39:36 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 00:39:39 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:39:39 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:39:39 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:39:39 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 00:39:39 - werkzeug - INFO -  * Debugger PIN: 519-604-230
