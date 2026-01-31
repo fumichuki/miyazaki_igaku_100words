@@ -180,8 +180,20 @@ def split_into_sentences(text: str) -> List[str]:
     if not text or not text.strip():
         return []
     
-    # 改行は normalize_user_input() で既にスペースに変換済み
-    # ここでは改行チェックをスキップ
+    # 改行で明示的に分割されている場合は、改行を優先
+    # （マルチ入力モードで user_sentences が改行結合されている場合に対応）
+    if '\n' in text:
+        lines = [line.strip() for line in text.split('\n') if line.strip()]
+        # 各行をさらにピリオドで分割（必要に応じて）
+        all_sentences = []
+        for line in lines:
+            # 行の中にピリオドがあれば、さらに分割
+            if '.' in line or '!' in line or '?' in line:
+                all_sentences.extend(split_into_sentences(line))
+            else:
+                # ピリオドがない場合はそのまま追加
+                all_sentences.append(line)
+        return all_sentences
     
     # ステップ1: 省略形のピリオドを保護
     protected = _protect_abbreviations(text.strip())
