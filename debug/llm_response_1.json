@@ -1,27 +1,27 @@
 
 {
-  "original": "According to a recent survey, traffic congestion has been worsening in urban areas of japan.\nIn particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.",
-  "corrected": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan.\n\nIn particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.",
+  "original": "According to a recent survey. In particular during the morning.",
+  "corrected": "According to a recent survey, traffic congestion in urban areas of Japan is worsening.\n\nIn particular, during the morning rush hour, the flow of vehicles on major roads significantly decreases.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "学生の解答は、日本語原文の内容を適切に英訳しています。文法的にも正確で自然な表現です。",
-      "reason": "解説: 提出された英文は、日本語原文の2文を正確に英訳しています。スペルミスを除けば、文法的なミスはなく、接続詞の使用も適切です。",
+      "after": "提出された英文は、情報が不完全であり、日本語原文の内容を正確に反映していません。特に、交通渋滞が悪化していることや、朝の通勤ラッシュについての情報が欠落しています。",
+      "reason": "解説: 提出された英文は2文で、日本語原文の内容に対応していません。文法的に不完全であり、情報が不足しています。特に、接続詞や文脈を示す副詞句が欠落しています。",
       "level": "内容評価"
     },
     {
-      "before": "According to a recent survey, traffic congestion has been worsening in urban areas of japan.",
-      "after": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan.",
-      "reason": "【誤りの説明】: 'japan' の 'j' は大文字にすべきです。国名は常に大文字で始まります。\n【参考】Japan / United States\n例: I live in Japan. (私は日本に住んでいます。) / She visited the United States. (彼女はアメリカを訪れました。)\n\n1文目: According to a recent survey, traffic congestion has been worsening in urban areas of Japan.\n（最近の調査によると、日本の都市部では交通渋滞が悪化しています。）\nrecent（形容詞：最近の：直近の出来事や状況を指す文脈）／current（形容詞：現在の：今の状態を指す文脈）で、recentは過去に近い時間枠、currentは現在進行中の状態を示します。",
+      "before": "According to a recent survey.",
+      "after": "According to a recent survey, traffic congestion in urban areas of Japan is worsening.",
+      "reason": "【誤りの説明】: 'According to a recent survey.' は文として不完全です。情報を追加して文を完成させる必要があります。\n【参考】According to A, B / Based on A, B\n例: According to experts, climate change is accelerating. (専門家によれば、気候変動が加速しています。) / Based on the report, sales are increasing. (報告書に基づくと、売上が増えています。)\n\n1文目: According to a recent survey, traffic congestion in urban areas of Japan is worsening.\n（最近の調査によると、日本の都市部では交通渋滞が悪化しています。）\ncongestion（名詞：混雑：交通や人の流れが詰まっている状態）／worsen（動詞：悪化する：状況が悪くなる）で、congestionは詰まりや混雑、worsenは状態の悪化を示します。",
       "level": "❌文法ミス"
     },
     {
-      "before": "In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.",
-      "after": "In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.",
-      "reason": "2文目: In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.\n（特に朝の通勤ラッシュアワー時には、主要幹線道路での車両の流れが大幅に低下します。）\nflow（名詞：流れ：一定の方向に進む動きの文脈）／traffic（名詞：交通：道路上の車両の動きの文脈）で、flowは水や車両の動きを示し、trafficは全体の交通状況を示します。\n【参考】flow of water（水の流れ）／traffic congestion（交通渋滞）\n例: The flow of water was strong. (水の流れは強かった。) / Traffic congestion is common in cities. (都市では交通渋滞が一般的です。)",
-      "level": "✅正しい表現"
+      "before": "In particular during the morning.",
+      "after": "In particular, during the morning rush hour, the flow of vehicles on major roads significantly decreases.",
+      "reason": "【誤りの説明】: 'In particular during the morning.' は文が不完全で、情報が不足しています。特に何が起こるかを明示する必要があります。\n【参考】In particular, A happens during B / Specifically, A occurs at B\n例: In particular, productivity peaks in the morning. (特に、午前中に生産性がピークに達します。) / Specifically, errors occur during testing. (具体的には、テスト中にエラーが発生します。)\n\n2文目: In particular, during the morning rush hour, the flow of vehicles on major roads significantly decreases.\n（特に朝の通勤ラッシュアワー時には、主要幹線道路での車両の流れが大幅に低下します。）\nflow（名詞：流れ：物や人が移動する様子）／decrease（動詞：減少する：量や数が少なくなる）で、flowは動きや流れ、decreaseは数や量の減少を示します。",
+      "level": "❌文法ミス"
     }
   ],
-  "model_answer": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan.\n\nIn particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads decreases significantly.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: According to a recent survey, traffic congestion has been worsening in urban areas of Japan.\n（最近の調査によると、日本の都市部では交通渋滞が悪化しています。）\nrecent（形容詞：最近の：直近の出来事や状況を指す文脈）／current（形容詞：現在の：今の状態を指す文脈）で、recentは過去に近い時間枠、currentは現在進行中の状態を示します。\n【参考】recent study（最近の研究）／current situation（現在の状況）\n例: A recent study shows... (最近の研究は...を示す。) ／ The current situation is difficult. (現在の状況は困難です。)\n\n2文目: In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads decreases significantly.\n（特に朝の通勤ラッシュアワー時には、主要幹線道路での車両の流れが大幅に低下します。）\ndecrease（動詞：減少する：量や速度が下がる文脈）／reduce（動詞：減らす：意図的に量を下げる文脈）で、decreaseは自然な減少を指し、reduceは意図的な減少を示します。\n【参考】decrease in speed（速度の減少）／reduce the risk（リスクを減らす）\n例: The speed decreased quickly. (速度が急速に落ちた。) ／ We reduced the risk of error. (エラーのリスクを減らした。)"
+  "model_answer": "According to a recent survey, traffic congestion in urban areas of Japan is worsening.\n\nIn particular, during the morning rush hour, the flow of vehicles on major roads significantly decreases.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: According to a recent survey, traffic congestion in urban areas of Japan is worsening.\n（最近の調査によると、日本の都市部では交通渋滞が悪化しています。）\ncongestion（名詞：混雑：交通や人の流れが詰まっている状態）／worsen（動詞：悪化する：状況が悪くなる）で、congestionは詰まりや混雑、worsenは状態の悪化を示します。\n【参考】According to A, B / Based on A, B\n例：According to experts, climate change is accelerating. (専門家によれば、気候変動が加速しています。) / Based on the report, sales are increasing. (報告書に基づくと、売上が増えています。)\n\n2文目: In particular, during the morning rush hour, the flow of vehicles on major roads significantly decreases.\n（特に朝の通勤ラッシュアワー時には、主要幹線道路での車両の流れが大幅に低下します。）\nflow（名詞：流れ：物や人が移動する様子）／decrease（動詞：減少する：量や数が少なくなる）で、flowは動きや流れ、decreaseは数や量の減少を示します。\n【参考】In particular, A happens during B / Specifically, A occurs at B\n例：In particular, productivity peaks in the morning. (特に、午前中に生産性がピークに達します。) / Specifically, errors occur during testing. (具体的には、テスト中にエラーが発生します。)"
 }

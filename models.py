@@ -108,6 +108,7 @@ class CorrectionPoint(BaseModel):
     level: Optional[str] = Field(None, description="レベル（❌文法ミス、✅正しい表現）※💡改善提案は廃止")
     alt: Optional[str] = Field(None, description="別の表現（オプション）")
     sentence_no: Optional[int] = Field(None, description="文番号（1,2,3...）", ge=1)
+    original_before: Optional[str] = Field(None, description="正規化前のユーザー入力（フロントエンド表示用）")
 
 
 class Score(BaseModel):
