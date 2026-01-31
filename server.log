@@ -1,165 +1,164 @@
 nohup: ignoring input
-2026-01-30 23:54:25 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:54:25 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:54:25 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:01:53 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:01:53 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:01:53 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-30 23:54:25 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-31 00:01:53 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-30 23:54:25 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-30 23:54:25 - werkzeug - INFO -  * Restarting with stat
-2026-01-30 23:54:25 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:54:25 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:54:25 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-30 23:54:25 - werkzeug - WARNING -  * Debugger is active!
-2026-01-30 23:54:25 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-30 23:54:30 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:30] "GET /health HTTP/1.1" 200 -
-2026-01-30 23:54:38 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:38] "GET /health HTTP/1.1" 200 -
-2026-01-30 23:54:56 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:56] "GET / HTTP/1.1" 200 -
-2026-01-30 23:54:56 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:56] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
-2026-01-30 23:54:56 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:56] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
-2026-01-30 23:54:56 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:56] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
-2026-01-30 23:54:58 - database - INFO - Excluded themes: ['学術', 'コラム', '図表', '研究紹介', 'レビュー', 'ブログ', '時事']
-2026-01-30 23:54:58 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-30 23:54:58 - llm_service - INFO - 📊 直近10問のサブトピック: ['学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D', '学術:H', 'レビュー:F', '図表:E']
-2026-01-30 23:54:58 - llm_service - INFO - 📊 直近30問の分布: コラム=20.0%, ブログ=10.0%, レビュー=10.0%, 図表=13.3%, 学術=20.0%, 時事=16.7%, 研究紹介=10.0%
-2026-01-30 23:54:58 - llm_service - INFO - 🎯 システムが選択したtheme: ブログ
-2026-01-30 23:54:58 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=0.0%, P2_P3=70.0%, P3_ONLY=30.0%, P4_P5=0.0%
-2026-01-30 23:54:58 - llm_service - INFO - 🎯 P1_ONLYが20.0%不足 → 優先的に選択
-2026-01-30 23:54:58 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P1_ONLY
-2026-01-30 23:55:05 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:55:05 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "ブログ",
-  "topic_label": "A",
-  "excerpt_type": "P1_ONLY",
+2026-01-31 00:01:53 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-31 00:01:53 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 00:01:54 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:01:54 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:01:54 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:01:54 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 00:01:54 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 00:02:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:01] "GET /health HTTP/1.1" 200 -
+2026-01-31 00:02:08 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:08] "GET /health HTTP/1.1" 200 -
+2026-01-31 00:02:36 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:36] "GET / HTTP/1.1" 200 -
+2026-01-31 00:02:36 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:36] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-31 00:02:36 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:36] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
+2026-01-31 00:02:36 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:36] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
+2026-01-31 00:02:37 - database - INFO - Excluded themes: ['ブログ', '学術', 'コラム', '図表', '研究紹介', 'レビュー', '時事']
+2026-01-31 00:02:37 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 00:02:37 - llm_service - INFO - 📊 直近10問のサブトピック: ['ブログ:A', '学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D', '学術:H', 'レビュー:F']
+2026-01-31 00:02:37 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=10.0%, 図表=13.3%, 学術=20.0%, 時事=16.7%, 研究紹介=10.0%
+2026-01-31 00:02:37 - llm_service - INFO - 🎯 システムが選択したtheme: コラム
+2026-01-31 00:02:37 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=10.0%, P2_P3=60.0%, P3_ONLY=30.0%, P4_P5=0.0%
+2026-01-31 00:02:37 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
+2026-01-31 00:02:48 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:02:48 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "コラム",
+  "topic_label": "E",
+  "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。こうした小さな中断が積み重なると、作業効率が大きく下が...
-2026-01-30 23:55:05 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+    "そのため、多文化共生を実現するためには、地域レベルでの具体的な取り組みが求められる。例えば、地域住民と外国人住民が交流できる場を設けることが考えられる。",
+    "また、言語サポートの充実も重要...
+2026-01-31 00:02:48 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "theme": "ブログ",
-  "topic_label": "A",
-  "excerpt_type": "P1_ONLY",
+  "theme": "コラム",
+  "topic_label": "E",
+  "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。そこで、通知を一時的にオフにすることを試してみることにした。"
+    "そのため、多文化共生を実現するためには、地域レベルでの具体的な取り組みが求められる。例えば、地域住民と外国人住民が交流できる場を設けることが考えられる。",
+    "また、言語サポートの充実も重要であり、地域の図書館や市民センターでの無料日本語教室の開催が有効だろう。こうした取り組みによって、地域社会の一体感が高まることが期待される。"
   ],
   "hints": [
-    {"en": "notification", "ja": "通知", "kana": "ノーティフィケーション", "pos": "名詞", "usage": "receive a notification「通知を受け取る」"},
-    {"en": "concentrate", "ja": "集中する", "kana": "コンセントレート", "pos": "動詞", "usage": "concentrate on work「仕事に集中する」"},
-    {"en": "interrupt", "ja": "中断する", "kana": "インタラプト", "pos": "動詞", "usage": "interrupt a meeting「会議を中断する」"},
-    {"en": "efficiency", "ja": "効率", "kana": "エフィシェンシー", "pos": "名詞", "usage": "improve efficiency「効率を改善する」"},
-    {"en": "temporarily", "ja": "一時的に", "kana": "テンポラリリー", "pos": "副詞", "usage": "temporarily close the store「一時的に店を閉める」"}
+    {"en": "multicultural coexistence", "ja": "多文化共生", "kana": "たぶんかきょうせい", "pos": "名詞", "usage": "多文化共生を促進する"},
+    {"en": "local level", "ja": "地域レベル", "kana": "ちいきレベル", "pos": "名詞", "usage": "地域レベルでの取り組みが必要だ"},
+    {"en": "interaction", "ja": "交流", "kana": "こうりゅう", "pos": "名詞", "usage": "地域住民と外国人住民との交流"},
+    {"en": "language support", "ja": "言語サポート", "kana": "げんごサポート", "pos": "名詞", "usage": "言語サポートの充実が必要である"},
+    {"en": "community sense", "ja": "地域社会の一体感", "kana": "ちいきしゃかいのいったいかん", "pos": "名詞", "usage": "地域社会の一体感が高まる"}
   ],
   "target_words": {"min": 100, "max": 120}
 }
-2026-01-30 23:55:05 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "ブログ",
-  "topic_label": "A",
-  "excerpt_type": "P1_ONLY",
+2026-01-31 00:02:48 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "コラム",
+  "topic_label": "E",
+  "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。そこで、通知を一時的にオフにすることを試してみることにした。"
+    "そのため、多文化共生を実現するためには、地域レベルでの具体的な取り組みが求められる。例えば、地域住民と外国人住民が交流できる場を設けることが考えられる。",
+    "また、言語サポートの充実も重要であり、地域の図書館や市民センターでの無料日本語教室の開催が有効だろう。こうした取り組みによって、地域社会の一体感が高まることが期待される。"
   ],
   "hints": [
-    {"en": "notification", "ja": "通知", "kana...
-2026-01-30 23:55:05 - llm_service - INFO - ✅ excerpt_type検証成功: P1_ONLY
-2026-01-30 23:55:05 - llm_service - INFO - ✅ theme検証成功: ブログ
-2026-01-30 23:55:05 - llm_service - INFO - Successfully generated question: ブログ, excerpt_type: P1_ONLY
-2026-01-30 23:55:05 - database - INFO - Question saved: q_20260130_b3d1db61 - ブログ (P1_ONLY)
-2026-01-30 23:55:05 - database - INFO - Theme recorded: ブログ (mode: general)
-2026-01-30 23:55:05 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:55:05] "POST /api/question HTTP/1.1" 200 -
-2026-01-30 23:56:08 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
-2026-01-30 23:56:08 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
-2026-01-30 23:56:08 - llm_service - INFO - Question text for correction: 最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。
-特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。
-こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。
-そこで、通知を一時的にオフにすることを試してみることにした。...
-2026-01-30 23:56:08 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
-2026-01-30 23:56:08 - llm_service - INFO - Required points for this correction: 4
-2026-01-30 23:56:08 - llm_service - INFO - Word count: 54
-2026-01-30 23:56:08 - llm_service - INFO - Correction attempt 1/3
-2026-01-30 23:56:33 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:56:33 - llm_service - INFO - OpenAI API response (attempt 1): 
+    {"en":...
+2026-01-31 00:02:48 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
+2026-01-31 00:02:48 - llm_service - INFO - ✅ theme検証成功: コラム
+2026-01-31 00:02:48 - llm_service - INFO - Successfully generated question: コラム, excerpt_type: P2_P3
+2026-01-31 00:02:48 - database - INFO - Question saved: q_20260131_8de748ab - コラム (P2_P3)
+2026-01-31 00:02:48 - database - INFO - Theme recorded: コラム (mode: general)
+2026-01-31 00:02:48 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:02:48] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 00:09:41 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:41] "GET / HTTP/1.1" 200 -
+2026-01-31 00:09:41 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:41] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-31 00:09:41 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:41] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
+2026-01-31 00:09:41 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:41] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
+2026-01-31 00:09:42 - database - INFO - Excluded themes: ['コラム', 'ブログ', '学術', '図表', '研究紹介', 'レビュー', '時事']
+2026-01-31 00:09:42 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 00:09:42 - llm_service - INFO - 📊 直近10問のサブトピック: ['コラム:E', 'ブログ:A', '学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D', '学術:H']
+2026-01-31 00:09:42 - llm_service - INFO - 📊 直近30問の分布: コラム=20.0%, ブログ=13.3%, レビュー=10.0%, 図表=13.3%, 学術=20.0%, 時事=13.3%, 研究紹介=10.0%
+2026-01-31 00:09:42 - llm_service - INFO - 🎯 システムが選択したtheme: 学術
+2026-01-31 00:09:42 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=10.0%, P2_P3=60.0%, P3_ONLY=30.0%, P4_P5=0.0%
+2026-01-31 00:09:42 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
+2026-01-31 00:09:51 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:09:51 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "学術",
+  "topic_label": "E",
+  "excerpt_type": "P2_P3",
+  "japanese_paragraphs": [
+    "この研究では、対人コミュニケーションにおける共感の役割を調査した。参加者は、対話中に相手の感情を読み取るタスクを与えられ、その能力が評価された。",
+    "また、共感力が高い人ほど、対話の満足度が...
+2026-01-31 00:09:51 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my a...
-2026-01-30 23:56:33 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 34 column 6 (char 3589)
-2026-01-30 23:56:35 - llm_service - INFO - Correction attempt 2/3
-2026-01-30 23:56:59 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:56:59 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
-2026-01-30 23:56:59 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 34 column 6 (char 3892)
-2026-01-30 23:57:01 - llm_service - INFO - Correction attempt 3/3
-2026-01-30 23:57:22 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:57:22 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
-2026-01-30 23:57:22 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 34 column 6 (char 3830)
-2026-01-30 23:57:22 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
-2026-01-30 23:57:22 - llm_service - INFO - Generating fallback correction response
-2026-01-30 23:57:22 - database - INFO - Submission saved: s_20260130_70da1a86 (mode: general, no scoring)
-2026-01-30 23:57:22 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:57:22] "POST /api/correct-multi HTTP/1.1" 200 -
-2026-01-30 23:57:32 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
-2026-01-30 23:57:32 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
-2026-01-30 23:57:32 - llm_service - INFO - Question text for correction: 最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。
-特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。
-こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。
-そこで、通知を一時的にオフにすることを試してみることにした。...
-2026-01-30 23:57:32 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
-2026-01-30 23:57:32 - llm_service - INFO - Required points for this correction: 4
-2026-01-30 23:57:32 - llm_service - INFO - Word count: 54
-2026-01-30 23:57:32 - llm_service - INFO - Correction attempt 1/3
-2026-01-30 23:57:40 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:57:40] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
-2026-01-30 23:57:40 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:57:40] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
-2026-01-30 23:57:58 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:57:58 - llm_service - INFO - OpenAI API response (attempt 1): 
+  "theme": "学術",
+  "topic_label": "E",
+  "excerpt_type": "P2_P3",
+  "japanese_paragraphs": [
+    "この研究では、対人コミュニケーションにおける共感の役割を調査した。参加者は、対話中に相手の感情を読み取るタスクを与えられ、その能力が評価された。",
+    "また、共感力が高い人ほど、対話の満足度が高いことが分かった。一方で、共感力が低い場合、誤解が生じやすくなる傾向も観察された。"
+  ],
+  "hints": [
+    {"en": "empathy", "ja": "共感", "kana": "エンパシー", "pos": "名詞", "usage": "show empathy「共感を示す」"},
+    {"en": "interaction", "ja": "対話", "kana": "インタラクション", "pos": "名詞", "usage": "social interaction「社会的対話」"},
+    {"en": "evaluate", "ja": "評価する", "kana": "エバリュエイト", "pos": "動詞", "usage": "evaluate performance「パフォーマンスを評価する」"},
+    {"en": "misunderstanding", "ja": "誤解", "kana": "ミスアンダースタンディング", "pos": "名詞", "usage": "avoid misunderstanding「誤解を避ける」"},
+    {"en": "tendency", "ja": "傾向", "kana": "テンダンシー", "pos": "名詞", "usage": "a growing tendency「増加する傾向」"}
+  ],
+  "target_words": {"min": 100, "max": 120}
+}
+2026-01-31 00:09:51 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "学術",
+  "topic_label": "E",
+  "excerpt_type": "P2_P3",
+  "japanese_paragraphs": [
+    "この研究では、対人コミュニケーションにおける共感の役割を調査した。参加者は、対話中に相手の感情を読み取るタスクを与えられ、その能力が評価された。",
+    "また、共感力が高い人ほど、対話の満足度が高いことが分かった。一方で、共感力が低い場合、誤解が生じやすくなる傾向も観察された。"
+  ],
+  "hints": [
+    {"en": "empathy", "ja": "共感", "kan...
+2026-01-31 00:09:51 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
+2026-01-31 00:09:51 - llm_service - INFO - ✅ theme検証成功: 学術
+2026-01-31 00:09:51 - llm_service - INFO - Successfully generated question: 学術, excerpt_type: P2_P3
+2026-01-31 00:09:51 - database - INFO - Question saved: q_20260131_55af579c - 学術 (P2_P3)
+2026-01-31 00:09:51 - database - INFO - Theme recorded: 学術 (mode: general)
+2026-01-31 00:09:51 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:09:51] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 00:11:33 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): This study investigated the role of empathy in interpersonal communication.
+Participants were given ...
+2026-01-31 00:11:33 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): This study investigated the role of empathy in interpersonal communication. Participants were given ...
+2026-01-31 00:11:33 - llm_service - INFO - Question text for correction: この研究では、対人コミュニケーションにおける共感の役割を調査した。
+参加者は、対話中に相手の感情を読み取るタスクを与えられ、その能力が評価された。
+また、共感力が高い人ほど、対話の満足度が高いことが分かった。
+一方で、共感力が低い場合、誤解が生じやすくなる傾向も観察された。...
+2026-01-31 00:11:33 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
+2026-01-31 00:11:33 - llm_service - INFO - Required points for this correction: 4
+2026-01-31 00:11:33 - llm_service - INFO - Word count: 65
+2026-01-31 00:11:33 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 00:11:56 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:11:56 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "This study investigated the role of empathy in interpersonal communication. Participants were given a task to interpret their conversation partner’s emotions during dialogue, and thei...
+2026-01-31 00:11:56 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 34 column 6 (char 4055)
+2026-01-31 00:11:58 - llm_service - INFO - Correction attempt 2/3
+2026-01-31 00:12:34 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:12:34 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "This study investigated the role of empathy in interpersonal communication. Participants were given a task to interpret their conversation partner’s emotions during dialogue, and thei...
+2026-01-31 00:12:34 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 34 column 6 (char 4094)
+2026-01-31 00:12:36 - llm_service - INFO - Correction attempt 3/3
+2026-01-31 00:13:08 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:13:08 - llm_service - INFO - OpenAI API response (attempt 1): 
 {
-  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my a...
-2026-01-30 23:57:58 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 34 column 6 (char 3991)
-2026-01-30 23:58:00 - llm_service - INFO - Correction attempt 2/3
-2026-01-30 23:58:28 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:58:28 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
-2026-01-30 23:58:28 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 34 column 6 (char 4029)
-2026-01-30 23:58:30 - llm_service - INFO - Correction attempt 3/3
-2026-01-30 23:58:58 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:58:58 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
-2026-01-30 23:58:58 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 34 column 6 (char 3504)
-2026-01-30 23:58:58 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
-2026-01-30 23:58:58 - llm_service - INFO - Generating fallback correction response
-2026-01-30 23:58:58 - database - INFO - Submission saved: s_20260130_28d7f6ca (mode: general, no scoring)
-2026-01-30 23:58:58 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:58:58] "POST /api/correct-multi HTTP/1.1" 200 -
-2026-01-30 23:59:10 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
-2026-01-30 23:59:10 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
-2026-01-30 23:59:10 - llm_service - INFO - Question text for correction: 最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。
-特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。
-こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。
-そこで、通知を一時的にオフにすることを試してみることにした。...
-2026-01-30 23:59:10 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
-2026-01-30 23:59:10 - llm_service - INFO - Required points for this correction: 4
-2026-01-30 23:59:10 - llm_service - INFO - Word count: 54
-2026-01-30 23:59:10 - llm_service - INFO - Correction attempt 1/3
-2026-01-30 23:59:31 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:59:31 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
-2026-01-30 23:59:31 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 34 column 6 (char 3854)
-2026-01-30 23:59:33 - llm_service - INFO - Correction attempt 2/3
-2026-01-30 23:59:52 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:59:53 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
-2026-01-30 23:59:53 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 34 column 6 (char 3894)
-2026-01-30 23:59:55 - llm_service - INFO - Correction attempt 3/3
-2026-01-31 00:00:31 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:00:32 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
-2026-01-31 00:00:32 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 34 column 6 (char 3746)
-2026-01-31 00:00:32 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
-2026-01-31 00:00:32 - llm_service - INFO - Generating fallback correction response
-2026-01-31 00:00:32 - database - INFO - Submission saved: s_20260131_fe69f109 (mode: general, no scoring)
-2026-01-31 00:00:32 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:00:32] "POST /api/correct-multi HTTP/1.1" 200 -
-2026-01-31 00:00:46 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/prompts_correction_respect.py', reloading
-2026-01-31 00:00:46 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 00:00:48 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:00:48 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:00:48 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 00:00:48 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 00:00:48 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+  "original": "This study investigated the role of empathy in interpersonal communication. Participants were given a task to interpret their conversation partner’s emotions during dialogue, and the...
+2026-01-31 00:13:08 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 34 column 6 (char 4035)
+2026-01-31 00:13:08 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
+2026-01-31 00:13:08 - llm_service - INFO - Generating fallback correction response
+2026-01-31 00:13:08 - database - INFO - Submission saved: s_20260131_9aea6327 (mode: general, no scoring)
+2026-01-31 00:13:08 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:13:08] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 00:13:33 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:13:33] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-31 00:13:33 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:13:33] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 00:14:37 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/llm_service.py', reloading
+2026-01-31 00:14:37 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 00:14:38 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:14:38 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:14:38 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:14:38 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 00:14:38 - werkzeug - INFO -  * Debugger PIN: 519-604-230

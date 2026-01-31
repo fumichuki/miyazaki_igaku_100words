@@ -1611,6 +1611,12 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
         try:
             logger.info(f"Correction attempt {attempt + 1}/{max_retries}")
             response = call_openai_with_retry(correction_prompt, is_model_answer=True)
+            
+            # デバッグ：完全なレスポンスをログに出力
+            logger.info(f"Full LLM response for correction (length: {len(response)} chars)")
+            logger.info(f"Response first 500 chars: {response[:500]}")
+            logger.info(f"Response last 500 chars: {response[-500:]}")
+            
             cleaned = clean_json_response(response)
             
             # JSONパース

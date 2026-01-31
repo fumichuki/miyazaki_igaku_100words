@@ -893,17 +893,24 @@ function submitAnswer() {
       return;
     }
     
+    // デバッグ：レスポンスをログ出力
+    console.log("Correction response:", data);
+    console.log("Points count:", data.points ? data.points.length : 0);
+    
     // 添削結果を表示
     displayCorrection(data);
   })
   .catch(err => {
     chat.lastChild.remove();
+    console.error("Correction error:", err);
     addMessage(`❌ エラー: ${err.message}`, "ai");
   });
 }
 
 // 添削結果を表示
 function displayCorrection(data) {
+  console.log("displayCorrection called with data:", data);
+  
   const container = document.createElement("div");
   container.className = "correction-container";
   
@@ -915,6 +922,15 @@ function displayCorrection(data) {
   // 添削ポイント
   const pointsSection = document.createElement("div");
   pointsSection.className = "points-section";
+  
+  // データの存在確認
+  if (!data.points || data.points.length === 0) {
+    console.error("No points in correction data!");
+    pointsSection.innerHTML = "<p>❌ 添削データの取得に失敗しました。ページを更新してやり直してください。</p>";
+    container.appendChild(pointsSection);
+    chat.appendChild(container);
+    return;
+  }
   
   // 全体評価を先に表示
   const overallEvaluation = data.points.find(p => p.level === "内容評価");
