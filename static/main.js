@@ -1111,14 +1111,14 @@ function displayCorrection(data) {
       afterText = point.after.split('\n')[0].trim();
     }
     
-    // 正規化前の入力を正規化して比較（ピリオル・大文字のみの違いは無視）
+    // 正規化前の入力と修正後を比較（デバッグ用）
     const normalizedOriginalBefore = normalizeUserInputForComparison(originalBeforeText);
     const normalizedAfter = normalizeUserInputForComparison(afterText);
-    const isSame = normalizedOriginalBefore === normalizedAfter;
+    const isSameNormalized = normalizedOriginalBefore === normalizedAfter;
     
-    // デバッグログ
-    if (!isSame) {
-      console.log(`Point ${pointCounter}: isSame=false`);
+    // デバッグログ（isSame判定の矛盾を検出）
+    if (!isSameNormalized && levelText.includes('✅')) {
+      console.log(`⚠️ Point ${pointCounter}: Normalized strings differ but level is ✅`);
       console.log(`  originalBeforeText: "${originalBeforeText}"`);
       console.log(`  normalizedOriginalBefore: "${normalizedOriginalBefore}"`);
       console.log(`  afterText: "${afterText}"`);
@@ -1130,9 +1130,11 @@ function displayCorrection(data) {
     const sentenceNoText = point.sentence_no ? `${point.sentence_no}文目` : `${pointCounter}文目`;
     const japaneseText = point.japanese_sentence || '';
     
-    if (isSame) {
-      // ✅ の場合：beforeのみ表示
-      const formattedText = escapeHtml(beforeText).replace(/\n/g, '<br>');
+    // ★★★ バックエンドのlevelを信頼して表示 ★★★
+    // バックエンドで既にA==B判定済みなので、フロントエンドは結果を表示するだけ
+    if (levelText.includes('✅')) {
+      // ✅ の場合：original_beforeを表示（ユーザーの入力そのまま）
+      const formattedText = escapeHtml(originalBeforeText).replace(/\n/g, '<br>');
       beforeAfter.innerHTML = `
         <span class="${beforeClass}">${beforeIcon} ${formattedText}</span>
       `;
