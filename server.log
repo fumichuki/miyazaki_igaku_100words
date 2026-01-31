@@ -15,3 +15,162 @@ nohup: ignoring input
 2026-01-31 02:18:14 - __main__ - INFO - 🎯 有効機能: 4/4
 2026-01-31 02:18:14 - werkzeug - WARNING -  * Debugger is active!
 2026-01-31 02:18:14 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 02:20:14 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 02:20:14] "GET / HTTP/1.1" 200 -
+2026-01-31 02:20:14 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 02:20:14] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-31 02:20:14 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 02:20:14] "GET /static/main.js?v=20260121N HTTP/1.1" 200 -
+2026-01-31 02:20:14 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 02:20:14] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
+2026-01-31 02:20:17 - database - INFO - Excluded themes: ['研究紹介', '図表', 'コラム', '時事', '学術', 'レビュー', 'ブログ']
+2026-01-31 02:20:17 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 02:20:17 - llm_service - INFO - 📊 直近10問のサブトピック: ['研究紹介:E', '図表:D', 'コラム:A', '研究紹介:C', '時事:E', '時事:D', '時事:G', '図表:不明', '学術:F', 'レビュー:不明']
+2026-01-31 02:20:17 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=10.0%, レビュー=10.0%, 図表=13.3%, 学術=23.3%, 時事=13.3%, 研究紹介=13.3%
+2026-01-31 02:20:17 - llm_service - INFO - 🎯 システムが選択したtheme: 図表
+2026-01-31 02:20:17 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=30.0%, P2_P3=30.0%, P3_ONLY=30.0%, P4_P5=10.0%
+2026-01-31 02:20:17 - llm_service - INFO - 🎯 P2_P3が20.0%不足 → 優先的に選択
+2026-01-31 02:20:17 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
+2026-01-31 02:20:23 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 02:20:23 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "図表",
+  "topic_label": "B",
+  "excerpt_type": "P2_P3",
+  "japanese_paragraphs": [
+    "このデータは、参加者が日常的に感じる疲労感の程度を調査したものである。まず、20代から60代までの幅広い年齢層を対象に、1週間の睡眠時間と疲労感を自己報告してもらった。",
+    "また、睡眠時間が...
+2026-01-31 02:20:23 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+{
+  "theme": "図表",
+  "topic_label": "B",
+  "excerpt_type": "P2_P3",
+  "japanese_paragraphs": [
+    "このデータは、参加者が日常的に感じる疲労感の程度を調査したものである。まず、20代から60代までの幅広い年齢層を対象に、1週間の睡眠時間と疲労感を自己報告してもらった。",
+    "また、睡眠時間が5時間未満のグループと8時間以上のグループで比較したところ、前者は後者に比べて疲労感が強いと報告する傾向があった。これにより、十分な睡眠時間が疲労感の軽減に寄与する可能性が示唆される。"
+  ],
+  "hints": [
+    {"en": "fatigue", "ja": "疲労感", "kana": "ファティーグ", "pos": "名詞", "usage": "experience fatigue「疲労感を経験する」"},
+    {"en": "self-report", "ja": "自己報告", "kana": "セルフリポート", "pos": "動詞", "usage": "self-report symptoms「症状を自己報告する」"},
+    {"en": "tend", "ja": "傾向がある", "kana": "テンド", "pos": "動詞", "usage": "tend to feel tired「疲れを感じる傾向がある」"},
+    {"en": "contribute", "ja": "寄与する", "kana": "コントリビュート", "pos": "動詞", "usage": "contribute to success「成功に寄与する」"},
+    {"en": "sufficient", "ja": "十分な", "kana": "サフィシエント", "pos": "形容詞", "usage": "sufficient sleep「十分な睡眠」"}
+  ],
+  "target_words": {"min": 100, "max": 120}
+}
+2026-01-31 02:20:23 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "図表",
+  "topic_label": "B",
+  "excerpt_type": "P2_P3",
+  "japanese_paragraphs": [
+    "このデータは、参加者が日常的に感じる疲労感の程度を調査したものである。まず、20代から60代までの幅広い年齢層を対象に、1週間の睡眠時間と疲労感を自己報告してもらった。",
+    "また、睡眠時間が5時間未満のグループと8時間以上のグループで比較したところ、前者は後者に比べて疲労感が強いと報告する傾向があった。これにより、十分な睡眠時間が疲労感の軽減に寄与する可能性が示唆される。"
+  ],
+ ...
+2026-01-31 02:20:23 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
+2026-01-31 02:20:23 - llm_service - INFO - ✅ theme検証成功: 図表
+2026-01-31 02:20:23 - llm_service - INFO - Successfully generated question: 図表, excerpt_type: P2_P3
+2026-01-31 02:20:23 - database - INFO - Question saved: q_20260131_04c53f50 - 図表 (P2_P3)
+2026-01-31 02:20:23 - database - INFO - Theme recorded: 図表 (mode: general)
+2026-01-31 02:20:23 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 02:20:23] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 02:22:37 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): This dataset examines the extent of fatigue that participants experience in their daily lives.
+First...
+2026-01-31 02:22:37 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): This dataset examines the extent of fatigue that participants experience in their daily lives.
+First...
+2026-01-31 02:22:37 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 02:22:37 - llm_service - INFO - Question text for correction: このデータは、参加者が日常的に感じる疲労感の程度を調査したものである。
+まず、20代から60代までの幅広い年齢層を対象に、1週間の睡眠時間と疲労感を自己報告してもらった。
+また、睡眠時間が5時間未満のグループと8時間以上のグループで比較したところ、前者は後者に比べて疲労感が強いと報告する傾向があった。
+これにより、十分な睡眠時間が疲労感の軽減に寄与する可能性が示唆される。...
+2026-01-31 02:22:37 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
+2026-01-31 02:22:37 - llm_service - INFO - Required points for this correction: 4
+2026-01-31 02:22:37 - llm_service - INFO - Word count: 80
+2026-01-31 02:22:37 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 02:23:12 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 02:23:12 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "This dataset examines the extent of fatigue that participants experience in their daily lives. First, people from a wide age range, from their 20s to their 60s, were asked to self-rep...
+2026-01-31 02:23:12 - llm_service - INFO - Full LLM response for correction (length: 7097 chars)
+2026-01-31 02:23:12 - llm_service - INFO - Response first 500 chars: {
+  "original": "This dataset examines the extent of fatigue that participants experience in their daily lives. First, people from a wide age range, from their 20s to their 60s, were asked to self-report their weekly sleep duration and fatigue levels. In addition, when a group sleeping less than five hours was compared with a group sleeping eight hours or more, the former tended to report stronger fatigue than the latter. These findings suggest that adequate sleep duration may contribute to redu
+2026-01-31 02:23:12 - llm_service - INFO - Response last 500 chars:  these findings suggest that adequate sleep duration may play a role in reducing fatigue.\n（その結果、これらの発見は、十分な睡眠時間が疲労を軽減するのに役立つ可能性を示唆しています。）\nas a result（接続詞：その結果：前述の事実から導かれる結果）／therefore（接続詞：それゆえに：因果関係を示す）で、as a resultは原因からの結果を指し、thereforeは論理的結論を示します。\n【参考】as a result of this（これにより）／therefore, we concluded（それゆえ、私たちは結論を出しました。）\n例：He missed the bus, and as a result, he was late. (彼はバスに乗り遅れ、その結果遅刻しました。) ／ The evidence was clear; therefore, the jury found him guilty. (証拠は明白だった。それゆえ、陪審員は有罪と判断しました。)"
+}
+2026-01-31 02:23:12 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 02:23:12 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 02:23:12 - llm_service - INFO - Before normalization: 4 points
+2026-01-31 02:23:12 - points_normalizer - INFO - Starting points normalization: 4 points
+2026-01-31 02:23:12 - points_normalizer - INFO - Student answer split into 4 sentences
+2026-01-31 02:23:12 - points_normalizer - INFO - Original user input split into 4 sentences
+2026-01-31 02:23:12 - points_normalizer - INFO - Processing point 1: before='This dataset examines the extent of fatigue that p...', level='✅正しい表現'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 1: Normalized before='This dataset examines the extent of fatigue that p...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 1: Found in sentence 1: 'This dataset examines the extent of fatigue that p...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 1: Original user input: 'This dataset examines the extent of fatigue that p...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 02:23:12 - points_normalizer - INFO - Processing point 2: before='First, people from a wide age range, from their 20...', level='✅正しい表現'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 2: Normalized before='First, people from a wide age range, from their 20...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 2: Found in sentence 2: 'First, people from a wide age range, from their 20...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 2: Original user input: 'First, people from a wide age range, from their 20...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-31 02:23:12 - points_normalizer - INFO - Processing point 3: before='In addition, when a group sleeping less than five ...', level='✅正しい表現'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 3: Normalized before='In addition, when a group sleeping less than five ...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 3: Found in sentence 3: 'In addition, when a group sleeping less than five ...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 3: Original user input: 'in addition, when a group sleeping less than five ...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
+2026-01-31 02:23:12 - points_normalizer - INFO - Processing point 4: before='These findings suggest that adequate sleep duratio...', level='✅正しい表現'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 4: Normalized before='These findings suggest that adequate sleep duratio...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 4: Found in sentence 4: 'These findings suggest that adequate sleep duratio...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 4: Original user input: 'These findings suggest that adequate sleep duratio...'
+2026-01-31 02:23:12 - points_normalizer - INFO - Point 4: Normalized successfully (sentence_no=4)
+2026-01-31 02:23:12 - points_normalizer - INFO - Points normalization complete: 4 points
+2026-01-31 02:23:12 - llm_service - INFO - After normalization: 4 points
+2026-01-31 02:23:12 - llm_service - INFO - Points check: current=4, non-evaluation=4, required=4
+2026-01-31 02:23:12 - llm_service - INFO - ✅ Correction successful: 4 points
+2026-01-31 02:23:12 - database - INFO - Submission saved: s_20260131_6cdabae5 (mode: general, no scoring)
+2026-01-31 02:23:12 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 02:23:12] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 02:24:28 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): This dataset examines the extent of fatigue that participants experience in their daily lives
+First,...
+2026-01-31 02:24:28 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): This dataset examines the extent of fatigue that participants experience in their daily lives.
+First...
+2026-01-31 02:24:28 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 02:24:28 - llm_service - INFO - Question text for correction: このデータは、参加者が日常的に感じる疲労感の程度を調査したものである。
+まず、20代から60代までの幅広い年齢層を対象に、1週間の睡眠時間と疲労感を自己報告してもらった。
+また、睡眠時間が5時間未満のグループと8時間以上のグループで比較したところ、前者は後者に比べて疲労感が強いと報告する傾向があった。
+これにより、十分な睡眠時間が疲労感の軽減に寄与する可能性が示唆される。...
+2026-01-31 02:24:28 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
+2026-01-31 02:24:28 - llm_service - INFO - Required points for this correction: 4
+2026-01-31 02:24:28 - llm_service - INFO - Word count: 80
+2026-01-31 02:24:28 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 02:24:56 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 02:24:56 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "This dataset examines the extent of fatigue that participants experience in their daily lives.\nFirst, people from a wide age range, from their 20s to their 60s, were asked to self-re...
+2026-01-31 02:24:56 - llm_service - INFO - Full LLM response for correction (length: 6842 chars)
+2026-01-31 02:24:56 - llm_service - INFO - Response first 500 chars: {
+  "original": "This dataset examines the extent of fatigue that participants experience in their daily lives.\nFirst, people from a wide age range, from their 20s to their 60s, were asked to self-report their weekly sleep duration and fatigue levels.\nIn addition, when a group sleeping less than five hours was compared with a group sleeping eight hours or more, the former tended to report stronger fatigue than the latter.\nThese findings suggest that adequate sleep duration may contribute to r
+2026-01-31 02:24:56 - llm_service - INFO - Response last 500 chars: ：We compared the two options. (私たちは2つの選択肢を比較しました。)／The artist contrasts light and shadow. (そのアーティストは光と影を対比します。)\n\n4文目: Thus, it is suggested that getting sufficient sleep might help lessen fatigue.\n（したがって、十分な睡眠をとることが疲労を軽減するのに役立つかもしれないことが示唆されています。）\nlessen（動詞：軽減する：少なくする）／reduce（動詞：減らす：全体的に量を減らす）で、lessenは程度を和らげるニュアンスがあり、reduceは全体的に量を減らします。\n【参考】lessen the pain（痛みを和らげる）／reduce the cost（費用を減らす）\n例：The medication lessens the pain. (その薬は痛みを和らげます。)／We need to reduce our expenses. (費用を削減する必要があります。)"
+}
+2026-01-31 02:24:56 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 02:24:56 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 02:24:56 - llm_service - INFO - Before normalization: 4 points
+2026-01-31 02:24:56 - points_normalizer - INFO - Starting points normalization: 4 points
+2026-01-31 02:24:56 - points_normalizer - INFO - Student answer split into 4 sentences
+2026-01-31 02:24:56 - points_normalizer - INFO - Original user input split into 4 sentences
+2026-01-31 02:24:56 - points_normalizer - INFO - Processing point 1: before='This dataset examines the extent of fatigue that p...', level='✅正しい表現'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 1: Normalized before='This dataset examines the extent of fatigue that p...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 1: Found in sentence 1: 'This dataset examines the extent of fatigue that p...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 1: Original user input: 'This dataset examines the extent of fatigue that p...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 02:24:56 - points_normalizer - INFO - Processing point 2: before='First, people from a wide age range, from their 20...', level='✅正しい表現'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 2: Normalized before='First, people from a wide age range, from their 20...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 2: Found in sentence 2: 'First, people from a wide age range, from their 20...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 2: Original user input: 'First, people from a wide age range, from their 20...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-31 02:24:56 - points_normalizer - INFO - Processing point 3: before='In addition, when a group sleeping less than five ...', level='✅正しい表現'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 3: Normalized before='In addition, when a group sleeping less than five ...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 3: Found in sentence 3: 'In addition, when a group sleeping less than five ...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 3: Original user input: 'in addition, when a group sleeping less than five ...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
+2026-01-31 02:24:56 - points_normalizer - INFO - Processing point 4: before='These findings suggest that adequate sleep duratio...', level='✅正しい表現'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 4: Normalized before='These findings suggest that adequate sleep duratio...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 4: Found in sentence 4: 'These findings suggest that adequate sleep duratio...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 4: Original user input: 'These findings suggest that adequate sleep duratio...'
+2026-01-31 02:24:56 - points_normalizer - INFO - Point 4: Normalized successfully (sentence_no=4)
+2026-01-31 02:24:56 - points_normalizer - INFO - Points normalization complete: 4 points
+2026-01-31 02:24:56 - llm_service - INFO - After normalization: 4 points
+2026-01-31 02:24:56 - llm_service - INFO - Points check: current=4, non-evaluation=4, required=4
+2026-01-31 02:24:56 - llm_service - INFO - ✅ Correction successful: 4 points
+2026-01-31 02:24:56 - database - INFO - Submission saved: s_20260131_2e0e042b (mode: general, no scoring)
+2026-01-31 02:24:56 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 02:24:56] "POST /api/correct-multi HTTP/1.1" 200 -
