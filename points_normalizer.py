@@ -89,9 +89,14 @@ def normalize_user_input(text: str, preserve_newlines: bool = False) -> str:
     ユーザー入力を正規化する
     
     以下の修正を行う：
-    - 全角スペースを半角スペースに変換
-    - 改行を単一スペースに変換（句読点がない改行は文の途中として扱う）※preserve_newlines=Trueの場合は保持
-    - ピリオド直後にスペースなく文字が続く場合、スペースを挿入（例: "word.In" → "word. In"）
+    - 全角文字を半角に変換（スペース、記号、英数字）
+      - 全角スペース → 半角スペース
+      - 全角記号（？！．，：；''""（）［］｛｝）→ 半角記号
+      - 全角英数字 → 半角英数字
+    - 引用符を統一（" " ' ' → " '）
+    - ダッシュ・ハイフンを統一（— – → -）
+    - 改行を単一スペースに変換（※preserve_newlines=Trueの場合は保持）
+    - ピリオド直後にスペースなく文字が続く場合、スペースを挿入
     - 複数の連続スペースを1つに統一
     - 文末句読点の前の余分なスペースを削除
     - 文末にピリオドがない場合は追加
@@ -120,50 +125,110 @@ def normalize_user_input(text: str, preserve_newlines: bool = False) -> str:
     # 前後の空白を削除
     normalized = text.strip()
     
-    # ステップ0a: 全角スペースを半角スペースに変換（最優先）
+    # ========================================
+    # ステップ0: 全角文字を半角に変換（最優先）
+    # ========================================
+    
+    # 0-1: 全角スペースを半角スペースに
     normalized = normalized.replace('　', ' ')
     
-    # ステップ0b: 改行を単一スペースに変換（シングルセンテンスモードのみ）
-    # 改行は文の区切りではなく、入力の途中と見なす（過剰分割を防ぐ）
-    # 例: "...full by people\nso a lot..." → "...full by people so a lot..."
+    # 0-2: 全角記号を半角に変換
+    fullwidth_to_halfwidth = {
+        '！': '!', '？': '?', '．': '.', '，': ',', 
+        '：': ':', '；': ';', '（': '(', '）': ')',
+        '［': '[', '］': ']', '｛': '{', '｝': '}',
+        '＜': '<', '＞': '>', '＋': '+', '－': '-',
+        '＝': '=', '＊': '*', '／': '/', '＼': '\\',
+        '｜': '|', '＿': '_', '＾': '^', '～': '~',
+        '＠': '@', '＃': '#', '＄': '$', '％': '%',
+        '＆': '&', '｀': '`'
+    }
+    for full, half in fullwidth_to_halfwidth.items():
+        normalized = normalized.replace(full, half)
+    
+    # 0-3: 全角英数字を半角に変換
+    # 全角A-Z, a-z, 0-9 → 半角
+    normalized = ''.join([
+        chr(ord(c) - 0xFEE0) if 0xFF01 <= ord(c) <= 0xFF5E else c
+        for c in normalized
+    ])
+    
+    # 0-4: 引用符を統一（スマート引用符 → ストレート引用符）
+    quote_map = {
+        '"': '"',  # 左ダブル引用符
+        '"': '"',  # 右ダブル引用符
+        ''': "'",  # 左シングル引用符
+        ''': "'",  # 右シングル引用符
+        '‚': "'",  # 下付きシングル引用符
+        '„': '"',  # 下付きダブル引用符
+        '‹': '<',  # 左山括弧
+        '›': '>',  # 右山括弧
+        '«': '"',  # 左ギュメ
+        '»': '"'   # 右ギュメ
+    }
+    for smart, straight in quote_map.items():
+        normalized = normalized.replace(smart, straight)
+    
+    # 0-5: ダッシュ・ハイフンを統一
+    dash_map = {
+        '—': '-',  # EMダッシュ
+        '–': '-',  # ENダッシュ
+        '―': '-',  # 水平線
+        '‐': '-',  # ハイフン
+        '‑': '-',  # ノンブレークハイフン
+        '−': '-'   # マイナス記号
+    }
+    for dash, hyphen in dash_map.items():
+        normalized = normalized.replace(dash, hyphen)
+    
+    # ========================================
+    # ステップ1以降: 従来の正規化処理
+    # ========================================
+    
+    # ステップ1a: 改行を単一スペースに変換（シングルセンテンスモードのみ）
     normalized = re.sub(r'\n+', ' ', normalized)
     
-    # ステップ1: ピリオド直後にスペースなく文字が続く場合、スペースを挿入
-    # 省略形を保護する前に実行（p.m.In → p.m. In）
-    # 注: 大文字・小文字両方に対応（survey.Japan → survey. Japan）
+    # ステップ1b: ピリオド直後にスペースなく文字が続く場合、スペースを挿入
     normalized = re.sub(r'\.([A-Za-z])', r'. \1', normalized)
     
-    # ステップ2: 疑問符・感嘆符の直後も同様
+    # ステップ1c: 疑問符・感嘆符の直後も同様
     normalized = re.sub(r'([?!])([A-Za-z])', r'\1 \2', normalized)
     
-    # ステップ3: 複数の連続スペースを1つに統一
+    # ステップ2: 複数の連続スペースを1つに統一
     normalized = re.sub(r'\s+', ' ', normalized)
     
-    # ステップ3.5: 文末句読点の前の余分なスペースを削除（例: "word ." → "word."）
+    # ステップ3: 文末句読点の前の余分なスペースを削除
     normalized = re.sub(r'\s+([.?!])$', r'\1', normalized)
-    # 文中の句読点の前の余分なスペースも削除（例: "word . Next" → "word. Next"）
     normalized = re.sub(r'\s+([.?!])\s+', r'\1 ', normalized)
     
-    # ステップ4: 文末にピリオド・疑問符・感嘆符がない場合は、ピリオドを追加
+    # ステップ4: カンマ・コロン・セミコロンの前後のスペースを正規化
+    # カンマの前のスペースを削除: "word , next" → "word, next"
+    normalized = re.sub(r'\s+,', ',', normalized)
+    # カンマの後にスペースがない場合は追加: "word,next" → "word, next"
+    normalized = re.sub(r',([^\s])', r', \1', normalized)
+    
+    # コロン・セミコロンの前のスペースを削除
+    normalized = re.sub(r'\s+:', ':', normalized)
+    normalized = re.sub(r'\s+;', ';', normalized)
+    # コロン・セミコロンの後にスペースがない場合は追加
+    normalized = re.sub(r':([^\s])', r': \1', normalized)
+    normalized = re.sub(r';([^\s])', r'; \1', normalized)
+    
+    # ステップ5: 文末にピリオド・疑問符・感嘆符がない場合は、ピリオドを追加
     if not normalized.endswith(('.', '?', '!')):
         normalized = normalized + '.'
     
-    # ステップ5: 各文の文頭を大文字化（自動整形）
-    # 最初の文字を大文字化
+    # ステップ6: 各文の文頭を大文字化（自動整形）
     if normalized:
         normalized = normalized[0].upper() + normalized[1:]
     
-    # 句読点（. ! ?）の後に続く文字を大文字化
-    # 例: "hello. the dog" → "hello. The dog"
-    # 注: 省略形（e.g., i.e., p.m.）の直後は大文字化しない
+    # 句読点の後の文字を大文字化
     def capitalize_after_punctuation(match):
-        punctuation = match.group(1)  # . or ! or ?
-        space = match.group(2)        # スペース
-        letter = match.group(3)       # 文字
+        punctuation = match.group(1)
+        space = match.group(2)
+        letter = match.group(3)
         return punctuation + space + letter.upper()
     
-    # パターン: [.!?] + スペース + 小文字
-    # 例: ". the" → ". The"
     normalized = re.sub(r'([.!?])(\s+)([a-z])', capitalize_after_punctuation, normalized)
     
     return normalized.strip()
