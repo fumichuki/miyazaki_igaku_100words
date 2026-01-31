@@ -593,12 +593,18 @@ function updateProgressIndicator() {
 
 // マルチ文を送信
 function submitMultiSentences() {
+  console.log("🚀 submitMultiSentences() started");
+  
   const textareas = document.querySelectorAll('.sentence-textarea');
+  console.log(`📝 Found ${textareas.length} textareas`);
+  
   const userSentences = [];
   
   // 🚨重要：空の文も配列に含める（文の順序を保持するため）
-  textareas.forEach(textarea => {
+  textareas.forEach((textarea, index) => {
     let text = textarea.value.trim();
+    console.log(`  Textarea ${index + 1}: "${text.substring(0, 50)}${text.length > 50 ? '...' : ''}"`);
+    
     if (text.length > 0) {
       // 全角記号を半角に変換
       text = text.replace(/。$/g, '.').replace(/！$/g, '!').replace(/？$/g, '?');
@@ -661,6 +667,9 @@ function submitMultiSentences() {
   const words = combinedAnswer.match(/\b[\w'-]+\b/g) || [];
   const wordCount = words.filter(w => /[a-zA-Z]/.test(w)).length;
   
+  console.log(`📊 Word count: ${wordCount}`);
+  console.log(`📤 Sending API request to /api/correct-multi...`);
+  
   fetch('/api/correct-multi', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -672,12 +681,19 @@ function submitMultiSentences() {
       word_count: wordCount
     })
   })
-  .then(res => res.json())
+  .then(res => {
+    console.log(`📥 API response received, status: ${res.status}`);
+    return res.json();
+  })
   .then(data => {
+    console.log(`✅ API response parsed successfully`);
+    console.log(`📦 Response data:`, data);
+    
     // ローディングメッセージを削除
     removeLoadingBelowInput();
     
     if (data.error) {
+      console.error(`❌ API returned error:`, data.error);
       let errorMsg = `❌ エラー: ${data.error}`;
       // バリデーションエラーの詳細を追加
       if (data.details && Array.isArray(data.details)) {
@@ -688,8 +704,11 @@ function submitMultiSentences() {
       return;
     }
     
+    console.log(`🎯 currentSentenceCount: ${currentSentenceCount}`);
+    
     // 添削結果を表示（マルチ入力モードでは模範解答のみ）
     if (currentSentenceCount !== null && currentSentenceCount > 0) {
+      console.log(`📋 Multi-input mode: displaying explanations in cards`);
       // マルチ入力モード：各カードに解説を表示し、模範解答は入力エリアの下に表示
       displayExplanationsInCards(data.points);
       displayModelAnswerBelowInput(data);
