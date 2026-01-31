@@ -1075,13 +1075,22 @@ function displayCorrection(data) {
     let beforeIcon = '❓'; // fallback
     let beforeClass = 'before-improvement';
     
+    // 🔍 デバッグログ追加
+    console.log(`🔍 Point ${pointCounter}: level="${levelText}"`);
+    console.log(`   before="${point.before ? point.before.substring(0, 50) : 'null'}..."`);
+    console.log(`   after="${point.after ? point.after.substring(0, 50) : 'null'}..."`);
+    
     // levelに基づいて判定（シンプル）
     if (levelText.includes('❌')) {
       beforeIcon = '❌';
       beforeClass = 'before-error';
+      console.log(`   ✅ Detected ❌ in level`);
     } else if (levelText.includes('✅')) {
       beforeIcon = '✅';
       beforeClass = 'before-correct';
+      console.log(`   ✅ Detected ✅ in level`);
+    } else {
+      console.log(`   ⚠️ No ❌ or ✅ detected in level="${levelText}"`);
     }
     
     // マルチ入力モードの場合、beforeとafterを文番号で分割

@@ -1,20 +1,21 @@
+
 {
-  "original": "Recently, I decided to reading books.",
-  "corrected": "Recently, I decided to read books.",
+  "original": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
+  "corrected": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "文法的に重要な誤りがありましたが、簡単な修正で改善可能です。",
-      "reason": "学生の英文は不定詞の誤用がありましたが、内容は日本語原文を適切に反映しています。",
+      "after": "提出された英文は日本語原文の内容を正確に反映しています。文法的にも正しく、自然な英語表現です。",
+      "reason": "解説: 学生の英文は日本語原文に忠実で、文法や語法に問題はありません。適切な接続詞も使用されており、情報も欠落していません。",
       "level": "内容評価"
     },
     {
-      "before": "Recently, I decided to reading books.",
-      "after": "Recently, I decided to read books.",
-      "reason": "【誤りの説明】: 'decided to reading' は 'decided to read' にすべきです。decide to do は to の後に動詞の原形が必要です。\n【参考】decide to go / plan to study\n例: I decided to study. (勉強することに決めた。) / I plan to visit. (訪問する予定です。)\n\n1文目: Recently, I decided to read books.\n（最近、本を読むことに決めた。）\ndecide（動詞：決める：意志を持って選択）／plan（動詞：計画する：予定を立てる）で、decideは決断を表し、planは計画を立てることを意味します。",
-      "level": "❌文法ミス"
+      "before": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
+      "after": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
+      "reason": "1文目: According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.\n（アンケート結果によると、50%以上の回答者が健康管理のために定期的に運動していると答えている。）\naccording to（前置詞：～によると：情報源を示す）／based on（前置詞：～に基づいて：基盤や根拠を示す）で、according toは具体的な情報源の引用に使われ、based onは何かを基にした判断や結論に使われます。\n【参考】according to the news（ニュースによると）／based on the evidence（証拠に基づいて）\n例：According to the weather report, it will rain tomorrow. (天気予報によると、明日は雨が降る。) / Based on the data, we made a decision. (データに基づいて決定を下しました。)",
+      "level": "✅正しい表現"
     }
   ],
-  "model_answer": "Recently, I decided to read more books to broaden my knowledge.\n\nFirst, I started with a novel that was recommended by a friend.\n\nSecond, I chose a non-fiction book about history, which I found very enlightening.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: Recently, I decided to read more books to broaden my knowledge.\n（最近、知識を広げるためにもっと本を読むことに決めました。）\nread（動詞：読む：情報を取得するために書かれたものを見る）／study（動詞：勉強する：学問的に調べる）で、readは一般的な読書行為を示し、studyはより深い学習活動を指します。\n【参考】decide to read（読むことに決める）／plan to study（勉強する予定を立てる）\n例：I decided to read a novel. (小説を読むことに決めた。) ／ I plan to study physics. (物理を勉強する予定です。）\n\n2文目: First, I started with a novel that was recommended by a friend.\n（まず、友人に勧められた小説から始めました。）\nrecommend（動詞：勧める：良いと示唆する）／suggest（動詞：提案する：考えを提示する）で、recommendは特定のものを強く勧める際に使われ、suggestは選択肢を与えることを意味します。\n【参考】recommend a book（本を勧める）／suggest an idea（アイデアを提案する）\n例：She recommended this movie. (彼女はこの映画を勧めた。）／He suggested visiting the museum. (彼は博物館を訪れることを提案した。）\n\n3文目: Second, I chose a non-fiction book about history, which I found very enlightening.\n（次に、歴史についてのノンフィクションの本を選び、それを非常に啓発的だと感じました。）\nenlightening（形容詞：啓発的な：新しい知識や洞察を与える）／informative（形容詞：情報豊富な：多くの情報を提供する）で、enlighteningは視野を広げることに重点を置き、informativeは事実やデータを提供することを指します。\n【参考】an enlightening book（啓発的な本）／an informative lecture（情報豊富な講義）\n例：The lecture was enlightening. (その講義は啓発的だった。）／The article was very informative. (その記事は非常に情報豊富だった。）"
+  "model_answer": "According to the survey results, more than 50 percent of respondents say they exercise regularly to maintain their health.\n\nThis indicates a growing awareness of the importance of physical activity in daily life.\n\nAdditionally, many respondents mentioned that exercising helps them relieve stress and improve their overall well-being.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: According to the survey results, more than 50 percent of respondents say they exercise regularly to maintain their health.\n（アンケート結果によると、50%以上の回答者が健康管理のために定期的に運動していると答えている。）\nmaintain（動詞：維持する：状態を保つ）／manage（動詞：管理する：管理や制御する）で、maintainは現状を維持すること、manageは管理や制御を行うことを意味します。\n【参考】maintain a healthy lifestyle（健康的な生活を維持する）／manage a team（チームを管理する）\n例：He maintains his car regularly. (彼は定期的に車を整備します。) / She manages her time well. (彼女は時間を上手に管理します。)\n\n2文目: This indicates a growing awareness of the importance of physical activity in daily life.\n（日常生活における運動の重要性への認識が高まっていることを示しています。）\nindicate（動詞：示す：明示的に指し示す）／show（動詞：見せる・示す：視覚的に示す）で、indicateは明示的な示唆、showは視覚的な証明を表します。\n【参考】indicate a trend（傾向を示す）／show a picture（写真を見せる）\n例：The data indicates a need for change. (データは変化の必要性を示しています。) / He showed me the map. (彼は地図を見せてくれました。)\n\n3文目: Additionally, many respondents mentioned that exercising helps them relieve stress and improve their overall well-being.\n（さらに、多くの回答者が運動がストレスを和らげ、全体的な健康を改善するのに役立つと述べました。）\nrelieve（動詞：和らげる：痛みやストレスを減少させる）／reduce（動詞：減少させる：量や程度を小さくする）で、relieveは精神的・肉体的な負担を和らげることを意味し、reduceは単に量を減らすことを意味します。\n【参考】relieve pain（痛みを和らげる）／reduce costs（コストを削減する）\n例：The medicine relieves headaches. (その薬は頭痛を和らげます。) / We need to reduce expenses. (経費を削減する必要があります。)"
 }
