@@ -1116,6 +1116,16 @@ function displayCorrection(data) {
     const normalizedAfter = normalizeUserInputForComparison(afterText);
     const isSame = normalizedOriginalBefore === normalizedAfter;
     
+    // デバッグログ
+    if (!isSame) {
+      console.log(`Point ${pointCounter}: isSame=false`);
+      console.log(`  originalBeforeText: "${originalBeforeText}"`);
+      console.log(`  normalizedOriginalBefore: "${normalizedOriginalBefore}"`);
+      console.log(`  afterText: "${afterText}"`);
+      console.log(`  normalizedAfter: "${normalizedAfter}"`);
+      console.log(`  levelText: "${levelText}"`);
+    }
+    
     // 日本語原文を表示（sentence_no を使用）
     const sentenceNoText = point.sentence_no ? `${point.sentence_no}文目` : `${pointCounter}文目`;
     const japaneseText = point.japanese_sentence || '';

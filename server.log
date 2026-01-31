@@ -1,19 +1,116 @@
 nohup: ignoring input
-2026-01-31 01:12:32 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 01:12:32 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 01:12:32 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 01:16:58 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 01:16:58 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 01:16:58 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-31 01:12:33 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-31 01:16:58 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-31 01:12:33 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-31 01:12:33 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 01:12:33 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 01:12:33 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 01:12:33 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 01:12:33 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 01:12:33 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-31 01:12:35 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:12:35] "GET /health HTTP/1.1" 200 -
-2026-01-31 01:12:44 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:12:44] "GET /health HTTP/1.1" 200 -
+2026-01-31 01:16:58 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-31 01:16:58 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 01:16:59 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 01:16:59 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 01:16:59 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 01:16:59 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 01:16:59 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 01:17:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:17:01] "GET /health HTTP/1.1" 200 -
+2026-01-31 01:17:10 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:17:10] "GET /health HTTP/1.1" 200 -
+2026-01-31 01:17:43 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:17:43] "GET / HTTP/1.1" 200 -
+2026-01-31 01:17:43 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:17:43] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-31 01:17:43 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:17:43] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
+2026-01-31 01:17:43 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:17:43] "GET /static/main.js?v=20260121N HTTP/1.1" 200 -
+2026-01-31 01:17:44 - database - INFO - Excluded themes: ['図表', '学術', 'レビュー', '研究紹介', 'ブログ', '時事', 'コラム']
+2026-01-31 01:17:44 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 01:17:44 - llm_service - INFO - 📊 直近10問のサブトピック: ['図表:不明', '学術:F', 'レビュー:不明', 'レビュー:F', '研究紹介:C', 'ブログ:F', 'ブログ:C', '時事:B', '学術:A', '学術:E']
+2026-01-31 01:17:44 - llm_service - WARNING - 🚨 学術が35.0% → 今回は避ける
+2026-01-31 01:17:44 - llm_service - INFO - 🎯 システムが選択したtheme: 時事
+2026-01-31 01:17:44 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=50.0%, P3_ONLY=30.0%, P4_P5=0.0%
+2026-01-31 01:17:44 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P1_ONLY
+2026-01-31 01:17:49 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 01:17:49 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "時事",
+  "topic_label": "G",
+  "excerpt_type": "P1_ONLY",
+  "japanese_paragraphs": [
+    "最近の調査によると、日本の都市部では交通渋滞が悪化していることが明らかになった。特に、朝の通勤ラッシュ時には主要な幹線道路での車両の流れが著しく遅くなっており、通勤時間が平均で30分以上延びること...
+2026-01-31 01:17:49 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+{
+  "theme": "時事",
+  "topic_label": "G",
+  "excerpt_type": "P1_ONLY",
+  "japanese_paragraphs": [
+    "最近の調査によると、日本の都市部では交通渋滞が悪化していることが明らかになった。特に、朝の通勤ラッシュ時には主要な幹線道路での車両の流れが著しく遅くなっており、通勤時間が平均で30分以上延びることが報告されている。この状況は、経済活動の効率を低下させるだけでなく、住民のストレスレベルを上昇させる要因ともなっている。"
+  ],
+  "hints": [
+    {"en": "traffic congestion", "ja": "交通渋滞", "kana": "コウツウジュウタイ", "pos": "名詞", "usage": "Traffic congestion in urban areas is worsening."},
+    {"en": "urban areas", "ja": "都市部", "kana": "トシブ", "pos": "名詞", "usage": "Urban areas are facing increased traffic congestion."},
+    {"en": "commute time", "ja": "通勤時間", "kana": "ツウキンジカン", "pos": "名詞", "usage": "Average commute time has increased by over 30 minutes."},
+    {"en": "economic activity", "ja": "経済活動", "kana": "ケイザイカツドウ", "pos": "名詞", "usage": "Traffic congestion affects economic activity negatively."},
+    {"en": "stress level", "ja": "ストレスレベル", "kana": "ストレスレベル", "pos": "名詞", "usage": "Higher stress levels are reported among residents."}
+  ],
+  "target_words": {"min": 100, "max": 120}
+}
+2026-01-31 01:17:49 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "時事",
+  "topic_label": "G",
+  "excerpt_type": "P1_ONLY",
+  "japanese_paragraphs": [
+    "最近の調査によると、日本の都市部では交通渋滞が悪化していることが明らかになった。特に、朝の通勤ラッシュ時には主要な幹線道路での車両の流れが著しく遅くなっており、通勤時間が平均で30分以上延びることが報告されている。この状況は、経済活動の効率を低下させるだけでなく、住民のストレスレベルを上昇させる要因ともなっている。"
+  ],
+  "hints": [
+    {"en": "traffic ...
+2026-01-31 01:17:49 - llm_service - INFO - ✅ excerpt_type検証成功: P1_ONLY
+2026-01-31 01:17:49 - llm_service - INFO - ✅ theme検証成功: 時事
+2026-01-31 01:17:49 - llm_service - INFO - Successfully generated question: 時事, excerpt_type: P1_ONLY
+2026-01-31 01:17:49 - database - INFO - Question saved: q_20260131_39bf29e8 - 時事 (P1_ONLY)
+2026-01-31 01:17:49 - database - INFO - Theme recorded: 時事 (mode: general)
+2026-01-31 01:17:49 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:17:49] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 01:19:08 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): According to a recent survey, traffic congestion has been worsening in urban areas of Japan.
+in part...
+2026-01-31 01:19:08 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): According to a recent survey, traffic congestion has been worsening in urban areas of Japan. In part...
+2026-01-31 01:19:08 - llm_service - INFO - Question text for correction: 最近の調査によると、日本の都市部では交通渋滞が悪化していることが明らかになった。
+特に、朝の通勤ラッシュ時には主要な幹線道路での車両の流れが著しく遅くなっており、通勤時間が平均で30分以上延びることが報告されている。
+この状況は、経済活動の効率を低下させるだけでなく、住民のストレスレベルを上昇させる要因ともなっている。...
+2026-01-31 01:19:08 - llm_service - INFO - Required points determined from Japanese text: 3 sentences
+2026-01-31 01:19:08 - llm_service - INFO - Required points for this correction: 3
+2026-01-31 01:19:08 - llm_service - INFO - Word count: 66
+2026-01-31 01:19:08 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 01:19:25 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 01:19:25 - llm_service - INFO - OpenAI API response (attempt 1): 
+{
+  "original": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan. In particular, during the morning commuting rush hour, the flow of vehicles on major arte...
+2026-01-31 01:19:25 - llm_service - INFO - Full LLM response for correction (length: 5447 chars)
+2026-01-31 01:19:25 - llm_service - INFO - Response first 500 chars: 
+{
+  "original": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan. In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly, and average commute times are reported to increase by more than 30 minutes. This situation not only reduces the efficiency of economic activity but also contributes to higher stress levels among residents.",
+  "corrected": "According to a recent survey, traffic c
+2026-01-31 01:19:25 - llm_service - INFO - Response last 500 chars: She loves to travel during holidays. (彼女は休日に旅行するのが好きです。)\n\n3文目: This situation not only reduces the efficiency of economic activity but also contributes to higher stress levels among residents.\n（この状況は、経済活動の効率を低下させるだけでなく、住民のストレスレベルを上昇させる要因ともなっている。）\nreduce（動詞：減らす：意図的に量を減少させる）／decrease（動詞：減少する：自然に少なくなる）で、reduceは主体的な行動による削減、decreaseは自然な減少を指します。\n【参考】reduce stress（ストレスを減らす）／decrease naturally（自然に減少する）\n例: Exercise reduces stress. (運動はストレスを減らす。)／The temperature decreased overnight. (気温が一晩で下がった。)"
+}
+2026-01-31 01:19:25 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 01:19:25 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 01:19:25 - llm_service - INFO - Before normalization: 3 points
+2026-01-31 01:19:25 - points_normalizer - INFO - Starting points normalization: 3 points
+2026-01-31 01:19:25 - points_normalizer - INFO - Student answer split into 3 sentences
+2026-01-31 01:19:25 - points_normalizer - INFO - Original user input split into 2 sentences
+2026-01-31 01:19:25 - points_normalizer - INFO - Processing point 1: before='According to a recent survey, traffic congestion h...', level='✅正しい表現'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 1: Normalized before='According to a recent survey, traffic congestion h...'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 1: Found in sentence 1: 'According to a recent survey, traffic congestion h...'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 1: Original user input: 'According to a recent survey, traffic congestion h...'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 01:19:25 - points_normalizer - INFO - Processing point 2: before='In particular, during the morning commuting rush h...', level='✅正しい表現'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 2: Normalized before='In particular, during the morning commuting rush h...'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 2: Found in sentence 2: 'In particular, during the morning commuting rush h...'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 2: Original user input: 'This situation not only reduces the efficiency of ...'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-31 01:19:25 - points_normalizer - INFO - Processing point 3: before='This situation not only reduces the efficiency of ...', level='✅正しい表現'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 3: Normalized before='This situation not only reduces the efficiency of ...'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 3: Found in sentence 3: 'This situation not only reduces the efficiency of ...'
+2026-01-31 01:19:25 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
+2026-01-31 01:19:25 - points_normalizer - INFO - Points normalization complete: 3 points
+2026-01-31 01:19:25 - llm_service - INFO - After normalization: 3 points
+2026-01-31 01:19:25 - llm_service - INFO - Points check: current=3, non-evaluation=3, required=3
+2026-01-31 01:19:25 - llm_service - INFO - ✅ Correction successful: 3 points
+2026-01-31 01:19:25 - database - INFO - Submission saved: s_20260131_7f142200 (mode: general, no scoring)
+2026-01-31 01:19:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:19:25] "POST /api/correct-multi HTTP/1.1" 200 -
