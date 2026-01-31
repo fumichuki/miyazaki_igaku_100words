@@ -1058,11 +1058,13 @@ function displayCorrection(data) {
     // マルチ入力モードの場合、beforeとafterを文番号で分割
     let beforeText = point.before;
     let afterText = point.after;
+    let originalBeforeText = point.original_before || point.before;  // 正規化前の入力
     
     if (currentSentenceCount !== null && currentSentenceCount > 0) {
       // 文を分割
       const beforeSentences = splitIntoSentences(point.before, currentSentenceCount);
       const afterSentences = splitIntoSentences(point.after.split('\n')[0], currentSentenceCount);
+      const originalBeforeSentences = splitIntoSentences(originalBeforeText, currentSentenceCount);
       
       // pointCounterに対応する文を抽出（pointCounter - 1 はインデックス）
       const sentenceIndex = pointCounter - 1;
@@ -1072,13 +1074,16 @@ function displayCorrection(data) {
       if (sentenceIndex < afterSentences.length) {
         afterText = afterSentences[sentenceIndex];
       }
+      if (sentenceIndex < originalBeforeSentences.length) {
+        originalBeforeText = originalBeforeSentences[sentenceIndex];
+      }
     } else {
       // 通常モード：afterの最初の行のみ使用
       afterText = point.after.split('\n')[0].trim();
     }
     
-    // before と after が同じかどうかで表示を分ける
-    const isSame = beforeText.trim() === afterText.trim();
+    // original_before と after が同じかどうかで表示を分ける（正規化前の入力で比較）
+    const isSame = originalBeforeText.trim() === afterText.trim();
     
     // 日本語原文を表示（sentence_no を使用）
     const sentenceNoText = point.sentence_no ? `${point.sentence_no}文目` : `${pointCounter}文目`;
@@ -1091,11 +1096,11 @@ function displayCorrection(data) {
         <span class="${beforeClass}">${beforeIcon} ${formattedText}</span>
       `;
     } else {
-      // ❌ の場合：before → after を表示
-      const formattedBefore = escapeHtml(beforeText).replace(/\n/g, '<br>');
+      // ❌ の場合：original_before → after を表示
+      const formattedOriginalBefore = escapeHtml(originalBeforeText).replace(/\n/g, '<br>');
       const formattedAfter = escapeHtml(afterText).replace(/\n/g, '<br>');
       beforeAfter.innerHTML = `
-        <span class="${beforeClass}">${beforeIcon} ${formattedBefore}</span>
+        <span class="${beforeClass}">${beforeIcon} ${formattedOriginalBefore}</span>
         <span class="arrow">→</span>
         <span class="after">✅ ${formattedAfter}</span>
       `;

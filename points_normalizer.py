@@ -297,7 +297,8 @@ def normalize_level(level: str, before: str, after: str) -> tuple:
 def normalize_points(
     points: List[Dict[str, Any]],
     normalized_answer: str,
-    japanese_sentences: List[str]
+    japanese_sentences: List[str],
+    original_user_answer: str = None
 ) -> List[Dict[str, Any]]:
     """
     points を正規化する
@@ -307,20 +308,29 @@ def normalize_points(
     3. ✅ の場合は after=before に矯正
     4. sentence_no を付与
     5. sentence_no 昇順でソート
+    6. original_before を追加（フロントエンド表示用）
     
     Args:
         points: LLMから返された points
         normalized_answer: 正規化された学生英文
         japanese_sentences: 日本語原文のセンテンスリスト
+        original_user_answer: 正規化前のユーザー入力（オプション）
     
     Returns:
         正規化された points
     """
     logger.info(f"Starting points normalization: {len(points)} points")
     
-    # 学生英文をセンテンスに分割
+    # 学生英文をセンテンスに分割（正規化後）
     student_sentences = split_into_sentences(normalized_answer)
     logger.info(f"Student answer split into {len(student_sentences)} sentences")
+    
+    # 元のユーザー入力もセンテンスに分割（正規化前）
+    original_sentences = []
+    if original_user_answer:
+        # 正規化前の入力を同じロジックで分割（ピリオドなしでも対応）
+        original_sentences = split_into_sentences(original_user_answer)
+        logger.info(f"Original user input split into {len(original_sentences)} sentences")
     
     normalized_points = []
     
@@ -371,6 +381,12 @@ def normalize_points(
             # level を正規化し、必要なら after を調整
             normalized_level, final_after = normalize_level(original_level, full_before, full_after)
             
+            # 元のユーザー入力（正規化前）を取得
+            original_before_text = full_before  # デフォルトは正規化後
+            if original_sentences and sentence_index < len(original_sentences):
+                original_before_text = original_sentences[sentence_index]
+                logger.info(f"Point {i+1}: Original user input: '{original_before_text[:50]}...'")
+            
             # sentence_no を付与
             # japanese_sentence があればそれを元に特定、なければ sentence_index+1
             sentence_no = sentence_index + 1
@@ -389,6 +405,7 @@ def normalize_points(
             point['after'] = final_after
             point['level'] = normalized_level
             point['sentence_no'] = sentence_no
+            point['original_before'] = original_before_text  # 正規化前のユーザー入力
             
             normalized_points.append(point)
             logger.info(f"Point {i+1}: Normalized successfully (sentence_no={sentence_no})")

@@ -1700,7 +1700,8 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
             valid_points = normalize_points(
                 points=valid_points,
                 normalized_answer=normalized_answer,
-                japanese_sentences=japanese_sentences
+                japanese_sentences=japanese_sentences,
+                original_user_answer=submission.user_answer  # 正規化前の入力を渡す
             )
             logger.info(f"After normalization: {len(valid_points)} points")
             # ===== 正規化処理終了 =====

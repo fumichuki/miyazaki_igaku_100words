@@ -1,56 +1,33 @@
+
 {
-  "original": "This library is extremely important for local residents. One reason is its excellent accessibility. Not only is it located a five-minute walk from the station, but it also has a free parking lot, making it easy to visit by car. In addition, a bus stop is located very close by, so it is convenient for older people and students as well. As a result, the library has introduced the latest technology. It offers e-book lending, and by using dedicated tablets, users can browse a wide range of materials without carrying paper books. The library also provides high-speed Wi-Fi, creating an ideal environment for people who work remotely or study online.",
-  "corrected": "This library is extremely important for local residents. One reason is its excellent accessibility. Not only is it located a five-minute walk from the station, but it also has a free parking lot, making it easy to visit by car. In addition, a bus stop is located very close by, so it is convenient for older people and students as well. Furthermore, the library has introduced the latest technology. It offers e-book lending, and by using dedicated tablets, users can browse a wide range of materials without carrying paper books. The library also provides high-speed Wi-Fi, creating an ideal environment for people who work remotely or study online.",
+  "original": "As a result, library use was found to peak on weekends, with Sunday having the highest number of visitors in particular. Weekdays were relatively quiet, and the number of visitors tended to increase slightly in the afternoon. Also, it was shown that there is a large difference in visitor numbers depending on the day of the week.",
+  "corrected": "As a result, library use was found to peak on weekends, with Sunday having the highest number of visitors in particular.\n\nWeekdays were relatively quiet, and the number of visitors tended to increase slightly in the afternoon.\n\nAlso, it was shown that there is a large difference in visitor numbers depending on the day of the week.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "全体的に非常に良い英訳です。文法や語法は正確で、日本語原文の内容をしっかりと反映しています。",
-      "reason": "解説: 提出された英文は日本語原文の内容を忠実に再現しており、文法的なミスはありません。特に、接続詞や副詞の適切な使用が見られ、流れも自然です。",
+      "after": "全体的に良い英訳です。文法的に正しく、日本語原文の内容を適切に伝えています。",
+      "reason": "解説: 提出された英文は3文で、日本語原文の内容を正確に英訳しています。文法的なミスはなく、自然な英語表現になっています。",
       "level": "内容評価"
     },
     {
-      "before": "This library is extremely important for local residents.",
-      "after": "This library is extremely important for local residents.",
-      "reason": "1文目: This library is extremely important for local residents.\n（この図書館は、地域住民にとって非常に重要な存在である。）\nextremely（副詞：非常に：程度を強調する文脈）／very（副詞：とても：通常の強調）で、extremelyはより強い強調を示します。\n【参考】extremely important（非常に重要）／very important（とても重要）\n例: This task is extremely difficult. (この作業は非常に難しい。) / This book is very interesting. (この本はとても面白い。)",
+      "before": "As a result, library use was found to peak on weekends, with Sunday having the highest number of visitors in particular.",
+      "after": "As a result, library use was found to peak on weekends, with Sunday having the highest number of visitors in particular.",
+      "reason": "1文目: As a result, library use was found to peak on weekends, with Sunday having the highest number of visitors in particular.\n（その結果、図書館の利用は週末にピークに達し、特に日曜日が最も利用者が多いことが明らかになった。）\npeak（動詞：最大に達する：最も高い点に達する）／culminate（動詞：最高潮に達する：特に長い過程の結果として最高潮に達する）で、peakは一般的なピークを、culminateは特定の経過を経た最高潮を指します。\n【参考】peak at noon（正午にピークに達する）／culminate in success（成功に終わる）\n例: The event peaked at 3 PM. (イベントは午後3時にピークを迎えた。) / The negotiations culminated in an agreement. (交渉は合意に達した。)",
       "level": "✅正しい表現"
     },
     {
-      "before": "One reason is its excellent accessibility.",
-      "after": "One reason is its excellent accessibility.",
-      "reason": "2文目: One reason is its excellent accessibility.\n（その理由の一つが、アクセスの良さである。）\nexcellent（形容詞：優れた：非常に良いことを示す）／good（形容詞：良い：一般的な良さを示す）で、excellentは特に優れた状態を示します。\n【参考】excellent service（優れたサービス）／good service（良いサービス）\n例: The hotel offers excellent service. (そのホテルは優れたサービスを提供します。) / This restaurant has good food. (このレストランは良い料理を出します。)",
+      "before": "Weekdays were relatively quiet, and the number of visitors tended to increase slightly in the afternoon.",
+      "after": "Weekdays were relatively quiet, and the number of visitors tended to increase slightly in the afternoon.",
+      "reason": "2文目: Weekdays were relatively quiet, and the number of visitors tended to increase slightly in the afternoon.\n（平日は比較的静かで、利用者数は午後に少し増加する傾向がある。）\nrelatively（副詞：比較的に：他と比べて）／comparatively（副詞：比較的に：他のものと比較して）で、relativelyは一般的な比較を、comparativelyはより具体的な比較を示します。\n【参考】relatively simple（比較的簡単な）／comparatively easy（比較的容易な）\n例: The task is relatively simple. (その作業は比較的簡単です。) / Her performance was comparatively good. (彼女のパフォーマンスは比較的良かった。)",
       "level": "✅正しい表現"
     },
     {
-      "before": "Not only is it located a five-minute walk from the station, but it also has a free parking lot, making it easy to visit by car.",
-      "after": "Not only is it located a five-minute walk from the station, but it also has a free parking lot, making it easy to visit by car.",
-      "reason": "3文目: Not only is it located a five-minute walk from the station, but it also has a free parking lot, making it easy to visit by car.\n（駅から徒歩5分という立地条件だけでなく、無料駐車場も完備されているため、車での来館も容易だ。）\nnot only... but also（構造：だけでなく...も：2つの要素を強調して関連付ける）で、両方の要素が重要であることを示します。\n【参考】not only A but also B（AだけでなくBも）／both A and B（AもBも）\n例: Not only the students but also the teachers were excited. (生徒だけでなく教師も興奮していた。) / Both cats and dogs are popular pets. (猫も犬も人気のペットです。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "In addition, a bus stop is located very close by, so it is convenient for older people and students as well.",
-      "after": "In addition, a bus stop is located very close by, so it is convenient for older people and students as well.",
-      "reason": "4文目: In addition, a bus stop is located very close by, so it is convenient for older people and students as well.\n（また、バス停もすぐ近くにあり、高齢者や学生にとっても利用しやすい。）\nin addition（副詞：さらに：追加の情報を示す）／moreover（副詞：さらに：追加の情報を強調）で、いずれも情報を追加しますが、moreoverはより強調します。\n【参考】in addition to this（これに加えて）／moreover, it is important（さらに、それは重要です）\n例: In addition, the park has a playground. (さらに、公園には遊び場があります。) / Moreover, it is essential to exercise. (さらに、運動することは不可欠です。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "As a result, the library has introduced the latest technology.",
-      "after": "Furthermore, the library has introduced the latest technology.",
-      "reason": "【誤りの説明】: 'As a result,' は 'Furthermore,' にすべき。'As a result' は結果を示すのに対し、'Furthermore' は追加情報を示す。\n【参考】as a result（その結果）／furthermore（さらに）\n例: As a result, we succeeded. (その結果、成功した。) / Furthermore, we improved the process. (さらに、プロセスを改善した。)\n\n5文目: Furthermore, the library has introduced the latest technology.\n（さらに、館内には最新のテクノロジーが導入されている。）\nintroduce（動詞：導入する：新しいものを取り入れる）／implement（動詞：実行する：計画を実施する）で、introduceは新しい要素の導入、implementは計画の実行を指します。",
-      "level": "❌文法ミス"
-    },
-    {
-      "before": "It offers e-book lending, and by using dedicated tablets, users can browse a wide range of materials without carrying paper books.",
-      "after": "It offers e-book lending, and by using dedicated tablets, users can browse a wide range of materials without carrying paper books.",
-      "reason": "6文目: It offers e-book lending, and by using dedicated tablets, users can browse a wide range of materials without carrying paper books.\n（電子書籍の貸し出しが可能であり、専用のタブレットを利用することで、紙の本を持ち運ぶことなく多くの資料を閲覧できる。）\ne-book（名詞：電子書籍：デジタル形式の書籍）／paper book（名詞：紙の本：物理的な形の書籍）で、形式の違いを示します。\n【参考】e-book reader（電子書籍リーダー）／paper book version（紙の本バージョン）\n例: I prefer e-books for convenience. (便利なので電子書籍を好む。) / Many people still enjoy paper books. (多くの人が依然として紙の本を楽しんでいる。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "The library also provides high-speed Wi-Fi, creating an ideal environment for people who work remotely or study online.",
-      "after": "The library also provides high-speed Wi-Fi, creating an ideal environment for people who work remotely or study online.",
-      "reason": "7文目: The library also provides high-speed Wi-Fi, creating an ideal environment for people who work remotely or study online.\n（また、館内のWi-Fiも高速で、リモートワークやオンライン学習をする人々には最適な環境が整っている。）\nhigh-speed（形容詞：高速の：スピードが速い）／ideal（形容詞：理想的な：最も望ましい）で、状況や条件を強調します。\n【参考】high-speed internet（高速インターネット）／ideal conditions（理想的な条件）\n例: The hotel offers high-speed internet. (そのホテルは高速インターネットを提供します。) / This is an ideal place to study. (ここは勉強するのに理想的な場所です。)",
+      "before": "Also, it was shown that there is a large difference in visitor numbers depending on the day of the week.",
+      "after": "Also, it was shown that there is a large difference in visitor numbers depending on the day of the week.",
+      "reason": "3文目: Also, it was shown that there is a large difference in visitor numbers depending on the day of the week.\n（このように、曜日による利用者数の差が大きいことが示された。）\ndifference（名詞：違い：二つ以上のものの間の不一致や相違）／discrepancy（名詞：不一致：予想されるものや標準からの逸脱）で、differenceは一般的な違いを、discrepancyはより具体的な不一致を指します。\n【参考】a difference in opinion（意見の違い）／a discrepancy in results（結果の不一致）\n例: There is a difference in their opinions. (彼らの意見には違いがあります。) / There was a discrepancy in the data. (データに不一致がありました。)",
       "level": "✅正しい表現"
     }
   ],
-  "model_answer": "This library is extremely important for local residents.\n\nOne reason is its excellent accessibility. Not only is it located a five-minute walk from the station, but it also has a free parking lot, making it easy to visit by car.\n\nIn addition, a bus stop is located very close by, so it is convenient for older people and students as well.\n\nFurthermore, the library has introduced the latest technology. It offers e-book lending, and by using dedicated tablets, users can browse a wide range of materials without carrying paper books.\n\nThe library also provides high-speed Wi-Fi, creating an ideal environment for people who work remotely or study online.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: This library is extremely important for local residents.\n（この図書館は、地域住民にとって非常に重要な存在である。）\nextremely（副詞：非常に：程度を強調する文脈）／very（副詞：とても：通常の強調）で、extremelyはより強い強調を示します。\n【参考】extremely important（非常に重要）／very important（とても重要）\n例: This task is extremely difficult. (この作業は非常に難しい。) / This book is very interesting. (この本はとても面白い。)\n\n2文目: One reason is its excellent accessibility. Not only is it located a five-minute walk from the station, but it also has a free parking lot, making it easy to visit by car.\n（その理由の一つが、アクセスの良さである。駅から徒歩5分という立地条件だけでなく、無料駐車場も完備されているため、車での来館も容易だ。）\nnot only... but also（構造：だけでなく...も：2つの要素を強調して関連付ける）で、両方の要素が重要であることを示します。\n【参考】not only A but also B（AだけでなくBも）／both A and B（AもBも）\n例: Not only the students but also the teachers were excited. (生徒だけでなく教師も興奮していた。) / Both cats and dogs are popular pets. (猫も犬も人気のペットです。)\n\n3文目: In addition, a bus stop is located very close by, so it is convenient for older people and students as well.\n（また、バス停もすぐ近くにあり、高齢者や学生にとっても利用しやすい。）\nin addition（副詞：さらに：追加の情報を示す）／moreover（副詞：さらに：追加の情報を強調）で、いずれも情報を追加しますが、moreoverはより強調します。\n【参考】in addition to this（これに加えて）／moreover, it is important（さらに、それは重要です）\n例: In addition, the park has a playground. (さらに、公園には遊び場があります。) / Moreover, it is essential to exercise. (さらに、運動することは不可欠です。)\n\n4文目: Furthermore, the library has introduced the latest technology. It offers e-book lending, and by using dedicated tablets, users can browse a wide range of materials without carrying paper books.\n（さらに、館内には最新のテクノロジーが導入されている。電子書籍の貸し出しが可能であり、専用のタブレットを利用することで、紙の本を持ち運ぶことなく多くの資料を閲覧できる。）\nintroduce（動詞：導入する：新しいものを取り入れる）／implement（動詞：実行する：計画を実施する）で、introduceは新しい要素の導入、implementは計画の実行を指します。\n【参考】introduce a policy（政策を導入する）／implement a plan（計画を実施する）\n例: The company introduced a new policy. (その会社は新しい政策を導入した。) / They implemented the new system. (彼らは新しいシステムを実施した。)\n\n5文目: The library also provides high-speed Wi-Fi, creating an ideal environment for people who work remotely or study online.\n（また、館内のWi-Fiも高速で、リモートワークやオンライン学習をする人々には最適な環境が整っている。）\nhigh-speed（形容詞：高速の：スピードが速い）／ideal（形容詞：理想的な：最も望ましい）で、状況や条件を強調します。\n【参考】high-speed internet（高速インターネット）／ideal conditions（理想的な条件）\n例: The hotel offers high-speed internet. (そのホテルは高速インターネットを提供します。) / This is an ideal place to study. (ここは勉強するのに理想的な場所です。)"
+  "model_answer": "As a result, the library's usage was found to peak on weekends, with Sunday having the highest number of visitors.\n\nWeekdays were generally quiet, although the number of visitors tended to increase slightly in the afternoon.\n\nThus, it was shown that there is a significant variation in visitor numbers depending on the day of the week.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: As a result, the library's usage was found to peak on weekends, with Sunday having the highest number of visitors.\n（その結果、図書館の利用は週末にピークに達し、日曜日が特に利用者が多いことが明らかになった。）\npeak（動詞：最大に達する：最も高い点に達する）／culminate（動詞：最高潮に達する：特に長い過程の結果として最高潮に達する）で、peakは一般的なピークを、culminateは特定の経過を経た最高潮を指します。\n【参考】peak at noon（正午にピークに達する）／culminate in success（成功に終わる）\n例: The event peaked at 3 PM. (イベントは午後3時にピークを迎えた。) / The negotiations culminated in an agreement. (交渉は合意に達した。)\n\n2文目: Weekdays were generally quiet, although the number of visitors tended to increase slightly in the afternoon.\n（平日は一般的に静かで、午後には利用者数が少し増加する傾向があった。）\ngenerally（副詞：一般的に：広く共通することを示す）／typically（副詞：典型的に：一般的な傾向を指す）で、generallyは全体的な傾向を、typicallyは具体例や典型的な状況を示します。\n【参考】generally speaking（一般的に言えば）／typically seen（典型的に見られる）\n例: Generally, people prefer summer. (一般的に、人々は夏を好む。) / This type is typically seen in rural areas. (このタイプは田舎で典型的に見られる。)\n\n3文目: Thus, it was shown that there is a significant variation in visitor numbers depending on the day of the week.\n（したがって、曜日による利用者数の大きな変動が示された。）\nthus（副詞：したがって：それゆえに）／therefore（副詞：したがって：それが理由で）で、thusは論理的な帰結を、thereforeは因果関係を強調します。\n【参考】thus far（これまでのところ）／therefore unavoidable（したがって避けられない）\n例: They were tired, thus they rested. (彼らは疲れていたので休んだ。) / The road was blocked, therefore we took a detour. (道が塞がれていたので、迂回した。)"
 }
