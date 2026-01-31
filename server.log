@@ -1,122 +1,139 @@
 nohup: ignoring input
-2026-01-31 00:42:22 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:42:22 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:42:22 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:57:36 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:57:36 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:57:36 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-31 00:42:22 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-31 00:57:36 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-31 00:42:22 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-31 00:42:22 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 00:42:23 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:42:23 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:42:23 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 00:42:23 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 00:42:23 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-31 00:42:24 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:42:24] "GET /health HTTP/1.1" 200 -
-2026-01-31 00:54:44 - database - INFO - Excluded themes: ['ブログ', '時事', '学術', 'コラム', '図表', '研究紹介', 'レビュー']
-2026-01-31 00:54:44 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-31 00:54:44 - llm_service - INFO - 📊 直近10問のサブトピック: ['ブログ:F', 'ブログ:C', '時事:B', '学術:A', '学術:E', 'コラム:E', 'ブログ:A', '学術:B', '学術:D', 'コラム:C']
-2026-01-31 00:54:44 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=20.0%, レビュー=6.7%, 図表=13.3%, 学術=23.3%, 時事=10.0%, 研究紹介=10.0%
-2026-01-31 00:54:44 - llm_service - INFO - 🎯 システムが選択したtheme: 研究紹介
-2026-01-31 00:54:44 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=60.0%, P3_ONLY=20.0%, P4_P5=0.0%
-2026-01-31 00:54:44 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
-2026-01-31 00:54:54 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:54:54 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "研究紹介",
-  "topic_label": "G",
+2026-01-31 00:57:36 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-31 00:57:36 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 00:57:37 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:57:37 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:57:37 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:57:37 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 00:57:37 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 00:57:39 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:57:39] "GET /health HTTP/1.1" 200 -
+2026-01-31 00:57:49 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:57:49] "GET /health HTTP/1.1" 200 -
+2026-01-31 00:58:38 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:58:38] "GET / HTTP/1.1" 200 -
+2026-01-31 00:58:38 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:58:38] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-31 00:58:39 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:58:39] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
+2026-01-31 00:58:39 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:58:39] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
+2026-01-31 00:58:40 - database - INFO - Excluded themes: ['研究紹介', 'ブログ', '時事', '学術', 'コラム', '図表', 'レビュー']
+2026-01-31 00:58:40 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 00:58:40 - llm_service - INFO - 📊 直近10問のサブトピック: ['研究紹介:C', 'ブログ:F', 'ブログ:C', '時事:B', '学術:A', '学術:E', 'コラム:E', 'ブログ:A', '学術:B', '学術:D']
+2026-01-31 00:58:40 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=20.0%, レビュー=3.3%, 図表=13.3%, 学術=23.3%, 時事=10.0%, 研究紹介=13.3%
+2026-01-31 00:58:40 - llm_service - INFO - 🎯 レビューが11.0%不足 → 優先的に選択
+2026-01-31 00:58:40 - llm_service - INFO - 🎯 システムが選択したtheme: レビュー
+2026-01-31 00:58:40 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=60.0%, P3_ONLY=20.0%, P4_P5=0.0%
+2026-01-31 00:58:40 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
+2026-01-31 00:58:49 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:58:49 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "レビュー",
+  "topic_label": "F",
   "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "その研究では、参加者を2つのグループに分け、片方のグループには1週間のSNS使用を制限させ、もう一方のグループには通常通りSNSを利用させた。参加者のストレスレベルと集中力を測定するために、事前と...
-2026-01-31 00:54:54 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+    "この図書館は、地域住民にとって非常に重要な存在である。その理由の一つが、アクセスの良さである。駅から徒歩5分という立地条件だけでなく、無料駐車場も完備されているため、車での来館も容易だ。また、バス...
+2026-01-31 00:58:49 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "theme": "研究紹介",
-  "topic_label": "G",
+  "theme": "レビュー",
+  "topic_label": "F",
   "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "その研究では、参加者を2つのグループに分け、片方のグループには1週間のSNS使用を制限させ、もう一方のグループには通常通りSNSを利用させた。参加者のストレスレベルと集中力を測定するために、事前と事後にアンケートを実施した。",
-    "結果として、SNS使用を制限したグループはストレスレベルが低下し、集中力が向上したことがわかった。一方で、通常通りSNSを利用したグループでは特に変化が見られなかった。"
+    "この図書館は、地域住民にとって非常に重要な存在である。その理由の一つが、アクセスの良さである。駅から徒歩5分という立地条件だけでなく、無料駐車場も完備されているため、車での来館も容易だ。また、バス停もすぐ近くにあり、高齢者や学生にとっても利用しやすい。",
+    "さらに、館内には最新のテクノロジーが導入されている。電子書籍の貸し出しが可能であり、専用のタブレットを利用することで、紙の本を持ち運ぶことなく多くの資料を閲覧できる。また、館内のWi-Fiも高速で、リモートワークやオンライン学習をする人々には最適な環境が整っている。"
   ],
   "hints": [
-    {"en": "participant", "ja": "参加者", "kana": "パーティシパント", "pos": "名詞", "usage": "The participants were divided into two groups.「参加者は2つのグループに分けられた。」"},
-    {"en": "restrict", "ja": "制限する", "kana": "リストリクト", "pos": "動詞", "usage": "They restricted their use of SNS.「彼らはSNSの使用を制限した。」"},
-    {"en": "measure", "ja": "測定する", "kana": "メジャー", "pos": "動詞", "usage": "They measured stress levels.「彼らはストレスレベルを測定した。」"},
-    {"en": "improve", "ja": "向上する", "kana": "インプルーブ", "pos": "動詞", "usage": "Concentration improved in the restricted group.「制限されたグループでは集中力が向上した。」"},
-    {"en": "survey", "ja": "アンケート", "kana": "サーベイ", "pos": "名詞", "usage": "A survey was conducted before and after.「事前と事後にアンケートが実施された。」"}
+    {"en": "facility", "ja": "施設", "kana": "フィシリティ", "pos": "名詞", "usage": "The library provides excellent facilities.「図書館は優れた施設を提供している。」"},
+    {"en": "accessibility", "ja": "アクセスの良さ", "kana": "アクセシビリティ", "pos": "名詞", "usage": "The library's accessibility is a key feature.「図書館のアクセスの良さは重要な特徴です。」"},
+    {"en": "technological", "ja": "技術的な", "kana": "テクノロジカル", "pos": "形容詞", "usage": "The library has technological advancements.「図書館には技術的な進歩があります。」"},
+    {"en": "e-book", "ja": "電子書籍", "kana": "イーブック", "pos": "名詞", "usage": "E-books can be borrowed from the library.「電子書籍は図書館から借りることができる。」"},
+    {"en": "convenience", "ja": "便利さ", "kana": "コンビニエンス", "pos": "名詞", "usage": "The convenience of the library attracts many visitors.「図書館の便利さが多くの訪問者を引きつけている。」"}
   ],
   "target_words": {"min": 100, "max": 120}
 }
-2026-01-31 00:54:54 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "研究紹介",
-  "topic_label": "G",
+2026-01-31 00:58:49 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "レビュー",
+  "topic_label": "F",
   "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "その研究では、参加者を2つのグループに分け、片方のグループには1週間のSNS使用を制限させ、もう一方のグループには通常通りSNSを利用させた。参加者のストレスレベルと集中力を測定するために、事前と事後にアンケートを実施した。",
-    "結果として、SNS使用を制限したグループはストレスレベルが低下し、集中力が向上したことがわかった。一方で、通常通りSNSを利用したグループでは特に変化が見ら...
-2026-01-31 00:54:54 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
-2026-01-31 00:54:54 - llm_service - INFO - ✅ theme検証成功: 研究紹介
-2026-01-31 00:54:54 - llm_service - INFO - Successfully generated question: 研究紹介, excerpt_type: P2_P3
-2026-01-31 00:54:54 - database - INFO - Question saved: q_20260131_f216eac8 - 研究紹介 (P2_P3)
-2026-01-31 00:54:54 - database - INFO - Theme recorded: 研究紹介 (mode: general)
-2026-01-31 00:54:54 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:54:54] "POST /api/question HTTP/1.1" 200 -
-2026-01-31 00:55:14 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention.
-A promine...
-2026-01-31 00:55:14 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention. A promine...
-2026-01-31 00:55:14 - llm_service - INFO - Question text for correction: 科学界では、新しい研究不正の事例が注目を集めている。
-ある著名な研究者が、データを操作して結果を捏造していたとされる。
-この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査に乗り出している。
-このような事例は、科学の進展を阻むだけでなく、一般の人々にも誤った情報を提供する可能性がある。
-特に、今回の不正が発覚した分野は、社会的に重要な研究テーマに関連しているため、そ...
-2026-01-31 00:55:14 - llm_service - INFO - Required points determined from Japanese text: 6 sentences
-2026-01-31 00:55:14 - llm_service - INFO - Required points for this correction: 6
-2026-01-31 00:55:14 - llm_service - INFO - Word count: 90
-2026-01-31 00:55:14 - llm_service - INFO - Correction attempt 1/3
-2026-01-31 00:55:41 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:55:41 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
-2026-01-31 00:55:41 - llm_service - INFO - Full LLM response for correction (length: 6590 chars)
-2026-01-31 00:55:41 - llm_service - INFO - Response first 500 chars: {
-  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
-2026-01-31 00:55:41 - llm_service - INFO - Response last 500 chars: ation. In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant. Going forward, new measures will be needed to ensure transparency.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: In the scientific community, a new case of research misconduct has been drawing attention.\n（科学界では、新しい研究不正の事例が注目を集めている。）\nscientific（形容詞：科学的な：科学に関する文脈）／academic（形容詞：学問的な：学術に関する文脈）で、scientificは自然科学に関する内容、academicは広く学術に関する内容
-2026-01-31 00:55:41 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
-2026-01-31 00:55:41 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 46 column 6 (char 5653)
-2026-01-31 00:55:43 - llm_service - INFO - Correction attempt 2/3
-2026-01-31 00:56:02 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:56:02 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
-2026-01-31 00:56:02 - llm_service - INFO - Full LLM response for correction (length: 6074 chars)
-2026-01-31 00:56:02 - llm_service - INFO - Response first 500 chars: {
-  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
-2026-01-31 00:56:02 - llm_service - INFO - Response last 500 chars: new measures will be needed to ensure transparency.",
-      "reason": "6文目: Going forward, new measures will be needed to ensure transparency.\n（今後、透明性を確保するための新たな対策が求められるだろう。）\nmeasure（名詞：措置、手段：問題を解決するための方法）／action（名詞：行動、実行：具体的な行為）で、measureは計画的手段を指し、actionは即時的な行動を指します。\n【参考】take measures（措置を講じる）／take action（行動を起こす）\n例: The government will take measures. (政府は措置を講じるだろう。) / We must take action now. (今すぐ行動しなければならない。)",
-      "level": "✅正しい表現"
-    }
-  ],
-  "model_answer": "In the scientific community
-2026-01-31 00:56:02 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_2.json
-2026-01-31 00:56:02 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 46 column 6 (char 6022)
-2026-01-31 00:56:04 - llm_service - INFO - Correction attempt 3/3
-2026-01-31 00:56:25 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:56:25 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
-2026-01-31 00:56:25 - llm_service - INFO - Full LLM response for correction (length: 6714 chars)
-2026-01-31 00:56:25 - llm_service - INFO - Response first 500 chars: {
-  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
-2026-01-31 00:56:25 - llm_service - INFO - Response last 500 chars: rogress but may also provide the public with false information.\n\nIn particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.\n\nGoing forward, new measures will be needed to ensure transparency.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: In the scientific community, a new case of research misconduct has been drawing attention.\n（科学界では、新しい研究不正の事例が注目を集めている。）\nscientific community（名詞：科学界：科学者が集まるコミ
-2026-01-31 00:56:25 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_3.json
-2026-01-31 00:56:25 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 46 column 6 (char 5828)
-2026-01-31 00:56:25 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
-2026-01-31 00:56:25 - llm_service - INFO - Generating fallback correction response
-2026-01-31 00:56:25 - database - INFO - Submission saved: s_20260131_7a11d231 (mode: general, no scoring)
-2026-01-31 00:56:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:56:25] "POST /api/correct-multi HTTP/1.1" 200 -
-2026-01-31 00:57:26 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/llm_service.py', reloading
-2026-01-31 00:57:26 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 00:57:27 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:57:27 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:57:27 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 00:57:27 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 00:57:27 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+    "この図書館は、地域住民にとって非常に重要な存在である。その理由の一つが、アクセスの良さである。駅から徒歩5分という立地条件だけでなく、無料駐車場も完備されているため、車での来館も容易だ。また、バス停もすぐ近くにあり、高齢者や学生にとっても利用しやすい。",
+    "さらに、館内には最新のテクノロジーが導入されている。電子書籍の貸し出しが可能であり、専用のタブレットを利用することで、紙の本を持...
+2026-01-31 00:58:49 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
+2026-01-31 00:58:49 - llm_service - INFO - ✅ theme検証成功: レビュー
+2026-01-31 00:58:49 - llm_service - INFO - Successfully generated question: レビュー, excerpt_type: P2_P3
+2026-01-31 00:58:49 - database - INFO - Question saved: q_20260131_e04db1ba - レビュー (P2_P3)
+2026-01-31 00:58:49 - database - INFO - Theme recorded: レビュー (mode: general)
+2026-01-31 00:58:49 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:58:49] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 01:02:18 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): This library is extremely important for local residents.
+One reason is its excellent accessibility.
+...
+2026-01-31 01:02:18 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): This library is extremely important for local residents. One reason is its excellent accessibility. ...
+2026-01-31 01:02:18 - llm_service - INFO - Question text for correction: この図書館は、地域住民にとって非常に重要な存在である。
+その理由の一つが、アクセスの良さである。
+駅から徒歩5分という立地条件だけでなく、無料駐車場も完備されているため、車での来館も容易だ。
+また、バス停もすぐ近くにあり、高齢者や学生にとっても利用しやすい。
+さらに、館内には最新のテクノロジーが導入されている。
+電子書籍の貸し出しが可能であり、専用のタブレットを利用することで、紙の本を持ち運ぶこと...
+2026-01-31 01:02:18 - llm_service - INFO - Required points determined from Japanese text: 7 sentences
+2026-01-31 01:02:18 - llm_service - INFO - Required points for this correction: 7
+2026-01-31 01:02:18 - llm_service - INFO - Word count: 110
+2026-01-31 01:02:18 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 01:02:57 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 01:02:57 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "This library is extremely important for local residents. One reason is its excellent accessibility. Not only is it located a five-minute walk from the station, but it also has a free ...
+2026-01-31 01:02:57 - llm_service - INFO - Full LLM response for correction (length: 9362 chars)
+2026-01-31 01:02:57 - llm_service - INFO - Response first 500 chars: {
+  "original": "This library is extremely important for local residents. One reason is its excellent accessibility. Not only is it located a five-minute walk from the station, but it also has a free parking lot, making it easy to visit by car. In addition, a bus stop is located very close by, so it is convenient for older people and students as well. As a result, the library has introduced the latest technology. It offers e-book lending, and by using dedicated tablets, users can browse a wide r
+2026-01-31 01:02:57 - llm_service - INFO - Response last 500 chars: しい政策を導入した。) / They implemented the new system. (彼らは新しいシステムを実施した。)\n\n5文目: The library also provides high-speed Wi-Fi, creating an ideal environment for people who work remotely or study online.\n（また、館内のWi-Fiも高速で、リモートワークやオンライン学習をする人々には最適な環境が整っている。）\nhigh-speed（形容詞：高速の：スピードが速い）／ideal（形容詞：理想的な：最も望ましい）で、状況や条件を強調します。\n【参考】high-speed internet（高速インターネット）／ideal conditions（理想的な条件）\n例: The hotel offers high-speed internet. (そのホテルは高速インターネットを提供します。) / This is an ideal place to study. (ここは勉強するのに理想的な場所です。)"
+}
+2026-01-31 01:02:57 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 01:02:57 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 01:02:57 - llm_service - INFO - Before normalization: 7 points
+2026-01-31 01:02:57 - points_normalizer - INFO - Starting points normalization: 7 points
+2026-01-31 01:02:57 - points_normalizer - INFO - Student answer split into 7 sentences
+2026-01-31 01:02:57 - points_normalizer - INFO - Processing point 1: before='This library is extremely important for local resi...', level='✅正しい表現'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 1: Found in sentence 1: 'This library is extremely important for local resi...'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 01:02:57 - points_normalizer - INFO - Processing point 2: before='One reason is its excellent accessibility....', level='✅正しい表現'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 2: Found in sentence 2: 'One reason is its excellent accessibility....'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-31 01:02:57 - points_normalizer - INFO - Processing point 3: before='Not only is it located a five-minute walk from the...', level='✅正しい表現'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 3: Found in sentence 3: 'Not only is it located a five-minute walk from the...'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
+2026-01-31 01:02:57 - points_normalizer - INFO - Processing point 4: before='In addition, a bus stop is located very close by, ...', level='✅正しい表現'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 4: Found in sentence 4: 'In addition, a bus stop is located very close by, ...'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 4: Normalized successfully (sentence_no=4)
+2026-01-31 01:02:57 - points_normalizer - INFO - Processing point 5: before='As a result, the library has introduced the latest...', level='❌文法ミス'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 5: Found in sentence 5: 'As a result, the library has introduced the latest...'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 5: Replaced fragment in sentence: 'Furthermore, the library has introduced the latest...'
+2026-01-31 01:02:57 - points_normalizer - INFO - Level is ❌, keeping after: 'Furthermore, the library has introduced the latest...'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 5: Normalized successfully (sentence_no=5)
+2026-01-31 01:02:57 - points_normalizer - INFO - Processing point 6: before='It offers e-book lending, and by using dedicated t...', level='✅正しい表現'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 6: Found in sentence 6: 'It offers e-book lending, and by using dedicated t...'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 6: Normalized successfully (sentence_no=6)
+2026-01-31 01:02:57 - points_normalizer - INFO - Processing point 7: before='The library also provides high-speed Wi-Fi, creati...', level='✅正しい表現'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 7: Found in sentence 7: 'The library also provides high-speed Wi-Fi, creati...'
+2026-01-31 01:02:57 - points_normalizer - INFO - Point 7: Normalized successfully (sentence_no=7)
+2026-01-31 01:02:57 - points_normalizer - INFO - Points normalization complete: 7 points
+2026-01-31 01:02:57 - llm_service - INFO - After normalization: 7 points
+2026-01-31 01:02:57 - llm_service - INFO - Points check: current=7, non-evaluation=7, required=7
+2026-01-31 01:02:57 - llm_service - INFO - ✅ Correction successful: 7 points
+2026-01-31 01:02:57 - database - INFO - Submission saved: s_20260131_f847ebed (mode: general, no scoring)
+2026-01-31 01:02:57 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 01:02:57] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 01:05:53 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/points_normalizer.py', reloading
+2026-01-31 01:05:53 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 01:05:54 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 01:05:54 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 01:05:54 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 01:05:54 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 01:05:54 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 01:06:06 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/points_normalizer.py', reloading
+2026-01-31 01:06:06 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 01:06:08 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 01:06:08 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 01:06:08 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 01:06:08 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 01:06:08 - werkzeug - INFO -  * Debugger PIN: 519-604-230

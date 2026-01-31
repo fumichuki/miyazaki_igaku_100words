@@ -337,8 +337,12 @@ def normalize_points(
                 logger.warning(f"Point {i+1}: Empty before, skipping")
                 continue
             
-            # 断片 → 全文に拡張
-            sentence_index, full_sentence = find_sentence_containing_fragment(original_before, student_sentences)
+            # 🚨重要: LLMが返す before も正規化する（ピリオル補完など）
+            normalized_before = normalize_user_input(original_before)
+            logger.info(f"Point {i+1}: Normalized before='{normalized_before[:50]}...'")
+            
+            # 断片 → 全文に拡張（正規化後の before で検索）
+            sentence_index, full_sentence = find_sentence_containing_fragment(normalized_before, student_sentences)
             
             if full_sentence is None:
                 # 見つからない場合は警告してスキップ
@@ -350,11 +354,14 @@ def normalize_points(
             # before を全文に置換（既に正規化済みの文字列を使用）
             full_before = full_sentence
             
-            # after を全文に拡張（original_after が断片の場合、センテンス内で置換）
-            if '❌' in original_level and original_before != original_after:
-                # 修正が必要な場合：original_before を original_after に置換
-                full_after = replace_fragment_in_sentence(full_sentence, original_before, original_after)
-                # 修正後の文字列も正規化（ピリオル・スペースを統一）
+            # after も正規化
+            normalized_after = normalize_user_input(original_after)
+            
+            # after を全文に拡張（normalized_after が断片の場合、センテンス内で置換）
+            if '❌' in original_level and normalized_before != normalized_after:
+                # 修正が必要な場合：normalized_before を normalized_after に置換
+                full_after = replace_fragment_in_sentence(full_sentence, normalized_before, normalized_after)
+                # 修正後の文字列も正規化（念のため）
                 full_after = normalize_user_input(full_after)
                 logger.info(f"Point {i+1}: Replaced fragment in sentence: '{full_after[:50]}...'")
             else:
