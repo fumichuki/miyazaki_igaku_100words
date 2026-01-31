@@ -1,0 +1,49 @@
+{
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant. Going forward, new measures will be needed to ensure transparency.",
+  "corrected": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant. Going forward, new measures will be needed to ensure transparency.",
+  "points": [
+    {
+      "before": "【全体評価】",
+      "after": "全体的に非常に良い英訳です。文法的な誤りはほとんどなく、原文の内容をうまく伝えています。ただし、「Of particular,」は「In particular,」に修正が必要です。",
+      "reason": "解説: 提出された英文は文法的にほぼ正しいですが、5文目の「Of particular,」は「In particular,」に修正が必要です。文全体としては、日本語原文の内容を適切に英訳しています。",
+      "level": "内容評価"
+    },
+    {
+      "before": "In the scientific community, a new case of research misconduct has been drawing attention.",
+      "after": "In the scientific community, a new case of research misconduct has been drawing attention.",
+      "reason": "1文目: In the scientific community, a new case of research misconduct has been drawing attention.\n（科学界では、新しい研究不正の事例が注目を集めている。）\nscientific community（名詞：科学界：科学者が集まるコミュニティ）／research misconduct（名詞：研究不正：研究における不正行為）で、科学界の中での不正の事例を表現しています。\n【参考】scientific research（科学研究）／academic misconduct（学問的不正）\n例: The scientific community is large. (科学界は大きい。) / Research misconduct is a serious issue. (研究不正は重大な問題です。)",
+      "level": "✅正しい表現"
+    },
+    {
+      "before": "A prominent researcher is alleged to have manipulated data and fabricated results.",
+      "after": "A prominent researcher is alleged to have manipulated data and fabricated results.",
+      "reason": "2文目: A prominent researcher is alleged to have manipulated data and fabricated results.\n（ある著名な研究者が、データを操作して結果を捏造していたとされる。）\nprominent（形容詞：著名な：目立った存在）／manipulate（動詞：操作する：意図的にデータを変更する）で、研究者の不正行為を具体的に説明しています。\n【参考】prominent scientist（著名な科学者）／manipulate results（結果を操作する）\n例: He is a prominent figure. (彼は著名な人物です。) / They manipulated the data. (彼らはデータを操作しました。)",
+      "level": "✅正しい表現"
+    },
+    {
+      "before": "This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.",
+      "after": "This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.",
+      "reason": "3文目: This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.\n（この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査に乗り出している。）\nundermine（動詞：損なう：徐々に弱める）／credibility（名詞：信頼性：信頼される能力）で、科学の信頼性に対する影響を強調しています。\n【参考】undermine authority（権威を損なう）／maintain credibility（信頼性を維持する）\n例: His actions undermine trust. (彼の行動は信頼を損なう。) / The story lacks credibility. (その話には信頼性が欠けている。)",
+      "level": "✅正しい表現"
+    },
+    {
+      "before": "Such cases not only hinder scientific progress but may also provide the public with false information.",
+      "after": "Such cases not only hinder scientific progress but may also provide the public with false information.",
+      "reason": "4文目: Such cases not only hinder scientific progress but may also provide the public with false information.\n（このような事例は、科学の進展を阻むだけでなく、一般の人々にも誤った情報を提供する可能性がある。）\nhinder（動詞：阻む：進行を遅らせる）／provide（動詞：提供する：必要なものを与える）で、科学と社会への影響を指摘しています。\n【参考】hinder development（発展を阻む）／provide assistance（援助を提供する）\n例: Traffic hinders progress. (交通が進行を妨げます。) / We provide information. (私たちは情報を提供します。)",
+      "level": "✅正しい表現"
+    },
+    {
+      "before": "Of particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.",
+      "after": "In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.",
+      "reason": "【誤りの説明】: 'Of particular,' は 'In particular,' にすべき。文脈を強調するために 'In particular' を用いる。\n【参考】in particular（特に）／especially（特に）\n例: In particular, this issue needs attention. (特に、この問題は注目が必要です。) / Especially in winter, it gets cold. (特に冬は寒くなります。)\n\n5文目: In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.\n（特に、今回の不正が発覚した分野は、社会的に重要な研究テーマに関連しているため、その影響は少なくないと考えられる。）\nimpact（名詞：影響：何かに対する効果）／significant（形容詞：重要な：大きな影響を持つ）で、影響の大きさを強調しています。",
+      "level": "❌文法ミス"
+    },
+    {
+      "before": "Going forward, new measures will be needed to ensure transparency.",
+      "after": "Going forward, new measures will be needed to ensure transparency.",
+      "reason": "6文目: Going forward, new measures will be needed to ensure transparency.\n（今後、透明性を確保するための新たな対策が求められるだろう。）\ntransparency（名詞：透明性：開かれた状態）／ensure（動詞：確保する：確実にする）で、未来への対応を示しています。\n【参考】ensure safety（安全を確保する）／enhance transparency（透明性を高める）\n例: We ensure quality. (品質を確保します。) / Transparency is important. (透明性は重要です。)",
+      "level": "✅正しい表現"
+    }
+  ],
+  "model_answer": "In the scientific community, a new case of research misconduct has been drawing attention.\n\nA prominent researcher is alleged to have manipulated data and fabricated results.\n\nThis misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.\n\nSuch cases not only hinder scientific progress but may also provide the public with false information.\n\nIn particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.\n\nGoing forward, new measures will be needed to ensure transparency.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: In the scientific community, a new case of research misconduct has been drawing attention.\n（科学界では、新しい研究不正の事例が注目を集めている。）\nscientific community（名詞：科学界：科学者が集まるコミ

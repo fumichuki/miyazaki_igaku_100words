@@ -1,159 +1,122 @@
 nohup: ignoring input
-2026-01-31 00:39:46 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:39:46 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:39:46 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:42:22 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:42:22 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:42:22 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-31 00:39:46 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-31 00:42:22 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-31 00:39:46 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-31 00:39:46 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 00:39:47 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:39:47 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:39:47 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 00:39:47 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 00:39:47 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-31 00:39:48 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:39:48] "GET /health HTTP/1.1" 200 -
-2026-01-31 00:39:54 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:39:54] "GET /health HTTP/1.1" 200 -
-2026-01-31 00:40:05 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:40:05] "GET / HTTP/1.1" 200 -
-2026-01-31 00:40:05 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:40:05] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
-2026-01-31 00:40:05 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:40:05] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
-2026-01-31 00:40:05 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:40:05] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
-2026-01-31 00:40:06 - database - INFO - Excluded themes: ['時事', '学術', 'コラム', 'ブログ', '図表', '研究紹介', 'レビュー']
-2026-01-31 00:40:06 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-31 00:40:06 - llm_service - INFO - 📊 直近10問のサブトピック: ['時事:B', '学術:A', '学術:E', 'コラム:E', 'ブログ:A', '学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F']
-2026-01-31 00:40:06 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=10.0%, 図表=13.3%, 学術=23.3%, 時事=13.3%, 研究紹介=10.0%
-2026-01-31 00:40:06 - llm_service - INFO - 🎯 システムが選択したtheme: ブログ
-2026-01-31 00:40:06 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=60.0%, P3_ONLY=20.0%, P4_P5=0.0%
-2026-01-31 00:40:06 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
-2026-01-31 00:40:18 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:40:18 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "ブログ",
+2026-01-31 00:42:22 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-31 00:42:22 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 00:42:23 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:42:23 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:42:23 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:42:23 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 00:42:23 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 00:42:24 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:42:24] "GET /health HTTP/1.1" 200 -
+2026-01-31 00:54:44 - database - INFO - Excluded themes: ['ブログ', '時事', '学術', 'コラム', '図表', '研究紹介', 'レビュー']
+2026-01-31 00:54:44 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 00:54:44 - llm_service - INFO - 📊 直近10問のサブトピック: ['ブログ:F', 'ブログ:C', '時事:B', '学術:A', '学術:E', 'コラム:E', 'ブログ:A', '学術:B', '学術:D', 'コラム:C']
+2026-01-31 00:54:44 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=20.0%, レビュー=6.7%, 図表=13.3%, 学術=23.3%, 時事=10.0%, 研究紹介=10.0%
+2026-01-31 00:54:44 - llm_service - INFO - 🎯 システムが選択したtheme: 研究紹介
+2026-01-31 00:54:44 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=60.0%, P3_ONLY=20.0%, P4_P5=0.0%
+2026-01-31 00:54:44 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
+2026-01-31 00:54:54 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:54:54 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "研究紹介",
+  "topic_label": "G",
   "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "そこで、通勤時間を活用するために、オーディオブックを聴くことを始めました。最初は集中できないかもしれないと思っていたのですが、慣れてくると内容に引き込まれ、通勤時間があっという間に感じるようになりました。",
-    "さらに、一方でオーディ...
-2026-01-31 00:40:18 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+    "その研究では、参加者を2つのグループに分け、片方のグループには1週間のSNS使用を制限させ、もう一方のグループには通常通りSNSを利用させた。参加者のストレスレベルと集中力を測定するために、事前と...
+2026-01-31 00:54:54 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "theme": "ブログ",
+  "theme": "研究紹介",
+  "topic_label": "G",
   "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "そこで、通勤時間を活用するために、オーディオブックを聴くことを始めました。最初は集中できないかもしれないと思っていたのですが、慣れてくると内容に引き込まれ、通勤時間があっという間に感じるようになりました。",
-    "さらに、一方でオーディオブックを聴くことで、音楽を聴くよりも情報を吸収することができるため、通勤時間を有効に使えるのはもちろん、自己成長にもつながっていると感じています。"
+    "その研究では、参加者を2つのグループに分け、片方のグループには1週間のSNS使用を制限させ、もう一方のグループには通常通りSNSを利用させた。参加者のストレスレベルと集中力を測定するために、事前と事後にアンケートを実施した。",
+    "結果として、SNS使用を制限したグループはストレスレベルが低下し、集中力が向上したことがわかった。一方で、通常通りSNSを利用したグループでは特に変化が見られなかった。"
   ],
   "hints": [
-    {"en": "commute", "ja": "通勤", "kana": "コミュート", "pos": "動詞", "usage": "He commutes to work by train.「彼は電車で通勤している。」"},
-    {"en": "audiobook", "ja": "オーディオブック", "kana": "オーディオブック", "pos": "名詞", "usage": "I listened to an audiobook during my commute.「通勤中にオーディオブックを聴いた。」"},
-    {"en": "concentrate", "ja": "集中する", "kana": "コンセントレート", "pos": "動詞", "usage": "It's hard to concentrate with all this noise.「この騒音では集中しにくい。」"},
-    {"en": "absorb", "ja": "吸収する", "kana": "アブソーブ", "pos": "動詞", "usage": "Plants absorb sunlight for photosynthesis.「植物は光合成のために日光を吸収する。」"},
-    {"en": "self-improvement", "ja": "自己成長", "kana": "セルフインプルーブメント", "pos": "名詞", "usage": "Reading books is a good way for self-improvement.「本を読むことは自己成長の良い方法だ。」"}
+    {"en": "participant", "ja": "参加者", "kana": "パーティシパント", "pos": "名詞", "usage": "The participants were divided into two groups.「参加者は2つのグループに分けられた。」"},
+    {"en": "restrict", "ja": "制限する", "kana": "リストリクト", "pos": "動詞", "usage": "They restricted their use of SNS.「彼らはSNSの使用を制限した。」"},
+    {"en": "measure", "ja": "測定する", "kana": "メジャー", "pos": "動詞", "usage": "They measured stress levels.「彼らはストレスレベルを測定した。」"},
+    {"en": "improve", "ja": "向上する", "kana": "インプルーブ", "pos": "動詞", "usage": "Concentration improved in the restricted group.「制限されたグループでは集中力が向上した。」"},
+    {"en": "survey", "ja": "アンケート", "kana": "サーベイ", "pos": "名詞", "usage": "A survey was conducted before and after.「事前と事後にアンケートが実施された。」"}
   ],
   "target_words": {"min": 100, "max": 120}
 }
-2026-01-31 00:40:18 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "ブログ",
+2026-01-31 00:54:54 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "研究紹介",
+  "topic_label": "G",
   "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "そこで、通勤時間を活用するために、オーディオブックを聴くことを始めました。最初は集中できないかもしれないと思っていたのですが、慣れてくると内容に引き込まれ、通勤時間があっという間に感じるようになりました。",
-    "さらに、一方でオーディオブックを聴くことで、音楽を聴くよりも情報を吸収することができるため、通勤時間を有効に使えるのはもちろん、自己成長にもつながっていると感じています。"
-  ],
-  "hints": [
-    {"...
-2026-01-31 00:40:18 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
-2026-01-31 00:40:18 - llm_service - INFO - ✅ theme検証成功: ブログ
-2026-01-31 00:40:18 - llm_service - INFO - Successfully generated question: ブログ, excerpt_type: P2_P3
-2026-01-31 00:40:18 - database - INFO - Question saved: q_20260131_e28af3e9 - ブログ (P2_P3)
-2026-01-31 00:40:18 - database - INFO - Theme recorded: ブログ (mode: general)
-2026-01-31 00:40:18 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:40:18] "POST /api/question HTTP/1.1" 200 -
-2026-01-31 00:40:34 - database - INFO - Excluded themes: ['ブログ', '時事', '学術', 'コラム', '図表', '研究紹介', 'レビュー']
-2026-01-31 00:40:34 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-31 00:40:34 - llm_service - INFO - 📊 直近10問のサブトピック: ['ブログ:C', '時事:B', '学術:A', '学術:E', 'コラム:E', 'ブログ:A', '学術:B', '学術:D', 'コラム:C', 'コラム:C']
-2026-01-31 00:40:34 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=16.7%, レビュー=10.0%, 図表=13.3%, 学術=23.3%, 時事=10.0%, 研究紹介=10.0%
-2026-01-31 00:40:34 - llm_service - INFO - 🎯 システムが選択したtheme: ブログ
-2026-01-31 00:40:34 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=60.0%, P3_ONLY=20.0%, P4_P5=0.0%
-2026-01-31 00:40:34 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P3_ONLY
-2026-01-31 00:40:40 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:40:40 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "ブログ",
-  "topic_label": "E",
-  "excerpt_type": "P3_ONLY",
-  "japanese_paragraphs": [
-    "このように、お金をかけずに家の中を整理する方法を試してみた結果、生活がより快適になりました。特に、使わない物を思い切って手放すことで、部屋が広く感じられるようになり、気持ちもすっきりしました。ま...
-2026-01-31 00:40:40 - llm_service - INFO - [DEBUG] Full LLM response for correction:
-{
-  "theme": "ブログ",
-  "topic_label": "E",
-  "excerpt_type": "P3_ONLY",
-  "japanese_paragraphs": [
-    "このように、お金をかけずに家の中を整理する方法を試してみた結果、生活がより快適になりました。特に、使わない物を思い切って手放すことで、部屋が広く感じられるようになり、気持ちもすっきりしました。また、整理整頓された空間で過ごすことで、日常のストレスも軽減されたように思います。"
-  ],
-  "hints": [
-    {"en": "organize", "ja": "整理する", "kana": "オーガナイズ", "pos": "動詞", "usage": "organize one's room「部屋を整理する」"},
-    {"en": "comfortable", "ja": "快適な", "kana": "カンフォタブル", "pos": "形容詞", "usage": "a comfortable life「快適な生活」"},
-    {"en": "declutter", "ja": "物を処分する", "kana": "ディクラッター", "pos": "動詞", "usage": "declutter the house「家を整理する」"},
-    {"en": "space", "ja": "空間", "kana": "スペース", "pos": "名詞", "usage": "an open space「広い空間」"},
-    {"en": "stress", "ja": "ストレス", "kana": "ストレス", "pos": "名詞", "usage": "reduce stress「ストレスを減らす」"}
-  ],
-  "target_words": {"min": 100, "max": 120}
-}
-2026-01-31 00:40:40 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "ブログ",
-  "topic_label": "E",
-  "excerpt_type": "P3_ONLY",
-  "japanese_paragraphs": [
-    "このように、お金をかけずに家の中を整理する方法を試してみた結果、生活がより快適になりました。特に、使わない物を思い切って手放すことで、部屋が広く感じられるようになり、気持ちもすっきりしました。また、整理整頓された空間で過ごすことで、日常のストレスも軽減されたように思います。"
-  ],
-  "hints": [
-    {"en": "organize", "ja": "整理する", "ka...
-2026-01-31 00:40:40 - llm_service - INFO - ✅ excerpt_type検証成功: P3_ONLY
-2026-01-31 00:40:40 - llm_service - INFO - ✅ theme検証成功: ブログ
-2026-01-31 00:40:40 - llm_service - INFO - Successfully generated question: ブログ, excerpt_type: P3_ONLY
-2026-01-31 00:40:40 - database - INFO - Question saved: q_20260131_c846177e - ブログ (P3_ONLY)
-2026-01-31 00:40:40 - database - INFO - Theme recorded: ブログ (mode: general)
-2026-01-31 00:40:40 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:40:40] "POST /api/question HTTP/1.1" 200 -
-2026-01-31 00:40:51 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention.
+    "その研究では、参加者を2つのグループに分け、片方のグループには1週間のSNS使用を制限させ、もう一方のグループには通常通りSNSを利用させた。参加者のストレスレベルと集中力を測定するために、事前と事後にアンケートを実施した。",
+    "結果として、SNS使用を制限したグループはストレスレベルが低下し、集中力が向上したことがわかった。一方で、通常通りSNSを利用したグループでは特に変化が見ら...
+2026-01-31 00:54:54 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
+2026-01-31 00:54:54 - llm_service - INFO - ✅ theme検証成功: 研究紹介
+2026-01-31 00:54:54 - llm_service - INFO - Successfully generated question: 研究紹介, excerpt_type: P2_P3
+2026-01-31 00:54:54 - database - INFO - Question saved: q_20260131_f216eac8 - 研究紹介 (P2_P3)
+2026-01-31 00:54:54 - database - INFO - Theme recorded: 研究紹介 (mode: general)
+2026-01-31 00:54:54 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:54:54] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 00:55:14 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention.
 A promine...
-2026-01-31 00:40:51 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention. A promine...
-2026-01-31 00:40:51 - llm_service - INFO - Question text for correction: 科学界では、新しい研究不正の事例が注目を集めている。
+2026-01-31 00:55:14 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): In the scientific community, a new case of research misconduct has been drawing attention. A promine...
+2026-01-31 00:55:14 - llm_service - INFO - Question text for correction: 科学界では、新しい研究不正の事例が注目を集めている。
 ある著名な研究者が、データを操作して結果を捏造していたとされる。
 この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査に乗り出している。
 このような事例は、科学の進展を阻むだけでなく、一般の人々にも誤った情報を提供する可能性がある。
 特に、今回の不正が発覚した分野は、社会的に重要な研究テーマに関連しているため、そ...
-2026-01-31 00:40:51 - llm_service - INFO - Required points determined from Japanese text: 6 sentences
-2026-01-31 00:40:51 - llm_service - INFO - Required points for this correction: 6
-2026-01-31 00:40:51 - llm_service - INFO - Word count: 90
-2026-01-31 00:40:51 - llm_service - INFO - Correction attempt 1/3
-2026-01-31 00:41:12 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:41:12 - llm_service - INFO - OpenAI API response (attempt 1): {
+2026-01-31 00:55:14 - llm_service - INFO - Required points determined from Japanese text: 6 sentences
+2026-01-31 00:55:14 - llm_service - INFO - Required points for this correction: 6
+2026-01-31 00:55:14 - llm_service - INFO - Word count: 90
+2026-01-31 00:55:14 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 00:55:41 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:55:41 - llm_service - INFO - OpenAI API response (attempt 1): {
   "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
-2026-01-31 00:41:12 - llm_service - INFO - Full LLM response for correction (length: 6188 chars)
-2026-01-31 00:41:12 - llm_service - INFO - Response first 500 chars: {
+2026-01-31 00:55:41 - llm_service - INFO - Full LLM response for correction (length: 6590 chars)
+2026-01-31 00:55:41 - llm_service - INFO - Response first 500 chars: {
   "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
-2026-01-31 00:41:12 - llm_service - INFO - Response last 500 chars: 求められるだろう。）\nensure（動詞：確保する：確実にする）／guarantee（動詞：保証する：確実にすると約束する）で、ensureは結果を確実にすること、guaranteeは保証することを指します。\n【参考】ensure safety（安全を確保する）／guarantee quality（品質を保証する）\n例: We ensure that all products are tested. (すべての製品がテストされることを保証します。) / The company guarantees customer satisfaction. (その会社は顧客満足を保証します。)",
+2026-01-31 00:55:41 - llm_service - INFO - Response last 500 chars: ation. In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant. Going forward, new measures will be needed to ensure transparency.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: In the scientific community, a new case of research misconduct has been drawing attention.\n（科学界では、新しい研究不正の事例が注目を集めている。）\nscientific（形容詞：科学的な：科学に関する文脈）／academic（形容詞：学問的な：学術に関する文脈）で、scientificは自然科学に関する内容、academicは広く学術に関する内容
+2026-01-31 00:55:41 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 00:55:41 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 46 column 6 (char 5653)
+2026-01-31 00:55:43 - llm_service - INFO - Correction attempt 2/3
+2026-01-31 00:56:02 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:56:02 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
+2026-01-31 00:56:02 - llm_service - INFO - Full LLM response for correction (length: 6074 chars)
+2026-01-31 00:56:02 - llm_service - INFO - Response first 500 chars: {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
+2026-01-31 00:56:02 - llm_service - INFO - Response last 500 chars: new measures will be needed to ensure transparency.",
+      "reason": "6文目: Going forward, new measures will be needed to ensure transparency.\n（今後、透明性を確保するための新たな対策が求められるだろう。）\nmeasure（名詞：措置、手段：問題を解決するための方法）／action（名詞：行動、実行：具体的な行為）で、measureは計画的手段を指し、actionは即時的な行動を指します。\n【参考】take measures（措置を講じる）／take action（行動を起こす）\n例: The government will take measures. (政府は措置を講じるだろう。) / We must take action now. (今すぐ行動しなければならない。)",
       "level": "✅正しい表現"
     }
   ],
-  "model_answer": "In the scientific community, a new case of research misconduct has been drawing attention.\n\nA prominent researcher is alleged to have manipulated
-2026-01-31 00:41:12 - llm_service - ERROR - Unexpected error (attempt 1): name 'Path' is not defined
-2026-01-31 00:41:14 - llm_service - INFO - Correction attempt 2/3
-2026-01-31 00:41:35 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 00:41:35 - llm_service - INFO - OpenAI API response (attempt 1): 
-{
-  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This mis...
-2026-01-31 00:41:35 - llm_service - INFO - Full LLM response for correction (length: 6615 chars)
-2026-01-31 00:41:35 - llm_service - INFO - Response first 500 chars: 
-{
-  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rel
-2026-01-31 00:41:35 - llm_service - INFO - Response last 500 chars: . This misconduct seriously undermines scientific credibility, prompting many researchers and professional organizations to launch investigations. Such incidents not only impede scientific progress but also risk providing false information to the public. Particularly, since this misconduct occurred in a field related to socially important research topics, its impact is expected to be considerable. Going forward, new measures will be necessary to ensure transparency.",
-  "model_answer_explanation
-2026-01-31 00:41:35 - llm_service - ERROR - Unexpected error (attempt 2): name 'Path' is not defined
-2026-01-31 00:41:37 - llm_service - INFO - Correction attempt 3/3
-2026-01-31 00:42:12 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/llm_service.py', reloading
-2026-01-31 00:42:12 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 00:42:13 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 00:42:13 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 00:42:13 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 00:42:13 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 00:42:13 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+  "model_answer": "In the scientific community
+2026-01-31 00:56:02 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_2.json
+2026-01-31 00:56:02 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 46 column 6 (char 6022)
+2026-01-31 00:56:04 - llm_service - INFO - Correction attempt 3/3
+2026-01-31 00:56:25 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:56:25 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misc...
+2026-01-31 00:56:25 - llm_service - INFO - Full LLM response for correction (length: 6714 chars)
+2026-01-31 00:56:25 - llm_service - INFO - Response first 500 chars: {
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field rela
+2026-01-31 00:56:25 - llm_service - INFO - Response last 500 chars: rogress but may also provide the public with false information.\n\nIn particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.\n\nGoing forward, new measures will be needed to ensure transparency.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: In the scientific community, a new case of research misconduct has been drawing attention.\n（科学界では、新しい研究不正の事例が注目を集めている。）\nscientific community（名詞：科学界：科学者が集まるコミ
+2026-01-31 00:56:25 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_3.json
+2026-01-31 00:56:25 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 46 column 6 (char 5828)
+2026-01-31 00:56:25 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
+2026-01-31 00:56:25 - llm_service - INFO - Generating fallback correction response
+2026-01-31 00:56:25 - database - INFO - Submission saved: s_20260131_7a11d231 (mode: general, no scoring)
+2026-01-31 00:56:25 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:56:25] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 00:57:26 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/llm_service.py', reloading
+2026-01-31 00:57:26 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 00:57:27 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:57:27 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:57:27 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:57:27 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 00:57:27 - werkzeug - INFO -  * Debugger PIN: 519-604-230

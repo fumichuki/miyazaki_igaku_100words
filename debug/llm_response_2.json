@@ -1,0 +1,48 @@
+{
+  "original": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. Of particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant. Going forward, new measures will be needed to ensure transparency.",
+  "corrected": "In the scientific community, a new case of research misconduct has been drawing attention. A prominent researcher is alleged to have manipulated data and fabricated results. This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations. Such cases not only hinder scientific progress but may also provide the public with false information. In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant. Going forward, new measures will be needed to ensure transparency.",
+  "points": [
+    {
+      "before": "【全体評価】",
+      "after": "全体的に良い英訳です。文法的に正しく、日本語原文の内容を適切に伝えています。ただし、5文目の 'Of particular' は 'In particular' に修正する必要があります。",
+      "reason": "解説: 提出された英文は6文で、日本語原文の内容を正確に英訳しています。文法的なミスはほとんどないが、5文目で接続詞 'In particular' の欠落がありました。これを修正することで、文の流れがより自然になります。",
+      "level": "内容評価"
+    },
+    {
+      "before": "In the scientific community, a new case of research misconduct has been drawing attention.",
+      "after": "In the scientific community, a new case of research misconduct has been drawing attention.",
+      "reason": "1文目: In the scientific community, a new case of research misconduct has been drawing attention.\n（科学界では、新しい研究不正の事例が注目を集めている。）\ncommunity（名詞：共同体、集団：特定の分野や興味を共有する集団）／society（名詞：社会：一般的な人々の集まり）で、communityは特定の興味を持つ集団を指します。\n【参考】scientific community（科学界）／local community（地域社会）\n例: The scientific community supports collaboration. (科学界は協力を支持しています。) / The local community is very supportive. (地域社会はとても協力的です。)",
+      "level": "✅正しい表現"
+    },
+    {
+      "before": "A prominent researcher is alleged to have manipulated data and fabricated results.",
+      "after": "A prominent researcher is alleged to have manipulated data and fabricated results.",
+      "reason": "2文目: A prominent researcher is alleged to have manipulated data and fabricated results.\n（ある著名な研究者が、データを操作して結果を捏造していたとされる。）\nalleged（形容詞：疑われた、申し立てられた：証拠が不十分な状態での主張）／accused（動詞：告発された：具体的な証拠に基づく非難）で、allegedは証拠が不十分なときに使われます。\n【参考】alleged crime（疑われた犯罪）／accused of theft（窃盗で告発された）\n例: He is alleged to be involved. (彼は関与していると疑われている。) / She was accused of cheating. (彼女は不正をしたと告発された。)",
+      "level": "✅正しい表現"
+    },
+    {
+      "before": "This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.",
+      "after": "This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.",
+      "reason": "3文目: This misconduct seriously undermines scientific credibility, and many researchers and professional institutions have begun investigations.\n（この不正行為は、科学的な信頼性を大きく損なうものであり、多くの研究者や専門機関が調査に乗り出している。）\nundermine（動詞：弱体化させる：信頼や価値を徐々に損なう）／damage（動詞：損害を与える：物理的または感情的な損害を与える）で、undermineは徐々に信頼を低下させることを指します。\n【参考】undermine trust（信頼を弱体化させる）／damage reputation（評判を損なう）\n例: His actions undermine his authority. (彼の行動は彼の権威を弱体化させる。) / The storm damaged the building. (嵐が建物に損害を与えた。)",
+      "level": "✅正しい表現"
+    },
+    {
+      "before": "Such cases not only hinder scientific progress but may also provide the public with false information.",
+      "after": "Such cases not only hinder scientific progress but may also provide the public with false information.",
+      "reason": "4文目: Such cases not only hinder scientific progress but may also provide the public with false information.\n（このような事例は、科学の進展を阻むだけでなく、一般の人々にも誤った情報を提供する可能性がある。）\nhinder（動詞：妨げる：進行を遅らせる、妨害する）／impede（動詞：妨げる：進行を妨げる）で、hinderは一般的な妨害、impedeはより強い妨害を意味します。\n【参考】hinder progress（進展を妨げる）／impede development（発展を妨げる）\n例: Traffic hinders our schedule. (交通が私たちの予定を妨げている。) / His actions impede the process. (彼の行動がプロセスを妨げている。)",
+      "level": "✅正しい表現"
+    },
+    {
+      "before": "Of particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.",
+      "after": "In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.",
+      "reason": "【誤りの説明】: 'Of particular' は 'In particular' にすべき。'In particular' は「特に」を意味し、特定の事柄を強調する際に使用します。\n【参考】In particular（特に）／Especially（特に）\n例: In particular, exercise is essential for health. (特に、運動は健康に不可欠です。) / She loves fruits, especially apples. (彼女は果物が好きで、特にリンゴが好きです。)\n\n5文目: In particular, because the misconduct was uncovered in a field related to socially important research topics, its impact is likely to be significant.\n（特に、今回の不正が発覚した分野は、社会的に重要な研究テーマに関連しているため、その影響は少なくないと考えられる。）\nparticular（形容詞：特定の：明確に定められた）／specific（形容詞：具体的な：明確に定義された）で、particularは広い意味、specificはより狭義で使います。",
+      "level": "❌文法ミス"
+    },
+    {
+      "before": "Going forward, new measures will be needed to ensure transparency.",
+      "after": "Going forward, new measures will be needed to ensure transparency.",
+      "reason": "6文目: Going forward, new measures will be needed to ensure transparency.\n（今後、透明性を確保するための新たな対策が求められるだろう。）\nmeasure（名詞：措置、手段：問題を解決するための方法）／action（名詞：行動、実行：具体的な行為）で、measureは計画的手段を指し、actionは即時的な行動を指します。\n【参考】take measures（措置を講じる）／take action（行動を起こす）\n例: The government will take measures. (政府は措置を講じるだろう。) / We must take action now. (今すぐ行動しなければならない。)",
+      "level": "✅正しい表現"
+    }
+  ],
+  "model_answer": "In the scientific community
