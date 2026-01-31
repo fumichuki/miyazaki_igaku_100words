@@ -84,13 +84,13 @@ def _restore_abbreviations(text: str) -> str:
     return text.replace(_DOT_PLACEHOLDER, ".")
 
 
-def normalize_user_input(text: str) -> str:
+def normalize_user_input(text: str, preserve_newlines: bool = False) -> str:
     """
     ユーザー入力を正規化する
     
     以下の修正を行う：
     - 全角スペースを半角スペースに変換
-    - 改行を単一スペースに変換（句読点がない改行は文の途中として扱う）
+    - 改行を単一スペースに変換（句読点がない改行は文の途中として扱う）※preserve_newlines=Trueの場合は保持
     - ピリオド直後にスペースなく文字が続く場合、スペースを挿入（例: "word.In" → "word. In"）
     - 複数の連続スペースを1つに統一
     - 文末句読点の前の余分なスペースを削除
@@ -102,6 +102,7 @@ def normalize_user_input(text: str) -> str:
     
     Args:
         text: ユーザーが入力した英文
+        preserve_newlines: True の場合、改行を保持する（マルチセンテンスモード用）
     
     Returns:
         正規化された英文
@@ -109,13 +110,20 @@ def normalize_user_input(text: str) -> str:
     if not text or not text.strip():
         return ""
     
+    # マルチセンテンスモード：改行単位で処理
+    if preserve_newlines and '\n' in text:
+        lines = text.split('\n')
+        normalized_lines = [normalize_user_input(line.strip(), preserve_newlines=False) for line in lines if line.strip()]
+        return '\n'.join(normalized_lines)
+    
+    # シングルセンテンスモード：通常の処理
     # 前後の空白を削除
     normalized = text.strip()
     
     # ステップ0a: 全角スペースを半角スペースに変換（最優先）
     normalized = normalized.replace('　', ' ')
     
-    # ステップ0b: 改行を単一スペースに変換
+    # ステップ0b: 改行を単一スペースに変換（シングルセンテンスモードのみ）
     # 改行は文の区切りではなく、入力の途中と見なす（過剰分割を防ぐ）
     # 例: "...full by people\nso a lot..." → "...full by people so a lot..."
     normalized = re.sub(r'\n+', ' ', normalized)

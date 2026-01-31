@@ -1562,10 +1562,6 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
     normalized_answer = normalize_punctuation(submission.user_answer)
     logger.info(f"Step 1 - Punctuation normalized (first 100 chars): {normalized_answer[:100]}...")
     
-    # ステップ2: ユーザー入力を正規化（ピリオド後のスペース不足などを修正）
-    normalized_answer = normalize_user_input(normalized_answer)
-    logger.info(f"Step 2 - User input normalized (first 100 chars): {normalized_answer[:100]}...")
-    
     # 問題文を取得（優先順位: japanese_paragraphs > japanese_sentences > question_text）
     if submission.japanese_paragraphs:
         question_text = "\n\n".join(submission.japanese_paragraphs)
@@ -1573,6 +1569,14 @@ def correct_answer(submission: SubmissionRequest) -> CorrectionResponse:
         question_text = "\n".join(submission.japanese_sentences)
     else:
         question_text = submission.question_text or ""
+    
+    # ステップ2: ユーザー入力を正規化（ピリオド後のスペース不足などを修正）
+    # マルチセンテンスモード（japanese_sentencesが存在）の場合は改行を保持
+    is_multi_sentence = bool(submission.japanese_sentences)
+    normalized_answer = normalize_user_input(normalized_answer, preserve_newlines=is_multi_sentence)
+    logger.info(f"Step 2 - User input normalized (first 100 chars): {normalized_answer[:100]}...")
+    if is_multi_sentence:
+        logger.info(f"Multi-sentence mode: preserving newlines in user input")
     
     logger.info(f"Question text for correction: {question_text[:200]}...")
     

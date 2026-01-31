@@ -1,20 +1,27 @@
+
 {
-  "original": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan in particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly, and average commute times are reported to increase by more than 30 minutes.",
-  "corrected": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan. In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly, and average commute times are reported to increase by more than 30 minutes.",
+  "original": "According to a recent survey, traffic congestion has been worsening in urban areas of japan.\nIn particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.",
+  "corrected": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan.\n\nIn particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "全体的に良い翻訳ですが、接続詞の欠落があります。これにより、文のつながりがやや不自然です。",
-      "reason": "解説: 提出された英文は、全体的に文法的に正しいです。ただし、日本語原文にある「特に、」に対応する英語が欠落しています。接続詞や副詞の欠落は、文脈を伝えるために重要です。",
+      "after": "学生の解答は、日本語原文の内容を適切に英訳しています。文法的にも正確で自然な表現です。",
+      "reason": "解説: 提出された英文は、日本語原文の2文を正確に英訳しています。スペルミスを除けば、文法的なミスはなく、接続詞の使用も適切です。",
       "level": "内容評価"
     },
     {
-      "before": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan in particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly, and average commute times are reported to increase by more than 30 minutes.",
-      "after": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan. In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly, and average commute times are reported to increase by more than 30 minutes.",
-      "reason": "【誤りの説明】: 日本語原文の「特に、」に対応する 'In particular,' が英文中で欠落しています。このような接続詞は文のつながりを明確にし、具体的な状況や条件を示すために必要です。\n【参考】in particular（特に）／especially（特に）\n例: In particular, I like the red one. (特に、赤いのが好きです。) / Especially in the morning, it's quiet. (特に朝は静かです。)\n\n1文目: According to a recent survey, traffic congestion has been worsening in urban areas of Japan. In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly, and average commute times are reported to increase by more than 30 minutes.\n（最近の調査によると、日本の都市部では交通渋滞が悪化していることが明らかになった。特に、朝の通勤ラッシュ時には主要な幹線道路での車両の流れが著しく遅くなっており、通勤時間が平均で30分以上延びることが報告されている。）",
+      "before": "According to a recent survey, traffic congestion has been worsening in urban areas of japan.",
+      "after": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan.",
+      "reason": "【誤りの説明】: 'japan' の 'j' は大文字にすべきです。国名は常に大文字で始まります。\n【参考】Japan / United States\n例: I live in Japan. (私は日本に住んでいます。) / She visited the United States. (彼女はアメリカを訪れました。)\n\n1文目: According to a recent survey, traffic congestion has been worsening in urban areas of Japan.\n（最近の調査によると、日本の都市部では交通渋滞が悪化しています。）\nrecent（形容詞：最近の：直近の出来事や状況を指す文脈）／current（形容詞：現在の：今の状態を指す文脈）で、recentは過去に近い時間枠、currentは現在進行中の状態を示します。",
       "level": "❌文法ミス"
+    },
+    {
+      "before": "In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.",
+      "after": "In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.",
+      "reason": "2文目: In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly.\n（特に朝の通勤ラッシュアワー時には、主要幹線道路での車両の流れが大幅に低下します。）\nflow（名詞：流れ：一定の方向に進む動きの文脈）／traffic（名詞：交通：道路上の車両の動きの文脈）で、flowは水や車両の動きを示し、trafficは全体の交通状況を示します。\n【参考】flow of water（水の流れ）／traffic congestion（交通渋滞）\n例: The flow of water was strong. (水の流れは強かった。) / Traffic congestion is common in cities. (都市では交通渋滞が一般的です。)",
+      "level": "✅正しい表現"
     }
   ],
-  "model_answer": "According to a recent survey, it has been revealed that traffic congestion is worsening in urban areas of Japan. In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly, and it has been reported that average commute times extend by more than 30 minutes.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: According to a recent survey, it has been revealed that traffic congestion is worsening in urban areas of Japan.\n（最近の調査によると、日本の都市部では交通渋滞が悪化していることが明らかになった。）\nreveal（動詞：明らかにする：調査やデータによって示される文脈）／show（動詞：示す：より一般的に見せる文脈）で、revealは新たな情報を明らかにするニュアンスが強い。\n【参考】reveal the truth（真実を明らかにする）／show results（結果を示す）\n例：The survey reveals interesting data. (調査は興味深いデータを明らかにする。) / The chart shows trends. (グラフは傾向を示す。)\n\n2文目: In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads slows down significantly, and it has been reported that average commute times extend by more than 30 minutes.\n（特に、朝の通勤ラッシュ時には主要な幹線道路での車両の流れが著しく遅くなっており、通勤時間が平均で30分以上延びることが報告されている。）\nslow down（句動詞：遅くなる：速度が落ちる文脈）／delay（動詞：遅らせる：予定より遅れる文脈）で、slow downは物理的な速度の低下、delayは予定や計画の遅延を指す。\n【参考】slow down traffic（交通を遅くする）／delay a flight（フライトを遅らせる）\n例：The train slowed down. (電車は速度を落とした。) / The meeting was delayed. (会議は遅れた。)"
+  "model_answer": "According to a recent survey, traffic congestion has been worsening in urban areas of Japan.\n\nIn particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads decreases significantly.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: According to a recent survey, traffic congestion has been worsening in urban areas of Japan.\n（最近の調査によると、日本の都市部では交通渋滞が悪化しています。）\nrecent（形容詞：最近の：直近の出来事や状況を指す文脈）／current（形容詞：現在の：今の状態を指す文脈）で、recentは過去に近い時間枠、currentは現在進行中の状態を示します。\n【参考】recent study（最近の研究）／current situation（現在の状況）\n例: A recent study shows... (最近の研究は...を示す。) ／ The current situation is difficult. (現在の状況は困難です。)\n\n2文目: In particular, during the morning commuting rush hour, the flow of vehicles on major arterial roads decreases significantly.\n（特に朝の通勤ラッシュアワー時には、主要幹線道路での車両の流れが大幅に低下します。）\ndecrease（動詞：減少する：量や速度が下がる文脈）／reduce（動詞：減らす：意図的に量を下げる文脈）で、decreaseは自然な減少を指し、reduceは意図的な減少を示します。\n【参考】decrease in speed（速度の減少）／reduce the risk（リスクを減らす）\n例: The speed decreased quickly. (速度が急速に落ちた。) ／ We reduced the risk of error. (エラーのリスクを減らした。)"
 }
