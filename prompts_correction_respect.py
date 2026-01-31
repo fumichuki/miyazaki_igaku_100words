@@ -250,7 +250,21 @@ N文目: [正しい英文全文]
 4. levelフィールドは必ず出力（✅正しい表現 / ❌文法ミス / 内容評価）
 5. points[0]は必ず全体評価（level: "内容評価"）
 6. **model_answer と model_answer_explanation を必ず出力**
-7. **🚨配列の閉じ括弧 ] の直後に必ずカンマ（,）を付ける🚨**
+7. **🚨pointsは配列、配列の最後の要素の後にはカンマ不要、配列の閉じ括弧]の後にカンマが必要🚨**
+
+**正しいJSON構造:**
+```json
+{
+  "original": "...",
+  "corrected": "...",
+  "points": [
+    {...},
+    {...}
+  ],
+  "model_answer": "...",
+  "model_answer_explanation": "..."
+}
+```
 
 ## 全体評価（points[0]）
 

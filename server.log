@@ -1,126 +1,165 @@
 nohup: ignoring input
-2026-01-30 23:44:30 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:44:30 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:44:30 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-30 23:54:25 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-30 23:54:25 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-30 23:54:25 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-30 23:44:30 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-30 23:54:25 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-30 23:44:30 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-30 23:44:30 - werkzeug - INFO -  * Restarting with stat
-2026-01-30 23:44:31 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:44:31 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:44:31 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-30 23:44:31 - werkzeug - WARNING -  * Debugger is active!
-2026-01-30 23:44:31 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-30 23:44:36 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:44:36] "GET /health HTTP/1.1" 200 -
-2026-01-30 23:44:43 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:44:43] "GET /health HTTP/1.1" 200 -
-2026-01-30 23:46:37 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:46:37] "GET / HTTP/1.1" 200 -
-2026-01-30 23:46:37 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:46:37] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
-2026-01-30 23:46:37 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:46:37] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
-2026-01-30 23:46:37 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:46:37] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
-2026-01-30 23:46:38 - database - INFO - Excluded themes: ['学術', 'コラム', '図表', '研究紹介', 'レビュー', 'ブログ', '時事']
-2026-01-30 23:46:38 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-30 23:46:38 - llm_service - INFO - 📊 直近10問のサブトピック: ['学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D', '学術:H', 'レビュー:F', '図表:E', 'コラム:A']
-2026-01-30 23:46:38 - llm_service - INFO - 📊 直近30問の分布: コラム=20.0%, ブログ=10.0%, レビュー=10.0%, 図表=13.3%, 学術=16.7%, 時事=16.7%, 研究紹介=13.3%
-2026-01-30 23:46:38 - llm_service - INFO - 🎯 システムが選択したtheme: 学術
-2026-01-30 23:46:38 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=10.0%, P2_P3=60.0%, P3_ONLY=30.0%, P4_P5=0.0%
-2026-01-30 23:46:38 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
-2026-01-30 23:46:45 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:46:45 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "学術",
-  "topic_label": "B",
-  "excerpt_type": "P2_P3",
+2026-01-30 23:54:25 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-30 23:54:25 - werkzeug - INFO -  * Restarting with stat
+2026-01-30 23:54:25 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-30 23:54:25 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-30 23:54:25 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-30 23:54:25 - werkzeug - WARNING -  * Debugger is active!
+2026-01-30 23:54:25 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-30 23:54:30 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:30] "GET /health HTTP/1.1" 200 -
+2026-01-30 23:54:38 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:38] "GET /health HTTP/1.1" 200 -
+2026-01-30 23:54:56 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:56] "GET / HTTP/1.1" 200 -
+2026-01-30 23:54:56 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:56] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-30 23:54:56 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:56] "[36mGET /static/main.js?v=20260121N HTTP/1.1[0m" 304 -
+2026-01-30 23:54:56 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:54:56] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
+2026-01-30 23:54:58 - database - INFO - Excluded themes: ['学術', 'コラム', '図表', '研究紹介', 'レビュー', 'ブログ', '時事']
+2026-01-30 23:54:58 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-30 23:54:58 - llm_service - INFO - 📊 直近10問のサブトピック: ['学術:B', '学術:D', 'コラム:C', 'コラム:C', '学術:F', '図表:C', '研究紹介:D', '学術:H', 'レビュー:F', '図表:E']
+2026-01-30 23:54:58 - llm_service - INFO - 📊 直近30問の分布: コラム=20.0%, ブログ=10.0%, レビュー=10.0%, 図表=13.3%, 学術=20.0%, 時事=16.7%, 研究紹介=10.0%
+2026-01-30 23:54:58 - llm_service - INFO - 🎯 システムが選択したtheme: ブログ
+2026-01-30 23:54:58 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=0.0%, P2_P3=70.0%, P3_ONLY=30.0%, P4_P5=0.0%
+2026-01-30 23:54:58 - llm_service - INFO - 🎯 P1_ONLYが20.0%不足 → 優先的に選択
+2026-01-30 23:54:58 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P1_ONLY
+2026-01-30 23:55:05 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:55:05 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "ブログ",
+  "topic_label": "A",
+  "excerpt_type": "P1_ONLY",
   "japanese_paragraphs": [
-    "この研究では、参加者に新しい単語リストを覚えさせるために、異なる学習間隔を設けた。短い間隔で学習するグループと、長い間隔で学習するグループに分かれた。",
-    "また、学習後のテストは即時と遅延の...
-2026-01-30 23:46:45 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+    "最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。こうした小さな中断が積み重なると、作業効率が大きく下が...
+2026-01-30 23:55:05 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "theme": "学術",
-  "topic_label": "B",
-  "excerpt_type": "P2_P3",
+  "theme": "ブログ",
+  "topic_label": "A",
+  "excerpt_type": "P1_ONLY",
   "japanese_paragraphs": [
-    "この研究では、参加者に新しい単語リストを覚えさせるために、異なる学習間隔を設けた。短い間隔で学習するグループと、長い間隔で学習するグループに分かれた。",
-    "また、学習後のテストは即時と遅延の両方で実施され、各グループの記憶保持率が比較された。"
+    "最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。そこで、通知を一時的にオフにすることを試してみることにした。"
   ],
   "hints": [
-    {"en": "interval", "ja": "間隔", "kana": "インターバル", "pos": "名詞", "usage": "learning interval「学習間隔」"},
-    {"en": "retain", "ja": "保持する", "kana": "リテイン", "pos": "動詞", "usage": "retain information「情報を保持する」"},
-    {"en": "immediate", "ja": "即時の", "kana": "イミディエイト", "pos": "形容詞", "usage": "immediate test「即時テスト」"},
-    {"en": "delayed", "ja": "遅延の", "kana": "ディレイド", "pos": "形容詞", "usage": "delayed test「遅延テスト」"},
-    {"en": "compare", "ja": "比較する", "kana": "コンペア", "pos": "動詞", "usage": "compare the results「結果を比較する」"}
+    {"en": "notification", "ja": "通知", "kana": "ノーティフィケーション", "pos": "名詞", "usage": "receive a notification「通知を受け取る」"},
+    {"en": "concentrate", "ja": "集中する", "kana": "コンセントレート", "pos": "動詞", "usage": "concentrate on work「仕事に集中する」"},
+    {"en": "interrupt", "ja": "中断する", "kana": "インタラプト", "pos": "動詞", "usage": "interrupt a meeting「会議を中断する」"},
+    {"en": "efficiency", "ja": "効率", "kana": "エフィシェンシー", "pos": "名詞", "usage": "improve efficiency「効率を改善する」"},
+    {"en": "temporarily", "ja": "一時的に", "kana": "テンポラリリー", "pos": "副詞", "usage": "temporarily close the store「一時的に店を閉める」"}
   ],
   "target_words": {"min": 100, "max": 120}
 }
-2026-01-30 23:46:45 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "学術",
-  "topic_label": "B",
-  "excerpt_type": "P2_P3",
+2026-01-30 23:55:05 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "ブログ",
+  "topic_label": "A",
+  "excerpt_type": "P1_ONLY",
   "japanese_paragraphs": [
-    "この研究では、参加者に新しい単語リストを覚えさせるために、異なる学習間隔を設けた。短い間隔で学習するグループと、長い間隔で学習するグループに分かれた。",
-    "また、学習後のテストは即時と遅延の両方で実施され、各グループの記憶保持率が比較された。"
+    "最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。そこで、通知を一時的にオフにすることを試してみることにした。"
   ],
   "hints": [
-    {"en": "interval", "ja": "間隔", "kana": "インターバル", "...
-2026-01-30 23:46:45 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
-2026-01-30 23:46:45 - llm_service - INFO - ✅ theme検証成功: 学術
-2026-01-30 23:46:45 - llm_service - INFO - Successfully generated question: 学術, excerpt_type: P2_P3
-2026-01-30 23:46:45 - database - INFO - Question saved: q_20260130_aad505f0 - 学術 (P2_P3)
-2026-01-30 23:46:45 - database - INFO - Theme recorded: 学術 (mode: general)
-2026-01-30 23:46:45 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:46:45] "POST /api/question HTTP/1.1" 200 -
-2026-01-30 23:51:21 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): In that study,different learning intervals were set so that participants could memorize a new list o...
-2026-01-30 23:51:21 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): In that study,different learning intervals were set so that participants could memorize a new list o...
-2026-01-30 23:51:21 - llm_service - INFO - Question text for correction: この研究では、参加者に新しい単語リストを覚えさせるために、異なる学習間隔を設けた。
-短い間隔で学習するグループと、長い間隔で学習するグループに分かれた。
-また、学習後のテストは即時と遅延の両方で実施され、各グループの記憶保持率が比較された。...
-2026-01-30 23:51:21 - llm_service - INFO - Required points determined from Japanese text: 3 sentences
-2026-01-30 23:51:21 - llm_service - INFO - Required points for this correction: 3
-2026-01-30 23:51:21 - llm_service - INFO - Word count: 61
-2026-01-30 23:51:21 - llm_service - INFO - Correction attempt 1/3
-2026-01-30 23:51:48 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:51:48 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "In that study,different learning intervals were set so that participants could memorize a new list of words. The participants weree divided into a group that studied at short interval...
-2026-01-30 23:51:48 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 28 column 6 (char 3611)
-2026-01-30 23:51:50 - llm_service - INFO - Correction attempt 2/3
-2026-01-30 23:52:14 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-30 23:52:14 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "In that study,different learning intervals were set so that participants could memorize a new list of words. The participants weree divided into a group that studied at short interval...
-2026-01-30 23:52:14 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
-2026-01-30 23:52:14 - llm_service - INFO - Before normalization: 3 points
-2026-01-30 23:52:14 - points_normalizer - INFO - Starting points normalization: 3 points
-2026-01-30 23:52:14 - points_normalizer - INFO - Student answer split into 3 sentences
-2026-01-30 23:52:14 - points_normalizer - INFO - Processing point 1: before='In that study,different learning intervals were se...', level='✅正しい表現'
-2026-01-30 23:52:14 - points_normalizer - INFO - Point 1: Found in sentence 1: 'In that study,different learning intervals were se...'
-2026-01-30 23:52:14 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
-2026-01-30 23:52:14 - points_normalizer - INFO - Processing point 2: before='The participants weree divided into a group that s...', level='❌文法ミス'
-2026-01-30 23:52:14 - points_normalizer - INFO - Point 2: Found in sentence 2: 'The participants weree divided into a group that s...'
-2026-01-30 23:52:14 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'The participants were divided into a group that st...'
-2026-01-30 23:52:14 - points_normalizer - INFO - Level is ❌, keeping after: 'The participants were divided into a group that st...'
-2026-01-30 23:52:14 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
-2026-01-30 23:52:14 - points_normalizer - INFO - Processing point 3: before='In conclusion, tests after learning were administe...', level='❌文法ミス'
-2026-01-30 23:52:14 - points_normalizer - INFO - Point 3: Found in sentence 3: 'In conclusion, tests after learning were administe...'
-2026-01-30 23:52:14 - points_normalizer - INFO - Point 3: Replaced fragment in sentence: 'Also, tests after learning were administered both ...'
-2026-01-30 23:52:14 - points_normalizer - INFO - Level is ❌, keeping after: 'Also, tests after learning were administered both ...'
-2026-01-30 23:52:14 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
-2026-01-30 23:52:14 - points_normalizer - INFO - Points normalization complete: 3 points
-2026-01-30 23:52:14 - llm_service - INFO - After normalization: 3 points
-2026-01-30 23:52:14 - llm_service - INFO - Points check: current=3, non-evaluation=3, required=3
-2026-01-30 23:52:14 - llm_service - INFO - ✅ Correction successful: 3 points
-2026-01-30 23:52:14 - database - INFO - Submission saved: s_20260130_f2269a74 (mode: general, no scoring)
-2026-01-30 23:52:14 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:52:14] "POST /api/correct-multi HTTP/1.1" 200 -
-2026-01-30 23:53:25 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/prompts_correction_respect.py', reloading
-2026-01-30 23:53:25 - werkzeug - INFO -  * Restarting with stat
-2026-01-30 23:53:27 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:53:27 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:53:27 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-30 23:53:27 - werkzeug - WARNING -  * Debugger is active!
-2026-01-30 23:53:27 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-30 23:54:09 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/prompts_correction_respect.py', reloading
-2026-01-30 23:54:10 - werkzeug - INFO -  * Restarting with stat
-2026-01-30 23:54:11 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-30 23:54:11 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-30 23:54:11 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-30 23:54:11 - werkzeug - WARNING -  * Debugger is active!
-2026-01-30 23:54:11 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+    {"en": "notification", "ja": "通知", "kana...
+2026-01-30 23:55:05 - llm_service - INFO - ✅ excerpt_type検証成功: P1_ONLY
+2026-01-30 23:55:05 - llm_service - INFO - ✅ theme検証成功: ブログ
+2026-01-30 23:55:05 - llm_service - INFO - Successfully generated question: ブログ, excerpt_type: P1_ONLY
+2026-01-30 23:55:05 - database - INFO - Question saved: q_20260130_b3d1db61 - ブログ (P1_ONLY)
+2026-01-30 23:55:05 - database - INFO - Theme recorded: ブログ (mode: general)
+2026-01-30 23:55:05 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:55:05] "POST /api/question HTTP/1.1" 200 -
+2026-01-30 23:56:08 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
+2026-01-30 23:56:08 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
+2026-01-30 23:56:08 - llm_service - INFO - Question text for correction: 最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。
+特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。
+こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。
+そこで、通知を一時的にオフにすることを試してみることにした。...
+2026-01-30 23:56:08 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
+2026-01-30 23:56:08 - llm_service - INFO - Required points for this correction: 4
+2026-01-30 23:56:08 - llm_service - INFO - Word count: 54
+2026-01-30 23:56:08 - llm_service - INFO - Correction attempt 1/3
+2026-01-30 23:56:33 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:56:33 - llm_service - INFO - OpenAI API response (attempt 1): 
+{
+  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my a...
+2026-01-30 23:56:33 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 34 column 6 (char 3589)
+2026-01-30 23:56:35 - llm_service - INFO - Correction attempt 2/3
+2026-01-30 23:56:59 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:56:59 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
+2026-01-30 23:56:59 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 34 column 6 (char 3892)
+2026-01-30 23:57:01 - llm_service - INFO - Correction attempt 3/3
+2026-01-30 23:57:22 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:57:22 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
+2026-01-30 23:57:22 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 34 column 6 (char 3830)
+2026-01-30 23:57:22 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
+2026-01-30 23:57:22 - llm_service - INFO - Generating fallback correction response
+2026-01-30 23:57:22 - database - INFO - Submission saved: s_20260130_70da1a86 (mode: general, no scoring)
+2026-01-30 23:57:22 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:57:22] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-30 23:57:32 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
+2026-01-30 23:57:32 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
+2026-01-30 23:57:32 - llm_service - INFO - Question text for correction: 最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。
+特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。
+こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。
+そこで、通知を一時的にオフにすることを試してみることにした。...
+2026-01-30 23:57:32 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
+2026-01-30 23:57:32 - llm_service - INFO - Required points for this correction: 4
+2026-01-30 23:57:32 - llm_service - INFO - Word count: 54
+2026-01-30 23:57:32 - llm_service - INFO - Correction attempt 1/3
+2026-01-30 23:57:40 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:57:40] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
+2026-01-30 23:57:40 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:57:40] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-30 23:57:58 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:57:58 - llm_service - INFO - OpenAI API response (attempt 1): 
+{
+  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my a...
+2026-01-30 23:57:58 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 34 column 6 (char 3991)
+2026-01-30 23:58:00 - llm_service - INFO - Correction attempt 2/3
+2026-01-30 23:58:28 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:58:28 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
+2026-01-30 23:58:28 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 34 column 6 (char 4029)
+2026-01-30 23:58:30 - llm_service - INFO - Correction attempt 3/3
+2026-01-30 23:58:58 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:58:58 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
+2026-01-30 23:58:58 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 34 column 6 (char 3504)
+2026-01-30 23:58:58 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
+2026-01-30 23:58:58 - llm_service - INFO - Generating fallback correction response
+2026-01-30 23:58:58 - database - INFO - Submission saved: s_20260130_28d7f6ca (mode: general, no scoring)
+2026-01-30 23:58:58 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 23:58:58] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-30 23:59:10 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
+2026-01-30 23:59:10 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): Recently, I have increasingly felt that it is difficult to concentrate because there are too many sm...
+2026-01-30 23:59:10 - llm_service - INFO - Question text for correction: 最近、スマホの通知が多すぎて、集中するのが難しいと感じることが増えた。
+特に重要でない通知でも気になってしまい、つい確認してしまうことが多い。
+こうした小さな中断が積み重なると、作業効率が大きく下がってしまう。
+そこで、通知を一時的にオフにすることを試してみることにした。...
+2026-01-30 23:59:10 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
+2026-01-30 23:59:10 - llm_service - INFO - Required points for this correction: 4
+2026-01-30 23:59:10 - llm_service - INFO - Word count: 54
+2026-01-30 23:59:10 - llm_service - INFO - Correction attempt 1/3
+2026-01-30 23:59:31 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:59:31 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
+2026-01-30 23:59:31 - llm_service - ERROR - JSON parse error (attempt 1): Expecting ',' delimiter: line 34 column 6 (char 3854)
+2026-01-30 23:59:33 - llm_service - INFO - Correction attempt 2/3
+2026-01-30 23:59:52 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-30 23:59:53 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
+2026-01-30 23:59:53 - llm_service - ERROR - JSON parse error (attempt 2): Expecting ',' delimiter: line 34 column 6 (char 3894)
+2026-01-30 23:59:55 - llm_service - INFO - Correction attempt 3/3
+2026-01-31 00:00:31 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 00:00:32 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "Recently, I have increasingly felt that it is difficult to concentrate because there are too many smartphone notifications. Even notifications that are not important still catch my at...
+2026-01-31 00:00:32 - llm_service - ERROR - JSON parse error (attempt 3): Expecting ',' delimiter: line 34 column 6 (char 3746)
+2026-01-31 00:00:32 - llm_service - ERROR - All 3 attempts failed. Generating fallback response.
+2026-01-31 00:00:32 - llm_service - INFO - Generating fallback correction response
+2026-01-31 00:00:32 - database - INFO - Submission saved: s_20260131_fe69f109 (mode: general, no scoring)
+2026-01-31 00:00:32 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 00:00:32] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 00:00:46 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/prompts_correction_respect.py', reloading
+2026-01-31 00:00:46 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 00:00:48 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 00:00:48 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 00:00:48 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 00:00:48 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 00:00:48 - werkzeug - INFO -  * Debugger PIN: 519-604-230
