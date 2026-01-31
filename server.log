@@ -1,175 +1,250 @@
 nohup: ignoring input
-2026-01-31 03:16:28 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 03:16:28 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 03:16:28 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 03:24:49 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 03:24:49 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 03:24:49 - __main__ - INFO - 🎯 有効機能: 4/4
  * Serving Flask app 'app'
  * Debug mode: on
-2026-01-31 03:16:28 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-01-31 03:24:49 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8001
  * Running on http://10.0.10.26:8001
-2026-01-31 03:16:28 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2026-01-31 03:16:28 - werkzeug - INFO -  * Restarting with stat
-2026-01-31 03:16:29 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
-2026-01-31 03:16:29 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
-2026-01-31 03:16:29 - __main__ - INFO - 🎯 有効機能: 4/4
-2026-01-31 03:16:29 - werkzeug - WARNING -  * Debugger is active!
-2026-01-31 03:16:29 - werkzeug - INFO -  * Debugger PIN: 519-604-230
-2026-01-31 03:16:57 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:16:57] "GET / HTTP/1.1" 200 -
-2026-01-31 03:16:58 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:16:58] "GET /static/main.js?v=20260131B HTTP/1.1" 200 -
-2026-01-31 03:16:58 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:16:58] "[36mGET /static/style.css?v=20260121m HTTP/1.1[0m" 304 -
-2026-01-31 03:16:58 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:16:58] "[36mGET /static/textarea-resize.png HTTP/1.1[0m" 304 -
-2026-01-31 03:17:07 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:17:07] "GET / HTTP/1.1" 200 -
-2026-01-31 03:17:07 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:17:07] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
-2026-01-31 03:17:07 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:17:07] "GET /static/textarea-resize.png HTTP/1.1" 200 -
-2026-01-31 03:17:07 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:17:07] "GET /static/main.js?v=20260131B HTTP/1.1" 200 -
-2026-01-31 03:17:08 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:17:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-2026-01-31 03:17:08 - database - INFO - Excluded themes: ['研究紹介', 'コラム', '学術', 'ブログ', '図表', '時事', 'レビュー']
-2026-01-31 03:17:08 - llm_service - INFO - 翻訳問題を生成中...
-2026-01-31 03:17:08 - llm_service - INFO - 📊 直近10問のサブトピック: ['研究紹介:B', 'コラム:F', '学術:D', 'ブログ:D', '図表:B', '研究紹介:E', '図表:D', 'コラム:A', '研究紹介:C', '時事:E']
-2026-01-31 03:17:08 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=6.7%, 図表=13.3%, 学術=23.3%, 時事=13.3%, 研究紹介=13.3%
-2026-01-31 03:17:08 - llm_service - INFO - 🎯 システムが選択したtheme: 図表
-2026-01-31 03:17:08 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=40.0%, P3_ONLY=30.0%, P4_P5=10.0%
-2026-01-31 03:17:08 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
-2026-01-31 03:17:14 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 03:17:14 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "theme": "図表",
-  "topic_label": "F",
+2026-01-31 03:24:49 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-31 03:24:49 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 03:24:50 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 03:24:50 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 03:24:50 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 03:24:50 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 03:24:50 - werkzeug - INFO -  * Debugger PIN: 519-604-230
+2026-01-31 03:26:00 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:00] "GET / HTTP/1.1" 200 -
+2026-01-31 03:26:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:01] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
+2026-01-31 03:26:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:01] "GET /static/main.js?v=20260131C HTTP/1.1" 200 -
+2026-01-31 03:26:01 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:01] "GET /static/textarea-resize.png HTTP/1.1" 200 -
+2026-01-31 03:26:01 - database - INFO - Excluded themes: ['図表', '研究紹介', 'コラム', '学術', 'ブログ', '時事', 'レビュー']
+2026-01-31 03:26:01 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 03:26:01 - llm_service - INFO - 📊 直近10問のサブトピック: ['図表:F', '研究紹介:B', 'コラム:F', '学術:D', 'ブログ:D', '図表:B', '研究紹介:E', '図表:D', 'コラム:A', '研究紹介:C']
+2026-01-31 03:26:01 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=6.7%, 図表=13.3%, 学術=23.3%, 時事=13.3%, 研究紹介=13.3%
+2026-01-31 03:26:01 - llm_service - INFO - 🎯 システムが選択したtheme: 研究紹介
+2026-01-31 03:26:01 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=20.0%, P2_P3=50.0%, P3_ONLY=20.0%, P4_P5=10.0%
+2026-01-31 03:26:01 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P2_P3
+2026-01-31 03:26:07 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 03:26:07 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "研究紹介",
+  "topic_label": "H",
   "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "アンケート結果によると、50%以上の回答者が健康管理のために定期的に運動していると答えている。一方で、運動をしていないと回答した人々の中には、時間がないことやモチベーションが続かないことを理由に挙げる...
-2026-01-31 03:17:14 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+    "その研究では、参加者たちは特定の協力課題に取り組むよう指示された。課題は、異なる背景を持つグループで協力し合うことを目的としていた。",
+    "また、各グループの成果を評価するために、協力の度...
+2026-01-31 03:26:07 - llm_service - INFO - [DEBUG] Full LLM response for correction:
 {
-  "theme": "図表",
-  "topic_label": "F",
+  "theme": "研究紹介",
+  "topic_label": "H",
   "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "アンケート結果によると、50%以上の回答者が健康管理のために定期的に運動していると答えている。一方で、運動をしていないと回答した人々の中には、時間がないことやモチベーションが続かないことを理由に挙げる人が多かった。",
-    "また、健康診断を受ける頻度についても調査が行われ、40%の人が年に一度以上受診していることが明らかになった。この結果は、健康意識の高さと関連している可能性がある。"
+    "その研究では、参加者たちは特定の協力課題に取り組むよう指示された。課題は、異なる背景を持つグループで協力し合うことを目的としていた。",
+    "また、各グループの成果を評価するために、協力の度合いや相互の理解度が測定された。結果として、背景が異なるグループほど、高い協力度を示す傾向が見られた。"
   ],
   "hints": [
-    {"en": "survey", "ja": "アンケート", "kana": "サーベイ", "pos": "名詞", "usage": "conduct a survey「アンケートを実施する」"},
-    {"en": "regularly", "ja": "定期的に", "kana": "レギュラリー", "pos": "副詞", "usage": "exercise regularly「定期的に運動する」"},
-    {"en": "motivation", "ja": "モチベーション", "kana": "モチベーション", "pos": "名詞", "usage": "lack of motivation「モチベーションの欠如」"},
-    {"en": "check-up", "ja": "健康診断", "kana": "チェックアップ", "pos": "名詞", "usage": "annual check-up「年に一度の健康診断」"},
-    {"en": "awareness", "ja": "意識", "kana": "アウェアネス", "pos": "名詞", "usage": "health awareness「健康意識」"}
+    {"en": "participant", "ja": "参加者", "kana": "パーティシパント", "pos": "名詞", "usage": "The participants were asked to collaborate.「参加者たちは協力するように求められた。」"},
+    {"en": "cooperation", "ja": "協力", "kana": "コオペレーション", "pos": "名詞", "usage": "Cooperation is essential for success.「成功には協力が不可欠だ。」"},
+    {"en": "background", "ja": "背景", "kana": "バックグラウンド", "pos": "名詞", "usage": "People from different backgrounds worked together.「異なる背景を持つ人々が一緒に働いた。」"},
+    {"en": "measure", "ja": "測定する", "kana": "メジャー", "pos": "動詞", "usage": "They measured the level of cooperation.「彼らは協力の度合いを測定した。」"},
+    {"en": "tendency", "ja": "傾向", "kana": "テンダンシー", "pos": "名詞", "usage": "There is a tendency to cooperate more.「より協力する傾向がある。」"}
   ],
   "target_words": {"min": 100, "max": 120}
 }
-2026-01-31 03:17:14 - llm_service - INFO - Cleaned JSON (attempt 1): {
-  "theme": "図表",
-  "topic_label": "F",
+2026-01-31 03:26:07 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "研究紹介",
+  "topic_label": "H",
   "excerpt_type": "P2_P3",
   "japanese_paragraphs": [
-    "アンケート結果によると、50%以上の回答者が健康管理のために定期的に運動していると答えている。一方で、運動をしていないと回答した人々の中には、時間がないことやモチベーションが続かないことを理由に挙げる人が多かった。",
-    "また、健康診断を受ける頻度についても調査が行われ、40%の人が年に一度以上受診していることが明らかになった。この結果は、健康意識の高さと関連している可能性がある。"
-  ...
-2026-01-31 03:17:14 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
-2026-01-31 03:17:14 - llm_service - INFO - ✅ theme検証成功: 図表
-2026-01-31 03:17:14 - llm_service - INFO - Successfully generated question: 図表, excerpt_type: P2_P3
-2026-01-31 03:17:14 - database - INFO - Question saved: q_20260131_2db23384 - 図表 (P2_P3)
-2026-01-31 03:17:14 - database - INFO - Theme recorded: 図表 (mode: general)
-2026-01-31 03:17:14 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:17:14] "POST /api/question HTTP/1.1" 200 -
-2026-01-31 03:17:45 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): According to the survey results, more than 50 percent of respondents say they exercise regularly to ...
-2026-01-31 03:17:45 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): According to the survey results, more than 50 percent of respondents say they exercise regularly to ...
-2026-01-31 03:17:45 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
-2026-01-31 03:17:45 - llm_service - INFO - Question text for correction: アンケート結果によると、50%以上の回答者が健康管理のために定期的に運動していると答えている。
-一方で、運動をしていないと回答した人々の中には、時間がないことやモチベーションが続かないことを理由に挙げる人が多かった。
-また、健康診断を受ける頻度についても調査が行われ、40%の人が年に一度以上受診していることが明らかになった。
-この結果は、健康意識の高さと関連している可能性がある。...
-2026-01-31 03:17:45 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
-2026-01-31 03:17:45 - llm_service - INFO - Required points for this correction: 4
-2026-01-31 03:17:45 - llm_service - INFO - Word count: 25
-2026-01-31 03:17:45 - llm_service - INFO - Correction attempt 1/3
-2026-01-31 03:18:08 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 03:18:08 - llm_service - INFO - OpenAI API response (attempt 1): {
-  "original": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.\n(未提出: 原文第2文).\n(未提出: 原文第3文).\n(未提出: 原文第4文).",
-  "corrected": ...
-2026-01-31 03:18:08 - llm_service - INFO - Full LLM response for correction (length: 6070 chars)
-2026-01-31 03:18:08 - llm_service - INFO - Response first 500 chars: {
-  "original": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.\n(未提出: 原文第2文).\n(未提出: 原文第3文).\n(未提出: 原文第4文).",
-  "corrected": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.\n\nOn the other hand, many people who do not exercise cite lack of time and motivation as reasons.\n\nAdditionally, the survey revealed that 40 percent of people undergo health c
-2026-01-31 03:18:08 - llm_service - INFO - Response last 500 chars: ts. (調査は驚くべき結果を明らかにした。) / The graph shows the trends clearly. (グラフはトレンドを明確に示している。）\n\n4文目: This result may be related to people's high awareness of health.\n（この結果は、健康意識の高さと関連している可能性がある。）\nawareness（名詞：意識：知識や理解の程度）／consciousness（名詞：意識：状況や事態に気付いている状態）で、awarenessは知識や情報の自覚、consciousnessは感覚や気づきを指します。\n【参考】raise awareness（意識を高める）／gain consciousness（意識を取り戻す）\n例: Public campaigns raise awareness about health. (公共キャンペーンは健康についての意識を高める。) / He regained consciousness after the accident. (彼は事故の後、意識を取り戻した。）"
-}
-2026-01-31 03:18:08 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
-2026-01-31 03:18:08 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
-2026-01-31 03:18:08 - llm_service - INFO - Before normalization: 4 points
-2026-01-31 03:18:08 - points_normalizer - INFO - Starting points normalization: 4 points
-2026-01-31 03:18:08 - points_normalizer - INFO - Student answer split into 4 sentences
-2026-01-31 03:18:08 - points_normalizer - INFO - Original user input split into 4 sentences
-2026-01-31 03:18:08 - points_normalizer - INFO - Processing point 1: before='According to the survey results, more than 50 perc...', level='✅正しい表現'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 1: Normalized before='According to the survey results, more than 50 perc...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 1: Found in sentence 1: 'According to the survey results, more than 50 perc...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 1: Original user input: 'According to the survey results, more than 50 perc...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
-2026-01-31 03:18:08 - points_normalizer - INFO - Processing point 2: before='(未提出: 原文第2文)....', level='❌文法ミス'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 2: Normalized before='(未提出: 原文第2文)....'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 2: Found in sentence 2: '(未提出: 原文第2文)....'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'On the other hand, many people who do not exercise...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Level is ❌, keeping after: 'On the other hand, many people who do not exercise...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 2: Original user input: '(未提出：原文第2文)...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
-2026-01-31 03:18:08 - points_normalizer - INFO - Processing point 3: before='(未提出: 原文第3文)....', level='❌文法ミス'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 3: Normalized before='(未提出: 原文第3文)....'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 3: Found in sentence 3: '(未提出: 原文第3文)....'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 3: Replaced fragment in sentence: 'Additionally, the survey revealed that 40 percent ...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Level is ❌, keeping after: 'Additionally, the survey revealed that 40 percent ...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 3: Original user input: '(未提出：原文第3文)...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
-2026-01-31 03:18:08 - points_normalizer - INFO - Processing point 4: before='(未提出: 原文第4文)....', level='❌文法ミス'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 4: Normalized before='(未提出: 原文第4文)....'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 4: Found in sentence 4: '(未提出: 原文第4文)....'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 4: Replaced fragment in sentence: 'This result may be related to people's high awaren...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Level is ❌, keeping after: 'This result may be related to people's high awaren...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 4: Original user input: '(未提出：原文第4文)...'
-2026-01-31 03:18:08 - points_normalizer - INFO - Point 4: Normalized successfully (sentence_no=4)
-2026-01-31 03:18:08 - points_normalizer - INFO - Points normalization complete: 4 points
-2026-01-31 03:18:08 - llm_service - INFO - After normalization: 4 points
-2026-01-31 03:18:08 - llm_service - INFO - Points check: current=4, non-evaluation=4, required=4
-2026-01-31 03:18:08 - llm_service - INFO - ✅ Correction successful: 4 points
-2026-01-31 03:18:08 - database - INFO - Submission saved: s_20260131_b7a0addb (mode: general, no scoring)
-2026-01-31 03:18:08 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:18:08] "POST /api/correct-multi HTTP/1.1" 200 -
-2026-01-31 03:23:04 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): According to the survey results, more than 50 percent of respondents say they exercise regularly to ...
-2026-01-31 03:23:04 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): According to the survey results, more than 50 percent of respondents say they exercise regularly to ...
-2026-01-31 03:23:04 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
-2026-01-31 03:23:04 - llm_service - INFO - Question text for correction: アンケート結果によると、50%以上の回答者が健康管理のために定期的に運動していると答えている。...
-2026-01-31 03:23:04 - llm_service - INFO - Required points determined from Japanese text: 1 sentences
-2026-01-31 03:23:04 - llm_service - INFO - Required points for this correction: 1
-2026-01-31 03:23:04 - llm_service - INFO - Word count: 19
-2026-01-31 03:23:04 - llm_service - INFO - Correction attempt 1/3
-2026-01-31 03:23:20 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-31 03:23:20 - llm_service - INFO - OpenAI API response (attempt 1): 
+    "その研究では、参加者たちは特定の協力課題に取り組むよう指示された。課題は、異なる背景を持つグループで協力し合うことを目的としていた。",
+    "また、各グループの成果を評価するために、協力の度合いや相互の理解度が測定された。結果として、背景が異なるグループほど、高い協力度を示す傾向が見られた。"
+  ],
+  "hints": [
+    {"en": "participant", "ja...
+2026-01-31 03:26:07 - llm_service - INFO - ✅ excerpt_type検証成功: P2_P3
+2026-01-31 03:26:07 - llm_service - INFO - ✅ theme検証成功: 研究紹介
+2026-01-31 03:26:07 - llm_service - INFO - Successfully generated question: 研究紹介, excerpt_type: P2_P3
+2026-01-31 03:26:07 - database - INFO - Question saved: q_20260131_2b03dca3 - 研究紹介 (P2_P3)
+2026-01-31 03:26:07 - database - INFO - Theme recorded: 研究紹介 (mode: general)
+2026-01-31 03:26:07 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:26:07] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 03:26:43 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): The participants in the study were instructed to work on a specific collaborative task.
+(未提出:原文第2文)
+...
+2026-01-31 03:26:43 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): The participants in the study were instructed to work on a specific collaborative task.
+(未提出: 原文第2文)...
+2026-01-31 03:26:43 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 03:26:43 - llm_service - INFO - Question text for correction: その研究では、参加者たちは特定の協力課題に取り組むよう指示された。
+課題は、異なる背景を持つグループで協力し合うことを目的としていた。
+また、各グループの成果を評価するために、協力の度合いや相互の理解度が測定された。
+結果として、背景が異なるグループほど、高い協力度を示す傾向が見られた。...
+2026-01-31 03:26:43 - llm_service - INFO - Required points determined from Japanese text: 4 sentences
+2026-01-31 03:26:43 - llm_service - INFO - Required points for this correction: 4
+2026-01-31 03:26:43 - llm_service - INFO - Word count: 20
+2026-01-31 03:26:43 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 03:27:05 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 03:27:05 - llm_service - INFO - OpenAI API response (attempt 1): 
 {
-  "original": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
-  "corrected": "According to the survey results, more than ...
-2026-01-31 03:23:20 - llm_service - INFO - Full LLM response for correction (length: 3018 chars)
-2026-01-31 03:23:20 - llm_service - INFO - Response first 500 chars: 
+  "original": "The participants in the study were instructed to work on a specific collaborative task.\n(未提出: 原文第2文).\n(未提出: 原文第3文).\n(未提出: 原文第4文).",
+  "corrected": "The participants in the study w...
+2026-01-31 03:27:05 - llm_service - INFO - Full LLM response for correction (length: 5832 chars)
+2026-01-31 03:27:05 - llm_service - INFO - Response first 500 chars: 
 {
-  "original": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
-  "corrected": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
-  "points": [
-    {
-      "before": "【全体評価】",
-      "after": "提出された英文は日本語原文の内容を正確に反映しています。文法的にも正しく、自然な英語表現です。",
-      "reason": "解説: 学生の英文は日本語原文に忠実で、文法や語法に問題はありません。適切な接続詞も使用されており、情報も欠落していません。",
-      "level": "内容評価"
-    
-2026-01-31 03:23:20 - llm_service - INFO - Response last 500 chars: 必要性を示しています。) / He showed me the map. (彼は地図を見せてくれました。)\n\n3文目: Additionally, many respondents mentioned that exercising helps them relieve stress and improve their overall well-being.\n（さらに、多くの回答者が運動がストレスを和らげ、全体的な健康を改善するのに役立つと述べました。）\nrelieve（動詞：和らげる：痛みやストレスを減少させる）／reduce（動詞：減少させる：量や程度を小さくする）で、relieveは精神的・肉体的な負担を和らげることを意味し、reduceは単に量を減らすことを意味します。\n【参考】relieve pain（痛みを和らげる）／reduce costs（コストを削減する）\n例：The medicine relieves headaches. (その薬は頭痛を和らげます。) / We need to reduce expenses. (経費を削減する必要があります。)"
+  "original": "The participants in the study were instructed to work on a specific collaborative task.\n(未提出: 原文第2文).\n(未提出: 原文第3文).\n(未提出: 原文第4文).",
+  "corrected": "The participants in the study were instructed to work on a specific collaborative task.\n\nThe task aimed at fostering cooperation among groups with different backgrounds.\n\nAdditionally, the degree of cooperation and mutual understanding was measured to evaluate each group's performance.\n\nAs a result, groups with diverse back
+2026-01-31 03:27:05 - llm_service - INFO - Response last 500 chars: gram. (プログラムの効果を測定した。) / They evaluated the students' progress. (彼らは学生の進捗を評価した。）\n\n4文目: As a result, groups with diverse backgrounds tended to show higher levels of cooperation.\n（結果として、背景が異なるグループほど、高い協力度を示す傾向が見られた。）\ntend to（動詞句：〜する傾向がある：ある結果や行動がよく見られることを示す）／incline to（動詞句：〜する傾向がある：性質や習慣としてそうなる）で、tend toは一般的な傾向を表します。\n【参考】tend to agree（賛成する傾向がある）／incline to doubt（疑う傾向がある）\n例: People tend to forget small details. (人々は小さな詳細を忘れがちです。) / She inclines to trust others easily. (彼女は他人を簡単に信用する傾向がある。）"
 }
-2026-01-31 03:23:20 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
-2026-01-31 03:23:20 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
-2026-01-31 03:23:20 - llm_service - INFO - Before normalization: 1 points
-2026-01-31 03:23:20 - points_normalizer - INFO - Starting points normalization: 1 points
-2026-01-31 03:23:20 - points_normalizer - INFO - Student answer split into 1 sentences
-2026-01-31 03:23:20 - points_normalizer - INFO - Original user input split into 1 sentences
-2026-01-31 03:23:20 - points_normalizer - INFO - Processing point 1: before='According to the survey results, more than 50 perc...', level='✅正しい表現'
-2026-01-31 03:23:20 - points_normalizer - INFO - Point 1: Normalized before='According to the survey results, more than 50 perc...'
-2026-01-31 03:23:20 - points_normalizer - INFO - Point 1: Found in sentence 1: 'According to the survey results, more than 50 perc...'
-2026-01-31 03:23:20 - points_normalizer - INFO - Point 1: Original user input: 'According to the survey results, more than 50 perc...'
-2026-01-31 03:23:20 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
-2026-01-31 03:23:20 - points_normalizer - INFO - Points normalization complete: 1 points
-2026-01-31 03:23:20 - llm_service - INFO - After normalization: 1 points
-2026-01-31 03:23:20 - llm_service - INFO - Points check: current=1, non-evaluation=1, required=1
-2026-01-31 03:23:20 - llm_service - INFO - ✅ Correction successful: 1 points
-2026-01-31 03:23:20 - database - INFO - Submission saved: s_20260131_9bed0942 (mode: general, no scoring)
-2026-01-31 03:23:20 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:23:20] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 03:27:05 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 03:27:05 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 03:27:05 - llm_service - INFO - Before normalization: 4 points
+2026-01-31 03:27:05 - points_normalizer - INFO - Starting points normalization: 4 points
+2026-01-31 03:27:05 - points_normalizer - INFO - Student answer split into 4 sentences
+2026-01-31 03:27:05 - points_normalizer - INFO - Original user input split into 4 sentences
+2026-01-31 03:27:05 - points_normalizer - INFO - Processing point 1: before='The participants in the study were instructed to w...', level='✅正しい表現'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 1: Normalized before='The participants in the study were instructed to w...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 1: Found in sentence 1: 'The participants in the study were instructed to w...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 1: Original user input: 'The participants in the study were instructed to w...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 03:27:05 - points_normalizer - INFO - Processing point 2: before='(未提出: 原文第2文)....', level='❌文法ミス'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Normalized before='(未提出: 原文第2文)....'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Found in sentence 2: '(未提出: 原文第2文)....'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'The task aimed at fostering cooperation among grou...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Level is ❌, keeping after: 'The task aimed at fostering cooperation among grou...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Original user input: '(未提出：原文第2文)...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-31 03:27:05 - points_normalizer - INFO - Processing point 3: before='(未提出: 原文第3文)....', level='❌文法ミス'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Normalized before='(未提出: 原文第3文)....'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Found in sentence 3: '(未提出: 原文第3文)....'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Replaced fragment in sentence: 'Additionally, the degree of cooperation and mutual...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Level is ❌, keeping after: 'Additionally, the degree of cooperation and mutual...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Original user input: '(未提出：原文第3文)...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
+2026-01-31 03:27:05 - points_normalizer - INFO - Processing point 4: before='(未提出: 原文第4文)....', level='❌文法ミス'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Normalized before='(未提出: 原文第4文)....'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Found in sentence 4: '(未提出: 原文第4文)....'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Replaced fragment in sentence: 'As a result, groups with diverse backgrounds tende...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Level is ❌, keeping after: 'As a result, groups with diverse backgrounds tende...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Original user input: '(未提出：原文第4文)...'
+2026-01-31 03:27:05 - points_normalizer - INFO - Point 4: Normalized successfully (sentence_no=4)
+2026-01-31 03:27:05 - points_normalizer - INFO - Points normalization complete: 4 points
+2026-01-31 03:27:05 - llm_service - INFO - After normalization: 4 points
+2026-01-31 03:27:05 - llm_service - INFO - Points check: current=4, non-evaluation=4, required=4
+2026-01-31 03:27:05 - llm_service - INFO - ✅ Correction successful: 4 points
+2026-01-31 03:27:05 - database - INFO - Submission saved: s_20260131_8fb034eb (mode: general, no scoring)
+2026-01-31 03:27:05 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:05] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 03:27:56 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:56] "GET / HTTP/1.1" 200 -
+2026-01-31 03:27:56 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:56] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
+2026-01-31 03:27:56 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:56] "GET /static/main.js?v=20260131C HTTP/1.1" 200 -
+2026-01-31 03:27:56 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:27:56] "GET /static/textarea-resize.png HTTP/1.1" 200 -
+2026-01-31 03:28:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:02] "GET / HTTP/1.1" 200 -
+2026-01-31 03:28:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:02] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
+2026-01-31 03:28:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:02] "GET /static/main.js?v=20260131C HTTP/1.1" 200 -
+2026-01-31 03:28:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:02] "GET /static/textarea-resize.png HTTP/1.1" 200 -
+2026-01-31 03:28:06 - database - INFO - Excluded themes: ['研究紹介', '図表', 'コラム', '学術', 'ブログ', '時事', 'レビュー']
+2026-01-31 03:28:06 - llm_service - INFO - 翻訳問題を生成中...
+2026-01-31 03:28:06 - llm_service - INFO - 📊 直近10問のサブトピック: ['研究紹介:H', '図表:F', '研究紹介:B', 'コラム:F', '学術:D', 'ブログ:D', '図表:B', '研究紹介:E', '図表:D', 'コラム:A']
+2026-01-31 03:28:06 - llm_service - INFO - 📊 直近30問の分布: コラム=16.7%, ブログ=13.3%, レビュー=6.7%, 図表=13.3%, 学術=20.0%, 時事=13.3%, 研究紹介=16.7%
+2026-01-31 03:28:06 - llm_service - INFO - 🎯 システムが選択したtheme: 研究紹介
+2026-01-31 03:28:06 - llm_service - INFO - 📊 直近10問の分布: P1_ONLY=10.0%, P2_P3=60.0%, P3_ONLY=20.0%, P4_P5=10.0%
+2026-01-31 03:28:06 - llm_service - INFO - 🎯 システムが選択したexcerpt_type: P1_ONLY
+2026-01-31 03:28:10 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 03:28:10 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "theme": "研究紹介",
+  "excerpt_type": "P1_ONLY",
+  "topic_label": "A",
+  "japanese_paragraphs": [
+    "ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。結果として、朝に学習し...
+2026-01-31 03:28:10 - llm_service - INFO - [DEBUG] Full LLM response for correction:
+{
+  "theme": "研究紹介",
+  "excerpt_type": "P1_ONLY",
+  "topic_label": "A",
+  "japanese_paragraphs": [
+    "ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。"
+  ],
+  "hints": [
+    {"en": "optimal", "ja": "最適な", "kana": "オプティマル", "pos": "形容詞", "usage": "optimal time「最適な時間」"},
+    {"en": "short-term", "ja": "短期間", "kana": "ショートターム", "pos": "形容詞", "usage": "short-term memory「短期記憶」"},
+    {"en": "attention", "ja": "注意力", "kana": "アテンション", "pos": "名詞", "usage": "pay attention to details「細部に注意を払う」"},
+    {"en": "conduct", "ja": "実施する", "kana": "コンドクト", "pos": "動詞", "usage": "conduct a test「テストを実施する」"},
+    {"en": "retain", "ja": "保持する", "kana": "リテイン", "pos": "動詞", "usage": "retain information「情報を保持する」"}
+  ],
+  "target_words": {"min": 100, "max": 120}
+}
+2026-01-31 03:28:10 - llm_service - INFO - Cleaned JSON (attempt 1): {
+  "theme": "研究紹介",
+  "excerpt_type": "P1_ONLY",
+  "topic_label": "A",
+  "japanese_paragraphs": [
+    "ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。"
+  ],
+  "hints": [
+    {"en": "optimal", "ja": "最適な", "kana": "オプティマル...
+2026-01-31 03:28:10 - llm_service - INFO - ✅ excerpt_type検証成功: P1_ONLY
+2026-01-31 03:28:10 - llm_service - INFO - ✅ theme検証成功: 研究紹介
+2026-01-31 03:28:10 - llm_service - INFO - Successfully generated question: 研究紹介, excerpt_type: P1_ONLY
+2026-01-31 03:28:10 - database - INFO - Question saved: q_20260131_5c0cda23 - 研究紹介 (P1_ONLY)
+2026-01-31 03:28:10 - database - INFO - Theme recorded: 研究紹介 (mode: general)
+2026-01-31 03:28:10 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:10] "POST /api/question HTTP/1.1" 200 -
+2026-01-31 03:28:33 - llm_service - INFO - Step 1 - Punctuation normalized (first 100 chars): A study has revealed that there is an optimal time of day for memorizing information efficiently in ...
+2026-01-31 03:28:33 - llm_service - INFO - Step 2 - User input normalized (first 100 chars): A study has revealed that there is an optimal time of day for memorizing information efficiently in ...
+2026-01-31 03:28:33 - llm_service - INFO - Multi-sentence mode: preserving newlines in user input
+2026-01-31 03:28:33 - llm_service - INFO - Question text for correction: ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。
+この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。
+結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。...
+2026-01-31 03:28:33 - llm_service - INFO - Required points determined from Japanese text: 3 sentences
+2026-01-31 03:28:33 - llm_service - INFO - Required points for this correction: 3
+2026-01-31 03:28:33 - llm_service - INFO - Word count: 26
+2026-01-31 03:28:33 - llm_service - INFO - Correction attempt 1/3
+2026-01-31 03:28:46 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-31 03:28:46 - llm_service - INFO - OpenAI API response (attempt 1): {
+  "original": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n(未提出: 原文第2文).\n(未提出: 原文第3文).",
+  "corrected": "A study has...
+2026-01-31 03:28:46 - llm_service - INFO - Full LLM response for correction (length: 4369 chars)
+2026-01-31 03:28:46 - llm_service - INFO - Response first 500 chars: {
+  "original": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n(未提出: 原文第2文).\n(未提出: 原文第3文).",
+  "corrected": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n\nThe study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.\n\nAs a result, it was shown that inform
+2026-01-31 03:28:46 - llm_service - INFO - Response last 500 chars:  administered the medication. (看護師が薬を投与した。)\n\n3文目: As a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.\n（結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。）\nAs a result（副詞句：その結果：前述の内容が引き起こす結果を示す文脈）／tend to（動詞句：～する傾向がある：ある状態や行動が一般的であることを示す文脈）で、As a resultは因果関係を示し、tend toは一般的な傾向を述べます。\n【参考】As a result of the study（研究の結果として）／tend to forget（忘れがちである）\n例: As a result, they succeeded. (その結果、彼らは成功した。) / He tends to make mistakes. (彼はミスをしがちだ。)"
+}
+2026-01-31 03:28:46 - llm_service - INFO - Full response saved to: /workspaces/miyazaki_igaku_100words/debug/llm_response_1.json
+2026-01-31 03:28:46 - llm_service - WARNING - Skipping point 1: before '【全体評価】' not found in student answer
+2026-01-31 03:28:46 - llm_service - INFO - Before normalization: 3 points
+2026-01-31 03:28:46 - points_normalizer - INFO - Starting points normalization: 3 points
+2026-01-31 03:28:46 - points_normalizer - INFO - Student answer split into 3 sentences
+2026-01-31 03:28:46 - points_normalizer - INFO - Original user input split into 3 sentences
+2026-01-31 03:28:46 - points_normalizer - INFO - Processing point 1: before='A study has revealed that there is an optimal time...', level='✅正しい表現'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 1: Normalized before='A study has revealed that there is an optimal time...'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 1: Found in sentence 1: 'A study has revealed that there is an optimal time...'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 1: Original user input: 'A study has revealed that there is an optimal time...'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 1: Normalized successfully (sentence_no=1)
+2026-01-31 03:28:46 - points_normalizer - INFO - Processing point 2: before='(未提出: 原文第2文)....', level='❌文法ミス'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Normalized before='(未提出: 原文第2文)....'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Found in sentence 2: '(未提出: 原文第2文)....'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Replaced fragment in sentence: 'The study focused on the difference in memory betw...'
+2026-01-31 03:28:46 - points_normalizer - INFO - Level is ❌, keeping after: 'The study focused on the difference in memory betw...'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Original user input: '(未提出：原文第2文)...'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 2: Normalized successfully (sentence_no=2)
+2026-01-31 03:28:46 - points_normalizer - INFO - Processing point 3: before='(未提出: 原文第3文)....', level='❌文法ミス'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Normalized before='(未提出: 原文第3文)....'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Found in sentence 3: '(未提出: 原文第3文)....'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Replaced fragment in sentence: 'As a result, it was shown that information learned...'
+2026-01-31 03:28:46 - points_normalizer - INFO - Level is ❌, keeping after: 'As a result, it was shown that information learned...'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Original user input: '(未提出：原文第3文)...'
+2026-01-31 03:28:46 - points_normalizer - INFO - Point 3: Normalized successfully (sentence_no=3)
+2026-01-31 03:28:46 - points_normalizer - INFO - Points normalization complete: 3 points
+2026-01-31 03:28:46 - llm_service - INFO - After normalization: 3 points
+2026-01-31 03:28:46 - llm_service - INFO - Points check: current=3, non-evaluation=3, required=3
+2026-01-31 03:28:46 - llm_service - INFO - ✅ Correction successful: 3 points
+2026-01-31 03:28:46 - database - INFO - Submission saved: s_20260131_a360923f (mode: general, no scoring)
+2026-01-31 03:28:46 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:28:46] "POST /api/correct-multi HTTP/1.1" 200 -
+2026-01-31 03:29:06 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:29:06] "GET /static/style.css?v=20260121m HTTP/1.1" 200 -
+2026-01-31 03:29:06 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:29:06] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:29:37 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:29:37] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-01-31 03:34:02 - werkzeug - INFO - 127.0.0.1 - - [31/Jan/2026 03:34:02] "HEAD /static/main.js HTTP/1.1" 200 -
+2026-01-31 03:34:33 - werkzeug - INFO -  * Detected change in '/workspaces/miyazaki_igaku_100words/app.py', reloading
+2026-01-31 03:34:33 - werkzeug - INFO -  * Restarting with stat
+2026-01-31 03:34:34 - __main__ - INFO - 🚀 みや塾　英作文特訓講座　宮崎大学医学部（和文英訳） v3.0.0 起動: http://localhost:8001
+2026-01-31 03:34:34 - __main__ - INFO - 📊 データベース: data/miyazaki_igaku_eisakubun.db
+2026-01-31 03:34:34 - __main__ - INFO - 🎯 有効機能: 4/4
+2026-01-31 03:34:34 - werkzeug - WARNING -  * Debugger is active!
+2026-01-31 03:34:34 - werkzeug - INFO -  * Debugger PIN: 519-604-230

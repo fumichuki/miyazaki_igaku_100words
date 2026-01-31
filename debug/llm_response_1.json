@@ -1,21 +1,32 @@
-
 {
-  "original": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
-  "corrected": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
+  "original": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n(未提出: 原文第2文).\n(未提出: 原文第3文).",
+  "corrected": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n\nThe study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.\n\nAs a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "提出された英文は日本語原文の内容を正確に反映しています。文法的にも正しく、自然な英語表現です。",
-      "reason": "解説: 学生の英文は日本語原文に忠実で、文法や語法に問題はありません。適切な接続詞も使用されており、情報も欠落していません。",
+      "after": "全体的に英文は正確ですが、2文目と3文目が未提出であるため、情報が欠落しています。追加することで完全な回答になります。",
+      "reason": "解説: 提出された英文は一部のみで、全体の文構成が不完全です。日本語原文の全ての情報を含むためには、追加の文が必要です。",
       "level": "内容評価"
     },
     {
-      "before": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
-      "after": "According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.",
-      "reason": "1文目: According to the survey results, more than 50 percent of respondents say they exercise regularly to manage their health.\n（アンケート結果によると、50%以上の回答者が健康管理のために定期的に運動していると答えている。）\naccording to（前置詞：～によると：情報源を示す）／based on（前置詞：～に基づいて：基盤や根拠を示す）で、according toは具体的な情報源の引用に使われ、based onは何かを基にした判断や結論に使われます。\n【参考】according to the news（ニュースによると）／based on the evidence（証拠に基づいて）\n例：According to the weather report, it will rain tomorrow. (天気予報によると、明日は雨が降る。) / Based on the data, we made a decision. (データに基づいて決定を下しました。)",
+      "before": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.",
+      "after": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.",
+      "reason": "1文目: A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n（ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。）\nefficiently（副詞：効率的に：無駄なく効果的に行う文脈）／effectively（副詞：効果的に：目的を達成する文脈）で、efficientlyは無駄を省くことを強調し、effectivelyは目標達成を強調します。\n【参考】efficiently manage（効率的に管理する）／effectively communicate（効果的に伝える）\n例: She works efficiently. (彼女は効率的に働く。) / He communicates effectively. (彼は効果的に伝える。)",
       "level": "✅正しい表現"
+    },
+    {
+      "before": "(未提出: 原文第2文).",
+      "after": "The study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.",
+      "reason": "【誤りの説明】: 文が未提出のため、原文の情報を完全に伝えていません。具体的に、研究が朝と夜の記憶力の違いに焦点を当て、異なる時間帯で同じテストを実施したことを説明する必要があります。\n【参考】focus on（～に焦点を当てる）／administer a test（テストを実施する）\n例: They focused on the main issue. (彼らは主な問題に焦点を当てた。) / The teacher administered the exam. (教師が試験を実施した。)",
+      "level": "❌文法ミス"
+    },
+    {
+      "before": "(未提出: 原文第3文).",
+      "after": "As a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.",
+      "reason": "【誤りの説明】: 文が未提出のため、原文の情報を完全に伝えていません。具体的に、朝に学習した情報がより長期間にわたって記憶に残りやすいという結果を示す必要があります。\n【参考】as a result（その結果）／tend to（～する傾向がある）\n例: As a result, sales increased. (その結果、売上が増加した。) / She tends to be late. (彼女は遅れがちだ。)",
+      "level": "❌文法ミス"
     }
   ],
-  "model_answer": "According to the survey results, more than 50 percent of respondents say they exercise regularly to maintain their health.\n\nThis indicates a growing awareness of the importance of physical activity in daily life.\n\nAdditionally, many respondents mentioned that exercising helps them relieve stress and improve their overall well-being.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: According to the survey results, more than 50 percent of respondents say they exercise regularly to maintain their health.\n（アンケート結果によると、50%以上の回答者が健康管理のために定期的に運動していると答えている。）\nmaintain（動詞：維持する：状態を保つ）／manage（動詞：管理する：管理や制御する）で、maintainは現状を維持すること、manageは管理や制御を行うことを意味します。\n【参考】maintain a healthy lifestyle（健康的な生活を維持する）／manage a team（チームを管理する）\n例：He maintains his car regularly. (彼は定期的に車を整備します。) / She manages her time well. (彼女は時間を上手に管理します。)\n\n2文目: This indicates a growing awareness of the importance of physical activity in daily life.\n（日常生活における運動の重要性への認識が高まっていることを示しています。）\nindicate（動詞：示す：明示的に指し示す）／show（動詞：見せる・示す：視覚的に示す）で、indicateは明示的な示唆、showは視覚的な証明を表します。\n【参考】indicate a trend（傾向を示す）／show a picture（写真を見せる）\n例：The data indicates a need for change. (データは変化の必要性を示しています。) / He showed me the map. (彼は地図を見せてくれました。)\n\n3文目: Additionally, many respondents mentioned that exercising helps them relieve stress and improve their overall well-being.\n（さらに、多くの回答者が運動がストレスを和らげ、全体的な健康を改善するのに役立つと述べました。）\nrelieve（動詞：和らげる：痛みやストレスを減少させる）／reduce（動詞：減少させる：量や程度を小さくする）で、relieveは精神的・肉体的な負担を和らげることを意味し、reduceは単に量を減らすことを意味します。\n【参考】relieve pain（痛みを和らげる）／reduce costs（コストを削減する）\n例：The medicine relieves headaches. (その薬は頭痛を和らげます。) / We need to reduce expenses. (経費を削減する必要があります。)"
+  "model_answer": "A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n\nThe study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.\n\nAs a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: A study has revealed that there is an optimal time of day for memorizing information efficiently in a short period of time.\n（ある研究によると、短期間で暗記を行うための最適な時間帯があることが明らかになった。）\nefficiently（副詞：効率的に：無駄なく効果的に行う文脈）／effectively（副詞：効果的に：目的を達成する文脈）で、efficientlyは無駄を省くことを強調し、effectivelyは目標達成を強調します。\n【参考】efficiently manage（効率的に管理する）／effectively communicate（効果的に伝える）\n例: She works efficiently. (彼女は効率的に働く。) / He communicates effectively. (彼は効果的に伝える。)\n\n2文目: The study focused on the difference in memory between morning and night, administering the same test to subjects at different times of the day.\n（この研究では、朝と夜の記憶力の違いに着目し、被験者に異なる時間帯で同じテストを実施した。）\nfocus on（動詞句：～に焦点を当てる：特定の分野や問題に集中する文脈）／administer（動詞：実施する：試験などを行う文脈）で、focus onは注意を向けることを意味し、administerは実際の行動を指します。\n【参考】focus on the issue（問題に集中する）／administer a survey（調査を実施する）\n例: He focused on his studies. (彼は勉強に集中した。) / The nurse administered the medication. (看護師が薬を投与した。)\n\n3文目: As a result, it was shown that information learned in the morning tends to be retained in memory for a longer period.\n（結果として、朝に学習した情報がより長期間にわたって記憶に残りやすいことが示された。）\nAs a result（副詞句：その結果：前述の内容が引き起こす結果を示す文脈）／tend to（動詞句：～する傾向がある：ある状態や行動が一般的であることを示す文脈）で、As a resultは因果関係を示し、tend toは一般的な傾向を述べます。\n【参考】As a result of the study（研究の結果として）／tend to forget（忘れがちである）\n例: As a result, they succeeded. (その結果、彼らは成功した。) / He tends to make mistakes. (彼はミスをしがちだ。)"
 }
