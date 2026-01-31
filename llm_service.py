@@ -6,6 +6,7 @@ import os
 import json
 import logging
 import time
+from pathlib import Path
 from typing import Optional, Dict, Any, List
 from openai import OpenAI
 from pydantic import ValidationError
