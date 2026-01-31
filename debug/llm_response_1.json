@@ -1,38 +1,20 @@
 {
-  "original": "This dataset examines the extent of fatigue that participants experience in their daily lives.\nFirst, people from a wide age range, from their 20s to their 60s, were asked to self-report their weekly sleep duration and fatigue levels.\nIn addition, when a group sleeping less than five hours was compared with a group sleeping eight hours or more, the former tended to report stronger fatigue than the latter.\nThese findings suggest that adequate sleep duration may contribute to reducing fatigue.",
-  "corrected": "This dataset examines the extent of fatigue that participants experience in their daily lives.\n\nFirst, people from a wide age range, from their 20s to their 60s, were asked to self-report their weekly sleep duration and fatigue levels.\n\nIn addition, when a group sleeping less than five hours was compared with a group sleeping eight hours or more, the former tended to report stronger fatigue than the latter.\n\nThese findings suggest that adequate sleep duration may contribute to reducing fatigue.",
+  "original": "Recently, I decided to reading books.",
+  "corrected": "Recently, I decided to read books.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "全体的に良い英訳です。文法的に正しく、日本語原文の内容を適切に伝えています。",
-      "reason": "解説: 提出された英文は4文で、日本語原文の内容を正確に英訳しています。文法的なミスはなく、自然な英語表現になっています。接続詞や副詞の使用も適切です。",
+      "after": "文法的に重要な誤りがありましたが、簡単な修正で改善可能です。",
+      "reason": "学生の英文は不定詞の誤用がありましたが、内容は日本語原文を適切に反映しています。",
       "level": "内容評価"
     },
     {
-      "before": "This dataset examines the extent of fatigue that participants experience in their daily lives.",
-      "after": "This dataset examines the extent of fatigue that participants experience in their daily lives.",
-      "reason": "1文目: This dataset examines the extent of fatigue that participants experience in their daily lives.\n（日常的に参加者が感じる疲労感の程度を調査したデータです。）\nextent（名詞：範囲、広がり：調査する対象の範囲を指す）／degree（名詞：程度：変化や影響の程度を指す）で、extentは広がりや範囲を示し、degreeはその程度を表します。\n【参考】extent of the damage（被害の範囲）／degree of difficulty（難易度の程度）\n例: The extent of the problem is unclear. (問題の範囲は不明です。) / The degree of risk is high. (リスクの程度は高いです。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "First, people from a wide age range, from their 20s to their 60s, were asked to self-report their weekly sleep duration and fatigue levels.",
-      "after": "First, people from a wide age range, from their 20s to their 60s, were asked to self-report their weekly sleep duration and fatigue levels.",
-      "reason": "2文目: First, people from a wide age range, from their 20s to their 60s, were asked to self-report their weekly sleep duration and fatigue levels.\n（まず、20代から60代までの幅広い年齢層を対象に、1週間の睡眠時間と疲労感を自己報告してもらった。）\nself-report（動詞：自己報告する：自分自身で報告する行為を指す）／report（動詞：報告する：一般的な報告を指す）で、self-reportは自身による報告を強調し、reportは報告行為全般を指します。\n【参考】self-report symptoms（症状を自己報告する）／report findings（結果を報告する）\n例: Participants self-reported their symptoms. (参加者は自分の症状を自己報告した。) / The team reported their findings. (チームは結果を報告した。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "In addition, when a group sleeping less than five hours was compared with a group sleeping eight hours or more, the former tended to report stronger fatigue than the latter.",
-      "after": "In addition, when a group sleeping less than five hours was compared with a group sleeping eight hours or more, the former tended to report stronger fatigue than the latter.",
-      "reason": "3文目: In addition, when a group sleeping less than five hours was compared with a group sleeping eight hours or more, the former tended to report stronger fatigue than the latter.\n（また、睡眠時間が5時間未満のグループと8時間以上のグループで比較したところ、前者は後者に比べて疲労感が強いと報告する傾向があった。）\nformer（名詞：前者：2つのうち前に言及したもの）／latter（名詞：後者：2つのうち後に言及したもの）で、formerは前に述べたものを、latterは後に述べたものを指します。\n【参考】the former and the latter（前者と後者）／choose the former（前者を選ぶ）\n例: She likes both cats and dogs, but prefers the former. (彼女は猫と犬の両方が好きだが、前者を好む。) / The latter is more expensive. (後者の方が高価です。)",
-      "level": "✅正しい表現"
-    },
-    {
-      "before": "These findings suggest that adequate sleep duration may contribute to reducing fatigue.",
-      "after": "These findings suggest that adequate sleep duration may contribute to reducing fatigue.",
-      "reason": "4文目: These findings suggest that adequate sleep duration may contribute to reducing fatigue.\n（これにより、十分な睡眠時間が疲労感の軽減に寄与する可能性が示唆される。）\ncontribute（動詞：寄与する、貢献する：何かを達成するために役立つ）／assist（動詞：援助する、手助けする：他者を支援する）で、contributeは目標達成に向けて助けることを意味し、assistは具体的な支援行為を指します。\n【参考】contribute to success（成功に寄与する）／assist in the project（プロジェクトを手助けする）\n例: Her efforts contributed to the project's success. (彼女の努力がプロジェクトの成功に寄与した。) / He assisted in the development. (彼は開発を手助けした。)",
-      "level": "✅正しい表現"
+      "before": "Recently, I decided to reading books.",
+      "after": "Recently, I decided to read books.",
+      "reason": "【誤りの説明】: 'decided to reading' は 'decided to read' にすべきです。decide to do は to の後に動詞の原形が必要です。\n【参考】decide to go / plan to study\n例: I decided to study. (勉強することに決めた。) / I plan to visit. (訪問する予定です。)\n\n1文目: Recently, I decided to read books.\n（最近、本を読むことに決めた。）\ndecide（動詞：決める：意志を持って選択）／plan（動詞：計画する：予定を立てる）で、decideは決断を表し、planは計画を立てることを意味します。",
+      "level": "❌文法ミス"
     }
   ],
-  "model_answer": "This dataset investigates the level of fatigue that participants feel in their daily lives.\n\nFirst, individuals from a broad age range, specifically from their 20s to their 60s, were asked to report their weekly sleep duration and fatigue levels.\n\nMoreover, when comparing a group sleeping less than five hours to one sleeping eight hours or more, the former group reported higher fatigue levels than the latter.\n\nThus, it is suggested that getting sufficient sleep might help lessen fatigue.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: This dataset investigates the level of fatigue that participants feel in their daily lives.\n（このデータセットは、参加者が日常的に感じる疲労のレベルを調査しています。）\ninvestigate（動詞：調査する：詳細に調べる）／examine（動詞：検査する：詳しく見る）で、investigateはより詳細な調査を意味し、examineは観察や分析に重点を置きます。\n【参考】investigate a crime（犯罪を調査する）／examine a patient（患者を診察する）\n例：The police are investigating the case. (警察は事件を調査しています。)／A doctor examines the patient. (医者が患者を診察します。)\n\n2文目: First, individuals from a broad age range, specifically from their 20s to their 60s, were asked to report their weekly sleep duration and fatigue levels.\n（まず、20代から60代までの幅広い年齢層の人々に、週ごとの睡眠時間と疲労レベルを報告してもらいました。）\nindividual（名詞：個人：一人の人間）／person（名詞：人：一般的な人間）で、individualは特定の一人を指し、personは一般的な人を指します。\n【参考】individual results（個別の結果）／person in charge（担当者）\n例：Each individual has unique needs. (各個人には独自のニーズがあります。)／The person is waiting outside. (その人は外で待っています。)\n\n3文目: Moreover, when comparing a group sleeping less than five hours to one sleeping eight hours or more, the former group reported higher fatigue levels than the latter.\n（さらに、5時間未満の睡眠をとるグループと8時間以上の睡眠をとるグループを比較したところ、前者のグループは後者よりも高い疲労レベルを報告しました。）\ncompare（動詞：比較する：2つ以上のものを比べる）／contrast（動詞：対比する：違いを際立たせる）で、compareは類似点や相違点を見つけるために使い、contrastは相違点に焦点を当てます。\n【参考】compare prices（価格を比較する）／contrast colors（色を対比する）\n例：We compared the two options. (私たちは2つの選択肢を比較しました。)／The artist contrasts light and shadow. (そのアーティストは光と影を対比します。)\n\n4文目: Thus, it is suggested that getting sufficient sleep might help lessen fatigue.\n（したがって、十分な睡眠をとることが疲労を軽減するのに役立つかもしれないことが示唆されています。）\nlessen（動詞：軽減する：少なくする）／reduce（動詞：減らす：全体的に量を減らす）で、lessenは程度を和らげるニュアンスがあり、reduceは全体的に量を減らします。\n【参考】lessen the pain（痛みを和らげる）／reduce the cost（費用を減らす）\n例：The medication lessens the pain. (その薬は痛みを和らげます。)／We need to reduce our expenses. (費用を削減する必要があります。)"
+  "model_answer": "Recently, I decided to read more books to broaden my knowledge.\n\nFirst, I started with a novel that was recommended by a friend.\n\nSecond, I chose a non-fiction book about history, which I found very enlightening.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: Recently, I decided to read more books to broaden my knowledge.\n（最近、知識を広げるためにもっと本を読むことに決めました。）\nread（動詞：読む：情報を取得するために書かれたものを見る）／study（動詞：勉強する：学問的に調べる）で、readは一般的な読書行為を示し、studyはより深い学習活動を指します。\n【参考】decide to read（読むことに決める）／plan to study（勉強する予定を立てる）\n例：I decided to read a novel. (小説を読むことに決めた。) ／ I plan to study physics. (物理を勉強する予定です。）\n\n2文目: First, I started with a novel that was recommended by a friend.\n（まず、友人に勧められた小説から始めました。）\nrecommend（動詞：勧める：良いと示唆する）／suggest（動詞：提案する：考えを提示する）で、recommendは特定のものを強く勧める際に使われ、suggestは選択肢を与えることを意味します。\n【参考】recommend a book（本を勧める）／suggest an idea（アイデアを提案する）\n例：She recommended this movie. (彼女はこの映画を勧めた。）／He suggested visiting the museum. (彼は博物館を訪れることを提案した。）\n\n3文目: Second, I chose a non-fiction book about history, which I found very enlightening.\n（次に、歴史についてのノンフィクションの本を選び、それを非常に啓発的だと感じました。）\nenlightening（形容詞：啓発的な：新しい知識や洞察を与える）／informative（形容詞：情報豊富な：多くの情報を提供する）で、enlighteningは視野を広げることに重点を置き、informativeは事実やデータを提供することを指します。\n【参考】an enlightening book（啓発的な本）／an informative lecture（情報豊富な講義）\n例：The lecture was enlightening. (その講義は啓発的だった。）／The article was very informative. (その記事は非常に情報豊富だった。）"
 }

@@ -52,6 +52,24 @@ logger.info(f"🚀 {config.APP_NAME} v{config.APP_VERSION} 起動: http://localh
 logger.info(f"📊 データベース: {config.DB_PATH}")
 logger.info(f"🎯 有効機能: {sum(config.FEATURES.values())}/{len(config.FEATURES)}")
 
+# ===== キャッシュ対策 =====
+
+@app.after_request
+def add_cache_control_headers(response):
+    """
+    静的ファイル（JS/CSS）のキャッシュを無効化
+    
+    理由: フロントエンドの修正が即座に反映されるようにする
+    対象: /static/main.js, /static/style.css
+    """
+    if request.path.startswith('/static/'):
+        # 開発環境：キャッシュを完全に無効化
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        logger.debug(f"Cache-Control applied to: {request.path}")
+    return response
+
 # ===== APIエンドポイント =====
 
 @app.route('/')

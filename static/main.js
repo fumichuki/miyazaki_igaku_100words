@@ -1133,8 +1133,8 @@ function displayCorrection(data) {
     // ★★★ バックエンドのlevelを信頼して表示 ★★★
     // バックエンドで既にA==B判定済みなので、フロントエンドは結果を表示するだけ
     if (levelText.includes('✅')) {
-      // ✅ の場合：original_beforeを表示（ユーザーの入力そのまま）
-      const formattedText = escapeHtml(originalBeforeText).replace(/\n/g, '<br>');
+      // ✅ の場合：beforeを表示（整形済み英文＝学習者が読むのに気持ちいい形）
+      const formattedText = escapeHtml(beforeText).replace(/\n/g, '<br>');
       beforeAfter.innerHTML = `
         <span class="${beforeClass}">${beforeIcon} ${formattedText}</span>
       `;
