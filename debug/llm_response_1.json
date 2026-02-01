@@ -1,20 +1,32 @@
 {
-  "original": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
-  "corrected": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
+  "original": "Recent research has drawn attention to how eating breakfast affects concentration and learning able.\nIn this study, a significant difference was seen on the cognitive test results between the group that ate breakfast and the group that did not.\nIn particular, students who ate breakfast were shown to sustain attention for longer and to achieve higher test scores, which helps improving their performance.",
+  "corrected": "Recent research has drawn attention to how eating breakfast affects concentration and learning ability.\n\nIn this study, a significant difference was seen in the cognitive test results between the group that ate breakfast and the group that did not.\n\nIn particular, students who ate breakfast were shown to sustain attention for longer and to achieve higher test scores, which helps improve their performance.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "学生の英文は日本語原文を正確に英訳しており、文法的にも正しいです。",
-      "reason": "解説: 提出された英文は、日本語原文の内容を適切に反映しています。文法や語法に問題がなく、自然な英語表現になっています。",
+      "after": "全体的に良い英訳です。文法的にほぼ正しいですが、いくつかの小さな修正が必要です。",
+      "reason": "解説: 提出された英文は3文で、日本語原文の内容を概ね正確に英訳しています。しかし、\"learning able\" の誤りや \"on\" を \"in\" に修正する必要があります。",
       "level": "内容評価"
     },
     {
-      "before": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
-      "after": "This new privacy protection regulation is expected to significantly change the way personal information is handled.",
-      "reason": "1文目: This new privacy protection regulation is expected to significantly change the way personal information is handled.\n（この新しいプライバシー保護規制は、個人情報の取り扱いを大きく変えることが期待されている。）\nexpected（形容詞：予想される：何かが起こることを期待する文脈）／anticipated（形容詞：予期された：期待して待つ文脈）で、expectedは一般的な予想、anticipatedは強い期待を伴う予想を表します。\n【参考】be expected to do（～すると予想される）／be anticipated to do（～することが期待される）\n例: The event is expected to start soon. (イベントはすぐに始まると予想されている。) / The project is anticipated to succeed. (プロジェクトは成功すると期待されている。)",
-      "level": "✅正しい表現"
+      "before": "Recent research has drawn attention to how eating breakfast affects concentration and learning able.",
+      "after": "Recent research has drawn attention to how eating breakfast affects concentration and learning ability.",
+      "reason": "【誤りの説明】: 'learning able' は 'learning ability' にすべき。'able' は形容詞で、能力を表す名詞としては 'ability' が適切です。\n【参考】learning ability (学習能力) / cognitive ability (認知能力)\n例: His learning ability is impressive. (彼の学習能力は印象的です。) / Cognitive ability can be improved. (認知能力は向上することができます。)",
+      "level": "❌文法ミス"
+    },
+    {
+      "before": "In this study, a significant difference was seen on the cognitive test results between the group that ate breakfast and the group that did not.",
+      "after": "In this study, a significant difference was seen in the cognitive test results between the group that ate breakfast and the group that did not.",
+      "reason": "【誤りの説明】: 'seen on the cognitive test results' は 'seen in the cognitive test results' にすべき。'see in' は中にあるものや結果に対して使います。\n【参考】see in results (結果に見る) / appear in results (結果に現れる)\n例: Changes can be seen in the results. (変化は結果に見られる。) / Improvements appeared in the results. (改善が結果に現れた。)",
+      "level": "❌文法ミス"
+    },
+    {
+      "before": "In particular, students who ate breakfast were shown to sustain attention for longer and to achieve higher test scores, which helps improving their performance.",
+      "after": "In particular, students who ate breakfast were shown to sustain attention for longer and to achieve higher test scores, which helps improve their performance.",
+      "reason": "【誤りの説明】: 'helps improving' は 'helps improve' にすべき。'help' の後には動詞の原形が続きます。\n【参考】help do (～するのを助ける) / help to do (～するのを助ける)\n例: This tool helps save time. (この道具は時間を節約するのを助けます。) / Exercise helps to maintain health. (運動は健康を維持するのを助けます。)",
+      "level": "❌文法ミス"
     }
   ],
-  "model_answer": "This new privacy protection regulation is expected to greatly alter the handling of personal information.\n\nFor example, companies may need to implement stricter data storage policies to comply with these regulations.\n\nAdditionally, individuals might have more control over how their personal data is used by businesses.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: This new privacy protection regulation is expected to greatly alter the handling of personal information.\n（この新しいプライバシー保護規制は、個人情報の取り扱いを大きく変えることが期待されている。）\ngreatly（副詞：大いに：程度が大きい文脈）／significantly（副詞：著しく：重要な変化を示す文脈）で、greatlyは一般的な程度の大きさ、significantlyは特に重要な変化を指します。\n【参考】greatly improve（大いに改善する）／significantly impact（大きな影響を与える）\n例: His health has greatly improved. (彼の健康は大いに改善した。) / The policy significantly impacts the economy. (その政策は経済に大きな影響を与える。)\n\n2文目: For example, companies may need to implement stricter data storage policies to comply with these regulations.\n（例えば、企業はこれらの規制に従うために、より厳しいデータ保管ポリシーを実施する必要があるかもしれません。）\nimplement（動詞：実施する：計画や政策を実際に行う文脈）／enforce（動詞：施行する：法律や規則を実行する文脈）で、implementは計画の実行、enforceは規則の施行を指します。\n【参考】implement a plan（計画を実施する）／enforce a law（法律を施行する）\n例: The company implemented a new policy. (会社は新しい方針を実施した。) / The police enforce traffic laws. (警察は交通法を施行する。)\n\n3文目: Additionally, individuals might have more control over how their personal data is used by businesses.\n（さらに、個人は企業による個人データの使用に対して、より多くのコントロールを持つかもしれません。）\ncontrol（名詞：コントロール：何かを管理する力）／authority（名詞：権限：公式な力や権利を持つ文脈）で、controlは一般的な管理、authorityは公式な権限を指します。\n【参考】have control over（～を管理する）／have authority over（～に権限を持つ）\n例: She has control over the project. (彼女はプロジェクトを管理している。) / He has authority over the staff. (彼はスタッフに対して権限を持っている。)"
+  "model_answer": "Recent studies have highlighted the effects of eating breakfast on concentration and learning abilities.\n\nThe research found a significant difference in cognitive test results between the group that had breakfast and the group that did not.\n\nIn particular, students who ate breakfast were able to maintain attention for longer periods and achieved higher test scores, thus improving their overall performance.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: Recent studies have highlighted the effects of eating breakfast on concentration and learning abilities.\n（最近の研究は、朝食を摂ることが集中力や学習能力に及ぼす影響を強調しました。）\nhighlight（動詞：強調する：重要性を示す）／emphasize（動詞：強調する：特定の要素を目立たせる）で、highlightは取り上げることに焦点を当て、emphasizeは特に力を入れて示すことを指します。\n【参考】highlight the importance（重要性を強調する）／emphasize the need（必要性を強調する）\n例: The report highlights key findings. (報告書は重要な発見を強調しています。) / The speaker emphasized the main point. (講演者は主要な点を強調しました。)\n\n2文目: The research found a significant difference in cognitive test results between the group that had breakfast and the group that did not.\n（この研究では、朝食を摂ったグループと摂らなかったグループの間で認知テストの結果に有意な差が見られました。）\nsignificant（形容詞：重要な：統計的に有意な差を示す場合に使用）／notable（形容詞：顕著な：目立つ特徴や変化を示す場合に使用）で、significantは特に統計学的な文脈で使われ、notableは一般的な顕著さを示します。\n【参考】significant difference（有意差）／notable change（顕著な変化）\n例: There is a significant difference in results. (結果には有意な差があります。) / The change was notable. (その変化は顕著でした。)\n\n3文目: In particular, students who ate breakfast were able to maintain attention for longer periods and achieved higher test scores, thus improving their overall performance.\n（特に、朝食を摂った学生は、注意力の持続時間が長く、テストの成績も向上し、結果として全体の成績が向上しました。）\nachieve（動詞：達成する：目標や結果を得る）／attain（動詞：達成する：努力して目標に到達する）で、achieveは目標達成の結果を強調し、attainは努力の過程を含みます。\n【参考】achieve a goal（目標を達成する）／attain success（成功を収める）\n例: She achieved her goal. (彼女は目標を達成しました。) / He attained a high level of skill. (彼は高い技術を身につけました。)"
 }
