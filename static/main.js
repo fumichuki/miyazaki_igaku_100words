@@ -1517,39 +1517,59 @@ function displayModelAnswerOnly(data) {
   }, 500);
 }
 
-// マルチ入力モード用：文数に基づいて模範解答を処理
+// マルチ入力モード用：文数に基づいて模範解答を処理（1対1対応版）
 function processModelAnswerBySentenceCount(fullText, sentenceCount) {
   const lines = fullText.split('\n');
   const processedLines = [];
+  let currentSentenceNum = 0;
+  let inExplanation = false;
   
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    // N文目: 英文 のパターンを検出（英文と日本語訳が別行の場合）
+    
+    // N文目: 英文 のパターンを検出
     const match = line.match(/^(\d+)文目:\s*(.+)$/);
     if (match) {
-      const sentenceNum = parseInt(match[1]);
+      currentSentenceNum = parseInt(match[1]);
+      
       // currentSentenceCount以下の文のみ表示
-      if (sentenceNum <= sentenceCount) {
+      if (currentSentenceNum <= sentenceCount) {
+        inExplanation = true;
         // 「N文目:」表記を削除し、英文を太字化
         const englishText = escapeHtml(match[2].trim());
+        processedLines.push('<div style="margin-bottom: 20px;">');
         processedLines.push('<strong>' + englishText + '</strong>');
+      } else {
+        inExplanation = false;
       }
     } else if (line.match(/^（.+）$/)) {
       // 日本語訳（全角括弧で囲まれた行）
-      // 直前に英文があれば表示
-      if (processedLines.length > 0) {
+      if (inExplanation) {
         processedLines.push(escapeHtml(line));
       }
-    } else {
+    } else if (line.trim().length > 0) {
       // その他の行（説明など）
-      // 直前に英文があれば表示（文の説明として）
-      if (processedLines.length > 0 && line.trim().length > 0) {
+      if (inExplanation) {
         processedLines.push(escapeHtml(line));
-      } else if (line.trim().length > 0) {
-        // 独立した行（タイトルなど）
+      } else if (currentSentenceNum === 0) {
+        // 文番号が始まる前の行（タイトルなど）
         processedLines.push(escapeHtml(line));
       }
     }
+    
+    // 次の行が「N文目:」または空行の場合、現在のdivを閉じる
+    if (inExplanation && i + 1 < lines.length) {
+      const nextLine = lines[i + 1];
+      if (nextLine.match(/^(\d+)文目:/) || (nextLine.trim().length === 0 && i + 2 < lines.length && lines[i + 2].match(/^(\d+)文目:/))) {
+        processedLines.push('</div>');
+        inExplanation = false;
+      }
+    }
+  }
+  
+  // 最後のdivを閉じる
+  if (inExplanation) {
+    processedLines.push('</div>');
   }
   
   return processedLines.join('<br>');

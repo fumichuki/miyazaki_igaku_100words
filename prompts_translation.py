@@ -1028,62 +1028,107 @@ MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION = """
 # 日本語原文
 {question_text}
 
-# タスク
+# 🚨🚨🚨 最重要指示：JSON構造化出力 🚨🚨🚨
 
-## 1. 模範英訳（model_answer）
-- 原文を忠実に、自然な英語に翻訳してください
-- 100-120語程度
-- 原文の文数と同じ文数で翻訳（原文4文→英訳4文）
-- 各文を\\n\\nで区切る
-
-## 2. 解説（model_answer_explanation）
-
-以下のフォーマットで記述してください：
-
-```
-文法・表現のポイント解説
-
-1文目: （模範英訳の1文目をそのまま記載）
-重要語A（品詞：意味）／重要語B（品詞：意味）で、使い分けを説明。
-【参考】パターン例A / パターン例B
-例: 例文A (日本語訳) / 例文B (日本語訳)
-
-2文目: （模範英訳の2文目をそのまま記載）
-重要語C（品詞：意味）／重要語D（品詞：意味）で、使い分けを説明。
-【参考】パターン例C / パターン例D
-例: 例文C (日本語訳) / 例文D (日本語訳)
-
-（原文の文数分だけ続ける）
-```
-
-🚨🚨🚨【重要】🚨🚨🚨
-- **日本語原文はバックエンドで自動追加されるため、LLMは生成しないでください**
-- **"N文目:"の後に英文のみを記載し、日本語は書かないでください**
-- **例: "1文目: In recent years, the use..." （日本語を書かない）**
-
-# 重要なルール
-
-1. **日本語訳は原文をそのままコピー** - 省略や要約は絶対にしない
-2. **文数を必ず一致させる** - 原文4文なら、模範英訳も解説も4文
-3. **原文にない情報は追加しない** - "For example", "In conclusion"などで文を増やさない
-
-# 出力例
-
-原文が2文の場合：
+**必ず以下のJSON形式で出力してください：**
 
 ```json
 {{
-  "model_answer": "Recently, I have been trying a new approach by consciously listening during conversations.\\n\\nSpecifically, I make an effort to nod when the other person is speaking.",
-  "model_answer_explanation": "文法・表現のポイント解説\\n\\n1文目: Recently, I have been trying a new approach by consciously listening during conversations.\\n（そのため、最近では新しいアプローチとして、会話の途中で意識的に相手の話を聞く姿勢を取ることを試みています。）\\nconsciously（副詞：意識的に）／deliberately（副詞：故意に）で、consciouslyは自覚的な行動、deliberatelyは計画的な行動を示します。\\n【参考】consciously decide (意識的に決める) / deliberately avoid (故意に避ける)\\n例: She consciously chose to help. (彼女は意識的に助けることを選んだ。) / He deliberately ignored the warning. (彼は故意に警告を無視した。)\\n\\n2文目: Specifically, I make an effort to nod when the other person is speaking.\\n（具体的には、相手が話しているときにうなずいたり、相槌を打つことを意識しています。）\\nspecifically（副詞：具体的に）／particularly（副詞：特に）で、specificallyは詳細を示し、particularlyは特定の焦点を強調します。\\n【参考】specifically mention (具体的に言及する) / particularly interesting (特に興味深い)\\n例: She specifically mentioned her concerns. (彼女は具体的に懸念を述べた。) / This task is particularly challenging. (この作業は特に難しい。)"
+  "translations": [
+    {{
+      "sentence_id": 1,
+      "japanese": "（日本語原文の1文目）",
+      "english": "（英訳）",
+      "explanation": "語A（品詞：意味）／語B（品詞：意味）で、使い分けを説明。\\n【参考】パターンA / パターンB\\n例: 例文A (訳) / 例文B (訳)"
+    }},
+    {{
+      "sentence_id": 2,
+      "japanese": "（日本語原文の2文目）",
+      "english": "（英訳）",
+      "explanation": "語C（品詞：意味）／語D（品詞：意味）で、使い分けを説明。\\n【参考】パターンC / パターンD\\n例: 例文C (訳) / 例文D (訳)"
+    }}
+  ]
 }}
 ```
 
-# 出力形式
+# タスク
 
-JSON形式で出力してください（コードブロック不要）：
+## ステップ1: 日本語原文を文単位に分割
 
+- '。'で区切って各文を識別
+- 各文にsentence_id（1から順番）を付与
+
+## ステップ2: 各文を個別に翻訳
+
+- **文脈を考慮しつつ、各文を独立した英文として翻訳**
+- 代名詞（it, this, they等）は文脈から適切に解決
+- 接続詞（However, Moreover, Specifically等）は日本語原文に従って適切に配置
+- 各文は自然で完結した英文にする
+
+## ステップ3: 各文の解説を作成
+
+以下のフォーマットで記述：
+
+```
+語A（品詞：意味：使用される文脈）／語B（品詞：意味：使用される文脈）で、AとBの使い分けを説明。
+【参考】パターン例A / パターン例B
+例: 例文A (日本語訳) / 例文B (日本語訳)
+```
+
+# 🚨 絶対厳守ルール
+
+1. **文数の完全一致**: 日本語原文がN文なら、translationsもN個
+2. **原文の忠実なコピー**: `japanese`フィールドには日本語原文をそのままコピー（省略・要約禁止）
+3. **情報の追加禁止**: 原文にない情報を英訳に追加しない
+4. **文の統合・分割禁止**: 日本語2文を英語1文にまとめない／日本語1文を英語2文に分けない
+
+# 検証項目（出力前に必ずチェック）
+
+- [ ] translationsの配列長 == 日本語原文の文数
+- [ ] 各japanese フィールド == 原文の各文（完全一致）
+- [ ] 各english フィールド == 独立した完結した英文
+- [ ] 各explanation フィールド == 規定フォーマット
+
+# 出力例
+
+**入力（3文の場合）：**
+```
+一方、音の問題は日常生活で見過ごされがちですが、実際には深刻な影響を及ぼすことがあります。例えば、夜間の騒音は睡眠を妨げ、翌日の集中力を低下させる原因となります。さらに、長期間にわたる騒音曝露は、ストレスや高血圧の原因にもなることが知られています。
+```
+
+**出力：**
+```json
 {{
-  "model_answer": "（模範英訳）",
-  "model_answer_explanation": "（解説）"
+  "translations": [
+    {{
+      "sentence_id": 1,
+      "japanese": "一方、音の問題は日常生活で見過ごされがちですが、実際には深刻な影響を及ぼすことがあります。",
+      "english": "On the other hand, sound issues are often overlooked in daily life, but they can actually have serious effects.",
+      "explanation": "overlooked（動詞：見落とされる：気づかずに見過ごす場合）／ignored（動詞：無視される：意図的に無視する場合）で、overlookedは気づかずに見過ごす、ignoredは意図的に無視することを意味します。\\n【参考】overlook a detail (細部を見落とす) / ignore an instruction (指示を無視する)\\n例: She overlooked the typo. (彼女は誤字を見落とした。) / He ignored the warning. (彼は警告を無視した。)"
+    }},
+    {{
+      "sentence_id": 2,
+      "japanese": "例えば、夜間の騒音は睡眠を妨げ、翌日の集中力を低下させる原因となります。",
+      "english": "For example, noise at night can disrupt sleep and cause a decrease in concentration the next day.",
+      "explanation": "disrupt（動詞：乱す：完全に中断させる場合）／disturb（動詞：邪魔する：一時的に妨害する場合）で、disruptは完全に中断させる、disturbは一時的に妨害することを指します。\\n【参考】disrupt a meeting (会議を中断させる) / disturb the peace (平和を乱す)\\n例: The storm disrupted the event. (嵐がイベントを中断させた。) / The noise disturbed him. (その音が彼を邪魔した。)"
+    }},
+    {{
+      "sentence_id": 3,
+      "japanese": "さらに、長期間にわたる騒音曝露は、ストレスや高血圧の原因にもなることが知られています。",
+      "english": "Furthermore, long-term exposure to noise is known to cause stress and high blood pressure.",
+      "explanation": "exposure（名詞：曝露：一方的にさらされる状態）／contact（名詞：接触：双方向の接触）で、exposureは一方的にさらされる状態、contactは双方向の接触を指します。\\n【参考】exposure to radiation (放射線への曝露) / contact with friends (友人との接触)\\n例: Prolonged exposure to cold can be harmful. (長時間の寒さへの曝露は有害になり得る。) / She maintains contact with her family. (彼女は家族との接触を維持している。)"
+    }}
+  ]
 }}
+```
+
+# 最終チェックリスト
+
+出力前に以下を確認：
+- ✅ JSON形式で出力（コードブロック不要）
+- ✅ translations配列の長さ == 日本語原文の文数
+- ✅ 各sentenceに必須フィールド（sentence_id, japanese, english, explanation）あり
+- ✅ japaneseフィールドは原文をそのままコピー
+- ✅ englishフィールドは完結した英文
+- ✅ 原文にない情報を追加していない
 """

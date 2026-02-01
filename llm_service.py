@@ -1938,7 +1938,7 @@ appropriate（形容詞：適切な・ふさわしい）／suitable（形容詞�
 
 def generate_model_answer_only(question_text: str) -> dict:
     """
-    日本語原文から模範英訳を生成（翻訳用）
+    日本語原文から模範英訳を生成（翻訳用）- JSON構造化出力版
     
     Args:
         question_text: 日本語の原文（段落区切りまたは改行区切り）
@@ -1957,6 +1957,55 @@ def generate_model_answer_only(question_text: str) -> dict:
             cleaned = clean_json_response(response)
             logger.info(f"Model answer JSON (attempt {attempt + 1}): {cleaned[:300]}...")
             
+            data = json.loads(cleaned)
+            
+            # 🚨新仕様: JSON構造化出力の検証
+            if 'translations' in data:
+                logger.info("[構造化出力] JSON構造化出力を検出")
+                
+                translations = data['translations']
+                japanese_sentences = split_japanese_sentences(question_text)
+                
+                # 文数の検証
+                if len(translations) != len(japanese_sentences):
+                    raise ValueError(
+                        f"文数不一致: 日本語{len(japanese_sentences)}文 vs 英訳{len(translations)}文"
+                    )
+                
+                logger.info(f"[構造化出力] 文数検証OK: {len(translations)}文")
+                
+                # 各翻訳の検証
+                for i, trans in enumerate(translations):
+                    required_fields = ['sentence_id', 'japanese', 'english', 'explanation']
+                    missing_fields = [f for f in required_fields if f not in trans]
+                    if missing_fields:
+                        raise ValueError(f"翻訳{i+1}に必須フィールドがありません: {missing_fields}")
+                
+                # model_answerとmodel_answer_explanationを構築
+                model_answer_parts = []
+                explanation_parts = ["文法・表現のポイント解説"]
+                
+                for i, trans in enumerate(translations):
+                    # model_answer: 英文のみを改行区切り
+                    model_answer_parts.append(trans['english'])
+                    
+                    # model_answer_explanation: フォーマット済み
+                    explanation_parts.append(f"{i+1}文目: {trans['english']}")
+                    explanation_parts.append(f"（{trans['japanese']}）")
+                    explanation_parts.append(trans['explanation'])
+                
+                result = {
+                    'model_answer': '\n\n'.join(model_answer_parts),
+                    'model_answer_explanation': '\n\n'.join(explanation_parts)
+                }
+                
+                logger.info("[構造化出力] 構造化出力の変換完了")
+                logger.info(f"[構造化出力] model_answer: {result['model_answer'][:100]}...")
+                
+                return result
+            
+            # 旧形式の処理（後方互換性）
+            logger.info("[旧形式] 従来のJSON形式を検出")
             data = json.loads(cleaned)
             
             # 必須フィールドの確認
