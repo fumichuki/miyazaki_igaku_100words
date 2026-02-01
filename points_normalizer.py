@@ -231,6 +231,35 @@ def normalize_user_input(text: str, preserve_newlines: bool = False) -> str:
     
     normalized = re.sub(r'([.!?])(\s+)([a-z])', capitalize_after_punctuation, normalized)
     
+    # ステップ7: 単語内の不適切な大文字を小文字化（形式ミス修正）
+    # 例: TheiR → Their, ProbleM → Problem
+    # ただし、全て大文字の略語（USA, NASA, OK等）は除外
+    def fix_mid_word_capitals(text):
+        words = text.split()
+        fixed_words = []
+        for i, word in enumerate(words):
+            # 記号を分離（例: "word," → "word" + ","）
+            match = re.match(r'^([^\w]*)([\w\'-]+)([^\w]*)$', word)
+            if match:
+                prefix, core, suffix = match.groups()
+                # 全て大文字の単語（略語）はスキップ
+                if core.isupper() and len(core) >= 2:
+                    fixed_words.append(word)
+                else:
+                    # 単語内に大文字が含まれている場合、2文字目以降を小文字化
+                    # 例: "TheiR" → "Their", "ProbleM" → "Problem"
+                    # 文頭の単語も含めて処理（文頭大文字化は既に完了しているため）
+                    if len(core) > 1:
+                        fixed_core = core[0] + core[1:].lower()
+                        fixed_words.append(prefix + fixed_core + suffix)
+                    else:
+                        fixed_words.append(word)
+            else:
+                fixed_words.append(word)
+        return ' '.join(fixed_words)
+    
+    normalized = fix_mid_word_capitals(normalized)
+    
     return normalized.strip()
 
 
