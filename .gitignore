@@ -7,3 +7,6 @@ data/*.db
 venv/
 .venv/
 .vscode/
+debug/*.json
+server.log
+nohup.out
