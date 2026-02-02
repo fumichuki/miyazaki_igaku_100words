@@ -804,7 +804,6 @@ function displayExplanationsInCards(points) {
       explanationHTML += `<div class="explanation-sentence ${iconClass}">${icon} ${escapeHtml(normalizedBeforeText)}</div>`;
     } else {
       explanationHTML += `<div class="explanation-sentence explanation-icon-error">❌ ${escapeHtml(originalBeforeText)}</div>`;
-      explanationHTML += `<div class="explanation-arrow">→</div>`;
       explanationHTML += `<div class="explanation-sentence explanation-icon-correct">✅ ${escapeHtml(afterText)}</div>`;
     }
     
@@ -1356,22 +1355,35 @@ function displayModelAnswerBelowInput(data) {
     if (currentSentenceCount !== null && currentSentenceCount > 0) {
       modelExplanation.innerHTML = processModelAnswerBySentenceCount(fullText, currentSentenceCount);
     } else {
-      // 通常モード
+      // 通常モード：文ごとにブロック化して表示
       let lines = fullText.split('\n');
-      let processedLines = [];
+      let sentenceBlocks = [];
+      let currentBlock = [];
+      
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         const match = line.match(/^(\d+)文目:\s*(.+)$/);
         if (match) {
+          // 前の文のブロックを保存
+          if (currentBlock.length > 0) {
+            sentenceBlocks.push(currentBlock.join(''));
+            currentBlock = [];
+          }
           const englishText = escapeHtml(match[2].trim());
-          processedLines.push('<strong>' + englishText + '</strong>');
+          currentBlock.push('<strong>' + englishText + '</strong>');
         } else if (line.match(/^（.+）$/)) {
-          processedLines.push(escapeHtml(line));
-        } else {
-          processedLines.push(escapeHtml(line));
+          currentBlock.push('<br>' + escapeHtml(line));
+        } else if (line.trim().length > 0) {
+          currentBlock.push('<br>' + escapeHtml(line));
         }
       }
-      modelExplanation.innerHTML = processedLines.join('<br>');
+      
+      // 最後の文のブロックを保存
+      if (currentBlock.length > 0) {
+        sentenceBlocks.push(currentBlock.join(''));
+      }
+      
+      modelExplanation.innerHTML = sentenceBlocks.join('<div style="margin-top: 16px; margin-bottom: 16px;"></div>');
     }
     modelAnswerSection.appendChild(modelExplanation);
     
@@ -1520,8 +1532,9 @@ function displayModelAnswerOnly(data) {
 // マルチ入力モード用：文数に基づいて模範解答を処理（1対1対応版）
 function processModelAnswerBySentenceCount(fullText, sentenceCount) {
   const lines = fullText.split('\n');
-  const processedLines = [];
+  const sentenceBlocks = [];
   let currentSentenceNum = 0;
+  let currentBlock = [];
   let inExplanation = false;
   
   for (let i = 0; i < lines.length; i++) {
@@ -1530,6 +1543,12 @@ function processModelAnswerBySentenceCount(fullText, sentenceCount) {
     // N文目: 英文 のパターンを検出
     const match = line.match(/^(\d+)文目:\s*(.+)$/);
     if (match) {
+      // 前の文のブロックを保存
+      if (currentBlock.length > 0 && inExplanation) {
+        sentenceBlocks.push(currentBlock.join(''));
+        currentBlock = [];
+      }
+      
       currentSentenceNum = parseInt(match[1]);
       
       // currentSentenceCount以下の文のみ表示
@@ -1537,42 +1556,32 @@ function processModelAnswerBySentenceCount(fullText, sentenceCount) {
         inExplanation = true;
         // 「N文目:」表記を削除し、英文を太字化
         const englishText = escapeHtml(match[2].trim());
-        processedLines.push('<div style="margin-bottom: 20px;">');
-        processedLines.push('<strong>' + englishText + '</strong>');
+        currentBlock.push('<strong>' + englishText + '</strong>');
       } else {
         inExplanation = false;
       }
     } else if (line.match(/^（.+）$/)) {
       // 日本語訳（全角括弧で囲まれた行）
       if (inExplanation) {
-        processedLines.push(escapeHtml(line));
+        currentBlock.push('<br>' + escapeHtml(line));
       }
     } else if (line.trim().length > 0) {
       // その他の行（説明など）
       if (inExplanation) {
-        processedLines.push(escapeHtml(line));
+        currentBlock.push('<br>' + escapeHtml(line));
       } else if (currentSentenceNum === 0) {
         // 文番号が始まる前の行（タイトルなど）
-        processedLines.push(escapeHtml(line));
-      }
-    }
-    
-    // 次の行が「N文目:」または空行の場合、現在のdivを閉じる
-    if (inExplanation && i + 1 < lines.length) {
-      const nextLine = lines[i + 1];
-      if (nextLine.match(/^(\d+)文目:/) || (nextLine.trim().length === 0 && i + 2 < lines.length && lines[i + 2].match(/^(\d+)文目:/))) {
-        processedLines.push('</div>');
-        inExplanation = false;
+        sentenceBlocks.push(escapeHtml(line));
       }
     }
   }
   
-  // 最後のdivを閉じる
-  if (inExplanation) {
-    processedLines.push('</div>');
+  // 最後の文のブロックを保存
+  if (currentBlock.length > 0 && inExplanation) {
+    sentenceBlocks.push(currentBlock.join(''));
   }
   
-  return processedLines.join('<br>');
+  return sentenceBlocks.join('<div style="margin-top: 16px; margin-bottom: 16px;"></div>');
 }
 
 // HTMLエスケープ
@@ -1633,28 +1642,38 @@ function fetchModelAnswerOnly() {
     if (currentSentenceCount !== null && currentSentenceCount > 0) {
       modelExplanation.innerHTML = processModelAnswerBySentenceCount(fullText, currentSentenceCount);
     } else {
-      // 通常モード：「N文目:」表記を削除し、英文部分を太字にする処理
+      // 通常モード：文ごとにブロック化して表示
       let lines = fullText.split('\n');
-      let processedLines = [];
+      let sentenceBlocks = [];
+      let currentBlock = [];
+      
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        // N文目: 英文 のパターンを検出（英文と日本語訳が別行の場合）
         const match = line.match(/^(\d+)文目:\s*(.+)$/);
         if (match) {
+          // 前の文のブロックを保存
+          if (currentBlock.length > 0) {
+            sentenceBlocks.push(currentBlock.join(''));
+            currentBlock = [];
+          }
           // 「N文目:」表記を削除し、英文を太字化
           const englishText = escapeHtml(match[2].trim());
-          processedLines.push('<strong>' + englishText + '</strong>');
+          currentBlock.push('<strong>' + englishText + '</strong>');
         } else if (line.match(/^（.+）$/)) {
           // 日本語訳（全角括弧で囲まれた行）
-          processedLines.push(escapeHtml(line));
-        } else {
-          // その他の行
-          processedLines.push(escapeHtml(line));
+          currentBlock.push('<br>' + escapeHtml(line));
+        } else if (line.trim().length > 0) {
+          // その他の行（説明など）
+          currentBlock.push('<br>' + escapeHtml(line));
         }
       }
       
-      // 改行を<br>に変換して表示
-      modelExplanation.innerHTML = processedLines.join('<br>');
+      // 最後の文のブロックを保存
+      if (currentBlock.length > 0) {
+        sentenceBlocks.push(currentBlock.join(''));
+      }
+      
+      modelExplanation.innerHTML = sentenceBlocks.join('<div style="margin-top: 16px; margin-bottom: 16px;"></div>');
     }
     modelAnswerSection.appendChild(modelExplanation);
     

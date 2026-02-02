@@ -1,32 +1,45 @@
+
 {
-  "original": "Recent research has drawn attention to how eating breakfast affects concentration and learning able.\nIn this study, a significant difference was seen on the cognitive test results between the group that ate breakfast and the group that did not.\nIn particular, students who ate breakfast were shown to sustain attention for longer and to achieve higher test scores, which helps improving their performance.",
-  "corrected": "Recent research has drawn attention to how eating breakfast affects concentration and learning ability.\n\nIn this study, a significant difference was seen in the cognitive test results between the group that ate breakfast and the group that did not.\n\nIn particular, students who ate breakfast were shown to sustain attention for longer and to achieve higher test scores, which helps improve their performance.",
+  "original": "According with the report, the newly developed technology can analyze data with greater accuracy than conventional methods.\nThe technology leverages artificial intelligence and can process large volumes of data rapidly.\nAdopting this technology also involves many challenges.\nConcerns about data privacy have been raised, and appropriate safeguards are required.\nExperts insist to secure transparency while observing ethical standards.",
+  "corrected": "According to the report, the newly developed technology can analyze data with greater accuracy than conventional methods.\n\nThe technology leverages artificial intelligence and can process large volumes of data rapidly.\n\nHowever, adopting this technology also involves many challenges. In particular, concerns about data privacy have been raised, and appropriate safeguards are required.\n\nExperts insist on securing transparency while observing ethical standards.",
   "points": [
     {
       "before": "【全体評価】",
-      "after": "全体的に良い英訳です。文法的にほぼ正しいですが、いくつかの小さな修正が必要です。",
-      "reason": "解説: 提出された英文は3文で、日本語原文の内容を概ね正確に英訳しています。しかし、\"learning able\" の誤りや \"on\" を \"in\" に修正する必要があります。",
+      "after": "全体的に良い英訳ですが、いくつかの接続詞や前置詞の誤りがあります。これらを修正すると、より正確な文章になります。",
+      "reason": "解説: 提出された英文は、文法的にはほぼ正しいですが、接続詞や前置詞の誤用が見られます。これらを修正することで、より自然で正確な英文になります。",
       "level": "内容評価"
     },
     {
-      "before": "Recent research has drawn attention to how eating breakfast affects concentration and learning able.",
-      "after": "Recent research has drawn attention to how eating breakfast affects concentration and learning ability.",
-      "reason": "【誤りの説明】: 'learning able' は 'learning ability' にすべき。'able' は形容詞で、能力を表す名詞としては 'ability' が適切です。\n【参考】learning ability (学習能力) / cognitive ability (認知能力)\n例: His learning ability is impressive. (彼の学習能力は印象的です。) / Cognitive ability can be improved. (認知能力は向上することができます。)",
+      "before": "According with the report, the newly developed technology can analyze data with greater accuracy than conventional methods.",
+      "after": "According to the report, the newly developed technology can analyze data with greater accuracy than conventional methods.",
+      "reason": "【誤りの説明】: 'According with the report' は 'According to the report' にすべきです。'According to' は情報源を示す際の正しい前置詞の使い方です。\n【参考】According to the news / According to scientists\n例: According to the news, it will rain tomorrow. (ニュースによれば、明日は雨が降る。) / According to scientists, climate change is accelerating. (科学者によれば、気候変動は加速している。)",
       "level": "❌文法ミス"
     },
     {
-      "before": "In this study, a significant difference was seen on the cognitive test results between the group that ate breakfast and the group that did not.",
-      "after": "In this study, a significant difference was seen in the cognitive test results between the group that ate breakfast and the group that did not.",
-      "reason": "【誤りの説明】: 'seen on the cognitive test results' は 'seen in the cognitive test results' にすべき。'see in' は中にあるものや結果に対して使います。\n【参考】see in results (結果に見る) / appear in results (結果に現れる)\n例: Changes can be seen in the results. (変化は結果に見られる。) / Improvements appeared in the results. (改善が結果に現れた。)",
+      "before": "The technology leverages artificial intelligence and can process large volumes of data rapidly.",
+      "after": "The technology leverages artificial intelligence and can process large volumes of data rapidly.",
+      "reason": "2文目: The technology leverages artificial intelligence and can process large volumes of data rapidly.\n（この技術は人工知能を活用し、大量のデータを迅速に処理することができる。）\nleverage（動詞：活用する：資源を効果的に利用する文脈）／use（動詞：使う：一般的な使用を指す）で、leverageは特に資源を最大限に活用することを強調します。\n【参考】leverage resources（資源を活用する）/ use technology（技術を使う）\n例: We leverage our experience to succeed. (経験を活用して成功する。) / He uses the computer for work. (彼は仕事でコンピュータを使う。)",
+      "level": "✅正しい表現"
+    },
+    {
+      "before": "Adopting this technology also involves many challenges.",
+      "after": "However, adopting this technology also involves many challenges.",
+      "reason": "【誤りの説明】: 'Adopting this technology also involves many challenges.' の前に 'However,' を追加すべきです。日本語原文に「一方で」があるため、英訳でも対応する接続詞が必要です。\n【参考】However, / On the other hand,\n例: However, there are risks involved. (しかし、リスクも伴います。) / On the other hand, it can be beneficial. (一方で、それは有益である可能性があります。)",
       "level": "❌文法ミス"
     },
     {
-      "before": "In particular, students who ate breakfast were shown to sustain attention for longer and to achieve higher test scores, which helps improving their performance.",
-      "after": "In particular, students who ate breakfast were shown to sustain attention for longer and to achieve higher test scores, which helps improve their performance.",
-      "reason": "【誤りの説明】: 'helps improving' は 'helps improve' にすべき。'help' の後には動詞の原形が続きます。\n【参考】help do (～するのを助ける) / help to do (～するのを助ける)\n例: This tool helps save time. (この道具は時間を節約するのを助けます。) / Exercise helps to maintain health. (運動は健康を維持するのを助けます。)",
+      "before": "Concerns about data privacy have been raised, and appropriate safeguards are required.",
+      "after": "In particular, concerns about data privacy have been raised, and appropriate safeguards are required.",
+      "reason": "【誤りの説明】: 'Concerns about data privacy have been raised' の前に 'In particular,' を追加すべきです。日本語原文に「特に」があるため、英訳でも対応する副詞が必要です。\n【参考】In particular, / Especially,\n例: In particular, we need to address these issues. (特に、これらの問題に対処する必要があります。) / Especially, the privacy concerns are urgent. (特に、プライバシーの懸念は緊急です。)",
+      "level": "❌文法ミス"
+    },
+    {
+      "before": "Experts insist to secure transparency while observing ethical standards.",
+      "after": "Experts insist on securing transparency while observing ethical standards.",
+      "reason": "【誤りの説明】: 'insist to secure' は 'insist on securing' にすべきです。'insist on' の後には動名詞が続きます。\n【参考】insist on doing / focus on doing\n例: They insist on following the rules. (彼らは規則を守ることを主張します。) / We focus on improving quality. (私たちは品質の向上に集中しています。)",
       "level": "❌文法ミス"
     }
   ],
-  "model_answer": "Recent studies have highlighted the effects of eating breakfast on concentration and learning abilities.\n\nThe research found a significant difference in cognitive test results between the group that had breakfast and the group that did not.\n\nIn particular, students who ate breakfast were able to maintain attention for longer periods and achieved higher test scores, thus improving their overall performance.",
-  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: Recent studies have highlighted the effects of eating breakfast on concentration and learning abilities.\n（最近の研究は、朝食を摂ることが集中力や学習能力に及ぼす影響を強調しました。）\nhighlight（動詞：強調する：重要性を示す）／emphasize（動詞：強調する：特定の要素を目立たせる）で、highlightは取り上げることに焦点を当て、emphasizeは特に力を入れて示すことを指します。\n【参考】highlight the importance（重要性を強調する）／emphasize the need（必要性を強調する）\n例: The report highlights key findings. (報告書は重要な発見を強調しています。) / The speaker emphasized the main point. (講演者は主要な点を強調しました。)\n\n2文目: The research found a significant difference in cognitive test results between the group that had breakfast and the group that did not.\n（この研究では、朝食を摂ったグループと摂らなかったグループの間で認知テストの結果に有意な差が見られました。）\nsignificant（形容詞：重要な：統計的に有意な差を示す場合に使用）／notable（形容詞：顕著な：目立つ特徴や変化を示す場合に使用）で、significantは特に統計学的な文脈で使われ、notableは一般的な顕著さを示します。\n【参考】significant difference（有意差）／notable change（顕著な変化）\n例: There is a significant difference in results. (結果には有意な差があります。) / The change was notable. (その変化は顕著でした。)\n\n3文目: In particular, students who ate breakfast were able to maintain attention for longer periods and achieved higher test scores, thus improving their overall performance.\n（特に、朝食を摂った学生は、注意力の持続時間が長く、テストの成績も向上し、結果として全体の成績が向上しました。）\nachieve（動詞：達成する：目標や結果を得る）／attain（動詞：達成する：努力して目標に到達する）で、achieveは目標達成の結果を強調し、attainは努力の過程を含みます。\n【参考】achieve a goal（目標を達成する）／attain success（成功を収める）\n例: She achieved her goal. (彼女は目標を達成しました。) / He attained a high level of skill. (彼は高い技術を身につけました。)"
+  "model_answer": "According to the report, the newly developed technology can analyze data with greater accuracy than conventional methods.\n\nThe technology leverages artificial intelligence and can process large volumes of data rapidly.\n\nHowever, adopting this technology also involves many challenges. In particular, concerns about data privacy have been raised, and appropriate safeguards are required.\n\nExperts insist on securing transparency while observing ethical standards.",
+  "model_answer_explanation": "文法・表現のポイント解説\n\n1文目: According to the report, the newly developed technology can analyze data with greater accuracy than conventional methods.\n（その報告書によれば、新しく開発された技術は、従来の方法よりも高い精度でデータを解析することができるという。）\naccording to（前置詞：～によると：情報源を示す文脈）／based on（前置詞：～に基づいて：基準を示す文脈）で、according toは情報源を示し、based onは基準や証拠を示します。\n【参考】According to the news（ニュースによると）／Based on the evidence（証拠に基づいて）\n例: According to the news, it will rain tomorrow. (ニュースによると、明日は雨が降る。) / Based on the evidence, we concluded the case. (証拠に基づいて、我々は事件を解決した。)\n\n2文目: The technology leverages artificial intelligence and can process large volumes of data rapidly.\n（その技術は、人工知能を活用し、大量のデータを迅速に処理する能力を持っている。）\nleverage（動詞：活用する：資源を最大限に利用する文脈）／utilize（動詞：利用する：特定の目的のために使う文脈）で、leverageは戦略的な活用を強調し、utilizeは特定の目的での使用を指します。\n【参考】leverage resources（資源を活用する）／utilize skills（スキルを利用する）\n例: We leverage our experience to succeed. (経験を活用して成功する。) / They utilize their skills in the project. (彼らはプロジェクトでスキルを利用している。)\n\n3文目: However, adopting this technology also involves many challenges. In particular, concerns about data privacy have been raised, and appropriate safeguards are required.\n（一方で、この技術の導入には多くの課題も存在する。特に、データプライバシーの問題が指摘されており、適切な対策が求められている。）\nhowever（接続詞：しかし：対立や対照を示す文脈）／on the other hand（接続詞：一方で：対照的な情報を提供する文脈）で、howeverは一般的な逆接、on the other handは対比を示します。\n【参考】However, there are issues.（しかし、問題があります。）／On the other hand, it is beneficial.（一方で、それは有益です。）\n例: However, the task is difficult. (しかし、課題は難しい。) / On the other hand, the pay is good. (一方で、給料は良い。)\n\n4文目: Experts insist on securing transparency while observing ethical standards.\n（このような懸念を解消するために、専門家たちは透明性の確保と倫理基準の遵守が必要であると主張している。）\ninsist on（動詞：主張する：強く要求する文脈）／advocate（動詞：提唱する：支持や推薦を示す文脈）で、insist onは強い要求、advocateは支持や推奨を意味します。\n【参考】insist on doing（～することを主張する）／advocate for change（変化を提唱する）\n例: They insist on following the rules. (彼らは規則を守ることを主張します。) / She advocates for education reform. (彼女は教育改革を提唱しています。)"
 }
