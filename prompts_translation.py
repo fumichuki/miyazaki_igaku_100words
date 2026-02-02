@@ -1057,12 +1057,23 @@ MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION = """
 
 - '。'で区切って各文を識別
 - 各文にsentence_id（1から順番）を付与
+- **🚨重要🚨 分割結果を明示的に確認してから次のステップへ**
+
+例：
+```
+日本語原文: "一方で、この技術の導入には多くの課題も存在する。特に、データプライバシーの問題が指摘されており、適切な対策が求められている。"
+分割結果:
+1. "一方で、この技術の導入には多くの課題も存在する。"
+2. "特に、データプライバシーの問題が指摘されており、適切な対策が求められている。"
+→ 2文なので、translationsも2個
+```
 
 ## ステップ2: 各文を個別に翻訳
 
 - **文脈を考慮しつつ、各文を独立した英文として翻訳**
 - 代名詞（it, this, they等）は文脈から適切に解決
 - 接続詞（However, Moreover, Specifically等）は日本語原文に従って適切に配置
+- **各文は1つの英文のみ**（複数の英文を作らない）
 - 各文は自然で完結した英文にする
 
 ## ステップ3: 各文の解説を作成
@@ -1075,19 +1086,84 @@ MODEL_ANSWER_PROMPT_MIYAZAKI_TRANSLATION = """
 例: 例文A (日本語訳) / 例文B (日本語訳)
 ```
 
+# 🚨🚨🚨【絶対厳守】文の1対1対応🚨🚨🚨
+
+**検証手順（出力前に必ず実行）:**
+
+1. 日本語原文を「。」で分割 → N文
+2. translations配列の長さ → M文
+3. **N == M か確認**
+4. **一致しない場合は修正してから出力**
+
+**禁止事項（違反すると不合格）:**
+
+- ❌ **日本語2文を英語1文にまとめる**
+  ```
+  悪い例:
+  日本語: "一方で、課題も存在する。特に、プライバシーが問題だ。"（2文）
+  英語: "However, there are challenges. In particular, privacy is an issue."（1文にまとめている）
+  ```
+
+- ❌ **日本語1文を英語2文に分割する**
+  ```
+  悪い例:
+  日本語: "技術は人工知能を活用し、大量のデータを処理できる。"（1文）
+  英語: "The technology leverages AI. It can process large data."（2文に分けている）
+  ```
+
+- ❌ **日本語の一部を省略する**
+  ```
+  悪い例:
+  日本語: "このような懸念を解消するために、専門家たちは透明性の確保を主張している。"
+  英語: "Experts insist on transparency."（「このような懸念を解消するために」が欠落）
+  ```
+
+- ❌ **接続詞で文を繋げて1文にする**
+  ```
+  悪い例:
+  日本語: "課題がある。特に、プライバシーが問題だ。"（2文）
+  英語: "There are challenges, in particular, privacy."（カンマで繋げて1文にしている）
+  ```
+
+**正しい例:**
+
+```json
+{{
+  "translations": [
+    {{
+      "sentence_id": 1,
+      "japanese": "一方で、この技術の導入には多くの課題も存在する。",
+      "english": "However, adopting this technology also involves many challenges."
+    }},
+    {{
+      "sentence_id": 2,
+      "japanese": "特に、データプライバシーの問題が指摘されており、適切な対策が求められている。",
+      "english": "In particular, concerns about data privacy have been raised, and appropriate safeguards are required."
+    }},
+    {{
+      "sentence_id": 3,
+      "japanese": "このような懸念を解消するために、専門家たちは透明性の確保と倫理基準の遵守が必要であると主張している。",
+      "english": "To address these concerns, experts insist that securing transparency and observing ethical standards are necessary."
+    }}
+  ]
+}}
+```
+
 # 🚨 絶対厳守ルール
 
 1. **文数の完全一致**: 日本語原文がN文なら、translationsもN個
 2. **原文の忠実なコピー**: `japanese`フィールドには日本語原文をそのままコピー（省略・要約禁止）
 3. **情報の追加禁止**: 原文にない情報を英訳に追加しない
 4. **文の統合・分割禁止**: 日本語2文を英語1文にまとめない／日本語1文を英語2文に分けない
+5. **省略禁止**: 日本語文の一部（「このような懸念を解消するために」等）を省略しない
 
 # 検証項目（出力前に必ずチェック）
 
 - [ ] translationsの配列長 == 日本語原文の文数
 - [ ] 各japanese フィールド == 原文の各文（完全一致）
-- [ ] 各english フィールド == 独立した完結した英文
+- [ ] 各english フィールド == 独立した完結した英文（1文のみ）
 - [ ] 各explanation フィールド == 規定フォーマット
+- [ ] 日本語文の全ての内容が英訳に含まれている（省略なし）
 
 # 出力例
 
